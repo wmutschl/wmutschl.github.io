@@ -1,0 +1,3 @@
+User-agent: *
+
+Sitemap: https://mutschler.dev/sitemap.xml

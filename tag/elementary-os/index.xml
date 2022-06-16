@@ -1,0 +1,875 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>elementary-os | mutschler.dev</title>
+    <link>https://mutschler.dev/tag/elementary-os/</link>
+      <atom:link href="https://mutschler.dev/tag/elementary-os/index.xml" rel="self" type="application/rss+xml" />
+    <description>elementary-os</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Thu, 16 Jun 2022 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png</url>
+      <title>elementary-os</title>
+      <link>https://mutschler.dev/tag/elementary-os/</link>
+    </image>
+    
+    <item>
+      <title>elementary OS: Things to do after installation (Apps, Settings, and Tweaks)</title>
+      <link>https://mutschler.dev/linux/elementary-os-post-install/</link>
+      <pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
+      <guid>https://mutschler.dev/linux/elementary-os-post-install/</guid>
+      <description>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Please feel free to raise any comments or issues on the &lt;a href=&#34;https://github.com/wmutschl/mutschler.dev&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;website&amp;rsquo;s Github repository&lt;/a&gt;. Pull requests are very much appreciated&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.buymeacoffee.com/mutschler&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://cdn.buymeacoffee.com/buttons/v2/default-red.png&#34; alt=&#34;Buy Me A Coffee&#34; style=&#34;height: 60px !important;width: 217px !important;&#34; &gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;In the following I will go through my post installation steps, i.e. which settings I choose and which apps I install and use.&lt;/p&gt;
+&lt;details class=&#34;toc-inpage d-print-none d-xl-none &#34; open&gt;
+  &lt;summary class=&#34;font-weight-bold&#34;&gt;Table of Contents&lt;/summary&gt;
+  &lt;nav id=&#34;TableOfContents&#34;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&#34;#basic-steps&#34;&gt;Basic Steps&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#go-through-system-settings&#34;&gt;Go through System Settings&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#set-hostname&#34;&gt;Set hostname&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#install-required-drivers&#34;&gt;Install Required Drivers&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#install-software-properties-common&#34;&gt;Install software-properties-common&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#deb-get-to-install-third-party-software-on-ubuntu-easily&#34;&gt;deb-get to install third-party software on Ubuntu easily&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#restore-from-backup&#34;&gt;Restore from Backup&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#install-updates-and-reboot&#34;&gt;Install updates and reboot&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#browser&#34;&gt;Browser&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#fish---a-friendly-interactive-shell&#34;&gt;Fish - A Friendly Interactive Shell&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#ssh-keys&#34;&gt;SSH keys&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#apps&#34;&gt;Apps&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#snap-support&#34;&gt;Snap support&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#system-utilities&#34;&gt;System utilities&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#networking&#34;&gt;Networking&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#coding&#34;&gt;Coding&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#text-processing&#34;&gt;Text-processing&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#communication&#34;&gt;Communication&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#multimedia&#34;&gt;Multimedia&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#misc-tweaks-and-settings&#34;&gt;Misc tweaks and settings&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#security-steps-with-yubikey&#34;&gt;Security steps with Yubikey&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#to-do&#34;&gt;To Do&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+&lt;/details&gt;
+
+&lt;h2 id=&#34;basic-steps&#34;&gt;Basic Steps&lt;/h2&gt;
+&lt;h3 id=&#34;go-through-system-settings&#34;&gt;Go through System Settings&lt;/h3&gt;
+&lt;h4 id=&#34;desktop&#34;&gt;Desktop&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Choose a Wallpaper&lt;/li&gt;
+&lt;li&gt;Choose Appearance
+&lt;ul&gt;
+&lt;li&gt;Default&lt;/li&gt;
+&lt;li&gt;Schedule &amp;lsquo;Sunset to Sunrise&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Accent: Mint&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Text
+&lt;ul&gt;
+&lt;li&gt;Size 1.00&lt;/li&gt;
+&lt;li&gt;disable Dyslexia-friendly&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Dock &amp;amp; Panel
+&lt;ul&gt;
+&lt;li&gt;Icon size &amp;lsquo;small&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Turn on Hide when &amp;lsquo;Any window overlaps the dock&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Turn off Hide when &amp;lsquo;Pressure reveal&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Turn on &amp;rsquo; Panel translucency&#39;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Multitasking
+&lt;ul&gt;
+&lt;li&gt;Do nothing for the corners&lt;/li&gt;
+&lt;li&gt;Activate Move windows to a new workspace &amp;lsquo;When entering fullscreen&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Deactivate Move windows to a new workspace &amp;lsquo;When maximizing&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Activate &amp;lsquo;Window animations&amp;rsquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;language--region&#34;&gt;Language &amp;amp; Region&lt;/h4&gt;
+&lt;p&gt;For some reason elementary OS installs a bunch of languages which unnecessarily increases the system updates. So to speed this up, I remove all the languages that I do not need and keep only &amp;lsquo;English&amp;rsquo; and &amp;lsquo;German&amp;rsquo;. This takes some clicking and unfortunately the system settings don&amp;rsquo;t show the progress until you re-open the settings dialog. At the end click &amp;lsquo;Complete Installation&amp;rsquo; to install missing language support for the remaining languages. Re-open the dialog and change:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Region: United States&lt;/li&gt;
+&lt;li&gt;Formats: Germany&lt;/li&gt;
+&lt;li&gt;Temperature: Celsius&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Confirm with &amp;lsquo;Set Language&amp;rsquo;. Open a terminal and update the locales:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo locale-gen de_DE.UTF.8
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo locale-gen en_US.UTF.8
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo update-locale &lt;span class=&#34;nv&#34;&gt;LANG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;en_US.UTF-8
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;notifications&#34;&gt;Notifications&lt;/h4&gt;
+&lt;p&gt;I leave everything turned on at the beginning and re-visit this settings panel for applications that bother me. Mostly I deactivate the &amp;lsquo;Sounds&amp;rsquo; switch for those applications.&lt;/p&gt;
+&lt;h4 id=&#34;security--privacy&#34;&gt;Security &amp;amp; Privacy&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;History
+&lt;ul&gt;
+&lt;li&gt;I enable it and check all &amp;lsquo;Data Sources&amp;rsquo;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Locking
+&lt;ul&gt;
+&lt;li&gt;Activate &amp;lsquo;Lock on suspend&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Activate &amp;lsquo;Lock after screen turns off&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Activate &amp;lsquo;Forbid new USB devices when locked&amp;rsquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Firewall
+&lt;ul&gt;
+&lt;li&gt;As this is a desktop computer, I do not need the Firewall or adapt any settings&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Housekeeping
+&lt;ul&gt;
+&lt;li&gt;&amp;lsquo;Automatically Delete&amp;rsquo;: &amp;lsquo;Old temporary files&amp;rsquo; and &amp;lsquo;Trashed files&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;&amp;lsquo;Delete Old Files After:&amp;rsquo; 30 days&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Location Services:
+&lt;ul&gt;
+&lt;li&gt;I enable this by default and re-visit this setting after installing other applications&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;displays&#34;&gt;Displays&lt;/h4&gt;
+&lt;p&gt;I use a Thunderbolt Dock (either a DELL TB16 or a Anker PowerExpand Elite 13-in-1 or a builtin dock of my LG 38 curved monitor). Setting this up is sometimes a bit fiddly, so in this settings panel I try to arrange them correctly and check the &amp;lsquo;Scaling factor&amp;rsquo;. I also activate &amp;lsquo;Night Light&amp;rsquo; mode with &amp;lsquo;Sunset to Sunrise&amp;rsquo;.&lt;/p&gt;
+&lt;h4 id=&#34;keyboard&#34;&gt;Keyboard&lt;/h4&gt;
+&lt;p&gt;I change the behavior of the &lt;kbd&gt;SUPER&lt;/kbd&gt; key to show the &amp;lsquo;Multitasking View&amp;rsquo;. Then I go through the Shortcuts page. I typically try to use the distro&amp;rsquo;s default shortcuts and change them only if I keep forgetting them or persistently use other shortcuts which are in my muscle memory.  I don&amp;rsquo;t change the &lt;code&gt;Behavior&lt;/code&gt; settings as they are fine with me.&lt;/p&gt;
+&lt;h4 id=&#34;mouse--touchpad&#34;&gt;Mouse &amp;amp; Touchpad&lt;/h4&gt;
+&lt;p&gt;Go through the settings, but I usually stick to the defaults. For my external mouse I make sure that &amp;lsquo;Natural Scrolling&amp;rsquo; is turned off, whereas for a Touchpad I like to turn it on.&lt;/p&gt;
+&lt;h4 id=&#34;power&#34;&gt;Power&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Turn off display when inactive for: 15 min&lt;/li&gt;
+&lt;li&gt;Power button: Prompt to shutdown&lt;/li&gt;
+&lt;li&gt;Suspend when inactive for 30 min&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;printers&#34;&gt;Printers&lt;/h4&gt;
+&lt;p&gt;My printer is connected to the network, so usually it is automatically detected.&lt;/p&gt;
+&lt;h4 id=&#34;sound&#34;&gt;Sound&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Deactivate &amp;lsquo;Event alerts&amp;rsquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;wacom&#34;&gt;Wacom&lt;/h4&gt;
+&lt;p&gt;I don&amp;rsquo;t have a Wacom tablet.&lt;/p&gt;
+&lt;h4 id=&#34;bluetooth&#34;&gt;Bluetooth&lt;/h4&gt;
+&lt;p&gt;On my Desktop computer I typically deactivate Bluetooth unless I really need it. Sometimes deactivating it in the system settings does not work, but from the panel you can deactivate it just fine.&lt;/p&gt;
+&lt;h4 id=&#34;network&#34;&gt;Network&lt;/h4&gt;
+&lt;p&gt;Even though my computer is connected via LAN, I also enter my WiFi password.&lt;/p&gt;
+&lt;h4 id=&#34;online-accounts&#34;&gt;Online Accounts&lt;/h4&gt;
+&lt;p&gt;I add a CalDAV account pointing towards my Nextcloud.&lt;/p&gt;
+&lt;h4 id=&#34;sharing&#34;&gt;Sharing&lt;/h4&gt;
+&lt;p&gt;I typically don&amp;rsquo;t use this feature and deactivate &amp;lsquo;Media Library&amp;rsquo;.&lt;/p&gt;
+&lt;h4 id=&#34;date--time&#34;&gt;Date &amp;amp; Time&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Time format: 24-hour&lt;/li&gt;
+&lt;li&gt;Time zone: deactivate &amp;lsquo;Based on location&amp;rsquo; and choose Europe-Berlin-Germany (most areas)&lt;/li&gt;
+&lt;li&gt;Activate &amp;lsquo;Network time&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Deactivate &amp;lsquo;Show week numbers&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Show in Panel: &amp;lsquo;Date&amp;rsquo;, &amp;lsquo;Day of the week&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;screen-time--limits&#34;&gt;Screen Time &amp;amp; Limits&lt;/h4&gt;
+&lt;p&gt;I don&amp;rsquo;t use this feature.&lt;/p&gt;
+&lt;h4 id=&#34;system&#34;&gt;System&lt;/h4&gt;
+&lt;p&gt;Nothing to do here.&lt;/p&gt;
+&lt;h4 id=&#34;universal-access&#34;&gt;Universal Access&lt;/h4&gt;
+&lt;p&gt;I don&amp;rsquo;t use any features here.&lt;/p&gt;
+&lt;h4 id=&#34;user-accounts&#34;&gt;User Accounts&lt;/h4&gt;
+&lt;p&gt;I change my profile picture.&lt;/p&gt;
+&lt;h3 id=&#34;set-hostname&#34;&gt;Set hostname&lt;/h3&gt;
+&lt;p&gt;When creating a user, you can also choose the name of your computer for better accessability on the network. If I forgot to do this, I change it with:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hostnamectl set-hostname green-lantern
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;install-required-drivers&#34;&gt;Install Required Drivers&lt;/h2&gt;
+&lt;p&gt;Not all drivers are installed, particularly proprietary drivers Nvidia GPUs or special WiFi drivers need to be manually installed to get the maximum performance from your system:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo ubuntu-drivers autoinstall
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;install-software-properties-common&#34;&gt;Install software-properties-common&lt;/h2&gt;
+&lt;p&gt;In order to fully elementary OS I install software-properties-common, which allows to &amp;ldquo;easily manage your distribution and independent software vendor software sources&amp;rdquo;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install software-properties-common
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In essence this allows to make use of third-party apt repositories by providing the infamous &lt;code&gt;add-apt-repository&lt;/code&gt; command.&lt;/p&gt;
+&lt;h2 id=&#34;deb-get-to-install-third-party-software-on-ubuntu-easily&#34;&gt;deb-get to install third-party software on Ubuntu easily&lt;/h2&gt;
+&lt;p&gt;I am a fan of easy ways to install third-party software, Martin Wimpress has created a neat tool called &lt;a href=&#34;https://github.com/wimpysworld/deb-get&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;deb-get&lt;/a&gt; which I use on Ubuntu-based systems such as elementary OS.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install curl
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl -sL https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sudo -E bash -s install deb-get
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;restore-from-backup&#34;&gt;Restore from Backup&lt;/h2&gt;
+&lt;p&gt;I mount my luks encrypted backup storage drive and use e.g. &lt;code&gt;rsync -avup $BACKUP/Documents ~/&lt;/code&gt;  to copy over my files and important configuration scripts. At the end I run&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chown -R &lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;:&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt; /home/&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;to make sure the permissions are correctly set.&lt;/p&gt;
+&lt;h2 id=&#34;install-updates-and-reboot&#34;&gt;Install updates and reboot&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt upgrade
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt dist-upgrade
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt autoremove
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt autoclean
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo fwupdmgr get-devices
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo fwupdmgr get-updates
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo fwupdmgr update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;flatpak update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get upgrade
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo reboot now
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;browser&#34;&gt;Browser&lt;/h2&gt;
+&lt;p&gt;I mostly use the shipped browser; however, sometimes I do need Chrome, which can easily be installed via deb-get:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install google-chrome-stable
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and sync my Account, Settings and Extensions.&lt;/p&gt;
+&lt;h2 id=&#34;fish---a-friendly-interactive-shell&#34;&gt;Fish - A Friendly Interactive Shell&lt;/h2&gt;
+&lt;p&gt;I am using the Fish shell on all my systems, due to its &lt;a href=&#34;https://fedoramagazine.org/fish-a-friendly-interactive-shell/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;user-friendly features&lt;/a&gt;, so I install it and make it my default shell:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y fish
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;chsh -s /usr/bin/fish
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You will need to log out and back in for this change to take effect. Lastly, I want to add the ~/.local/bin to my $PATH &lt;a href=&#34;https://github.com/fish-shell/fish-shell/issues/527&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;persistently&lt;/a&gt; in Fish:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir -p /home/&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;/.local/bin
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -Ua fish_user_paths /home/&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;/.local/bin
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Also I make sure that it is in my $PATH also on bash:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;bash -c &lt;span class=&#34;s1&#34;&gt;&amp;#39;echo $PATH&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#/home/wmutschl/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If it isn&amp;rsquo;t then I make the necessary changes in my &lt;code&gt;/home/$USER/.bashrc&lt;/code&gt; file.&lt;/p&gt;
+&lt;h2 id=&#34;ssh-keys&#34;&gt;SSH keys&lt;/h2&gt;
+&lt;p&gt;If I want to create a new SSH key, I run e.g.:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh-keygen -t ed25519 -C &lt;span class=&#34;s2&#34;&gt;&amp;#34;elementary-on-green-lantern&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Usually, however, I restore my &lt;code&gt;.ssh&lt;/code&gt; folder from my backup. Either way, afterwards, one needs to add the file containing your key, usually &lt;code&gt;id_rsa&lt;/code&gt; or &lt;code&gt;id_ed25519&lt;/code&gt;, to the ssh-agent:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;eval&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;ssh-agent -s&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;#works in bash&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;eval&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;ssh-agent -c&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;#works in fish&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh-add ~/.ssh/id_ed25519
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Don&amp;rsquo;t forget to add your public key to GitHub, Gitlab, Servers, etc.&lt;/p&gt;
+&lt;h2 id=&#34;apps&#34;&gt;Apps&lt;/h2&gt;
+&lt;h3 id=&#34;snap-support&#34;&gt;Snap support&lt;/h3&gt;
+&lt;p&gt;Enable snap support&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install snapd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;system-utilities&#34;&gt;System utilities&lt;/h3&gt;
+&lt;h4 id=&#34;bitwarden&#34;&gt;Bitwarden&lt;/h4&gt;
+&lt;p&gt;Bitwarden is my password manager of choice:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install bitwarden
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;flatseal&#34;&gt;Flatseal&lt;/h4&gt;
+&lt;p&gt;Flatseal is a great tool to check or change the permissions of your flatpaks:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;flatpak install flatseal
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;gparted&#34;&gt;GParted&lt;/h4&gt;
+&lt;p&gt;In case I need to adjust the partition layout:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y gparted
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open GParted, check whether it works.&lt;/p&gt;
+&lt;h4 id=&#34;quickemu&#34;&gt;Quickemu&lt;/h4&gt;
+&lt;p&gt;I used to set up KVM, Qemu, virt-manager and gnome-boxes as this is much faster as VirtualBox. However, I have found a much easier tool for most tasks: &lt;a href=&#34;https://github.com/wmutschl/quickemu&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;quickemu&lt;/a&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get quickemu
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;networking&#34;&gt;Networking&lt;/h3&gt;
+&lt;h4 id=&#34;tailscale&#34;&gt;Tailscale&lt;/h4&gt;
+&lt;p&gt;I use &lt;a href=&#34;https://tailscale.com/kb/1187/install-ubuntu-2204/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tailscale&lt;/a&gt; on all my systems to be able to connect them via Wireguard wherever I am. It is extremely easy to install. I use deb-get:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install tailscale
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Connect your machine to your Tailscale network and authenticate in your browser:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo tailscale up
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That&amp;rsquo;s it, check your ip:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;tailscale ip -4
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I also chose (in the browser) to disable key expiry to prevent the need to periodically re-authenticate.&lt;/p&gt;
+&lt;h4 id=&#34;openssh-server&#34;&gt;OpenSSH Server&lt;/h4&gt;
+&lt;p&gt;I sometimes access my linux machine via ssh from other machines, for this I install the OpenSSH server:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install openssh-server
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then I make some changes to&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo nano /etc/ssh/sshd_config
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;to disable password login, to allow for X11forwarding and permit root logins.&lt;/p&gt;
+&lt;h4 id=&#34;nextcloud&#34;&gt;Nextcloud&lt;/h4&gt;
+&lt;p&gt;I have all my files synced to my own Nextcloud server, so I need the sync client. deb-get has the newer version, so:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install nextcloud-desktop
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open Nextcloud and set it up. Double check the options.&lt;/p&gt;
+&lt;h3 id=&#34;coding&#34;&gt;Coding&lt;/h3&gt;
+&lt;h4 id=&#34;dynare-related-packages&#34;&gt;Dynare related packages&lt;/h4&gt;
+&lt;p&gt;I am a developer of &lt;a href=&#34;https://www.dynare.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Dynare&lt;/a&gt; and need these packages to compile it from source and run it optimally ob Ubuntu-based systems:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y build-essential gfortran liboctave-dev libboost-graph-dev libgsl-dev libmatio-dev libslicot-dev libslicot-pic libsuitesparse-dev flex bison autoconf automake texlive texlive-publishers texlive-latex-extra texlive-fonts-extra texlive-latex-recommended texlive-science texlive-plain-generic lmodern python3-sphinx latexmk libjs-mathjax doxygen x13as
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;git-related-packages&#34;&gt;git related packages:&lt;/h4&gt;
+&lt;p&gt;git is most important, as a GUI for it, I use GitKraken. Also to use lfs on some repositories one needs to initialize it once:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y git git-lfs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git-lfs install
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install gitkraken
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open GitKraken and set up Accounts and Settings.&lt;/p&gt;
+&lt;p&gt;You can also use the flatpak version of Gitkraken, but one needs to add the following Custom Terminal Command: &lt;code&gt;flatpak-spawn --host gnome-terminal %d&lt;/code&gt;.&lt;/p&gt;
+&lt;h4 id=&#34;matlab&#34;&gt;MATLAB&lt;/h4&gt;
+&lt;p&gt;I have a license for MATLAB, unzipping the installation files in the the Downloads folder and then run the installer:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./home/&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;/Downloads/matlab/install
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Note that I do not use &lt;code&gt;sudo&lt;/code&gt; but install MATLAB into my home folder into &lt;code&gt;/home/wmutschl/MATLAB/R2022a&lt;/code&gt; and don&amp;rsquo;t create symbolic links (as this will be later done by the &lt;code&gt;matlab-support&lt;/code&gt; package).&lt;/p&gt;
+&lt;p&gt;Once the installation process finishes, install &lt;code&gt;matlab-support&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install matlab-support
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Activate MATLAB and make sure to select &lt;code&gt;Yes&lt;/code&gt; to &lt;code&gt;Rename MATLAB&#39;s GCC libraries&lt;/code&gt; as these are typically older than the one&amp;rsquo;s from the distribution.&lt;/p&gt;
+&lt;p&gt;I don&amp;rsquo;t have the &lt;a href=&#34;https://de.mathworks.com/matlabcentral/answers/342906-could-not-initialize-shared-resources-for-x11graphicsdevice#answer_425485?s_tid=prof_contriblnk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;shared resources-for-x11-graphics bug&lt;/a&gt;, if you do, follow the link for a solution.&lt;/p&gt;
+&lt;p&gt;Open matlab and I change some settings to use Windows type shortcuts on the Keyboard, add &lt;code&gt;mod&lt;/code&gt; and &lt;code&gt;inc&lt;/code&gt; files as supported extensions, and do not use MATLAB&amp;rsquo;s source control capabilities.&lt;/p&gt;
+&lt;h4 id=&#34;visual-studio-code&#34;&gt;Visual Studio Code&lt;/h4&gt;
+&lt;p&gt;I have transitioned to do most of my coding in Visual Studio code:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install code
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I keep my profiles and extensions synced using GitHub.&lt;/p&gt;
+&lt;h3 id=&#34;text-processing&#34;&gt;Text-processing&lt;/h3&gt;
+&lt;h4 id=&#34;latex-related-packages&#34;&gt;Latex related packages&lt;/h4&gt;
+&lt;p&gt;I write all my papers and presentations with Latex using the very powerful &lt;a href=&#34;https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;LaTeX Workshop Extension&lt;/a&gt; for Visual Studio Code as an editor. So let&amp;rsquo;s install all tex-related packages:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y texlive texlive-font-utils texlive-pstricks-doc texlive-base texlive-formats-extra texlive-lang-german texlive-metapost texlive-publishers texlive-bibtex-extra texlive-latex-base texlive-metapost-doc texlive-publishers-doc texlive-binaries texlive-latex-base-doc texlive-science texlive-extra-utils texlive-latex-extra texlive-science-doc texlive-fonts-extra texlive-latex-extra-doc texlive-pictures texlive-xetex texlive-fonts-extra-doc texlive-latex-recommended texlive-pictures-doc texlive-fonts-recommended texlive-humanities texlive-lang-english texlive-latex-recommended-doc texlive-fonts-recommended-doc texlive-humanities-doc texlive-luatex texlive-pstricks perl-tk
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;sejda-pdf-editor&#34;&gt;Sejda PDF editor&lt;/h4&gt;
+&lt;p&gt;Most of the times elementary OS&amp;rsquo;s pdf viewer works just fine. As an alternative, I find Sejda as an easy, pleasant and productive PDF editor:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install sejda-desktop
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open it and check it out.&lt;/p&gt;
+&lt;h3 id=&#34;communication&#34;&gt;Communication&lt;/h3&gt;
+&lt;h4 id=&#34;mattermost&#34;&gt;Mattermost&lt;/h4&gt;
+&lt;p&gt;Our Dynare team communication is happening via Mattermost. Mattermost can be installed via snap, flatpak or deb-get:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install mattermost-desktop
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open mattermost and connect to server.&lt;/p&gt;
+&lt;h4 id=&#34;skype&#34;&gt;Skype&lt;/h4&gt;
+&lt;p&gt;Skype can be installed either via snap, flatpak or deb-get:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install skypeforlinux
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open skype, log in and set up audio and video.&lt;/p&gt;
+&lt;h4 id=&#34;zoom&#34;&gt;Zoom&lt;/h4&gt;
+&lt;p&gt;Zoom can be installed either via snap, flatpak or deb-get:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install zoom
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open zoom, log in and set up audio and video.&lt;/p&gt;
+&lt;h3 id=&#34;multimedia&#34;&gt;Multimedia&lt;/h3&gt;
+&lt;h4 id=&#34;multimedia-codecs&#34;&gt;Multimedia Codecs&lt;/h4&gt;
+&lt;p&gt;Install and compile multimedia codecs:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y ubuntu-restricted-extras libavcodec-extra libdvd-pkg
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo dpkg-reconfigure libdvd-pkg
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;vlc&#34;&gt;VLC&lt;/h4&gt;
+&lt;p&gt;Still one of the best video players:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y vlc
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open it and check whether it works.&lt;/p&gt;
+&lt;h4 id=&#34;obs&#34;&gt;OBS&lt;/h4&gt;
+&lt;p&gt;To get a full-loaded OBS Studio version I install it with either deb-get:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install obs-studio
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open OBS and set it up, import your scenes, etc. The snap version works also fine for me.&lt;/p&gt;
+&lt;h2 id=&#34;misc-tweaks-and-settings&#34;&gt;Misc tweaks and settings&lt;/h2&gt;
+&lt;h4 id=&#34;reorder-favorites-on-dock&#34;&gt;Reorder Favorites on Dock&lt;/h4&gt;
+&lt;p&gt;I like to reorder the favorites on the dock and add additional ones.&lt;/p&gt;
+&lt;h4 id=&#34;go-through-all-programs&#34;&gt;Go through all programs&lt;/h4&gt;
+&lt;p&gt;Go through all programs, decide whether you need them or uninstall these.&lt;/p&gt;
+&lt;h4 id=&#34;deactivate-grub-timeout&#34;&gt;Deactivate GRUB timeout&lt;/h4&gt;
+&lt;p&gt;If you don&amp;rsquo;t want to see the GRUB menu, then change &lt;code&gt;GRUB_TIMEOUT=0&lt;/code&gt; in &lt;code&gt;/etc/default/grub&lt;/code&gt;. You need to run &lt;code&gt;sudo update-grub&lt;/code&gt; afterwards. I typically set &lt;code&gt;GRUB_TIMEOUT=3&lt;/code&gt;.&lt;/p&gt;
+&lt;h4 id=&#34;enable-tray-icons-for-third-party-apps&#34;&gt;Enable tray icons for third-party apps&lt;/h4&gt;
+&lt;p&gt;Some/Most apps use outdated/different code for their tray icons and this code is not compatible with elementary OS, so one has no tray icons (top right) for these apps. To fix this incompatibility there are different approaches, I still have to find one that works easy and reliable. Please let me know which one you are using (e.g. &lt;a href=&#34;https://gist.github.com/isneezy/ee88f7702368e064021d884f0e98ec85#tweaking-the-ui&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;old panel indicator approach&lt;/a&gt;)?&lt;/p&gt;
+&lt;h2 id=&#34;security-steps-with-yubikey&#34;&gt;Security steps with Yubikey&lt;/h2&gt;
+&lt;p&gt;I have two Yubikeys and use them&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;as second-factor for all admin/sudo tasks&lt;/li&gt;
+&lt;li&gt;to unlock my luks encrypted partitions&lt;/li&gt;
+&lt;li&gt;for my private GPG key&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For this I need to install several packages:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y yubikey-manager yubikey-personalization &lt;span class=&#34;c1&#34;&gt;# some common packages&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Insert the yubikey&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ykman info &lt;span class=&#34;c1&#34;&gt;# your key should be recognized&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Device type: YubiKey 5 NFC&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Serial number: &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Firmware version:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Form factor:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Enabled USB interfaces: OTP+FIDO+CCID&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# NFC interface is enabled.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Applications	USB    	NFC     &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# OTP     	Enabled	Enabled 	&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# FIDO U2F	Enabled	Enabled 	&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# OpenPGP 	Enabled	Enabled 	&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# PIV     	Enabled	Enabled&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# OATH    	Enabled	Enabled 	&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# FIDO2   	Enabled	Enabled 	&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y libpam-u2f &lt;span class=&#34;c1&#34;&gt;# second-factor for sudo commands&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y yubikey-luks  &lt;span class=&#34;c1&#34;&gt;# second-factor for luks&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y gpg scdaemon gnupg-agent pcscd gnupg2 &lt;span class=&#34;c1&#34;&gt;# stuff for GPG&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Make sure that OpenPGP and PIV are enabled on both Yubikeys as shown above.&lt;/p&gt;
+&lt;h4 id=&#34;yubikey-private-gpg-key&#34;&gt;Yubikey: private GPG key&lt;/h4&gt;
+&lt;p&gt;Let&amp;rsquo;s use the private GPG key on the Yubikey (a tutorial on how to put it there is taken from &lt;a href=&#34;https://www.heise.de/ratgeber/FIDO2-YubiKey-als-OpenPGP-Smartcard-einsetzen-4590032.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Heise&lt;/a&gt;, &lt;a href=&#34;https://github.com/drduh/YubiKey-Guide&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;YubiKey-Guide&lt;/a&gt;) and particularly &lt;a href=&#34;https://developer.okta.com/blog/2021/07/07/developers-guide-to-gpg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Developer&amp;rsquo;s Guide to GPG&lt;/a&gt;.
+First, enable and start &lt;code&gt;pcscd&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl &lt;span class=&#34;nb&#34;&gt;enable&lt;/span&gt; pcscd
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl start pcscd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;My public key is available on &lt;a href=&#34;https://github.com/wmutschl.gpg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub&lt;/a&gt; and this URL is also specified on my Yubikey, so I can simply fetch that. Insert the Yubikey and then:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg --card-status
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# If this did not find your Yubikey, then try to first reboot or look into the above references.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~/.gnupg
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg --edit-card
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg/card&amp;gt; fetch
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg/card&amp;gt; quit
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Write down your keyid and export this into an environmental variable (this will always be the same):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;KEYID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;91E724BF17A73F6D
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg --edit-key &lt;span class=&#34;nv&#34;&gt;$KEYID&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  trust
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  y
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  quit
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;This is an encrypted message&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; gpg --encrypt --armor --recipient &lt;span class=&#34;nv&#34;&gt;$KEYID&lt;/span&gt; -o encrypted.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg --decrypt --armor encrypted.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# gpg: encrypted with 4096-bit RSA key, ID XYZ, create 2019-12-09&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#        &amp;#34;Willi Mutschler &amp;lt;willi@mutschler.eu&amp;gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# This is encrypted&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If this did not trigger to enter the Personal Key on your Yubikey, then try to run &lt;code&gt;echo &#39;reader-port Yubico YubiKey&#39; &amp;gt;&amp;gt; ~/.gnupg/scdaemon.conf&lt;/code&gt;, reboot and try again. Also check the above references and enable pcscd.&lt;/p&gt;
+&lt;h4 id=&#34;yubikey-two-factor-authentication-for-adminsudo-password&#34;&gt;Yubikey: two-factor authentication for admin/sudo password&lt;/h4&gt;
+&lt;p&gt;Let&amp;rsquo;s set up the Yubikeys as second-factor for everything related to sudo using the common-auth pam.d module:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pamu2fcfg &amp;gt; ~/u2f_keys
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;When your device begins flashing, touch the metal contact to confirm the association. You might need to insert a user pin as well. Do the same with your backup device:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pamu2fcfg -n &amp;gt;&amp;gt; ~/u2f_keys
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now move the file into /etc:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo mv ~/u2f_keys /etc/u2f_keys
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and make this a required action for &lt;code&gt;common-auth&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;auth    required                        pam_u2f.so nouserok authfile=/etc/u2f_keys cue&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sudo tee -a /etc/pam.d/common-auth
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Before you close the terminal, open a new one and check whether you can do &lt;code&gt;sudo echo test&lt;/code&gt; and are required to touch your Yubikey. You can always deactivate this feature by commenting out the above line in &lt;code&gt;/etc/pam.d/common-auth&lt;/code&gt;.&lt;/p&gt;
+&lt;h4 id=&#34;yubikey-two-factor-authentication-for-luks-partitions&#34;&gt;Yubikey: two-factor authentication for luks partitions&lt;/h4&gt;
+&lt;p&gt;Let&amp;rsquo;s set up the Yubikeys as second-factor to unlock the luks partitions. If you have brand new keys, then create a new key on them (BE CAREFUL DON&amp;rsquo;T OVERWRITE IF YOU HAVE ALREADY DONE THIS):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ykpersonalize -2 -ochal-resp -ochal-hmac -ohmac-lt64 -oserial-api-visible &lt;span class=&#34;c1&#34;&gt;#&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;First, I create an environmental variable to point towards my luks drive quickly (I installed on /dev/sdb3):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;LUKSDRIVE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/dev/sdb3
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Next enroll both Yubikeys to the luks partition. Insert the first Yubikey and type:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo yubikey-luks-enroll -d &lt;span class=&#34;nv&#34;&gt;$LUKSDRIVE&lt;/span&gt; -s &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Insert the second Yubikey:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo yubikey-luks-enroll -d &lt;span class=&#34;nv&#34;&gt;$LUKSDRIVE&lt;/span&gt; -s &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Activate the keyscript in your crypttab:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CRYPTKEY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;luks,keyscript=/usr/share/yubikey-luks/ykluks-keyscript&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo sed -i &lt;span class=&#34;s2&#34;&gt;&amp;#34;s|luks|&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CRYPTKEY&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;|&amp;#34;&lt;/span&gt; /etc/crypttab
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Your crypttab should look similar to this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cat /etc/crypttab
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# data UUID=aa371a41-81f4-4f12-800e-8830a9afa8c8 none luks,keyscript=/usr/share/yubikey-luks/ykluks-keyscript,discard&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Lastly, update the initramfs:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo update-initramfs -u -k all
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# update-initramfs: Generating /boot/initrd.img-5.13.0-51-generic&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# I: The initramfs will attempt to resume from /dev/dm-2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# I: (/dev/mapper/data-swap)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# I: Set the RESUME variable to override this.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# update-initramfs: Generating /boot/initrd.img-5.13.0-43-generic&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# I: The initramfs will attempt to resume from /dev/dm-2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# I: (/dev/mapper/data-swap)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# I: Set the RESUME variable to override this.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Reboot and check whether the prompt has changed to &amp;ldquo;Please insert yubikey and press enter or enter a valid passphrase&amp;rdquo;. So I typically do two reboots to check whether I can either use your Yubikey (with the new passphrase you selected above) or the original luks passphrase.&lt;/p&gt;
+&lt;p&gt;If you want to deactivate this feature, remove the crypttab entry and update the initramfs.&lt;/p&gt;
+&lt;h2 id=&#34;to-do&#34;&gt;To Do&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Best way to disable single click?&lt;/li&gt;
+&lt;li&gt;Best way to add tray icons? for
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; mattermost&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; skype&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; zoom&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; nextcloud&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>elementary OS 6.1 Jólnir: installation guide with btrfs, luks encryption and auto snapshots with timeshift</title>
+      <link>https://mutschler.dev/linux/elementary-os-6-1/</link>
+      <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
+      <guid>https://mutschler.dev/linux/elementary-os-6-1/</guid>
+      <description>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Please feel free to raise any comments or issues on the &lt;a href=&#34;https://github.com/wmutschl/mutschler.dev&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;website&amp;rsquo;s Github repository&lt;/a&gt;. Pull requests are very much appreciated.&lt;/strong&gt;&lt;/em&gt;
+&lt;a href=&#34;https://www.buymeacoffee.com/mutschler&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://cdn.buymeacoffee.com/buttons/v2/default-red.png&#34; alt=&#34;Buy Me A Coffee&#34; style=&#34;height: 60px !important;width: 217px !important;&#34; &gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-md&#34; data-lang=&#34;md&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
+  &lt;iframe src=&#34;https://www.youtube.com/embed/&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; allowfullscreen title=&#34;YouTube Video&#34;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;em&gt;Video coming soon&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note that this written guide is an updated version of the video and contains much more information.&lt;/em&gt;
+&lt;details class=&#34;toc-inpage d-print-none d-xl-none &#34; open&gt;
+  &lt;summary class=&#34;font-weight-bold&#34;&gt;Table of Contents&lt;/summary&gt;
+  &lt;nav id=&#34;TableOfContents&#34;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&#34;#overview&#34;&gt;Overview&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-0-general-remarks&#34;&gt;Step 0: General remarks&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-1-prepare-partitions-by-performing-a-clean-install-first&#34;&gt;Step 1: Prepare partitions by performing a Clean Install first&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#optional-understand-the-default-partition-layout-and-installation-structure&#34;&gt;[Optional] Understand the default partition layout and installation structure&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-2-install-elementary-os-using-the-custom-install-advanced-option&#34;&gt;Step 2: Install Elementary OS using the &lt;code&gt;Custom Install (Advanced)&lt;/code&gt; option&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-3-post-installation-steps&#34;&gt;Step 3: Post-Installation steps&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#mount-the-btrfs-top-level-root-filesystem-with-zstd-compression&#34;&gt;Mount the btrfs top-level root filesystem with zstd compression&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#create-btrfs-subvolumes--and-home&#34;&gt;Create btrfs subvolumes &lt;code&gt;@&lt;/code&gt; and &lt;code&gt;@home&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#changes-to-fstab&#34;&gt;Changes to fstab&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#changes-to-crypttab&#34;&gt;Changes to crypttab&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#adjust-configuration-of-grub&#34;&gt;Adjust configuration of grub&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#create-a-chroot-environment-to-update-initramfs-and-grub&#34;&gt;Create a chroot environment to update initramfs and grub&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-4-reboot-some-checks-and-system-updates&#34;&gt;Step 4: Reboot, some checks, and system updates&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-5-install-timeshift-and-timeshift-autosnap-apt&#34;&gt;Step 5: Install timeshift and timeshift-autosnap-apt&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-6-practice-recovery-and-system-rollback&#34;&gt;Step 6: Practice recovery and system rollback&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#rollback-with-timeshift&#34;&gt;Rollback with timeshift&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#appendix-encrypt-boot-partition&#34;&gt;Appendix: encrypt /boot partition&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+&lt;/details&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;In this guide I will show how to install Elementary OS 6.1 Jólnir with the following structure:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;an unencrypted EFI partition&lt;/li&gt;
+&lt;li&gt;an unencrypted boot partition (I also show how to optionally encrypt this in the appendix and why I don&amp;rsquo;t)&lt;/li&gt;
+&lt;li&gt;an encrypted btrfs partition (with LVM) for the root filesystem
+&lt;ul&gt;
+&lt;li&gt;the btrfs logical volume contains a subvolume &lt;code&gt;@&lt;/code&gt; for &lt;code&gt;/&lt;/code&gt; and a subvolume &lt;code&gt;@home&lt;/code&gt; for &lt;code&gt;/home&lt;/code&gt;. Note that Elementary OS&amp;rsquo;s installer does not create btrfs subvolumes by default, so we need to do this manually.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;an encrypted swap partition which works with hibernation&lt;/li&gt;
+&lt;li&gt;automatic system snapshots and easy rollback using:
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/teejee2008/timeshift&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;timeshift&lt;/a&gt; which will regularly take (almost instant) snapshots of the system&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/wmutschl/timeshift-autosnap-apt&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;timeshift-autosnap-apt&lt;/a&gt; which creates btrfs snapshot with timeshift on any system update with apt&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This setup works similarly well on other distributions, for which I also have &lt;a href=&#34;../../install-guides&#34;&gt;installation guides (with optional RAID1)&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;step-0-general-remarks&#34;&gt;Step 0: General remarks&lt;/h2&gt;
+&lt;p&gt;This tutorial is made with Elementary OS 6.1 Jólnir from &lt;a href=&#34;https://elementary.io&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;elementary.io&lt;/a&gt; copied to an installation media (usually a USB Flash device); checkout &lt;a href=&#34;https://www.ventoy.net&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ventoy&lt;/a&gt; for a neat way to organize all kinds of iso files on just one USB Flash device or USB SSD. Other versions of Elementary OS and other distributions that use the same installer (i.e. POP!_OS) might also work, but sometimes require additional steps (see my other &lt;a href=&#34;../../install-guides&#34;&gt;installation guides&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;I strongly advise to try the following installation steps in a virtual machine first before doing anything like that on real hardware!&lt;/strong&gt; For instance, you can spin up a virtual machine using e.g. the awesome &lt;a href=&#34;https://github.com/quickemu-project/quickemu&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;quickemu&lt;/a&gt; project.&lt;/p&gt;
+&lt;h2 id=&#34;step-1-prepare-partitions-by-performing-a-clean-install-first&#34;&gt;Step 1: Prepare partitions by performing a Clean Install first&lt;/h2&gt;
+&lt;p&gt;If you already have (a previous version of) Elementary OS installed, you can safely skip this step as you have already a partition layout that will work with the installer.
+In my previous installation guides, I manually prepared the partitions to have full control on the individual partition sizes. However, as time moved on I noticed that I tend to stick to the default partition layout that the distros ship out of the box. So the easiest and quickest approach is to simply perform the installation twice. So, let&amp;rsquo;s run the first clean install by selecting &lt;code&gt;Erase Disk and Install&lt;/code&gt;. I also choose to encrypt my root partition so the installer automatically creates the luks2 partition and sets up LVM. When the installation process finishes, restart your device, but reboot back into the installer to do the second custom install with btrfs.&lt;/p&gt;
+&lt;p&gt;Now, I do like to take note of the default partition layout. So, if you want to see the structure of the automatic installation keep reading, otherwise go to the next step to perform the second installation.&lt;/p&gt;
+&lt;h3 id=&#34;optional-understand-the-default-partition-layout-and-installation-structure&#34;&gt;[Optional] Understand the default partition layout and installation structure&lt;/h3&gt;
+&lt;p&gt;So, let&amp;rsquo;s open a terminal and have a look on the default partition layout (instead of the terminal commands you can also just use Gparted for this):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# loop0    7:0    0   2.2G  1 loop /rofs&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# sda      8:0    0  55.9G  0 disk &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ├─sda1   8:1    0   498M  0 part &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ├─sda2   8:2    0     4G  0 part &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ├─sda3   8:3    0  47.4G  0 part &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# └─sda4   8:4    0     4G  0 part [SWAP]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# sdb      8:16   0 465.8G  0 disk &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ├─sdb1   8:17   0 263.1M  0 part &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ├─sdb2   8:18   0 976.6M  0 part &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# └─sdb3   8:19   0 464.6G  0 part &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# sdc      8:32   0 223.6G  0 disk &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ├─sdc1   8:33   0   100M  0 part &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ├─sdc2   8:34   0    16M  0 part &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ├─sdc3   8:35   0   223G  0 part &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# └─sdc4   8:36   0   517M  0 part &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# sdd      8:48   1  58.9G  0 disk &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ├─sdd1   8:49   1  58.8G  0 part &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# └─sdd2   8:50   1    32M  0 part &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I&amp;rsquo;ve installed Elementary OS to a SSD which is recognized as &lt;code&gt;sdb&lt;/code&gt; on my machine. &lt;code&gt;sda&lt;/code&gt; is another SSD and Windows is installed on &lt;code&gt;sdc&lt;/code&gt;. Lastly, &lt;code&gt;sdd&lt;/code&gt; is the USB stick on which I have &lt;a href=&#34;https://www.ventoy.net&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ventoy&lt;/a&gt; installed and which contains the ISO of the installer.&lt;/p&gt;
+&lt;p&gt;So let&amp;rsquo;s have a closer look at the partition layout of &lt;code&gt;sdb&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo parted /dev/sdb unit MiB print
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Model: ATA Samsung SSD 840 (scsi)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Disk /dev/sdb: 476940MiB&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Sector size (logical/physical): 512B/512B&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Partition Table: gpt&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Disk Flags: &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Number  Start    End        Size       File system  Name  Flags&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#  1      2.00MiB  265MiB     263MiB     fat32              boot, esp&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#  2      265MiB   1242MiB    977MiB     ext4&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#  3      1242MiB  476938MiB  475696MiB&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We have the following 4 partitions:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;a 263 MiB FAT32 EFI partition (note the &lt;code&gt;boot, esp&lt;/code&gt; flag)&lt;/li&gt;
+&lt;li&gt;a 977 MiB ext4 boot partition&lt;/li&gt;
+&lt;li&gt;a 475696MiB partition that contains the actual system files&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Let&amp;rsquo;s have a closer look at the luks2-encrypted &lt;code&gt;sdb3&lt;/code&gt; partition:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo cryptsetup luksDump /dev/sdb3
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# LUKS header information&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Version:       	2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Epoch:         	3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Metadata area: 	16384 [bytes]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Keyslots area: 	16744448 [bytes]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# UUID:          	aa371a41-81f4-4f12-800e-8830a9afa8c8&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Label:         	(no label)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Subsystem:     	(no subsystem)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Flags:       	(no flags)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Data segments:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   0: crypt&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 	offset: 16777216 [bytes]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 	length: (whole device)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 	cipher: aes-xts-plain64&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 	sector: 512 [bytes]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Keyslots:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   0: luks2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 	Key:        512 bits&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 	Priority:   normal&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 	Cipher:     aes-xts-plain64&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 	Cipher key: 512 bits&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 	PBKDF:      argon2i&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 	Time cost:  4&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 	Memory:     1048576&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 	Threads:    4&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So this basically uses the default options to encrypt a partition with luks version 2 (e.g. running &lt;code&gt;cryptsetup luksFormat /dev/sdb3&lt;/code&gt;). Now let&amp;rsquo;s have a closer look what is inside the encrypted partition:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo cryptsetup luksOpen /dev/sdb3 cryptdata
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Enter passphrase for /dev/sda3:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls /dev/mapper
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# control  cryptdata  data-root data-swap&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo pvs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   PV                    VG   Fmt  Attr PSize    PFree&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   /dev/mapper/cryptdata data lvm2 a--  &amp;lt;464.53g    0 &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo vgs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   VG   #PV #LV #SN Attr   VSize    VFree&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   data   1   2   0 wz--n- &amp;lt;464.53g    0 &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo lvs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   LV   VG   Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   root data -wi-a----- 460.73g                                                    &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   swap data -wi-a-----  &amp;lt;3.80g&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo lsblk /dev/mapper/data-root -f
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# NAME      FSTYPE LABEL UUID                                 FSAVAIL FSUSE% MOUNTPOINT&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# data-root ext4         90d9bc34-e97c-45aa-939f-e1a0d3736eed &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;By default, if you do an encrypted install, Elementary OS uses &lt;a href=&#34;https://askubuntu.com/questions/3596/what-is-lvm-and-what-is-it-used-for&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Logical Volume Management (LVM)&lt;/a&gt;, which is a fancy way to combine different disks dynamically into the same partition. In more detail, the encrypted partition (called &lt;code&gt;cryptdata&lt;/code&gt;) is a physical volume that contains a volume group called &lt;code&gt;data&lt;/code&gt;. Inside the volume group there are two logical volumes, one is called &lt;code&gt;root&lt;/code&gt; that contains our actual system files and another one is called &lt;code&gt;swap&lt;/code&gt; that is used as a swap partition. The &lt;code&gt;data-root&lt;/code&gt; partition is formatted with ext4. I actually never use any features of LVM, but there is no downside in terms of performance or similar things when using it. More important, the installer requires LVM if you plan to use encryption. Without encryption you don&amp;rsquo;t need the whole LVM stuff.&lt;/p&gt;
+&lt;p&gt;Okay, now we know what the partition layout is, so let&amp;rsquo;s close everything:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo cryptsetup luksClose /dev/mapper/data-root
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo cryptsetup luksClose /dev/mapper/data-swap
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo cryptsetup luksClose /dev/mapper/cryptdata
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls /dev/mapper
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# control&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now let&amp;rsquo;s continue with the ACTUAL INSTALL with btrfs as the underlying filesystem.&lt;/p&gt;
+&lt;h2 id=&#34;step-2-install-elementary-os-using-the-custom-install-advanced-option&#34;&gt;Step 2: Install Elementary OS using the &lt;code&gt;Custom Install (Advanced)&lt;/code&gt; option&lt;/h2&gt;
+&lt;p&gt;Now, if you have not done so already, let&amp;rsquo;s reboot into the installer. Select the language and keyboard layout. Then choose &lt;code&gt;Custom Install (Advanced)&lt;/code&gt;. You will see your partitioned hard disk (in my case it is &lt;code&gt;/dev/sdb&lt;/code&gt;, be careful!):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Click on the first partition, activate &lt;code&gt;Use partition&lt;/code&gt;, activate &lt;code&gt;Format&lt;/code&gt;, Use as &lt;code&gt;Boot (/boot/efi)&lt;/code&gt;, Filesystem: &lt;code&gt;fat32&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Click on the second partition, activate &lt;code&gt;Use partition&lt;/code&gt;, activate &lt;code&gt;Format&lt;/code&gt;, Use as &lt;code&gt;Custom&lt;/code&gt; and enter &lt;code&gt;/boot&lt;/code&gt;, Filesystem: &lt;code&gt;ext4&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Click on the third and largest partition. A &lt;code&gt;Decrypt This Partition&lt;/code&gt; dialog opens, enter your luks password and hit &lt;code&gt;Decrypt&lt;/code&gt;. For me, I was not able to change the name from &lt;code&gt;data&lt;/code&gt; to something else (e.g. &lt;code&gt;cryptdata&lt;/code&gt;), as it then did not show the decrypted device, so I left it at &lt;code&gt;data&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;A new device &lt;code&gt;LVM data&lt;/code&gt; will be displayed (often at the bottom of the screen)
+&lt;ul&gt;
+&lt;li&gt;Click on the first partition of &lt;code&gt;LVM data&lt;/code&gt;, activate &lt;code&gt;Use partition&lt;/code&gt;, activate &lt;code&gt;Format&lt;/code&gt;, Use as &lt;code&gt;Root (/)&lt;/code&gt; , Filesystem: &lt;code&gt;btrfs&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Click on the second partition of &lt;code&gt;LVM data&lt;/code&gt;, activate &lt;code&gt;Use partition&lt;/code&gt;, Use as &lt;code&gt;Swap&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;If you have other partitions, check their types and use; particularly, deactivate using or changing any other EFI partitions.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Recheck everything (check the partitions where there is a black checkmark) and hit &lt;code&gt;Erase and Install&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Once the installer finishes, restart, but reboot yet again into the live installer. Now select &lt;code&gt;Try Demo Mode&lt;/code&gt; to do the post-installation steps.&lt;/p&gt;
+&lt;h2 id=&#34;step-3-post-installation-steps&#34;&gt;Step 3: Post-Installation steps&lt;/h2&gt;
+&lt;p&gt;Open a terminal and switch to an interactive root session:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo -i
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You might find maximizing the terminal window is helpful for working with the command-line.&lt;/p&gt;
+&lt;h3 id=&#34;mount-the-btrfs-top-level-root-filesystem-with-zstd-compression&#34;&gt;Mount the btrfs top-level root filesystem with zstd compression&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s mount our root partition (the top-level btrfs volume always has root-id 5), but with some mount options that optimize performance and durability on SSD or NVME drives:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cryptsetup luksOpen /dev/sdb3 data
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Enter passphrase for /dev/sdb3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls /dev/mapper
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# control  data  data-root  data-swap&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mount -o &lt;span class=&#34;nv&#34;&gt;subvolid&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;5,defaults,compress&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;zstd:1,space_cache&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;v2,discard&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;async /dev/mapper/data-root /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;By default, Elementary OS uses the default mount options of btrfs. That is, SSD drives will be automatically detected (&lt;code&gt;ssd&lt;/code&gt; mount option). I have found that there is some additional general advise to use:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;compress=zstd:1&lt;/code&gt;: allows to specify the compression algorithm which we want to use. btrfs provides lzo, zstd and zlib compression algorithms; however, zstd has become the best performing candidate. I use level 1 as this is recommended by the &lt;a href=&#34;https://fedoraproject.org/wiki/Changes/BtrfsTransparentCompression#Simple_Analysis_of_btrfs_zstd_compression_level&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Fedora team on a workstation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;space_cache=v2&lt;/code&gt;, which is also the &lt;a href=&#34;https://pagure.io/fedora-btrfs/project/issue/24&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;default in Fedora&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;discard=async&lt;/code&gt;: this will become the standard soon, see e.g. &lt;a href=&#34;https://pagure.io/fedora-btrfs/project/issue/6&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;enable discard=async by default&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Now there is some debate whether one should use &lt;a href=&#34;https://pagure.io/fedora-btrfs/project/issue/9&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;noatime&lt;/code&gt; (instead of the default &lt;code&gt;relatime&lt;/code&gt;)&lt;/a&gt;, but personally I have not seen any difference, so I&amp;rsquo;m not using &lt;code&gt;noatime&lt;/code&gt; in this guide.&lt;/p&gt;
+&lt;p&gt;We will later also append these mount options to the fstab, but it is good practice to already make use of compression when moving the system files from the top-level btrfs root into the dedicated subvolumes &lt;code&gt;@&lt;/code&gt; and &lt;code&gt;@home&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;create-btrfs-subvolumes--and-home&#34;&gt;Create btrfs subvolumes &lt;code&gt;@&lt;/code&gt; and &lt;code&gt;@home&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Now we will first create the subvolume &lt;code&gt;@&lt;/code&gt; and move all files and folders from the top-level filesystem into &lt;code&gt;@&lt;/code&gt;. Note that as we use the optimized mount options like compression, these will be already applied during the moving process:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;btrfs subvolume create /mnt/@
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Create subvolume &amp;#39;/mnt/@&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mv /mnt/* /mnt/@/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# mv: cannot move &amp;#39;/mnt/@&amp;#39; to a subdirectory of itself, &amp;#39;/mnt/@/@&amp;#39; ### ignore this&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls -a /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# . .. @&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls -a /mnt/@
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# .   bin   dev  home  lib32  libx32  mnt  proc  run   srv  tmp  var&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ..  boot  etc  lib   lib64  media   opt  root  sbin  sys  usr  vmlinuz&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now let&amp;rsquo;s create another subvolume called &lt;code&gt;@home&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;btrfs subvolume create /mnt/@home
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Create subvolume &amp;#39;/mnt/@home&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you did a clean install, there is no user folder yet. However, if you adapted the guide for a manual install and have already created a user, then make sure that any user folder from &lt;code&gt;/mnt/@/home/&lt;/code&gt; goes into &lt;code&gt;@home&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mv /mnt/@/home/* /mnt/@home/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# mv: cannot stat &amp;#39;/mnt/@/home/*&amp;#39;: No such file or directory&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Let&amp;rsquo;s see the subvolumes:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;btrfs subvolume list /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ID 265 gen 592 top level 5 path @&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ID 266 gen 592 top level 5 path @home&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;changes-to-fstab&#34;&gt;Changes to fstab&lt;/h3&gt;
+&lt;p&gt;We need to make some changes to the &lt;code&gt;fstab&lt;/code&gt; in order to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;mount the &lt;code&gt;@&lt;/code&gt; subvolume to &lt;code&gt;/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;mount the &lt;code&gt;@home&lt;/code&gt; subvolume to &lt;code&gt;/home&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;rename device of swap partition (for some reason the installer does not use the correct device name)&lt;/li&gt;
+&lt;li&gt;make use of optimized btrfs mount options&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;So open it with a text editor, e.g.:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nano /mnt/@/etc/fstab
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;or use these &lt;code&gt;sed&lt;/code&gt; commands&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/btrfs  defaults/btrfs  defaults,subvol=@,compress=zstd:1,space_cache=v2,discard=async/&amp;#39;&lt;/span&gt; /mnt/@/etc/fstab
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;UUID=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;blkid -s UUID -o value /dev/mapper/data-root&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;  /home  btrfs  defaults,subvol=@home,compress=zstd:1,space_cache=v2,discard=async   0 0&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; /mnt/@/etc/fstab
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;s|/dev/dm-3|/dev/mapper/data-swap|&amp;#39;&lt;/span&gt; /mnt/@/etc/fstab
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Either way your &lt;code&gt;fstab&lt;/code&gt; should look like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cat /mnt/@/etc/fstab
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# PARTUUID=1c290d06-e8c2-40f6-9ad8-034069dd071b  /boot/efi  vfat  umask=0077  0  0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# UUID=8f652774-cb1e-474d-a114-d8a9c9ccd54d  /boot  ext4  noatime,errors=remount-ro  0  0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# UUID=8b47e39b-e599-4268-92c3-586c8a4435e4  /  btrfs  defaults,subvol=@,compress=zstd:1,space_cache=v2,discard=async  0  0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /dev/mapper/data-swap  none  swap  defaults  0  0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# UUID=8b47e39b-e599-4268-92c3-586c8a4435e4  /home  btrfs  defaults,subvol=@home,compress=zstd:1,space_cache=v2,discard=async   0 0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Note that your PARTUUID and UUID numbers will be different.&lt;/p&gt;
+&lt;h3 id=&#34;changes-to-crypttab&#34;&gt;Changes to crypttab&lt;/h3&gt;
+&lt;p&gt;As we use &lt;code&gt;discard=async&lt;/code&gt;, we need to add &lt;code&gt;discard&lt;/code&gt; to the &lt;code&gt;crypttab&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/luks/luks,discard/&amp;#39;&lt;/span&gt; /mnt/@/etc/crypttab
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cat /mnt/@/etc/crypttab
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# data UUID=aa371a41-81f4-4f12-800e-8830a9afa8c8 none luks,discard&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;adjust-configuration-of-grub&#34;&gt;Adjust configuration of grub&lt;/h3&gt;
+&lt;p&gt;We need to add a kernel parameter to the grub configuration that the system boots from the &lt;code&gt;@&lt;/code&gt; subvolume:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nano /mnt/@/etc/default/grub
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here you need to add &lt;code&gt;rootflags=subvol=@&lt;/code&gt; to the &lt;code&gt;GRUB_CMDLINE_LINUX_DEFAULT&lt;/code&gt; options. That is, the uncommented lines of your configuration file should look like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;GRUB_DEFAULT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;GRUB_TIMEOUT_STYLE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;hidden
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;GRUB_TIMEOUT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;GRUB_DISTRIBUTOR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;lsb_release -d -s 2&amp;gt; /dev/null &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; Debian&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;GRUB_CMDLINE_LINUX_DEFAULT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;quiet splash rootflags=subvol=@&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;GRUB_CMDLINE_LINUX&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;GRUB_ENABLE_CRYPTODISK&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;y
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;create-a-chroot-environment-to-update-initramfs-and-grub&#34;&gt;Create a chroot environment to update initramfs and grub&lt;/h3&gt;
+&lt;p&gt;Now, let&amp;rsquo;s create a chroot environment, which enables one to work directly inside the newly installed OS, without actually booting into it. For this, unmount the top-level root filesystem from &lt;code&gt;/mnt&lt;/code&gt; and remount the subvolume &lt;code&gt;@&lt;/code&gt; to &lt;code&gt;/mnt&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;umount -l /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mount -o &lt;span class=&#34;nv&#34;&gt;subvol&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;@,defaults,compress&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;zstd:1,space_cache&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;v2,discard&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;async /dev/mapper/data-root /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# bin   dev  home  lib32  libx32  mnt  proc  run   srv  tmp  var&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# boot  etc  lib   lib64  media   opt  root  sbin  sys  usr  vmlinuz&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then the following commands will put us into our system using chroot (taken from System76&amp;rsquo;s help post on how to &lt;a href=&#34;https://support.system76.com/articles/bootloader/#systemd-boot&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Repair the Bootloader&lt;/a&gt;):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; i in /dev /dev/pts /proc /sys /run&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; mount -B &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt; /mnt&lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;chroot /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We are now inside the new system, so let&amp;rsquo;s check whether our &lt;code&gt;fstab&lt;/code&gt; mounts everything correctly. We have to run the command twice or otherwise the efi partition does not mount correctly:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mount -av
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /boot                    : successfully mounted&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /                        : ignored&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# none                     : ignored&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /home                    : successfully mounted&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mount -av
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /boot/efi                : successfully mounted&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /boot                    : already mounted&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /                        : ignored&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# none                     : ignored&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /home                    : already mounted&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Note that I had to run the command twice to make sure that the EFI partition is mounted.&lt;/p&gt;
+&lt;p&gt;Now we need to update both the initramfs and grub to make it aware of our kernel parameter changes (I&amp;rsquo;m not sure whether initramfs is really necessary, but better safe than sorry, let me know if you know better):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;update-initramfs -c -k all
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# update-initramfs: Generating /boot/initrd.img-5.11.0-43-generic&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;update-grub
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Sourcing file `/etc/default/grub&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Sourcing file `/etc/default/grub.d/init-select.cfg&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Generating grub configuration file ...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Found linux image: /boot/vmlinuz-5.11.0-43-generic&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Found initrd image: /boot/initrd.img-5.11.0-43-generic&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Found Windows Boot Manager on /dev/sdc1@/efi/Microsoft/Boot/bootmgfw.efi&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Adding boot menu entry for UEFI Firmware Settings&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;step-4-reboot-some-checks-and-system-updates&#34;&gt;Step 4: Reboot, some checks, and system updates&lt;/h2&gt;
+&lt;p&gt;Now, it is time to exit the chroot.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;reboot now
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Cross your fingers! If all went well you should see a passphrase prompt to unlock your LUKS partition (YAY!), where you enter the luks passphrase and your system should boot. (For some reason on my machine there was no passphrase after 10 seconds, so I rebooted and then it came.)
+Select the language, keyboard layout and create a user account. Go through the Welcome Screen.&lt;/p&gt;
+&lt;p&gt;Now let&amp;rsquo;s see whether everything is set up correctly. So open a terminal:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo mount -av
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /boot/efi                : already mounted&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /boot                    : already mounted&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /                        : ignored&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# none                     : ignored&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /home                    : already mounted&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;All the entries in the &lt;code&gt;fstab&lt;/code&gt; are mounted correctly.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo mount -v &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep /dev/mapper
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /dev/mapper/data-root on / type btrfs (rw,relatime,compress=zstd:1,ssd,discard=async,space_cache=v2,subvolid=265,subvol=/@)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /dev/mapper/data-root on /home type btrfs (rw,relatime,compress=zstd:1,ssd,discard=async,space_cache=v2,subvolid=266,subvol=/@home)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Our optimized btrfs mount options were passed on and are used correctly. Note that you cannot have different mount options on the same partition.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo swapon
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# NAME      TYPE      SIZE USED PRIO&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /dev/dm-2 partition 3.8G   0B   -2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The encrypted swap partition is in use.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo btrfs filesystem show /
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Label: none  uuid: 8b47e39b-e599-4268-92c3-586c8a4435e4&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 	Total devices 1 FS bytes used 7.27GiB&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 	devid    1 size 460.73GiB used 9.02GiB path /dev/mapper/data-root&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo btrfs subvolume list /
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ID 265 gen 655 top level 5 path @&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ID 266 gen 655 top level 5 path @home&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;These two btrfs commands tell us which disk is in use and which subvolumes are available.&lt;/p&gt;
+&lt;p&gt;If you have installed elementary OS on a SSD or NVME, enable &lt;code&gt;fstrim.timer&lt;/code&gt; as &lt;a href=&#34;https://www.phoronix.com/scan.php?page=news_item&amp;amp;px=Fedora-Btrfs-Opts-Discard-Comp&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;both fstrim and discard=async mount option can peacefully co-exist&lt;/a&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl &lt;span class=&#34;nb&#34;&gt;enable&lt;/span&gt; fstrim.timer
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Importantly, for &lt;a href=&#34;https://www.heise.de/ct/hotline/Linux-Verschluesselte-SSD-trimmen-2405875.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;SSD trimming to work properly&lt;/a&gt;, it is important that you add &lt;code&gt;discard&lt;/code&gt; to your &lt;code&gt;crypttab&lt;/code&gt; (see above). Also check whether you &lt;code&gt;issue_discards=1&lt;/code&gt; is set in &lt;code&gt;/etc/lvm/lvm.conf&lt;/code&gt; (it should be set to 1 by default):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cat /etc/lvm/lvm.conf &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep issue_discards
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 	# Configuration option devices/issue_discards.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 	issue_discards = 1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If all look&amp;rsquo;s good, let&amp;rsquo;s update and upgrade the system:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt upgrade
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt dist-upgrade
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt autoremove
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt autoclean
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;flatpak update
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Also I go into AppCenter to see whether there are some drivers that I can additionally install (in my case for my WiFi adapter I need to install &lt;code&gt;bcmwl-kernel-source&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;Finally, do another reboot.&lt;/p&gt;
+&lt;h2 id=&#34;step-5-install-timeshift-and-timeshift-autosnap-apt&#34;&gt;Step 5: Install timeshift and timeshift-autosnap-apt&lt;/h2&gt;
+&lt;p&gt;Install timeshift and configure it directly via the GUI:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y timeshift
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo timeshift-gtk
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Select &amp;ldquo;btrfs&amp;rdquo; as the &amp;ldquo;Snapshot Type&amp;rdquo;; continue with &amp;ldquo;Next&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;Choose your btrfs system partition as &amp;ldquo;Snapshot Location&amp;rdquo;; continue with &amp;ldquo;Next&amp;rdquo;. On encrypted systems Timeshift sometimes complains that the partition is not formated with btrfs, just ignore this bug and click next.&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;Select Snapshot Levels&amp;rdquo; (type and number of snapshots that will be automatically created and managed/deleted by timeshift), my recommendations:
+&lt;ul&gt;
+&lt;li&gt;Activate &amp;ldquo;Monthly&amp;rdquo; and set it to 2&lt;/li&gt;
+&lt;li&gt;Activate &amp;ldquo;Weekly&amp;rdquo; and set it to 3&lt;/li&gt;
+&lt;li&gt;Activate &amp;ldquo;Daily&amp;rdquo; and set it to 5&lt;/li&gt;
+&lt;li&gt;Deactivate &amp;ldquo;Hourly&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;Activate &amp;ldquo;Boot&amp;rdquo; and set it to 5&lt;/li&gt;
+&lt;li&gt;Activate &amp;ldquo;Stop cron emails for scheduled tasks&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;continue with &amp;ldquo;Next&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;I do opt to include the &lt;code&gt;@home&lt;/code&gt; subvolume (which is not selected by default). Note that when you restore a snapshot with timeshift you get to choose whether you want to restore @home as well (which in most cases you actually don&amp;rsquo;t want to do!). But having snapshots of my home folder is quite convenient to access older files I accidently deleted.&lt;/li&gt;
+&lt;li&gt;Activate &amp;ldquo;Enable BTRFS qgroups (recommended)&amp;rdquo;. There are some &lt;a href=&#34;https://github.com/teejee2008/timeshift/issues?q=is%3Aissue&amp;#43;quota&amp;#43;qgroup&amp;#43;&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;issues on GitHub&lt;/a&gt; that there MIGHT be some performance issues with this (if you manually deactivate quotas as well), but I&amp;rsquo;ve never had any issues, so I stick with the recommendation to enable it.&lt;/li&gt;
+&lt;li&gt;Click &amp;ldquo;Finish&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;Create&amp;rdquo; a manual first snapshot, add a comment &amp;ldquo;Clean Install&amp;rdquo; to it &amp;amp; exit timeshift&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In the terminal you will see an &lt;code&gt;ERROR: can&#39;t list qgroups: quotas not enabled&lt;/code&gt;. Simply ignore this as this error comes only the first time you run timeshift, e.g. run &lt;code&gt;sudo timeshift --create&lt;/code&gt; in the terminal to create another snapshot and you won&amp;rsquo;t see this error anymore.&lt;/p&gt;
+&lt;p&gt;Now, &lt;em&gt;timeshift&lt;/em&gt; will check every hour if snapshots (&amp;ldquo;hourly&amp;rdquo;, &amp;ldquo;daily&amp;rdquo;, &amp;ldquo;weekly&amp;rdquo;, &amp;ldquo;monthly&amp;rdquo;, &amp;ldquo;boot&amp;rdquo;) need to be created or deleted. Note that &amp;ldquo;boot&amp;rdquo; snapshots will not be created directly but about 10 minutes after a system startup using a cronjob defined in &lt;code&gt;/etc/cron.d/timeshift-hourly&lt;/code&gt; and &lt;code&gt;/etc/cron.d/timeshift-boot&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;All snapshots are accessible from &lt;code&gt;/run/timeshift/backup&lt;/code&gt; (this folder will be mounted after timeshift runs for the first time after a system reboot). Conveniently, the top-level root (subvolid 5) of your btrfs partition is also mounted there, so it is easy to view, create, delete and move around snapshots manually if needed.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls /run/timeshift/backup
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# @  @home  timeshift-btrfs&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Note that &lt;code&gt;/run/timeshift/backup/@&lt;/code&gt; is your &lt;code&gt;/&lt;/code&gt; folder and &lt;code&gt;/run/timeshift/backup/@home&lt;/code&gt; your &lt;code&gt;/home&lt;/code&gt; folder. Your snapshots are accessible via timeshift-btrfs.&lt;/p&gt;
+&lt;p&gt;Now, to also automatically create timeshift snapshots when updating our system (or any other apt installation like installing or removing apps), let&amp;rsquo;s install &lt;em&gt;timeshift-autosnap-apt&lt;/em&gt; from my GitHub repo (which is just an APT hook):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y git make
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone https://github.com/wmutschl/timeshift-autosnap-apt.git /home/&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;/timeshift-autosnap-apt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /home/&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;/timeshift-autosnap-apt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo make install
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After this, make changes to the configuration file:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo nano /etc/timeshift-autosnap-apt.conf
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For example, as we have a dedicated &lt;code&gt;/boot&lt;/code&gt; partition, we should keep &lt;code&gt;snapshotBoot=true&lt;/code&gt; in the &lt;code&gt;timeshift-autosnap-apt-conf&lt;/code&gt; file such that the &lt;code&gt;/boot&lt;/code&gt; directory is rsync&amp;rsquo;ed to &lt;code&gt;/boot.backup&lt;/code&gt;. Note that the EFI partition will be rsynced into &lt;code&gt;/boot.backup/efi&lt;/code&gt;. So if something goes wrong with either the boot or the EFI partition, you always have a backup of it as well inside your snapshots. You can also install &lt;code&gt;grub-btrfs&lt;/code&gt; to be able to boot into the snapshots from GRUB, but I don&amp;rsquo;t really need or do this.&lt;/p&gt;
+&lt;p&gt;Check if everything is working:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo timeshift-autosnap-apt
+# Rsyncing /boot into the filesystem before the call to timeshift.
+# Rsyncing /boot/efi into the filesystem before the call to timeshift.
+# Using system disk as snapshot device for creating snapshots in BTRFS mode
+# 
+# /dev/dm-1 is mounted at: /run/timeshift/backup, options: rw,relatime,compress=zstd:1,ssd,discard=async,space_cache=v2,subvolid=5,subvol=/
+# 
+# Creating new backup...(BTRFS)
+# Saving to device: /dev/dm-1, mounted at path: /run/timeshift/backup
+# Created directory: /run/timeshift/backup/timeshift-btrfs/snapshots/2022-06-16_21-33-16
+# Created subvolume snapshot: /run/timeshift/backup/timeshift-btrfs/snapshots/2022-06-16_21-33-16/@
+# Created subvolume snapshot: /run/timeshift/backup/timeshift-btrfs/snapshots/2022-06-16_21-33-16/@home
+# Created control file: /run/timeshift/backup/timeshift-btrfs/snapshots/2022-06-16_21-33-16/info.json
+# BTRFS Snapshot saved successfully (0s)
+# Tagged snapshot &amp;#39;2022-06-16_21-33-16&amp;#39;: ondemand
+------------------------------------------------------------------------------
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now, if you run &lt;code&gt;sudo apt install|remove|upgrade|dist-upgrade&lt;/code&gt;, &lt;em&gt;timeshift-autosnap-apt&lt;/em&gt; will create a snapshot of your system with &lt;em&gt;timeshift&lt;/em&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;step-6-practice-recovery-and-system-rollback&#34;&gt;Step 6: Practice recovery and system rollback&lt;/h2&gt;
+&lt;p&gt;Now let&amp;rsquo;s practice what to do in the event of a system disaster. Note that we just created snapshots to which we can always rollback. So as a practice case, let&amp;rsquo;s delete our &lt;code&gt;/etc&lt;/code&gt; folder, which of course you should never do:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rm -rf /etc
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now try to reboot and you will notice that the boot process obviously gets stuck because the system is broken. So instead boot into any live linux system or the elementary OS installer. Then go to the File Manager and to Other locations. Select your encrypted disk and enter your luks passphrase to decrypt it. Note that this mounts the top-level root of your system, so you can either now directly access the broken files and move them back or simply use timeshift to rollback.&lt;/p&gt;
+&lt;h3 id=&#34;rollback-with-timeshift&#34;&gt;Rollback with timeshift&lt;/h3&gt;
+&lt;p&gt;Install timeshift either from the Software center or using the terminal (on Ubuntu-based live systems):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install timeshift
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open Timeshift, select BTRFS and your disk and you will see the snapshots we created. Select one and hit &lt;code&gt;Restore&lt;/code&gt;. Timeshift will then rename and move your current broken &lt;code&gt;@&lt;/code&gt; subfolder away and replace it with the snapshot that you just selected. Reboot and all is back to normal! Easy huh?!&lt;/p&gt;
+&lt;h2 id=&#34;appendix-encrypt-boot-partition&#34;&gt;Appendix: encrypt /boot partition&lt;/h2&gt;
+&lt;p&gt;wip&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FINISHED! CONGRATULATIONS AND THANKS FOR STICKING THROUGH!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Check out my &lt;a href=&#34;../elementary-os-post-install&#34;&gt;elementary OS post-installation steps&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,1675 @@
+<!DOCTYPE html><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.4.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Willi Mutschler" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="In this guide I will show how to install Fedora 35 with automatic system snapshots and backups using BTRBK which will regularly take (almost instant) btrfs snapshots of the system and send/receive these to a backup disk given a chosen retention policy." />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://mutschler.dev/linux/fedora-btrfs-35/" />
+
+  
+  
+  
+    <meta name="theme-color" content="#bbdefb" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.c7b8d9abd591ba2253ea42747e3ac3f5.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css" integrity="sha512-W0xM4mr6dEP9nREo7Z9z+9X70wytKvMGeDsj7ps2+xg5QPrEBXC8tAW1IFnzjR6eoJ90JmCnFzerQJTLzIEHjA==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'" disabled>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'">
+        
+      
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.0b8400c2e374cd7dd4f9ae4909fd9914.css" />
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://mutschler.dev/linux/fedora-btrfs-35/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary" />
+  
+  <meta property="og:site_name" content="mutschler.dev" />
+  <meta property="og:url" content="https://mutschler.dev/linux/fedora-btrfs-35/" />
+  <meta property="og:title" content="Fedora Workstation 35 with automatic btrfs snapshots and backups using BTRBK | mutschler.dev" />
+  <meta property="og:description" content="In this guide I will show how to install Fedora 35 with automatic system snapshots and backups using BTRBK which will regularly take (almost instant) btrfs snapshots of the system and send/receive these to a backup disk given a chosen retention policy." /><meta property="og:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" />
+    <meta property="twitter:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2021-12-14T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2022-06-17T13:47:19&#43;02:00">
+  
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Fedora Workstation 35 with automatic btrfs snapshots and backups using BTRBK | mutschler.dev</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper  dark " data-wc-page-id="c4e96892cece602d1ea1d613783c301b" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.6c07fd79b08c404df0504bd310968f2f.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="header--fixed">
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/apple/"><span>Apple</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link  active" href="/linux/"><span>Linux</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/stuff/"><span>Stuff</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://buymeacoffee.com/mutschler" data-toggle="tooltip" data-placement="bottom" title="Buy me a coffee" target="_blank" rel="noopener" aria-label="Buy me a coffee">
+                <i class="fas fa-coffee" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="mailto:willi@mutschler.dev" data-toggle="tooltip" data-placement="bottom" title="Write me an email"  aria-label="Write me an email">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://github.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on GitHub" target="_blank" rel="noopener" aria-label="Follow me on GitHub">
+                <i class="fab fa-github" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://gitlab.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on Gitlab" target="_blank" rel="noopener" aria-label="Follow me on Gitlab">
+                <i class="fab fa-gitlab" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://www.youtube.com/c/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on YouTube" target="_blank" rel="noopener" aria-label="Follow me on YouTube">
+                <i class="fab fa-youtube" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        
+
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    
+
+
+
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      <form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-md-3 w-100" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <div class="d-flex">
+      <span class="d-md-none pl-1 flex-grow-1 text-left overflow-hidden">
+        
+          Linux
+        
+      </span>
+      <span><i class="fas fa-chevron-down"></i></span>
+    </div>
+  </button>
+
+  
+  <button class="form-control sidebar-search js-search d-none d-md-flex">
+    <i class="fas fa-search pr-2"></i>
+    <span class="sidebar-search-text">Search...</span>
+    <span class="sidebar-search-shortcut">/</span>
+  </button>
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+  
+  
+  
+  
+  
+
+  
+  
+    
+
+    
+      
+
+      
+
+
+  
+    
+    
+    
+    
+      
+    
+    
+
+    
+      <ul class="nav docs-sidenav">
+        <li class=""><a href="/linux/">Linux</a></li>
+    
+      
+
+
+  <li class=""><a href="/linux/elementary-os-post-install/">elementary OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/elementary-os-6-1/">elementary OS 6.1 Jólnir: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-22-04/">Pop!_OS 22.04: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-post-install/">Pop!_OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-post-install/">Fedora Workstation: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class="active"><a href="/linux/fedora-btrfs-35/">Fedora Workstation 35 with automatic btrfs snapshots and backups using BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-10/">DRAFT: Pop!_OS 21.10: installation guide with btrfs-LVM-luks and auto snapshots with BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-04/">Pop!_OS 21.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/raspi-post-install/">Ubuntu Server Raspberry Pi: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/raspi-btrfs/">Ubuntu Server 20.10 on Raspberry Pi 4: installation guide with USB Boot (no SD card) and full disk encryption (excluding /boot) using btrfs-inside-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-btrfs-33/">Fedora Workstation 33: installation guide with btrfs-luks full disk encryption (optionally including /boot) and auto snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/btrfs/">Why I (still) like btrfs</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-btrfs-raid1-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks-RAID1 full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-btrfs-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-post-install/">Ubuntu Desktop: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-raid1-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks-RAID1 and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/timeshift/">Timeshift</a></li>
+
+      
+    
+
+    
+      </ul>
+    
+
+  
+</nav>
+
+    </div>
+
+    
+    
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      
+
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+      </ul>
+
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#step-0-general-remarks">Step 0: General remarks</a></li>
+    <li><a href="#step-1-graphical-installer-with-automatic-configuration-and-encryption">Step 1: Graphical installer with automatic configuration and encryption</a></li>
+    <li><a href="#step-2-optional-understand-the-partition-layout-and-installation-structure">Step 2 (optional): Understand the partition layout and installation structure</a></li>
+    <li><a href="#step-3-post-installation-steps">Step 3: Post-Installation steps</a>
+      <ul>
+        <li><a href="#step-3a-mount-the-btrfs-top-level-filesystem-to-btrfs_pool">Step 3a: Mount the btrfs top-level filesystem to /btrfs_pool</a></li>
+        <li><a href="#step-3b-optionally-use-optimized-mount-options">Step 3b (optionally): use optimized mount options</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-4-automatic-snapshots-and-backups-with-btrfs-using-btrbk">Step 4: automatic snapshots and backups with btrfs using BTRBK</a>
+      <ul>
+        <li><a href="#step-4a-preparations">Step 4a: preparations</a></li>
+        <li><a href="#step-4b-install-and-configure-btrbk-for-snapshots">Step 4b: install and configure BTRBK for snapshots</a></li>
+        <li><a href="#step-4c-create-systemd-timer-for-btrbk-to-run-every-hour">Step 4c: create systemd timer for BTRBK to run every hour</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-5-optional-mount-an-encrypted-backup-disk-as-btrfs-sendreceive-target">Step 5 (optional): Mount an encrypted backup disk as btrfs send/receive target</a>
+      <ul>
+        <li><a href="#step-5a-preparations">Step 5a: Preparations</a></li>
+        <li><a href="#step-5b-add-target-for-btrfs-sendreceive-in-btrbk-configuration-file">Step 5b: Add target for btrfs send/receive in BTRBK configuration file</a></li>
+      </ul>
+    </li>
+    <li><a href="#final-remarks">Final remarks</a></li>
+  </ul>
+</nav>
+
+      
+    </div>
+    
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <article class="article">
+
+        <div class="docs-article-container">
+          
+
+          <h1>Fedora Workstation 35 with automatic btrfs snapshots and backups using BTRBK</h1>
+
+          <div class="article-style">
+            <p><em><strong>Please feel free to raise any comments or issues on the <a href="https://github.com/wmutschl/mutschler.dev" target="_blank" rel="noopener">website&rsquo;s Github repository</a>. Pull requests are very much appreciated.</strong></em>
+<a href="https://www.buymeacoffee.com/mutschler" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+<details class="toc-inpage d-print-none d-xl-none " open>
+  <summary class="font-weight-bold">Table of Contents</summary>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#step-0-general-remarks">Step 0: General remarks</a></li>
+    <li><a href="#step-1-graphical-installer-with-automatic-configuration-and-encryption">Step 1: Graphical installer with automatic configuration and encryption</a></li>
+    <li><a href="#step-2-optional-understand-the-partition-layout-and-installation-structure">Step 2 (optional): Understand the partition layout and installation structure</a></li>
+    <li><a href="#step-3-post-installation-steps">Step 3: Post-Installation steps</a>
+      <ul>
+        <li><a href="#step-3a-mount-the-btrfs-top-level-filesystem-to-btrfs_pool">Step 3a: Mount the btrfs top-level filesystem to /btrfs_pool</a></li>
+        <li><a href="#step-3b-optionally-use-optimized-mount-options">Step 3b (optionally): use optimized mount options</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-4-automatic-snapshots-and-backups-with-btrfs-using-btrbk">Step 4: automatic snapshots and backups with btrfs using BTRBK</a>
+      <ul>
+        <li><a href="#step-4a-preparations">Step 4a: preparations</a></li>
+        <li><a href="#step-4b-install-and-configure-btrbk-for-snapshots">Step 4b: install and configure BTRBK for snapshots</a></li>
+        <li><a href="#step-4c-create-systemd-timer-for-btrbk-to-run-every-hour">Step 4c: create systemd timer for BTRBK to run every hour</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-5-optional-mount-an-encrypted-backup-disk-as-btrfs-sendreceive-target">Step 5 (optional): Mount an encrypted backup disk as btrfs send/receive target</a>
+      <ul>
+        <li><a href="#step-5a-preparations">Step 5a: Preparations</a></li>
+        <li><a href="#step-5b-add-target-for-btrfs-sendreceive-in-btrbk-configuration-file">Step 5b: Add target for btrfs send/receive in BTRBK configuration file</a></li>
+      </ul>
+    </li>
+    <li><a href="#final-remarks">Final remarks</a></li>
+  </ul>
+</nav>
+</details>
+</p>
+<h2 id="overview">Overview</h2>
+<p>Since Fedora switched their default filesystem to btrfs I decided to give it a go as I am exclusively using btrfs on all my systems, see: <a href="../btrfs/">Why I (still) like btrfs</a>. Fedora&rsquo;s automatic installation routine with encryption is actually almost perfect for me except some changes regarding the btrfs mount options.</p>
+<p>So, in this guide I will show how to install Fedora 35 with automatic system snapshots and backups using <a href="https://github.com/digint/btrbk" target="_blank" rel="noopener">BTRBK</a> which will regularly take (almost instant) btrfs snapshots of the system and send/receive these to a backup disk given a chosen retention policy.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p><strong>If you ever need to rollback your system, checkout <a href="https://github.com/digint/btrbk#restoring-backups" target="_blank" rel="noopener">Restoring backups with BTRBK</a>.</strong></p>
+<h2 id="step-0-general-remarks">Step 0: General remarks</h2>
+<p><strong>I strongly advise to try the following installation steps in a virtual machine first before doing anything like that on real hardware!</strong></p>
+<p>So, let&rsquo;s spin up a virtual machine with 4 cores, 8 GB RAM, and a 64GB disk using e.g. the awesome <a href="https://github.com/quickemu-project/quickemu" target="_blank" rel="noopener">quickemu</a> project. I can confirm that the installation works equally well on my Dell XPS 13 9360 and my Dell Precision 7520. In the following, however, I outline the steps for my Dell Precision 7520 with a NVME drive which I use for the system files and another SSD which is used for btrfs backups.</p>
+<p>This tutorial is made with Fedora 35 Workstation from <a href="https://getfedora.org/de/workstation/download/" target="_blank" rel="noopener">https://getfedora.org/de/workstation/download/</a> copied to an installation media (usually a USB Flash device but may be a DVD or the ISO file attached to a virtual machine hypervisor).</p>
+<h2 id="step-1-graphical-installer-with-automatic-configuration-and-encryption">Step 1: Graphical installer with automatic configuration and encryption</h2>
+<p>Boot the installation medium in UEFI mode and choose <code>Install to Hard Drive</code>. Choose your language, Keyboard, Time &amp; Date setting. Note that the <code>Done</code> button is in the top left corner. Then hit <code>Installation Destination</code>. Choose your harddisk and</p>
+<ul>
+<li>select <code>Automatic</code> under <code>Storage Configuration</code></li>
+<li><code>Encrypt my data</code> under <code>Encryption</code></li>
+</ul>
+<p>Click <code>Done</code> and enter your disk encryption passphrase, choose a good one. If there is still data on your disk, you need to choose <code>Reclaim space</code> and remove existing file systems that you don&rsquo;t need anymore. I usually hit <code>Delete all</code>. After you&rsquo;ve finished select <code>Reclaim space</code>. You will return to the Installation Summary screen. Click <code>Begin Installation</code> (in the lower right corner). When the installation process is finished, select <code>Finish Installation</code>. Reboot your system and go through the welcome screen. I also enable <code>Third-party repositories</code> already.</p>
+<p>Let&rsquo;s update the system (either via software center or the terminal):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf update
+</span></span><span class="line"><span class="cl">flatpak update
+</span></span></code></pre></div><p>Reboot one more time:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo reboot now
+</span></span></code></pre></div><h2 id="step-2-optional-understand-the-partition-layout-and-installation-structure">Step 2 (optional): Understand the partition layout and installation structure</h2>
+<p>This is just for your nerdy side if you want to familiarize yourself with some commands that are useful when working with btrfs, partition layouts, and mount points.</p>
+<p>So, let&rsquo;s open a terminal and have a look on the default partition layout:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo lsblk
+</span></span><span class="line"><span class="cl"><span class="c1"># NAME                                          MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINTS</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sda                                             8:0    0 465.8G  0 disk  </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># └─sda1                                          8:1    0 465.8G  0 part  </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># zram0                                         252:0    0     8G  0 disk  [SWAP]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># nvme0n1                                       259:0    0 476.9G  0 disk  </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ├─nvme0n1p1                                   259:1    0   600M  0 part  /boot/efi</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ├─nvme0n1p2                                   259:2    0     1G  0 part  /boot</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># └─nvme0n1p3                                   259:3    0 475.4G  0 part  </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   └─luks-8bf48ffa-78e1-4a16-ad9e-301b7199d8ac 253:0    0 475.3G  0 crypt /home</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#                                                                          /</span>
+</span></span><span class="line"><span class="cl">sudo parted /dev/nvme0n1 unit MiB print
+</span></span><span class="line"><span class="cl"><span class="c1"># Model: PM961 NVMe SAMSUNG 512GB (nvme)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Disk /dev/nvme0n1: 488386MiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Sector size (logical/physical): 512B/512B</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Partition Table: gpt</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Disk Flags: </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Number  Start    End        Size       File system  Name                  Flags</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  1      1.00MiB  601MiB     600MiB     fat32        EFI System Partition  boot, esp</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  2      601MiB   1625MiB    1024MiB    ext4</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  3      1625MiB  488386MiB  486761MiB</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo blkid
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/nvme0n1p3: UUID=&#34;8bf48ffa-78e1-4a16-ad9e-301b7199d8ac&#34; TYPE=&#34;crypto_LUKS&#34; PARTUUID=&#34;16845b99-3bf4-4b22-9afb-095a16c12b67&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/nvme0n1p1: UUID=&#34;4882-915D&#34; BLOCK_SIZE=&#34;512&#34; TYPE=&#34;vfat&#34; PARTLABEL=&#34;EFI System Partition&#34; PARTUUID=&#34;6f530168-0cb2-4f89-9b7e-318f92b6b60f&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/nvme0n1p2: UUID=&#34;c791c518-83e5-4dd5-8cdf-a47621f9019b&#34; BLOCK_SIZE=&#34;4096&#34; TYPE=&#34;ext4&#34; PARTUUID=&#34;13e37336-cf10-4df6-aecf-2781050aeb79&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/luks-8bf48ffa-78e1-4a16-ad9e-301b7199d8ac: LABEL=&#34;fedora_localhost-live&#34; UUID=&#34;df2d4761-d84b-4fea-af88-2dd5d7eeca4c&#34; UUID_SUB=&#34;a0a703f9-31e6-4cb6-973d-2e1e9b935c85&#34; BLOCK_SIZE=&#34;4096&#34; TYPE=&#34;btrfs&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/sda1: UUID=&#34;87278135-9aec-4da7-9fe4-fca1ecf2aeb7&#34; TYPE=&#34;crypto_LUKS&#34; PARTLABEL=&#34;BACKUP&#34; PARTUUID=&#34;582af379-1f24-49df-8097-eecc6dba85d5&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/zram0: LABEL=&#34;zram0&#34; UUID=&#34;62d6119a-a230-4561-8b97-665a19d13267&#34; TYPE=&#34;swap&#34;</span>
+</span></span></code></pre></div><p>In my case <code>sda</code> is an internal SSD that I use for <a href="../../backup/#5-dell-precision-7520-linux">my backup strategy</a>, whereas <code>zram0</code> is the swap partition. The system is installed to <code>nvme0n1</code> and it has 3 partitions:</p>
+<ol>
+<li>a 600 MiB FAT32 EFI partition</li>
+<li>a 1024 MiB EXT4 partition for /boot</li>
+<li>a 486761MiB partition that contains the luks2 encrypted system files</li>
+</ol>
+<p>Let&rsquo;s have a closer look at the luks2-encrypted partition:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo cryptsetup luksDump /dev/nvme0n1p3
+</span></span><span class="line"><span class="cl"><span class="c1"># LUKS header information</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Version:       	2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Epoch:         	3</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Metadata area: 	16384 [bytes]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Keyslots area: 	16744448 [bytes]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID:          	8bf48ffa-78e1-4a16-ad9e-301b7199d8ac</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Label:         	(no label)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Subsystem:     	(no subsystem)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Flags:       		(no flags)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Data segments:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   0: crypt</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	offset: 16777216 [bytes]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	length: (whole device)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	cipher: aes-xts-plain64</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	sector: 512 [bytes]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Keyslots:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   0: luks2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	Key:        512 bits</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	Priority:   normal</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	Cipher:     aes-xts-plain64</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	Cipher key: 512 bits</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	PBKDF:      argon2id</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	Time cost:  9</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	Memory:     1048576</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	Threads:    4</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	Salt:       8e 3d 51 bb 28 42 8c 9e 3c 56 35 ec 74 c5 65 7f</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#              9f e9 53 29 fb 3b 43 b0 33 cf 2f e1 07 bc 7b c3 </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	AF stripes: 4000</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	AF hash:    sha256</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	Area offset:32768 [bytes]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	Area length:258048 [bytes]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	Digest ID:  0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Tokens:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Digests:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   0: pbkdf2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	Hash:       sha256</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	Iterations: 130290</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       Salt:     40 a3 2b 1a 57 3e e0 76 4f b9 e5 67 13 3f 3f 1f </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  	            46 f1 04 d3 3d 52 01 76 34 53 13 ee da 62 0a 9c </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  	Digest:     3f 5a dc 3b 61 10 75 a0 e6 d0 0c f9 91 d2 e4 17 </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  	            2c 2b 63 f4 47 38 24 67 bc 56 23 9e 92 89 30 6b</span>
+</span></span></code></pre></div><p>So this basically uses the default options to encrypt a partition with luks v2 (e.g. <code>cryptsetup luksFormat /dev/nvme0n1p3</code>). Let&rsquo;s have a look what is inside the encrypted partition:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo cat /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># luks-8bf48ffa-78e1-4a16-ad9e-301b7199d8ac UUID=8bf48ffa-78e1-4a16-ad9e-301b7199d8ac none discard</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ls /dev/mapper
+</span></span><span class="line"><span class="cl"><span class="c1"># control  luks-8bf48ffa-78e1-4a16-ad9e-301b7199d8ac</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo lsblk /dev/mapper/luks-8bf48ffa-78e1-4a16-ad9e-301b7199d8ac -f
+</span></span><span class="line"><span class="cl"><span class="c1"># NAME               FSTYPE FSVER LABEL UUID                                 FSAVAIL FSUSE% MOUNTPOINTS</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># luks-8bf48ffa-78e1-4a16-ad9e-301b7199d8ac</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#                    btrfs        fedora_localhost-live</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#                                       df2d4761-d84b-4fea-af88-2dd5d7eeca4c  470.5G     1% /home</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#                                                                                           /</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo btrfs filesystem usage /
+</span></span><span class="line"><span class="cl"><span class="c1"># Overall:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Device size:		      475.34GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Device allocated:		   5.02GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Device unallocated:		470.32GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Device missing:		   0.00B</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Used:			            4.01GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Free (estimated):		   470.47GiB	(min: 470.47GiB)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Free (statfs, df):		470.47GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Data ratio:			      1.00</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Metadata ratio:		   1.00</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Global reserve:		   10.75MiB	(used: 0.00B)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Multiple profiles:		no</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Data,single: Size:4.01GiB, Used:3.85GiB (96.09%)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/luks-8bf48ffa-78e1-4a16-ad9e-301b7199d8ac	   4.01GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Metadata,single: Size:1.01GiB, Used:167.72MiB (16.25%)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/luks-8bf48ffa-78e1-4a16-ad9e-301b7199d8ac	   1.01GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># System,single: Size:4.00MiB, Used:16.00KiB (0.39%)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/luks-8bf48ffa-78e1-4a16-ad9e-301b7199d8ac	   4.00MiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Unallocated:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/luks-8bf48ffa-78e1-4a16-ad9e-301b7199d8ac	 470.32GiB</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo btrfs device usage /
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/luks-8bf48ffa-78e1-4a16-ad9e-301b7199d8ac, ID: 1</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    Device size:           475.34GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    Device slack:              0.00B</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    Data,single:             4.01GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    Metadata,single:         1.01GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    System,single:           4.00MiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    Unallocated:           470.32GiB</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo btrfs subvolume list /
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 256 gen 51 top level 5 path home</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 257 gen 52 top level 5 path root</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 262 gen 26 top level 257 path var/lib/machines</span>
+</span></span></code></pre></div><p>From the <code>crypttab</code> we see that the mapped luks device is named <code>luks-8bf48ffa-78e1-4a16-ad9e-301b7199d8ac</code> where the number is the UUID of <code>/dev/nvme0n1p3</code>. The crypt is formatted with btrfs and contains three subvolumes</p>
+<ol>
+<li><code>home</code>: this is where <code>/home</code> is mounted to</li>
+<li><code>root</code>: this is where <code>/</code> is mounted to</li>
+<li><code>var/lib/machines</code> this is a nested subvolume to exclude virtual machine files (which tend to change all the times) from snapshots of <code>home</code> and <code>root</code></li>
+</ol>
+<p>This is also evident from the fstab:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo cat /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=df2d4761-d84b-4fea-af88-2dd5d7eeca4c /                       btrfs   subvol=root,compress=zstd:1,x-systemd.device-timeout=0 0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=c791c518-83e5-4dd5-8cdf-a47621f9019b /boot                   ext4    defaults        1 2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=4882-915D          /boot/efi               vfat    umask=0077,shortname=winnt 0 2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=df2d4761-d84b-4fea-af88-2dd5d7eeca4c /home                   btrfs   subvol=home,compress=zstd:1,x-systemd.device-timeout=0 0 0</span>
+</span></span></code></pre></div><p>where <code>UUID=df2d4761-d84b-4fea-af88-2dd5d7eeca4c</code> is the UUID of the mapped device <code>/dev/mapper/luks-8bf48ffa-78e1-4a16-ad9e-301b7199d8ac</code>. Note that by default the only optimized mount option is <code>zstd:1</code> which turns on compression.</p>
+<p>Lastly, swap is using 8GB of ZRAM:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo swapon
+</span></span><span class="line"><span class="cl"><span class="c1"># NAME       TYPE      SIZE USED PRIO</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/zram0 partition   8G   0B  100</span>
+</span></span></code></pre></div><h2 id="step-3-post-installation-steps">Step 3: Post-Installation steps</h2>
+<p><strong>All the steps below should be run from an interactive root shell:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo -i
+</span></span></code></pre></div><p>Otherwise some commands might not work properly.</p>
+<h3 id="step-3a-mount-the-btrfs-top-level-filesystem-to-btrfs_pool">Step 3a: Mount the btrfs top-level filesystem to /btrfs_pool</h3>
+<p>Let&rsquo;s mount our the top-level btrfs volume (which has always id 5) to a mount point <code>/btrfs_pool</code> using the fstab:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">mkdir /btrfs_pool
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;UUID=</span><span class="k">$(</span>blkid -s UUID -o value /dev/mapper/luks-<span class="k">$(</span>blkid -s UUID -o value /dev/nvme0n1p3<span class="k">))</span><span class="s2">  /btrfs_pool  btrfs  subvolid=5,compress=zstd:1,x-systemd.device-timeout=0 0 0&#34;</span> &gt;&gt; /etc/fstab
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=df2d4761-d84b-4fea-af88-2dd5d7eeca4c /                       btrfs   subvol=root,compress=zstd:1,x-systemd.device-timeout=0 0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=c791c518-83e5-4dd5-8cdf-a47621f9019b /boot                   ext4    defaults        1 2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=4882-915D                            /boot/efi               vfat    umask=0077,shortname=winnt 0 2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=df2d4761-d84b-4fea-af88-2dd5d7eeca4c /home                   btrfs   subvol=home,compress=zstd:1,x-systemd.device-timeout=0 0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=df2d4761-d84b-4fea-af88-2dd5d7eeca4c /btrfs_pool             btrfs   subvolid=5,compress=zstd:1,x-systemd.device-timeout=0 0 0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mount -av
+</span></span><span class="line"><span class="cl"><span class="c1"># /                        : ignored</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /boot                    : already mounted</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /boot/efi                : already mounted</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /home                    : already mounted</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># mount: /btrfs_pool does not contain SELinux labels.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        You just mounted a file system that supports labels which does not</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        contain labels, onto an SELinux box. It is likely that confined</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        applications will generate AVC messages and not be allowed access to</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        this file system.  For more details see restorecon(8) and mount(8).</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /btrfs_pool              : successfully mounted</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ls /btrfs_pool
+</span></span><span class="line"><span class="cl"><span class="c1"># home root</span>
+</span></span></code></pre></div><p>I am not sure what the <code>SELinux labels</code> warning means or how to avoid that, so if do you, let me know. I guess after the reboot this should not be a problem as you cannot have different mount options on the same partition (see below the <code>seclabel</code> mount option is set). Anyways, we can access our subvolumes from <code>/btrfs_pool</code>.</p>
+<h3 id="step-3b-optionally-use-optimized-mount-options">Step 3b (optionally): use optimized mount options</h3>
+<p>As the development of BTRFS continues and Fedora keeps pushing improvements upstream, I only change three mount options to optimize performance and durability on SSD or NVME drives:</p>
+<ul>
+<li><code>ssd</code>: use SSD specific options for optimal use on SSD and NVME (this is probably redundant as BTRFS detects SSDs and NVMes automatically)</li>
+<li><code>compress=zstd</code>: allows to specify the compression algorithm which we want to use. btrfs provides lzo, zstd and zlib compression algorithms. Based on some Phoronix test cases, zstd seems to be the better performing candidate. Fedora has started to use v1, I will use v3.</li>
+<li><code>discard=async</code>: <a href="https://www.phoronix.com/scan.php?page=news_item&amp;px=Btrfs-Async-Discard" target="_blank" rel="noopener">Btrfs Async Discard Support Looks To Be Ready For Linux 5.6</a></li>
+</ul>
+<p>Let&rsquo;s make these changes with a text editor, e.g. <code>nano /etc/fstab</code> or use these <code>sed</code> commands which replace the mount options</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/compress=zstd:1/ssd,compress=zstd,discard=async/&#39;</span> /etc/fstab
+</span></span></code></pre></div><p>Either way your <code>fstab</code> should look like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">cat /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=df2d4761-d84b-4fea-af88-2dd5d7eeca4c /            btrfs   subvol=root,ssd,compress=zstd,discard=async,x-systemd.device-timeout=0  0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=c791c518-83e5-4dd5-8cdf-a47621f9019b /boot        ext4    defaults                                                                1 2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=4882-915D                            /boot/efi    vfat    umask=0077,shortname=winnt                                              0 2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=df2d4761-d84b-4fea-af88-2dd5d7eeca4c /home        btrfs   subvol=home,ssd,compress=zstd,discard=async,x-systemd.device-timeout=0  0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=df2d4761-d84b-4fea-af88-2dd5d7eeca4c /btrfs_pool  btrfs   subvolid=5,ssd,compress=zstd,discard=async,x-systemd.device-timeout=0   0 0</span>
+</span></span></code></pre></div><p>Let&rsquo;s reboot to see whether this worked:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">reboot now
+</span></span></code></pre></div><p>So after the restart, check the following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">mount -v <span class="p">|</span> grep /dev/mapper
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/luks-8bf48ffa-78e1-4a16-ad9e-301b7199d8ac on / type btrfs (rw,relatime,seclabel,compress=zstd:3,ssd,discard=async,space_cache,subvolid=257,subvol=/root)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/luks-8bf48ffa-78e1-4a16-ad9e-301b7199d8ac on /btrfs_pool type btrfs (rw,relatime,seclabel,compress=zstd:3,ssd,discard=async,space_cache,subvolid=5,subvol=/)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/luks-8bf48ffa-78e1-4a16-ad9e-301b7199d8ac on /home type btrfs (rw,relatime,seclabel,compress=zstd:3,ssd,discard=async,space_cache,subvolid=256,subvol=/home)</span>
+</span></span></code></pre></div><p>This should reflect the changes you just made in the fstab. Note that you cannot have different mount options for your subvolumes on the same partition.</p>
+<h2 id="step-4-automatic-snapshots-and-backups-with-btrfs-using-btrbk">Step 4: automatic snapshots and backups with btrfs using BTRBK</h2>
+<p><strong>All the steps below should be run from an interactive root shell:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo -i
+</span></span></code></pre></div><p>Otherwise some commands might not work properly.</p>
+<h3 id="step-4a-preparations">Step 4a: preparations</h3>
+<p>If you haven&rsquo;t done already, create a mount point <code>/btrfs_pool</code> for the top-level root of my btrfs partition (see above) as BTRBK needs a folder or subvolume to store the snapshots under the top-level. Let&rsquo;s call this folder <code>_btrbk_snap</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">mkdir /btrfs_pool/_btrbk_snap
+</span></span><span class="line"><span class="cl">ls /btrfs_pool
+</span></span><span class="line"><span class="cl"><span class="c1"># _btrbk_snap home root</span>
+</span></span></code></pre></div><p>Note that <code>_btrbk_snap</code> is a folder, whereas <code>home</code> and <code>root</code> are subvolumes.</p>
+<h3 id="step-4b-install-and-configure-btrbk-for-snapshots">Step 4b: install and configure BTRBK for snapshots</h3>
+<p>Install BTRBK from the repos:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">dnf install -y btrbk
+</span></span></code></pre></div><p>Next let&rsquo;s create the following configuration file at the default location <code>/etc/btrbk/</code> (there is also a <code>btrbk.conf.example</code> file with more explanations):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">nano /etc/btrbk/btrbk.conf
+</span></span></code></pre></div><p>My configuration file (just for snapshots, I&rsquo;ll cover the configuration file with a target for send/receive backups below) looks like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">transaction_log         /var/log/btrbk.log
+</span></span><span class="line"><span class="cl">lockfile                /var/lock/btrbk.lock
+</span></span><span class="line"><span class="cl">timestamp_format        long
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">snapshot_dir            _btrbk_snap
+</span></span><span class="line"><span class="cl">snapshot_preserve_min   3h
+</span></span><span class="line"><span class="cl">snapshot_preserve       6h 5d 3w 1m
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">volume /btrfs_pool
+</span></span><span class="line"><span class="cl">  snapshot_create  always
+</span></span><span class="line"><span class="cl">  subvolume root
+</span></span><span class="line"><span class="cl">  subvolume home
+</span></span></code></pre></div><p>This looks into <code>/btrfs_pool</code> and creates snapshots for the subvolumes <code>root</code> and <code>home</code> into the directory <code>/btrfs_pool/_btrbk_snap</code>. All snapshots are preserved for at least 3 hours, while the usual retention policy is to keep 6 hourly, 5 daily, 3 weekly and 1 monthly snapshot. Let&rsquo;s test this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">btrbk dryrun
+</span></span><span class="line"><span class="cl"><span class="c1"># --------------------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Backup Summary (btrbk command line client, version 0.28.3)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Date:   Tue Dec 14 10:34:23 2021</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Config: /etc/btrbk.conf</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Dryrun: YES</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Legend:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     ===  up-to-date subvolume (source snapshot)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     +++  created subvolume (source snapshot)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     ---  deleted subvolume</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     ***  received subvolume (non-incremental)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     &gt;&gt;&gt;  received subvolume (incremental)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># --------------------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /btrfs_pool/root</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># +++ /btrfs_pool/_btrbk_snap/root.20211214T1034</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /btrfs_pool/home</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># +++ /btrfs_pool/_btrbk_snap/home.20211214T1034</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># NOTE: Dryrun was active, none of the operations above were actually executed!</span>
+</span></span></code></pre></div><p>If there was no error, let&rsquo;s actually run this to create our first snapshots (this should take a fraction of a second, that&rsquo;s the beauty of copy-on-write snapshots) and see whether they are stored correctly:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">btrbk run
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ls /btrfs_pool/_btrbk_snap
+</span></span><span class="line"><span class="cl"><span class="c1"># home.20211214T1035  root.20211214T1035</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">btrfs subvolume list /
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 256 gen 118 top level 5 path home</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 257 gen 119 top level 5 path root</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 262 gen 101 top level 257 path var/lib/machines</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 266 gen 117 top level 5 path _btrbk_snap/root.20211214T1035</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 267 gen 118 top level 5 path _btrbk_snap/home.20211214T1035</span>
+</span></span></code></pre></div><p>Now you can always revert your system to <code>root.20211214T1035</code> or restore your home files from <code>home.20211214T1035</code>. Note that BTRBK by default creates read-only snapshots, so if you want to restore your whole system to a certain snapshot you need to follow the <a href="https://github.com/digint/btrbk#restoring-backups" target="_blank" rel="noopener">restore backups with BTRBK guide</a>.</p>
+<h3 id="step-4c-create-systemd-timer-for-btrbk-to-run-every-hour">Step 4c: create systemd timer for BTRBK to run every hour</h3>
+<p>On servers that run constantly I usually use the <code>crontab</code> for automatic snapshots with BTRBK; however, on my laptop I use a systemd timer instead. First let&rsquo;s check the timer and service that is shipped with BTRBK:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">systemctl status btrbk.service
+</span></span><span class="line"><span class="cl"><span class="c1"># ○ btrbk.service - btrbk backup</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#      Loaded: loaded (/usr/lib/systemd/system/btrbk.service; static)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#      Active: inactive (dead)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        Docs: man:btrbk(1)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">systemctl status btrbk.timer
+</span></span><span class="line"><span class="cl"><span class="c1"># ○ btrbk.timer - btrbk daily backup</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#      Loaded: loaded (/usr/lib/systemd/system/btrbk.timer; disabled; vendor preset: disabled)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#      Active: inactive (dead)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Trigger: n/a</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    Triggers: ● btrbk.service</span>
+</span></span></code></pre></div><p>Test if the service works (tip: you can exit the log outputs by writing <code>:q</code> or hitting <code>CTRL+C</code>):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">systemctl start btrbk.service
+</span></span><span class="line"><span class="cl">systemctl status btrbk.service
+</span></span><span class="line"><span class="cl"><span class="c1"># ○ btrbk.service - btrbk snapshots and backup</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#      Loaded: loaded (/usr/lib/systemd/system/btrbk.service; static)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#      Active: inactive (dead)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        Docs: man:btrbk(1)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Dec 14 10:44:17 fedora.fritz.box btrbk[26497]:     ---  deleted subvolume</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Dec 14 10:44:17 fedora.fritz.box btrbk[26497]:     ***  received subvolume (non-incremental)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Dec 14 10:44:17 fedora.fritz.box btrbk[26497]:     &gt;&gt;&gt;  received subvolume (incremental)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Dec 14 10:44:17 fedora.fritz.box btrbk[26497]: # ----------------------------------------------------------------------&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Dec 14 10:44:17 fedora.fritz.box btrbk[26497]: /btrfs_pool/root</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Dec 14 10:44:17 fedora.fritz.box btrbk[26497]: +++ /btrfs_pool/_btrbk_snap/root.20211214T1044</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Dec 14 10:44:17 fedora.fritz.box btrbk[26497]: /btrfs_pool/home</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Dec 14 10:44:17 fedora.fritz.box btrbk[26497]: +++ /btrfs_pool/_btrbk_snap/home.20211214T1044</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Dec 14 10:44:17 fedora.fritz.box systemd[1]: btrbk.service: Deactivated successfully.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Dec 14 10:44:17 fedora.fritz.box systemd[1]: Finished btrbk snapshots and backup.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat /var/log/btrbk.log
+</span></span><span class="line"><span class="cl"><span class="c1"># 2021-12-14T10:44:17+0100 startup v0.28.3 - - - # btrbk command line client, version 0.28.3</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2021-12-14T10:44:17+0100 snapshot starting /btrfs_pool/_btrbk_snap/root.20211214T1044 /btrfs_pool/root - -</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2021-12-14T10:44:17+0100 snapshot success /btrfs_pool/_btrbk_snap/root.20211214T1044 /btrfs_pool/root - -</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2021-12-14T10:44:17+0100 snapshot starting /btrfs_pool/_btrbk_snap/home.20211214T1044 /btrfs_pool/home - -</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2021-12-14T10:44:17+0100 snapshot success /btrfs_pool/_btrbk_snap/home.20211214T1044 /btrfs_pool/home - -</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2021-12-14T10:44:17+0100 finished success - - - -</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ls /btrfs_pool/_btrbk_snap
+</span></span><span class="line"><span class="cl"><span class="c1"># home.20211214T1035  home.20211214T1044  root.20211214T1035  root.20211214T1044</span>
+</span></span></code></pre></div><p>Check if snapshots are created or if any errors occurred. If not, then let&rsquo;s make a small change to the timer</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">nano /lib/systemd/system/btrbk.timer
+</span></span></code></pre></div><p>and make it run <code>hourly</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="o">[</span>Unit<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Description</span><span class="o">=</span>btrbk hourly snapshots and backup
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Timer<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">OnCalendar</span><span class="o">=</span>hourly
+</span></span><span class="line"><span class="cl"><span class="nv">AccuracySec</span><span class="o">=</span>10min
+</span></span><span class="line"><span class="cl"><span class="nv">Persistent</span><span class="o">=</span><span class="nb">true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Install<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+</span></span></code></pre></div><p>Enable and start the timer:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">systemctl <span class="nb">enable</span> btrbk.timer
+</span></span><span class="line"><span class="cl"><span class="c1"># Created symlink /etc/systemd/system/multi-user.target.wants/btrbk.timer → /usr/lib/systemd/system/btrbk.timer.</span>
+</span></span><span class="line"><span class="cl">systemctl start btrbk.timer
+</span></span><span class="line"><span class="cl">systemctl daemon-reload
+</span></span><span class="line"><span class="cl">systemctl list-timers --all
+</span></span></code></pre></div><p>You should see the following line (tip: you can exit by inserting <code>:q</code> or clicking <code>CTRL+C</code>):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">NEXT                        LEFT          LAST                        PASSED       UNIT                         ACTIVATES                     
+</span></span><span class="line"><span class="cl">Tue 2021-12-14 11:00:00 CET 13min left    n/a                         n/a          btrbk.timer                  btrbk.service
+</span></span></code></pre></div><p>Recheck the hourly timer after an hour (or 13min in my case) to make sure everything is working:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">systemctl list-timers --all
+</span></span><span class="line"><span class="cl">cat /var/log/btrbk.log
+</span></span><span class="line"><span class="cl">ls /btrfs_pool/_btrbk_snap
+</span></span></code></pre></div><p>Make sure the snapshots are created without errors.</p>
+<h2 id="step-5-optional-mount-an-encrypted-backup-disk-as-btrfs-sendreceive-target">Step 5 (optional): Mount an encrypted backup disk as btrfs send/receive target</h2>
+<p>I use my internal SSD as a backup disk to receive the incremental btrfs snapshots. The steps, however, also work with an external USB disk.
+<strong>All the steps below should be run from an interactive root shell:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo -i
+</span></span></code></pre></div><p>Otherwise some commands might not work properly.</p>
+<h3 id="step-5a-preparations">Step 5a: Preparations</h3>
+<p>So let&rsquo;s create a GPT table on it, create an encrypted partition and format it with the btrfs filesystem. I usually use GParted (<code>dnf install gparted</code>); however, you can also use command-line tools like <code>parted</code>, e.g.:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">parted /dev/sda mklabel gpt
+</span></span><span class="line"><span class="cl"><span class="c1"># Warning: The existing disk label on /dev/sda will be destroyed and all data on this disk will</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># be lost. Do you want to continue?</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Yes/No? Yes                                                               </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Information: You may need to update /etc/fstab.</span>
+</span></span><span class="line"><span class="cl">parted /dev/sda mkpart primary 1MiB 100%
+</span></span><span class="line"><span class="cl"><span class="c1"># Information: You may need to update /etc/fstab.</span>
+</span></span><span class="line"><span class="cl">parted /dev/sda name <span class="m">1</span> BACKUP
+</span></span><span class="line"><span class="cl">parted /dev/sda unit MiB print
+</span></span><span class="line"><span class="cl"><span class="c1"># Model: ATA Samsung SSD 840 (scsi)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Disk /dev/sda: 476940MiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Sector size (logical/physical): 512B/512B</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Partition Table: gpt</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Disk Flags: </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Number  Start    End        Size       File system  Name    Flags</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  1      1.00MiB  476940MiB  476939MiB               BACKUP</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cryptsetup luksFormat /dev/sda1
+</span></span><span class="line"><span class="cl"><span class="c1"># WARNING: Device /dev/sda1 already contains a &#39;crypto_LUKS&#39; superblock signature.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># WARNING!</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ========</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># This will overwrite data on /dev/sda1 irrevocably.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Are you sure? (Type &#39;yes&#39; in capital letters): YES</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Enter passphrase for /dev/sda1: </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Verify passphrase: </span>
+</span></span></code></pre></div><p><strong>If you set the same passphrase as for your system disk, then you won&rsquo;t have to enter the passphrase twice at boot. This is what I usually do; otherwise you would need to create keyfiles which I won&rsquo;t cover in this guide.</strong></p>
+<p>Lets continue:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">cryptsetup luksOpen /dev/sda1 cryptbackup
+</span></span><span class="line"><span class="cl"><span class="c1"># Enter passphrase for /dev/sda1: </span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mkfs.btrfs /dev/mapper/cryptbackup 
+</span></span><span class="line"><span class="cl"><span class="c1"># btrfs-progs v5.15.1 </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># See http://btrfs.wiki.kernel.org for more information.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># NOTE: several default settings have changed in version 5.15, please make sure</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       this does not affect your deployments:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       - DUP for metadata (-m dup)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       - enabled no-holes (-O no-holes)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       - enabled free-space-tree (-R free-space-tree)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Label:              (null)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID:               94b22aac-7697-4b2b-af88-c32870807984</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Node size:          16384</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Sector size:        4096</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Filesystem size:    465.75GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Block group profiles:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   Data:             single            8.00MiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   Metadata:         DUP               1.00GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   System:           DUP               8.00MiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># SSD detected:       yes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Zoned device:       no</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Incompat features:  extref, skinny-metadata, no-holes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Runtime features:   free-space-tree</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Checksum:           crc32c</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Number of devices:  1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Devices:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    ID        SIZE  PATH</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     1   465.75GiB  /dev/mapper/cryptbackup</span>
+</span></span></code></pre></div><p>Let&rsquo;s create a mount point <code>/btrfs_backup</code> for this disk and update the fstab to mount this at boot:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">mkdir /btrfs_backup
+</span></span></code></pre></div><p>Of course if you are using an external USB drive then skip this and the below changes to the fstab and to the crypttab. The mount point of your external disk will be in <code>/media/run/$USER/</code> and you can simply save the passphrase to your keyring to automatically unlock it when connecting it to your system. If you work with an internal backup disk, then continue.</p>
+<p>So, next I add an entry to the fstab to mount this at boot time:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;UUID=</span><span class="k">$(</span>blkid -s UUID -o value /dev/mapper/cryptbackup<span class="k">)</span><span class="s2">  /btrfs_backup  btrfs  subvolid=5,ssd,compress=zstd,discard=async,x-systemd.device-timeout=0,x-systemd.after=/   0 0&#34;</span> &gt;&gt; /etc/fstab
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=df2d4761-d84b-4fea-af88-2dd5d7eeca4c  /              btrfs   subvol=root,ssd,compress=zstd,discard=async,x-systemd.device-timeout=0                    0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=c791c518-83e5-4dd5-8cdf-a47621f9019b  /boot          ext4    defaults                                                                                  1 2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=4882-915D                             /boot/efi      vfat    umask=0077,shortname=winnt                                                                0 2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=df2d4761-d84b-4fea-af88-2dd5d7eeca4c  /home          btrfs   subvol=home,ssd,compress=zstd,discard=async,x-systemd.device-timeout=0                    0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=df2d4761-d84b-4fea-af88-2dd5d7eeca4c  /btrfs_pool    btrfs   subvolid=5,ssd,compress=zstd,discard=async,x-systemd.device-timeout=0                     0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=94b22aac-7697-4b2b-af88-c32870807984  /btrfs_backup  btrfs   subvolid=5,ssd,compress=zstd,discard=async,x-systemd.device-timeout=0,x-systemd.after=/   0 0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mount -av
+</span></span><span class="line"><span class="cl"><span class="c1"># /btrfs_backup            : successfully mounted</span>
+</span></span></code></pre></div><p>Next, we need to make the crypttab aware of the encrypted backup disk:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;cryptbackup UUID=</span><span class="k">$(</span>blkid -s UUID -o value /dev/sda1<span class="k">)</span><span class="s2"> none discard&#34;</span> &gt;&gt; /etc/crypttab
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># luks-8bf48ffa-78e1-4a16-ad9e-301b7199d8ac UUID=8bf48ffa-78e1-4a16-ad9e-301b7199d8ac none discard</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cryptbackup                               UUID=47b0e8eb-51c8-40ad-8006-186f965236a2 none discard</span>
+</span></span></code></pre></div><p>Update the initramfs:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">dracut --force --regenerate-all
+</span></span></code></pre></div><p>Before we continue, let&rsquo;s test this by restarting the system.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">reboot now
+</span></span></code></pre></div><p>If you chose the same passphrase as for your system disk, you should be only asked once for a luks passphrase. Note that you can always change the passphrase in Gnome Disks by selecting the luks partition and the symbol for options will give you an option to change the passphrase. If you want to use different passphrases then you would need to create keyfiles which is a bit messy in Fedora, so I usually simply stick to the same passphrase for convenience. If you are using an external USB drive then these steps can be skipped and you can simply add the luks passphrase to your keyring to automatically unlock it when it is connected; the mount point will be in <code>/media/run/$USER/</code>.</p>
+<h3 id="step-5b-add-target-for-btrfs-sendreceive-in-btrbk-configuration-file">Step 5b: Add target for btrfs send/receive in BTRBK configuration file</h3>
+<p>We need to add <code>/btrfs_backup</code> as a target with a retention policy in our BTRBK configuration file:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">nano /etc/btrbk/btrbk.conf
+</span></span></code></pre></div><p>My file with the target looks like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">transaction_log         /var/log/btrbk.log
+</span></span><span class="line"><span class="cl">lockfile                /var/lock/btrbk.lock
+</span></span><span class="line"><span class="cl">timestamp_format        long
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">snapshot_dir            _btrbk_snap
+</span></span><span class="line"><span class="cl">snapshot_preserve_min   3h
+</span></span><span class="line"><span class="cl">snapshot_preserve       6h 5d 3w 1m
+</span></span><span class="line"><span class="cl">target_preserve_min     3h
+</span></span><span class="line"><span class="cl">target_preserve         24h 31d 52w
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">volume /btrfs_pool
+</span></span><span class="line"><span class="cl">  snapshot_create  always
+</span></span><span class="line"><span class="cl">  target send-receive /btrfs_backup
+</span></span><span class="line"><span class="cl">  subvolume root
+</span></span><span class="line"><span class="cl">  subvolume home
+</span></span></code></pre></div><p>For external disks, there is an <code>on-demand</code> flag you can set, see the <a href="https://github.com/digint/btrbk#example-backups-to-usb-disk" target="_blank" rel="noopener">example configuration for backups to a usb disk</a>.</p>
+<p>Either way, let&rsquo;s run BTRBK in dry mode first:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">btrbk dryrun
+</span></span><span class="line"><span class="cl"><span class="c1"># WARNING: Failed to parse subvolume detail &#34;Send transid: 0&#34; for: /btrfs_pool</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># WARNING: Failed to parse subvolume detail &#34;Send time: 2021-12-14 09:23:35 +0100&#34; for: /btrfs_pool</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># WARNING: Failed to parse subvolume detail &#34;Receive transid: 0&#34; for: /btrfs_pool</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># WARNING: Failed to parse subvolume detail &#34;Receive time: -&#34; for: /btrfs_pool</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># WARNING: Failed to parse subvolume detail &#34;Send transid: 0&#34; for: /btrfs_backup</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># WARNING: Failed to parse subvolume detail &#34;Send time: 2021-12-14 10:56:21 +0100&#34; for: /btrfs_backup</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># WARNING: Failed to parse subvolume detail &#34;Receive transid: 0&#34; for: /btrfs_backup</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># WARNING: Failed to parse subvolume detail &#34;Receive time: -&#34; for: /btrfs_backup</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># --------------------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Backup Summary (btrbk command line client, version 0.28.3)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Date:   Tue Dec 14 11:23:24 2021</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Config: /etc/btrbk/btrbk.conf</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Dryrun: YES</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Legend:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     ===  up-to-date subvolume (source snapshot)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     +++  created subvolume (source snapshot)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     ---  deleted subvolume</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     ***  received subvolume (non-incremental)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     &gt;&gt;&gt;  received subvolume (incremental)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># --------------------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /btrfs_pool/root</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># +++ /btrfs_pool/_btrbk_snap/root.20211214T1123</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># *** /btrfs_backup/root.20211214T1035</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &gt;&gt;&gt; /btrfs_backup/root.20211214T1044</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &gt;&gt;&gt; /btrfs_backup/root.20211214T1100</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &gt;&gt;&gt; /btrfs_backup/root.20211214T1123</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /btrfs_pool/home</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># +++ /btrfs_pool/_btrbk_snap/home.20211214T1123</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># *** /btrfs_backup/home.20211214T1035</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &gt;&gt;&gt; /btrfs_backup/home.20211214T1044</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &gt;&gt;&gt; /btrfs_backup/home.20211214T1100</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &gt;&gt;&gt; /btrfs_backup/home.20211214T1123</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># NOTE: Dryrun was active, none of the operations above were actually executed!</span>
+</span></span></code></pre></div><p>You can see that the first snapshots are sent in full, whereas the remaining ones are sent incrementally and therefore will be very fast. If there was no error (you can ignore the Warnings), run it:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">btrbk run --progress
+</span></span></code></pre></div><p>This might take a minute, because the initial backup is transferred to your backup disk. All other snapshots will be sent and received incrementally.</p>
+<p>Check if all snapshots are both in <code>/btrfs_pool/_btrbk_snap</code> and <code>/btrfs_backup</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">btrfs subvolume list /btrfs_pool/_btrbk_snap
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 256 gen 168 top level 5 path home</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 257 gen 169 top level 5 path root</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 262 gen 159 top level 257 path root/var/lib/machines</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 266 gen 117 top level 5 path _btrbk_snap/root.20211214T1035</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 267 gen 118 top level 5 path _btrbk_snap/home.20211214T1035</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 270 gen 128 top level 5 path _btrbk_snap/root.20211214T1044</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 271 gen 129 top level 5 path _btrbk_snap/home.20211214T1044</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 272 gen 140 top level 5 path _btrbk_snap/root.20211214T1100</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 273 gen 141 top level 5 path _btrbk_snap/home.20211214T1100</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 274 gen 167 top level 5 path _btrbk_snap/root.20211214T1126</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 275 gen 169 top level 5 path _btrbk_snap/home.20211214T1126</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">btrfs subvolume list /btrfs_backup
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 256 gen 20 top level 5 path root.20211214T1035</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 257 gen 23 top level 5 path root.20211214T1044</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 258 gen 26 top level 5 path root.20211214T1100</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 259 gen 41 top level 5 path root.20211214T1126</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 260 gen 32 top level 5 path home.20211214T1035</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 261 gen 35 top level 5 path home.20211214T1044</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 262 gen 38 top level 5 path home.20211214T1100</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 263 gen 41 top level 5 path home.20211214T1126</span>
+</span></span></code></pre></div><p>Re-run btrbk to see that (as no files have been changed on the disk) the next snapshots and send/receive backups are instant:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">btrbk run --progress
+</span></span></code></pre></div><h2 id="final-remarks">Final remarks</h2>
+<p>That&rsquo;s it. Remember to check in the next couple of hours or days whether the systemd timer works and both snapshots as well as backups are created according to your retention policy.</p>
+<p><strong>FINISHED! CONGRATULATIONS AND THANKS FOR STICKING THROUGH!</strong></p>
+<p><strong>Check out my <a href="../fedora-post-install">Fedora post-installation steps</a>.</strong></p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Note that in a previous guide for <a href="../fedora-btrfs-33">Fedora 33</a> I showed how to rename the default subvolumes in Fedora from <code>root</code> and <code>home</code> to <code>@</code> and <code>@home</code> in order to make <a href="https://github.com/teejee2008/timeshift" target="_blank" rel="noopener">Timeshift</a> work properly. However, in this guide, I will focus on BTRBK instead of Timeshift as it provides an automatic way to not only make snapshots (like Timeshift) but also to make backups to another disk via btrfs send/receive. Moreover, in the previous guide I also showed how to optionally encrypt the boot partition; however, I typically use a Yubikey to unlock my luks partition(s) and that only works with a non-encrypted boot partition. Moreover, my personal thread level is that it is more likely that I&rsquo;ll loose my Laptop and I don&rsquo;t want people to access my files. The scenario where a person injects malicious code into my boot partition and the kernel files to then take over my computer is not relevant for me.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+          </div>
+
+          
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/linux/">linux</a>
+  
+  <a class="badge badge-light" href="/tag/fedora/">fedora</a>
+  
+  <a class="badge badge-light" href="/tag/install-guide/">install guide</a>
+  
+  <a class="badge badge-light" href="/tag/btrfs/">btrfs</a>
+  
+  <a class="badge badge-light" href="/tag/luks/">luks</a>
+  
+  <a class="badge badge-light" href="/tag/timeshift/">timeshift</a>
+  
+</div>
+
+
+
+          
+          
+          <div class="article-widget">
+            
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/linux/fedora-post-install/" rel="next">Fedora Workstation: Things to do after installation (Apps, Settings, and Tweaks)</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/linux/pop-os-btrfs-21-10/" rel="prev">DRAFT: Pop!_OS 21.10: installation guide with btrfs-LVM-luks and auto snapshots with BTRBK</a>
+  </div>
+  
+</div>
+
+          </div>
+          
+        </div>
+
+        <div class="body-footer">
+          <p>Last updated on Jun 17, 2022</p>
+
+          
+
+
+
+          
+
+
+
+
+          
+
+
+        </div>
+
+      </article>
+
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+  </p>
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2022 Willi Mutschler. This work is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank">CC BY SA 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-sa fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+
+    </main>
+  </div>
+</div>
+
+  </div>
+
+  <div class="page-footer">
+    
+    
+  </div>
+
+      
+
+    
+    <script src="/js/vendor-bundle.min.3d946de2e8784a477845261d87025092.js"></script>
+
+    
+    
+    
+      
+      
+        <script src="https://cdn.jsdelivr.net/gh/desandro/imagesloaded@v4.1.4/imagesloaded.pkgd.min.js" integrity="sha512-S5PZ9GxJZO16tT9r3WJp/Safn31eu8uWrzglMahDT4dsmgqWonRY9grk3j+3tfuPr9WJNsfooOR7Gi7HL5W2jw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/metafizzy/isotope@v3.0.6/dist/isotope.pkgd.min.js" integrity="sha512-Zq2BOxyhvnRFXu0+WE6ojpZLOU2jdnqbrM1hmVdGzyeCa1DgM3X5Q4A/Is9xA1IkbUeDd7755dNNI/PzSf2Pew==" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/r.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/matlab.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+      <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script src="https://cdn.jsdelivr.net/gh/bryanbraun/anchorjs@4.2.2/anchor.min.js" integrity="sha512-I7w3ZdSFzw5j3jU3ZkNikBNeIrl3i+hEuEdwNmqUJvwNcaBUNcijnP2gd9DtGlgVYDplfjGoD8vTNsID+lCjqg==" crossorigin="anonymous"></script>
+    <script>
+      anchors.add();
+    </script>
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+
+    
+    
+    
+    <script id="page-data" type="application/json">{"use_headroom":false}</script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.9162604ef5b82e6fdeff386200ab6db9.js"></script>
+
+    
+    
+      <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+    
+    
+    
+    
+
+
+
+
+
+
+</body>
+</html>

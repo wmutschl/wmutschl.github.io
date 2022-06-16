@@ -1,0 +1,1343 @@
+<!DOCTYPE html><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.4.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Willi Mutschler" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="In this guide I will walk you through the installation procedure to get a Fedora workstation 33 system with a luks-encrypted partition for the root filesystem (optionally including /boot) formatted with btrfs that contains (renamed) subvolumes @ and @home for / and /home, respectively. I will show how to optimize the btrfs mount options and, in case /boot is on the encrypted partition, how to add a key-file to type the luks passphrase only once for GRUB. This layout enables one to use Timeshift which will regularly take snapshots of the system. Moreover, using grub-btrfs all snapshots can be accessed and booted into from the GRUB menu." />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://mutschler.dev/linux/fedora-btrfs-33/" />
+
+  
+  
+  
+    <meta name="theme-color" content="#bbdefb" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.c7b8d9abd591ba2253ea42747e3ac3f5.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css" integrity="sha512-W0xM4mr6dEP9nREo7Z9z+9X70wytKvMGeDsj7ps2+xg5QPrEBXC8tAW1IFnzjR6eoJ90JmCnFzerQJTLzIEHjA==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'" disabled>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'">
+        
+      
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.0b8400c2e374cd7dd4f9ae4909fd9914.css" />
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://mutschler.dev/linux/fedora-btrfs-33/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary" />
+  
+  <meta property="og:site_name" content="mutschler.dev" />
+  <meta property="og:url" content="https://mutschler.dev/linux/fedora-btrfs-33/" />
+  <meta property="og:title" content="Fedora Workstation 33: installation guide with btrfs-luks full disk encryption (optionally including /boot) and auto snapshots with Timeshift | mutschler.dev" />
+  <meta property="og:description" content="In this guide I will walk you through the installation procedure to get a Fedora workstation 33 system with a luks-encrypted partition for the root filesystem (optionally including /boot) formatted with btrfs that contains (renamed) subvolumes @ and @home for / and /home, respectively. I will show how to optimize the btrfs mount options and, in case /boot is on the encrypted partition, how to add a key-file to type the luks passphrase only once for GRUB. This layout enables one to use Timeshift which will regularly take snapshots of the system. Moreover, using grub-btrfs all snapshots can be accessed and booted into from the GRUB menu." /><meta property="og:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" />
+    <meta property="twitter:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2020-11-04T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2022-06-17T13:47:19&#43;02:00">
+  
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Fedora Workstation 33: installation guide with btrfs-luks full disk encryption (optionally including /boot) and auto snapshots with Timeshift | mutschler.dev</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper  dark " data-wc-page-id="e784ad69c45592fa659498b3a227713f" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.6c07fd79b08c404df0504bd310968f2f.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="header--fixed">
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/apple/"><span>Apple</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link  active" href="/linux/"><span>Linux</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/stuff/"><span>Stuff</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://buymeacoffee.com/mutschler" data-toggle="tooltip" data-placement="bottom" title="Buy me a coffee" target="_blank" rel="noopener" aria-label="Buy me a coffee">
+                <i class="fas fa-coffee" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="mailto:willi@mutschler.dev" data-toggle="tooltip" data-placement="bottom" title="Write me an email"  aria-label="Write me an email">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://github.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on GitHub" target="_blank" rel="noopener" aria-label="Follow me on GitHub">
+                <i class="fab fa-github" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://gitlab.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on Gitlab" target="_blank" rel="noopener" aria-label="Follow me on Gitlab">
+                <i class="fab fa-gitlab" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://www.youtube.com/c/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on YouTube" target="_blank" rel="noopener" aria-label="Follow me on YouTube">
+                <i class="fab fa-youtube" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        
+
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    
+
+
+
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      <form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-md-3 w-100" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <div class="d-flex">
+      <span class="d-md-none pl-1 flex-grow-1 text-left overflow-hidden">
+        
+          Linux
+        
+      </span>
+      <span><i class="fas fa-chevron-down"></i></span>
+    </div>
+  </button>
+
+  
+  <button class="form-control sidebar-search js-search d-none d-md-flex">
+    <i class="fas fa-search pr-2"></i>
+    <span class="sidebar-search-text">Search...</span>
+    <span class="sidebar-search-shortcut">/</span>
+  </button>
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+  
+  
+  
+  
+  
+
+  
+  
+    
+
+    
+      
+
+      
+
+
+  
+    
+    
+    
+    
+      
+    
+    
+
+    
+      <ul class="nav docs-sidenav">
+        <li class=""><a href="/linux/">Linux</a></li>
+    
+      
+
+
+  <li class=""><a href="/linux/elementary-os-post-install/">elementary OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/elementary-os-6-1/">elementary OS 6.1 Jólnir: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-22-04/">Pop!_OS 22.04: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-post-install/">Pop!_OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-post-install/">Fedora Workstation: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-btrfs-35/">Fedora Workstation 35 with automatic btrfs snapshots and backups using BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-10/">DRAFT: Pop!_OS 21.10: installation guide with btrfs-LVM-luks and auto snapshots with BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-04/">Pop!_OS 21.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/raspi-post-install/">Ubuntu Server Raspberry Pi: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/raspi-btrfs/">Ubuntu Server 20.10 on Raspberry Pi 4: installation guide with USB Boot (no SD card) and full disk encryption (excluding /boot) using btrfs-inside-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class="active"><a href="/linux/fedora-btrfs-33/">Fedora Workstation 33: installation guide with btrfs-luks full disk encryption (optionally including /boot) and auto snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/btrfs/">Why I (still) like btrfs</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-btrfs-raid1-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks-RAID1 full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-btrfs-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-post-install/">Ubuntu Desktop: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-raid1-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks-RAID1 and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/timeshift/">Timeshift</a></li>
+
+      
+    
+
+    
+      </ul>
+    
+
+  
+</nav>
+
+    </div>
+
+    
+    
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      
+
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+      </ul>
+
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#step-0-general-remarks">Step 0: General remarks</a></li>
+    <li><a href="#step-1-graphical-installer-with-automatic-configuration-and-encryption">Step 1: Graphical installer with automatic configuration and encryption</a></li>
+    <li><a href="#step-2-post-installation-steps">Step 2: Post-Installation steps</a>
+      <ul>
+        <li><a href="#mount-the-btrfs-top-level-root-filesystem">Mount the btrfs top-level root filesystem</a></li>
+        <li><a href="#create-btrfs-subvolumes--and-home">Create btrfs subvolumes <code>@</code> and <code>@home</code></a></li>
+        <li><a href="#make-changes-to-fstab-with-optimized-mount-options">Make changes to fstab with optimized mount options</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-3-reboot-some-checks-and-update-system">Step 3: Reboot, some checks, and update system</a></li>
+    <li><a href="#step-4-install-timeshift">Step 4: Install Timeshift</a></li>
+    <li><a href="#step-5-optional-full-disk-encryption-including-boot">STEP 5 (OPTIONAL): Full disk encryption including <code>/boot</code></a>
+      <ul>
+        <li><a href="#backup-the-files-in-your-boot-partition">Backup the files in your boot partition</a></li>
+        <li><a href="#create-luks1-partition-for-boot">Create luks1 partition for boot</a></li>
+        <li><a href="#correct-fstab-crypttab-and-restore-boot-backup-files">Correct fstab, crypttab and restore boot backup files</a></li>
+        <li><a href="#enable-cryptodisk-in-grub">Enable cryptodisk in GRUB</a></li>
+        <li><a href="#regenerate-the-initram-disk-and-grub">Regenerate the initram disk and Grub</a></li>
+        <li><a href="#reboot-and-check-whether-this-works">Reboot and check whether this works</a></li>
+        <li><a href="#get-rid-of-additional-passphrase-prompts-wip">Get rid of additional passphrase prompts [WIP]</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+      
+    </div>
+    
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <article class="article">
+
+        <div class="docs-article-container">
+          
+
+          <h1>Fedora Workstation 33: installation guide with btrfs-luks full disk encryption (optionally including /boot) and auto snapshots with Timeshift</h1>
+
+          <div class="article-style">
+            <p><em><strong>Please feel free to raise any comments or issues on the <a href="https://github.com/wmutschl/mutschler.dev" target="_blank" rel="noopener">website&rsquo;s Github repository</a>. Pull requests are very much appreciated.</strong></em>
+<a href="https://www.buymeacoffee.com/mutschler" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+<details class="toc-inpage d-print-none d-xl-none " open>
+  <summary class="font-weight-bold">Table of Contents</summary>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#step-0-general-remarks">Step 0: General remarks</a></li>
+    <li><a href="#step-1-graphical-installer-with-automatic-configuration-and-encryption">Step 1: Graphical installer with automatic configuration and encryption</a></li>
+    <li><a href="#step-2-post-installation-steps">Step 2: Post-Installation steps</a>
+      <ul>
+        <li><a href="#mount-the-btrfs-top-level-root-filesystem">Mount the btrfs top-level root filesystem</a></li>
+        <li><a href="#create-btrfs-subvolumes--and-home">Create btrfs subvolumes <code>@</code> and <code>@home</code></a></li>
+        <li><a href="#make-changes-to-fstab-with-optimized-mount-options">Make changes to fstab with optimized mount options</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-3-reboot-some-checks-and-update-system">Step 3: Reboot, some checks, and update system</a></li>
+    <li><a href="#step-4-install-timeshift">Step 4: Install Timeshift</a></li>
+    <li><a href="#step-5-optional-full-disk-encryption-including-boot">STEP 5 (OPTIONAL): Full disk encryption including <code>/boot</code></a>
+      <ul>
+        <li><a href="#backup-the-files-in-your-boot-partition">Backup the files in your boot partition</a></li>
+        <li><a href="#create-luks1-partition-for-boot">Create luks1 partition for boot</a></li>
+        <li><a href="#correct-fstab-crypttab-and-restore-boot-backup-files">Correct fstab, crypttab and restore boot backup files</a></li>
+        <li><a href="#enable-cryptodisk-in-grub">Enable cryptodisk in GRUB</a></li>
+        <li><a href="#regenerate-the-initram-disk-and-grub">Regenerate the initram disk and Grub</a></li>
+        <li><a href="#reboot-and-check-whether-this-works">Reboot and check whether this works</a></li>
+        <li><a href="#get-rid-of-additional-passphrase-prompts-wip">Get rid of additional passphrase prompts [WIP]</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</details>
+</p>
+<h2 id="overview">Overview</h2>
+<p>Since Fedora switched their default filesystem to btrfs I decided to give it a go as I am exclusively using btrfs on all my systems, see: <a href="../btrfs/">Why I (still) like btrfs</a>. Fedora&rsquo;s automatic installation routine with encryption is actually almost perfect for me except some changes regarding the btrfs mount options and subvolume names.</p>
+<p>So, in this guide I will show how to install Fedora 33 with the following structure:</p>
+<ul>
+<li>a btrfs-inside-luks partition for the root filesystem containing a subvolume <code>@</code> for <code>/</code> and a subvolume <code>@home</code> for <code>/home</code>. Note that the Fedora installer creates subvolumes <code>root</code> for <code>/</code> and <code>home</code> for <code>/home</code>, so we need to rename these otherwise <a href="https://github.com/teejee2008/timeshift" target="_blank" rel="noopener">Timeshift</a> will not work properly.</li>
+<li>an unencrypted EFI partition for the GRUB bootloader</li>
+<li>Optionally, I will also show how to encrypt the <code>/boot</code> partition, so you get a full-disk-encryption-system (including <code>/boot</code>) and only one passphrase prompt from GRUB.</li>
+<li>there is no need for a swap partition as Fedora creates a <a href="https://fedoraproject.org/wiki/Changes/SwapOnZRAM" target="_blank" rel="noopener">SwapOnZram</a> during start-up</li>
+<li>automatic system snapshots and easy rollback similar to <em>zsys</em> using:
+<ul>
+<li><a href="https://github.com/teejee2008/timeshift" target="_blank" rel="noopener">Timeshift</a> which will regularly take (almost instant) snapshots of the system</li>
+<li><a href="https://github.com/wmutschl/timeshift-autosnap-dnf" target="_blank" rel="noopener">timeshift-autosnap-dnf</a> which will automatically run Timeshift on any dnf operation and also keep a backup of your EFI partition inside the snapshot (NOT YET)</li>
+<li><a href="https://github.com/Antynea/grub-btrfs" target="_blank" rel="noopener">grub-btrfs</a> which will automatically create GRUB entries for all your btrfs snapshots</li>
+</ul>
+</li>
+</ul>
+<p>With this setup you basically get the same comfort of Ubuntu&rsquo;s 20.04&rsquo;s ZFS and <em>zsys</em> initiative, but with much more flexibility and comfort due to the awesome <a href="https://github.com/teejee2008/timeshift" target="_blank" rel="noopener">Timeshift</a> program, which saved my bacon quite a few times. This setup works similarly well on other distributions, for which I also have <a href="../../install-guides">installation guides with optional RAID1</a>.</p>
+<p><strong>If you ever need to rollback your system, checkout <a href="../../timeshift">Recovery and system rollback with Timeshift</a>.</strong></p>
+<h2 id="step-0-general-remarks">Step 0: General remarks</h2>
+<p><strong>I strongly advise to try the following installation steps in a virtual machine first before doing anything like that on real hardware!</strong></p>
+<p>So, let&rsquo;s spin up a virtual machine with 4 cores, 8 GB RAM, and a 64GB disk using e.g. my fork of the awesome bash script <a href="https://github.com/wmutschl/quickemu" target="_blank" rel="noopener">quickemu</a>. I can confirm that the installation works equally well on my Dell XPS 13 9360 and my Dell Precision 7520.</p>
+<p>This tutorial is made with Fedora 33 Workstation from <a href="https://getfedora.org/de/workstation/download/" target="_blank" rel="noopener">https://getfedora.org/de/workstation/download/</a> copied to an installation media (usually a USB Flash device but may be a DVD or the ISO file attached to a virtual machine hypervisor).</p>
+<h2 id="step-1-graphical-installer-with-automatic-configuration-and-encryption">Step 1: Graphical installer with automatic configuration and encryption</h2>
+<p>Boot the installation medium in UEFI mode and choose <code>Install to Harddrive</code>. Choose your language, Keyboard, Time &amp; Date setting. Note that the Done button is (weirdly) on the top left corner. Then hit <code>Installation Destination</code>. Choose your harddisk and</p>
+<ul>
+<li>select <code>Automatic</code> under <code>Storage Configuration</code></li>
+<li><code>Encrypt my data</code> under <code>Encryption</code></li>
+</ul>
+<p>Click <code>Done</code> and enter your disk encryption passphrase, choose a good one. You will return to the Installation Summary screen. Click <code>Begin Installation</code>. When the installation process is finished, select <code>Finish Installation</code>. Reboot your system and go through the welcome screen.</p>
+<h2 id="step-2-post-installation-steps">Step 2: Post-Installation steps</h2>
+<p>Open a terminal (<kbd>META</kbd> + <kbd>term</kbd> + <kbd>Enter</kbd>), switch to an interactive root session and run the following commands:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo -i
+</span></span><span class="line"><span class="cl">lsblk
+</span></span><span class="line"><span class="cl"><span class="c1"># NAME                                          MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># zram0                                         251:0    0   1.9G  0 disk  [SWAP]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># vda                                           252:0    0    64G  0 disk  </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ├─vda1                                        252:1    0   600M  0 part  /mnt/sysroot/boot/efi</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ├─vda2                                        252:2    0     1G  0 part  /mnt/sysroot/boot</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># └─vda3                                        252:3    0  62.4G  0 part  </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   └─luks-6e7e8f26-4f38-468e-aa2c-9ddaaad4aedf 253:2    0  62.4G  0 crypt /home</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">btrfs subvolume list /
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 256 gen 169 top level 5 path home</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 258 gen 169 top level 5 path root</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 265 gen 24 top level 258 path var/lib/machines</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ls /dev/mapper
+</span></span><span class="line"><span class="cl"><span class="c1"># control luks-6e7e8f26-4f38-468e-aa2c-9ddaaad4aedf</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">blkid
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/vda1: UUID=&#34;4FD9-A843&#34; BLOCK_SIZE=&#34;512&#34; TYPE=&#34;vfat&#34; PARTLABEL=&#34;EFI System Partition&#34; PARTUUID=&#34;9b25248e-f8fb-456d-8a9b-4b7025107794&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/vda2: UUID=&#34;7d52fc6e-8804-4a34-8d16-b185d6d62319&#34; BLOCK_SIZE=&#34;4096&#34; TYPE=&#34;ext4&#34; PARTUUID=&#34;f4479656-e55d-46a6-bd60-0f04f833d754&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/vda3: UUID=&#34;6e7e8f26-4f38-468e-aa2c-9ddaaad4aedf&#34; TYPE=&#34;crypto_LUKS&#34; PARTUUID=&#34;d20fbfac-af98-43bc-a01b-007719a37100&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/luks-6e7e8f26-4f38-468e-aa2c-9ddaaad4aedf: LABEL=&#34;fedora_localhost-live&#34; UUID=&#34;11fa3de5-bfb4-4227-a5ee-d8a3d2d2304a&#34; UUID_SUB=&#34;7353fe42-342b-42dd-b4b0-ab00cebfacbd&#34; BLOCK_SIZE=&#34;4096&#34; TYPE=&#34;btrfs&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/zram0: UUID=&#34;07753a1d-ee0b-49b3-a6fc-0c1828bf1727&#34; TYPE=&#34;swap&#34;</span>
+</span></span></code></pre></div><p>Note that my disk is called <code>vda</code>, in most cases they are called <code>sda</code> for normal SSD and HDD, whereas for NVME storage the naming is <code>nvme0</code>. Also my luks crypt is named <code>luks-6e7e8f26-4f38-468e-aa2c-9ddaaad4aedf</code>, where the number is the UUID of <code>/dev/vda3</code>.</p>
+<h3 id="mount-the-btrfs-top-level-root-filesystem">Mount the btrfs top-level root filesystem</h3>
+<p>Let&rsquo;s mount our the top-level btrfs volume (which has always id 5):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir /btrfs_pool
+</span></span><span class="line"><span class="cl">mount -o <span class="nv">subvolid</span><span class="o">=</span><span class="m">5</span> /dev/mapper/luks-6e7e8f26-4f38-468e-aa2c-9ddaaad4aedf /btrfs_pool
+</span></span><span class="line"><span class="cl">ls /btrfs_pool
+</span></span><span class="line"><span class="cl"><span class="c1"># home root</span>
+</span></span></code></pre></div><h3 id="create-btrfs-subvolumes--and-home">Create btrfs subvolumes <code>@</code> and <code>@home</code></h3>
+<p>Now the simplest way to get <code>@</code> and <code>@home</code> is to rename <code>root</code> and <code>home</code>, i.e.:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mv /btrfs_pool/root /btrfs_pool/@
+</span></span><span class="line"><span class="cl">mv /btrfs_pool/home /btrfs_pool/@home
+</span></span><span class="line"><span class="cl">btrfs subvolume list /btrfs_pool
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 256 gen 345 top level 5 path @home</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 258 gen 346 top level 5 path @</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 265 gen 24 top level 258 path var/lib/machines</span>
+</span></span></code></pre></div><h3 id="make-changes-to-fstab-with-optimized-mount-options">Make changes to fstab with optimized mount options</h3>
+<p>We need to let fstab know that our subvolume names have changed to @ and @home. Also I like to mount /btrfs_pool for better access of my subvolumes. Lastly, there is some general agreement to use the following mount options to optimize performance and durability on SSD or NVME drives:</p>
+<ul>
+<li><code>ssd</code>: use SSD specific options for optimal use on SSD and NVME</li>
+<li><code>noatime</code>: prevent frequent disk writes by instructing the Linux kernel not to store the last access time of files and folders</li>
+<li><code>space_cache</code>: allows btrfs to store free space cache on the disk to make caching of a block group much quicker</li>
+<li><code>commit=120</code>: time interval in which data is written to the filesystem (value of 120 is taken from Manjaro&rsquo;s minimal iso)</li>
+<li><code>compress=zstd</code>: allows to specify the compression algorithm which we want to use. btrfs provides lzo, zstd and zlib compression algorithms. Based on some Phoronix test cases, zstd seems to be the better performing candidate</li>
+<li><code>discard=async</code>: <a href="https://www.phoronix.com/scan.php?page=news_item&amp;px=Btrfs-Async-Discard" target="_blank" rel="noopener">Btrfs Async Discard Support Looks To Be Ready For Linux 5.6</a></li>
+</ul>
+<p>Let&rsquo;s make these changes with a text editor, e.g.:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nano /etc/fstab
+</span></span></code></pre></div><p>or use these <code>sed</code> commands</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/subvol=root/subvol=@,ssd,noatime,space_cache,commit=120,compress=zstd,discard=async/&#39;</span> /etc/fstab
+</span></span><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/subvol=home/subvol=@home,ssd,noatime,space_cache,commit=120,compress=zstd,discard=async/&#39;</span> /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;UUID=</span><span class="k">$(</span>blkid -s UUID -o value /dev/mapper/luks-6e7e8f26-4f38-468e-aa2c-9ddaaad4aedf<span class="k">)</span><span class="s2">   /btrfs_pool   btrfs   subvolid=5,ssd,noatime,space_cache,commit=120,compress=zstd,discard=async,x-systemd.device-timeout=0   0 0&#34;</span> &gt;&gt; /etc/fstab
+</span></span></code></pre></div><p>Either way your <code>fstab</code> should look like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=11fa3de5-bfb4-4227-a5ee-d8a3d2d2304a /                       btrfs   subvol=@,ssd,noatime,space_cache,commit=120,compress=zstd,discard=async,x-systemd.device-timeout=0      0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=7d52fc6e-8804-4a34-8d16-b185d6d62319 /boot                   ext4    defaults                                                                                                1 2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=4FD9-A843                            /boot/efi               vfat    umask=0077,shortname=winnt                                                                              0 2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=11fa3de5-bfb4-4227-a5ee-d8a3d2d2304a /home                   btrfs   subvol=@home,ssd,noatime,space_cache,commit=120,compress=zstd,discard=async,x-systemd.device-timeout=0  0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=11fa3de5-bfb4-4227-a5ee-d8a3d2d2304a /btrfs_pool             btrfs   subvolid=5,ssd,noatime,space_cache,commit=120,compress=zstd,discard=async,x-systemd.device-timeout=0    0 0</span>
+</span></span></code></pre></div><p>We need to let GRUB know about the changes as well:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+</span></span></code></pre></div><h2 id="step-3-reboot-some-checks-and-update-system">Step 3: Reboot, some checks, and update system</h2>
+<p>Cross your fingers and reboot:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">reboot now
+</span></span></code></pre></div><p>Now let&rsquo;s open up a terminal to see whether everything is set up correctly:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo cat /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># luks-6e7e8f26-4f38-468e-aa2c-9ddaaad4aedf UUID=6e7e8f26-4f38-468e-aa2c-9ddaaad4aedf none discard</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo cat /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=11fa3de5-bfb4-4227-a5ee-d8a3d2d2304a /                       btrfs   subvol=@,ssd,noatime,space_cache,commit=120,compress=zstd,discard=async,x-systemd.device-timeout=0      0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=7d52fc6e-8804-4a34-8d16-b185d6d62319 /boot                   ext4    defaults                                                                                                1 2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=4FD9-A843                            /boot/efi               vfat    umask=0077,shortname=winnt                                                                              0 2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=11fa3de5-bfb4-4227-a5ee-d8a3d2d2304a /home                   btrfs   subvol=@home,ssd,noatime,space_cache,commit=120,compress=zstd,discard=async,x-systemd.device-timeout=0  0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=11fa3de5-bfb4-4227-a5ee-d8a3d2d2304a /btrfs_pool             btrfs   subvolid=5,ssd,noatime,space_cache,commit=120,compress=zstd,discard=async,x-systemd.device-timeout=0    0 0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo mount -av
+</span></span><span class="line"><span class="cl"><span class="c1"># /                        : ignored</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /boot                    : already mounted</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /boot/efi                : already mounted</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /home                    : already mounted</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /btrfs_pool              : already mounted</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo mount -v <span class="p">|</span> grep /dev/mapper
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/luks-6e7e8f26-4f38-468e-aa2c-9ddaaad4aedf on / type btrfs (rw,noatime,seclabel,compress=zstd:3,ssd,discard=async,space_cache,commit=120,subvolid=258,subvol=/@)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/luks-6e7e8f26-4f38-468e-aa2c-9ddaaad4aedf on /btrfs_pool type btrfs (rw,noatime,seclabel,compress=zstd:3,ssd,discard=async,space_cache,commit=120,subvolid=5,subvol=/)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/luks-6e7e8f26-4f38-468e-aa2c-9ddaaad4aedf on /home type btrfs (rw,noatime,seclabel,compress=zstd:3,ssd,discard=async,space_cache,commit=120,subvolid=256,subvol=/@home)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo swapon
+</span></span><span class="line"><span class="cl"><span class="c1"># NAME       TYPE      SIZE USED PRIO</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/zram0 partition 1.9G   0B  100</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo btrfs subvolume list /
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 256 gen 464 top level 5 path @home</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 258 gen 464 top level 5 path @</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 265 gen 428 top level 258 path var/lib/machines</span>
+</span></span></code></pre></div><p>Let&rsquo;s update the system and reboot one more time:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo dnf upgrade
+</span></span><span class="line"><span class="cl">sudo reboot now
+</span></span></code></pre></div><h2 id="step-4-install-timeshift">Step 4: Install Timeshift</h2>
+<p>Open a terminal and install some dependencies:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo dnf install -y git make
+</span></span></code></pre></div><p>Install Timeshift and configure it directly via the GUI:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo dnf install timeshift
+</span></span><span class="line"><span class="cl">sudo timeshift-gtk
+</span></span></code></pre></div><ul>
+<li>Select btrfs as the “Snapshot Type”; continue with “Next”</li>
+<li>Choose your btrfs system partition as “Snapshot Location”; continue with “Next”</li>
+<li>&ldquo;Select Snapshot Levels&rdquo; (type and number of snapshots that will be automatically created and managed/deleted by Timeshift), my recommendations:
+<ul>
+<li>Activate &ldquo;Monthly&rdquo; and set it to 2</li>
+<li>Activate &ldquo;Weekly&rdquo; and set it to 3</li>
+<li>Activate &ldquo;Daily&rdquo; and set it to 5</li>
+<li>Deactivate &ldquo;Hourly&rdquo;</li>
+<li>Activate &ldquo;Boot&rdquo; and set it to 3</li>
+<li>Activate &ldquo;Stop cron emails for scheduled tasks&rdquo;</li>
+<li>continue with &ldquo;Next&rdquo;</li>
+<li>I also include the <code>@home</code> subvolume (which is not selected by default). Note that when you restore a snapshot, Timeshift will let you choose whether you want to restore <code>@home</code> as well (which in most cases you don&rsquo;t want to). But I find it most handy to have snapshots of both at hand.</li>
+<li>Click &ldquo;Finish&rdquo;</li>
+</ul>
+</li>
+<li>&ldquo;Create&rdquo; a manual first snapshot &amp; exit Timeshift</li>
+</ul>
+<p><em>Timeshift</em> will now check every hour if snapshots (&ldquo;hourly&rdquo;, &ldquo;daily&rdquo;, &ldquo;weekly&rdquo;, &ldquo;monthly&rdquo;, &ldquo;boot&rdquo;) need to be created or deleted. Note that &ldquo;boot&rdquo; snapshots will not be created directly but about 10 minutes after a system startup.</p>
+<p><em>Timeshift</em> puts all snapshots into <code>/run/timeshift/backup</code>. Conveniently, the real root (subvolid 5) of your btrfs partition is also mounted here every time you start Timeshift, so it is easy to view, create, delete and move around snapshots manually. But you can also use <code>/btrfs_pool</code> for that.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ls /run/timeshift/backup
+</span></span><span class="line"><span class="cl"><span class="c1"># @  @home  timeshift-btrfs</span>
+</span></span><span class="line"><span class="cl">ls /btrfs_pool
+</span></span><span class="line"><span class="cl"><span class="c1"># @  @home  timeshift-btrfs</span>
+</span></span></code></pre></div><p>Note that <code>/run/timeshift/backup/@</code> contains your <code>/</code> folder and <code>/run/timeshift/backup/@home</code> contains your <code>/home</code> folder.</p>
+<p>I still need to figure out similar features to <a href="https://github.com/wmutschl/timeshift-autosnap-apt.git" target="_blank" rel="noopener">timeshift-autosnap-apt</a> and <a href="https://github.com/Antynea/grub-btrfs.git" target="_blank" rel="noopener">grub-btrfs</a>. Anyways, before I do any dnf operations, I make a snapshot on the command line using:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo timeshift --create --comments <span class="s2">&#34;before upgrade&#34;</span>
+</span></span><span class="line"><span class="cl">sudo dnf upgrade
+</span></span></code></pre></div><p>Make sure to delete the snapshots every once in a while, you could set up a systemd process for this as described <a href="https://forum.endeavouros.com/t/howto-gpt-uefi-install-with-full-disk-encryption-btrfsonluks-with-separate-root-home-and-pkg-subvolumes-hibernation-with-a-swapfile-auto-snapshots-with-easy-system-rollback-gui-boot-into-snapshots/3782" target="_blank" rel="noopener">here</a>.</p>
+<h2 id="step-5-optional-full-disk-encryption-including-boot">STEP 5 (OPTIONAL): Full disk encryption including <code>/boot</code></h2>
+<p>I actually like to use a Yubikey as a second factor to unlock my luks partition, for this I need an unencrypted <code>/boot</code> partition (see my <a href="../fedora-post-install">Things to do after install Fedora 33</a>), so I usually skip this step.</p>
+<p>If your needs are different, then it is also possible to fully encrypt your system based upon <a href="https://fedoraproject.org/wiki/Changes/Include_security_modules_in_efi_Grub2" target="_blank" rel="noopener">security_modules in Grub2</a>, i.e. to also put <code>/boot</code> inside a luks container and let GRUB unlock this first and pass on the passphrase to unlock your root partition as well. If you want this, then follow on and open up an interactive root shell:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo -i
+</span></span></code></pre></div><h3 id="backup-the-files-in-your-boot-partition">Backup the files in your boot partition</h3>
+<p>The boot partition is on <code>/dev/vda2</code>, whereas the efi partition is on <code>/dev/vda1</code>. Let&rsquo;s backup the boot partition:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">umount /boot/efi
+</span></span><span class="line"><span class="cl">rsync -avuP /boot/ /boot.bak/
+</span></span></code></pre></div><h3 id="create-luks1-partition-for-boot">Create luks1 partition for boot</h3>
+<p>GRUB is able to decrypt luks version 1 partitions at boot time, but by default version 2 is used in cryptsetup. So we need to prepare the luks1 partition or else GRUB will not be able to unlock the encrypted device. Note that most Linux distributions also default to version 1 if you do a full disk encryption (e.g. Manjaro Architect). This step is still work-in-progress as I need to figure out how to prompt only once for the passphrase.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">umount /boot
+</span></span><span class="line"><span class="cl">cryptsetup luksFormat --type<span class="o">=</span>luks1 /dev/vda2
+</span></span><span class="line"><span class="cl"><span class="c1"># WARNING!</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ========</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># This will overwrite data on /dev/vda2 irrevocably.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Are you sure? (Type uppercase yes): YES</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Enter passphrase for /dev/vda2: </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Verify passphrase:</span>
+</span></span></code></pre></div><p>Now map the encrypted partition to a device called <code>crypt-boot</code> and choose a filesystem (e.g. ext4 or btrfs)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cryptsetup luksOpen /dev/vda2 crypt-boot
+</span></span><span class="line"><span class="cl"><span class="c1"># Enter passphrase for /dev/vda2:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ls /dev/mapper/
+</span></span><span class="line"><span class="cl"><span class="c1"># control  crypt-boot  luks-6e7e8f26-4f38-468e-aa2c-9ddaaad4aedf</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mkfs.btrfs /dev/mapper/crypt-boot
+</span></span></code></pre></div><h3 id="correct-fstab-crypttab-and-restore-boot-backup-files">Correct fstab, crypttab and restore boot backup files</h3>
+<p>Let&rsquo;s find out the new UUID of our encrypted boot partition:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">blkid <span class="p">|</span> grep crypt-boot
+</span></span><span class="line"><span class="cl"><span class="c1"># dev/mapper/crypt-boot: UUID=&#34;3f75f101-bbe7-4850-9b33-a2196807fb01&#34; UUID_SUB=&#34;984444d1-66fb-4d09-9586-8cb876653c28&#34; BLOCK_SIZE=&#34;4096&#34; TYPE=&#34;btrfs&#34;</span>
+</span></span></code></pre></div><p>and replace the old UUID of the boot partition with the new one in /etc/fstab, also making sure that btrfs is the filesystem:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nano /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=11fa3de5-bfb4-4227-a5ee-d8a3d2d2304a /                       btrfs   subvol=@,ssd,noatime,space_cache,commit=120,compress=zstd,discard=async,x-systemd.device-timeout=0      0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=3f75f101-bbe7-4850-9b33-a2196807fb01 /boot                   btrfs   defaults         0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=4FD9-A843                            /boot/efi               vfat    umask=0077,shortname=winnt                                                                              0 2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=11fa3de5-bfb4-4227-a5ee-d8a3d2d2304a /home                   btrfs   subvol=@home,ssd,noatime,space_cache,commit=120,compress=zstd,discard=async,x-systemd.device-timeout=0  0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=11fa3de5-bfb4-4227-a5ee-d8a3d2d2304a /btrfs_pool             btrfs   subvolid=5,ssd,noatime,space_cache,commit=120,compress=zstd,discard=async,x-systemd.device-timeout=0    0 0</span>
+</span></span></code></pre></div><p>Also add an entry for the crypt-boot container to /etc/crypttab:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">blkid <span class="p">|</span> grep vda2
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=&#34;84fbddb8-984c-4dda-b5b7-27a49864b5f8&#34; TYPE=&#34;crypto_LUKS&#34; PARTUUID=&#34;e4007823-54ac-4bce.929d-7616a04f59a8&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">nano /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># luks-6e7e8f26-4f38-468e-aa2c-9ddaaad4aedf UUID=6e7e8f26-4f38-468e-aa2c-9ddaaad4aedf none discard</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># crypt-boot                                UUID=84fbddb8-984c-4dda-b5b7-27a49864b5f8 none discard</span>
+</span></span></code></pre></div><p>Let&rsquo;s remount the boot partition, restore the backup, and mount the efi partition:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mount /boot
+</span></span><span class="line"><span class="cl">rsync -avuP /boot.bak/ /boot/
+</span></span><span class="line"><span class="cl">mount /boot/efi
+</span></span></code></pre></div><h3 id="enable-cryptodisk-in-grub">Enable cryptodisk in GRUB</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;GRUB_ENABLE_CRYPTODISK=y&#34;</span> &gt;&gt; /etc/default/grub
+</span></span></code></pre></div><h3 id="regenerate-the-initram-disk-and-grub">Regenerate the initram disk and Grub</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">dracut --force --regenerate-all --verbose
+</span></span><span class="line"><span class="cl">grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+</span></span></code></pre></div><h3 id="reboot-and-check-whether-this-works">Reboot and check whether this works</h3>
+<p>Grub should ask for the password for the boot partition and then for the root partition. You will then also need to reenter your password for the root partition. If the system then starts, the change is successful, but we need to simplify the passphrase situation using a keyfile for filesystem root (or clevis package and a tpm).</p>
+<h3 id="get-rid-of-additional-passphrase-prompts-wip">Get rid of additional passphrase prompts [WIP]</h3>
+<p>Not yet&hellip; Write me an email, if you know how!</p>
+<p><strong>FINISHED! CONGRATULATIONS AND THANKS FOR STICKING THROUGH!</strong></p>
+
+          </div>
+
+          
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/linux/">linux</a>
+  
+  <a class="badge badge-light" href="/tag/fedora/">fedora</a>
+  
+  <a class="badge badge-light" href="/tag/install-guide/">install guide</a>
+  
+  <a class="badge badge-light" href="/tag/btrfs/">btrfs</a>
+  
+  <a class="badge badge-light" href="/tag/luks/">luks</a>
+  
+  <a class="badge badge-light" href="/tag/timeshift/">timeshift</a>
+  
+</div>
+
+
+
+          
+          
+          <div class="article-widget">
+            
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/linux/raspi-btrfs/" rel="next">Ubuntu Server 20.10 on Raspberry Pi 4: installation guide with USB Boot (no SD card) and full disk encryption (excluding /boot) using btrfs-inside-luks and auto-apt snapshots with Timeshift</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/linux/btrfs/" rel="prev">Why I (still) like btrfs</a>
+  </div>
+  
+</div>
+
+          </div>
+          
+        </div>
+
+        <div class="body-footer">
+          <p>Last updated on Jun 17, 2022</p>
+
+          
+
+
+
+          
+
+
+
+
+          
+
+
+        </div>
+
+      </article>
+
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+  </p>
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2022 Willi Mutschler. This work is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank">CC BY SA 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-sa fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+
+    </main>
+  </div>
+</div>
+
+  </div>
+
+  <div class="page-footer">
+    
+    
+  </div>
+
+      
+
+    
+    <script src="/js/vendor-bundle.min.3d946de2e8784a477845261d87025092.js"></script>
+
+    
+    
+    
+      
+      
+        <script src="https://cdn.jsdelivr.net/gh/desandro/imagesloaded@v4.1.4/imagesloaded.pkgd.min.js" integrity="sha512-S5PZ9GxJZO16tT9r3WJp/Safn31eu8uWrzglMahDT4dsmgqWonRY9grk3j+3tfuPr9WJNsfooOR7Gi7HL5W2jw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/metafizzy/isotope@v3.0.6/dist/isotope.pkgd.min.js" integrity="sha512-Zq2BOxyhvnRFXu0+WE6ojpZLOU2jdnqbrM1hmVdGzyeCa1DgM3X5Q4A/Is9xA1IkbUeDd7755dNNI/PzSf2Pew==" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/r.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/matlab.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+      <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script src="https://cdn.jsdelivr.net/gh/bryanbraun/anchorjs@4.2.2/anchor.min.js" integrity="sha512-I7w3ZdSFzw5j3jU3ZkNikBNeIrl3i+hEuEdwNmqUJvwNcaBUNcijnP2gd9DtGlgVYDplfjGoD8vTNsID+lCjqg==" crossorigin="anonymous"></script>
+    <script>
+      anchors.add();
+    </script>
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+
+    
+    
+    
+    <script id="page-data" type="application/json">{"use_headroom":false}</script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.9162604ef5b82e6fdeff386200ab6db9.js"></script>
+
+    
+    
+      <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+    
+    
+    
+    
+
+
+
+
+
+
+</body>
+</html>

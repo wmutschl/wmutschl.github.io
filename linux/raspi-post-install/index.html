@@ -1,0 +1,1510 @@
+<!DOCTYPE html><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.4.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Willi Mutschler" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="In the following I will go through my post installation steps, i.e. which settings I choose and which apps and containers I install and use on my Raspberry Pi 4 (4 GB)" />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://mutschler.dev/linux/raspi-post-install/" />
+
+  
+  
+  
+    <meta name="theme-color" content="#bbdefb" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.c7b8d9abd591ba2253ea42747e3ac3f5.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css" integrity="sha512-W0xM4mr6dEP9nREo7Z9z+9X70wytKvMGeDsj7ps2+xg5QPrEBXC8tAW1IFnzjR6eoJ90JmCnFzerQJTLzIEHjA==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'" disabled>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'">
+        
+      
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.0b8400c2e374cd7dd4f9ae4909fd9914.css" />
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://mutschler.dev/linux/raspi-post-install/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary" />
+  
+  <meta property="og:site_name" content="mutschler.dev" />
+  <meta property="og:url" content="https://mutschler.dev/linux/raspi-post-install/" />
+  <meta property="og:title" content="Ubuntu Server Raspberry Pi: Things to do after installation (Apps, Settings, and Tweaks) | mutschler.dev" />
+  <meta property="og:description" content="In the following I will go through my post installation steps, i.e. which settings I choose and which apps and containers I install and use on my Raspberry Pi 4 (4 GB)" /><meta property="og:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" />
+    <meta property="twitter:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2021-01-11T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2022-06-17T13:47:19&#43;02:00">
+  
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Ubuntu Server Raspberry Pi: Things to do after installation (Apps, Settings, and Tweaks) | mutschler.dev</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper  dark " data-wc-page-id="d5cf4c1109214f5ca60e98a2320110fd" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.6c07fd79b08c404df0504bd310968f2f.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="header--fixed">
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/apple/"><span>Apple</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link  active" href="/linux/"><span>Linux</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/stuff/"><span>Stuff</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://buymeacoffee.com/mutschler" data-toggle="tooltip" data-placement="bottom" title="Buy me a coffee" target="_blank" rel="noopener" aria-label="Buy me a coffee">
+                <i class="fas fa-coffee" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="mailto:willi@mutschler.dev" data-toggle="tooltip" data-placement="bottom" title="Write me an email"  aria-label="Write me an email">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://github.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on GitHub" target="_blank" rel="noopener" aria-label="Follow me on GitHub">
+                <i class="fab fa-github" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://gitlab.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on Gitlab" target="_blank" rel="noopener" aria-label="Follow me on Gitlab">
+                <i class="fab fa-gitlab" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://www.youtube.com/c/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on YouTube" target="_blank" rel="noopener" aria-label="Follow me on YouTube">
+                <i class="fab fa-youtube" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        
+
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    
+
+
+
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      <form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-md-3 w-100" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <div class="d-flex">
+      <span class="d-md-none pl-1 flex-grow-1 text-left overflow-hidden">
+        
+          Linux
+        
+      </span>
+      <span><i class="fas fa-chevron-down"></i></span>
+    </div>
+  </button>
+
+  
+  <button class="form-control sidebar-search js-search d-none d-md-flex">
+    <i class="fas fa-search pr-2"></i>
+    <span class="sidebar-search-text">Search...</span>
+    <span class="sidebar-search-shortcut">/</span>
+  </button>
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+  
+  
+  
+  
+  
+
+  
+  
+    
+
+    
+      
+
+      
+
+
+  
+    
+    
+    
+    
+      
+    
+    
+
+    
+      <ul class="nav docs-sidenav">
+        <li class=""><a href="/linux/">Linux</a></li>
+    
+      
+
+
+  <li class=""><a href="/linux/elementary-os-post-install/">elementary OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/elementary-os-6-1/">elementary OS 6.1 Jólnir: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-22-04/">Pop!_OS 22.04: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-post-install/">Pop!_OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-post-install/">Fedora Workstation: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-btrfs-35/">Fedora Workstation 35 with automatic btrfs snapshots and backups using BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-10/">DRAFT: Pop!_OS 21.10: installation guide with btrfs-LVM-luks and auto snapshots with BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-04/">Pop!_OS 21.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class="active"><a href="/linux/raspi-post-install/">Ubuntu Server Raspberry Pi: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/raspi-btrfs/">Ubuntu Server 20.10 on Raspberry Pi 4: installation guide with USB Boot (no SD card) and full disk encryption (excluding /boot) using btrfs-inside-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-btrfs-33/">Fedora Workstation 33: installation guide with btrfs-luks full disk encryption (optionally including /boot) and auto snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/btrfs/">Why I (still) like btrfs</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-btrfs-raid1-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks-RAID1 full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-btrfs-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-post-install/">Ubuntu Desktop: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-raid1-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks-RAID1 and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/timeshift/">Timeshift</a></li>
+
+      
+    
+
+    
+      </ul>
+    
+
+  
+</nav>
+
+    </div>
+
+    
+    
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      
+
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+      </ul>
+
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#basic-steps">Basic steps</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#scripts">Scripts</a>
+      <ul>
+        <li><a href="#monitoring-cron-jobs-with-logs-and-healthchecksio">Monitoring Cron Jobs with logs and healthchecks.io</a></li>
+        <li><a href="#btrfs-balance">btrfs balance</a></li>
+        <li><a href="#btrfs-scrub">btrfs scrub</a></li>
+        <li><a href="#backup-home-directory-to-wasabi-using-restic">Backup home directory to Wasabi using restic</a></li>
+      </ul>
+    </li>
+    <li><a href="#backup-target-for-btrfs-sendreceive-with-btrbk">Backup target for btrfs send/receive with BTRBK</a>
+      <ul>
+        <li><a href="#on-my-raspberry-pi">On my Raspberry Pi</a></li>
+        <li><a href="#on-my-fedora-machine">On my Fedora machine</a></li>
+      </ul>
+    </li>
+    <li><a href="#zram-not-yet">ZRam [Not yet]</a></li>
+    <li><a href="#docker">Docker</a>
+      <ul>
+        <li><a href="#option-a-create-dedicated-encrypted-docker-image-partition">Option A: Create dedicated encrypted docker image partition</a></li>
+        <li><a href="#option-b-create-pseudo-filesystem-for-docker-images">Option B: Create pseudo filesystem for docker images</a></li>
+        <li><a href="#install-docker-and-docker-compose">Install docker and docker-compose</a></li>
+        <li><a href="#create-alias">Create alias</a></li>
+      </ul>
+    </li>
+    <li><a href="#home-assistant-docker">Home Assistant Docker</a>
+      <ul>
+        <li><a href="#restore-backup">Restore backup</a></li>
+        <li><a href="#docker-compose-file">docker-compose file</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+      
+    </div>
+    
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <article class="article">
+
+        <div class="docs-article-container">
+          
+
+          <h1>Ubuntu Server Raspberry Pi: Things to do after installation (Apps, Settings, and Tweaks)</h1>
+
+          <div class="article-style">
+            <p><em><strong>Please feel free to raise any comments or issues on the <a href="https://github.com/wmutschl/mutschler.dev" target="_blank" rel="noopener">website&rsquo;s Github repository</a>. Pull requests are very much appreciated.</strong></em>
+<a href="https://www.buymeacoffee.com/mutschler" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a></p>
+<p>In the following I will go through my post installation steps, i.e. which settings I choose and which apps I install and use on my Raspberry Pi 4 (4 GB) after <a href="../raspi-btrfs">installing Ubuntu Server 20.10 with btrfs-luks booted from an external USB drive</a>.
+<details class="toc-inpage d-print-none d-xl-none " open>
+  <summary class="font-weight-bold">Table of Contents</summary>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#basic-steps">Basic steps</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#scripts">Scripts</a>
+      <ul>
+        <li><a href="#monitoring-cron-jobs-with-logs-and-healthchecksio">Monitoring Cron Jobs with logs and healthchecks.io</a></li>
+        <li><a href="#btrfs-balance">btrfs balance</a></li>
+        <li><a href="#btrfs-scrub">btrfs scrub</a></li>
+        <li><a href="#backup-home-directory-to-wasabi-using-restic">Backup home directory to Wasabi using restic</a></li>
+      </ul>
+    </li>
+    <li><a href="#backup-target-for-btrfs-sendreceive-with-btrbk">Backup target for btrfs send/receive with BTRBK</a>
+      <ul>
+        <li><a href="#on-my-raspberry-pi">On my Raspberry Pi</a></li>
+        <li><a href="#on-my-fedora-machine">On my Fedora machine</a></li>
+      </ul>
+    </li>
+    <li><a href="#zram-not-yet">ZRam [Not yet]</a></li>
+    <li><a href="#docker">Docker</a>
+      <ul>
+        <li><a href="#option-a-create-dedicated-encrypted-docker-image-partition">Option A: Create dedicated encrypted docker image partition</a></li>
+        <li><a href="#option-b-create-pseudo-filesystem-for-docker-images">Option B: Create pseudo filesystem for docker images</a></li>
+        <li><a href="#install-docker-and-docker-compose">Install docker and docker-compose</a></li>
+        <li><a href="#create-alias">Create alias</a></li>
+      </ul>
+    </li>
+    <li><a href="#home-assistant-docker">Home Assistant Docker</a>
+      <ul>
+        <li><a href="#restore-backup">Restore backup</a></li>
+        <li><a href="#docker-compose-file">docker-compose file</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</details>
+</p>
+<h2 id="basic-steps">Basic steps</h2>
+<h4 id="set-hostname">Set hostname</h4>
+<p>By default the Pi is called ubuntu; but, I rename it for better accessability on the network:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo hostnamectl set-hostname raspi4
+</span></span></code></pre></div><h4 id="set-up-locales-and-keyboard-language">Set up locales and keyboard language</h4>
+<p>Even though I am based in Germany, I use <code>en_US</code> for my locales on my server:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo locale-gen en_US.UTF-8 de_DE.UTF-8
+</span></span><span class="line"><span class="cl"><span class="c1"># Generating locales (this might take a while)...</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   de_DE.UTF-8... done</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   en_US.UTF-8... done</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Generation complete.</span>
+</span></span><span class="line"><span class="cl">sudo update-locale <span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8
+</span></span></code></pre></div><p>Check the timezone:</p>
+<pre tabindex="0"><code>sudo dpkg-reconfigure tzdata
+# Current default time zone: &#39;Europe/Berlin&#39;
+# Local time is now:      Mon Jan 11 20:40:36 CET 2021.
+# Universal Time is now:  Mon Jan 11 19:40:36 UTC 2021.
+</code></pre><p>and change the keyboard language to &lsquo;de&rsquo;:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">L</span><span class="o">=</span><span class="s1">&#39;de&#39;</span> <span class="o">&amp;&amp;</span> sudo sed -i <span class="s1">&#39;s/XKBLAYOUT=\&#34;\w*&#34;/XKBLAYOUT=\&#34;&#39;</span><span class="nv">$L</span><span class="s1">&#39;\&#34;/g&#39;</span> /etc/default/keyboard
+</span></span><span class="line"><span class="cl">cat /etc/default/keyboard 
+</span></span><span class="line"><span class="cl"><span class="c1"># XKBMODEL=&#34;pc105&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># XKBLAYOUT=&#34;de&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># XKBVARIANT=&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># XKBOPTIONS=&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># BACKSPACE=&#34;guess&#34;</span>
+</span></span></code></pre></div><h4 id="use-alternate-mappings-for-page-up-and-page-down-to-search-the-history">Use alternate mappings for &ldquo;page up&rdquo; and &ldquo;page down&rdquo; to search the history</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo nano /etc/inputrc
+</span></span><span class="line"><span class="cl"><span class="c1"># Uncomment:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#34;\e[5~&#34;: history-search-backward</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#34;\e[6~&#34;: history-search-forward</span>
+</span></span></code></pre></div><h4 id="ssh-settings-and-ssh-keys-for-passwordless-logins">SSH settings and SSH keys for passwordless logins</h4>
+<p>Add your public keys for passwordless logins in the <code>authorized_keys</code> file:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">nano /home/<span class="nv">$USER</span>/.ssh/authorized_keys
+</span></span><span class="line"><span class="cl"><span class="c1"># Add public keys:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB7vrYpbvJaZq2L1Gm7BrrCyl1iPCUephMZScwdentw3 XPS</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIfzrJ10mpCU6s4MEcCDtzILvD8gIYYzxoDAO1P9WadH iPad-iPhone</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKX/swGeaikcTOx/7rNbyBkeJI3VMiWCkywrdLDfyqJe precision</span>
+</span></span></code></pre></div><p>Check settings of the SSH server:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo nano /etc/ssh/sshd_config
+</span></span><span class="line"><span class="cl"><span class="c1"># PubkeyAuthentication yes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># PasswordAuthentication no</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># PermitRootLogin prohibit-password</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo systemctl restart ssh
+</span></span></code></pre></div><p>Before you close the Terminal, open another terminal and check whether you can SSH in without a password.</p>
+<h4 id="pull-server-scripts-from-github-and-create-folder-for-logs">Pull server scripts from GitHub and create folder for logs</h4>
+<h2 id="scripts">Scripts</h2>
+<p>I keep my log files on GitHub, so let&rsquo;s clone that (private) repository (note that I spell out the scripts I use on my Pi below) and create a folder for log files:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git clone git@github.com:wmutschl/server-scripts.git /home/<span class="nv">$USER</span>/scripts
+</span></span><span class="line"><span class="cl">mkdir -p /home/<span class="nv">$USER</span>/logs
+</span></span></code></pre></div><h3 id="monitoring-cron-jobs-with-logs-and-healthchecksio">Monitoring Cron Jobs with logs and healthchecks.io</h3>
+<p>I am runnning Cron Jobs for my maintenance scripts. To monitor these I am saving the output of the scripts into my <code>logs</code> folder. Moreover, I am using <a href="https://healthchecks.io" target="_blank" rel="noopener">healthchecks.io</a> such that in case a script does not succeed or is not executed on time I get a warning via email. In the scripts below the <code>BASEURL</code> environmental variables need to be adapted by the URLs to the healtchecks.io base urls.</p>
+<p>My crontab looks like this (<code>sudo crontab -l</code>):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">@daily     /home/ubuntu/scripts/wasabi.sh         &gt;&gt; /home/ubuntu/logs/wasabi.log        2&gt;<span class="p">&amp;</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl">@weekly    /home/ubuntu/scripts/btrfs-balance.sh  &gt;&gt; /home/ubuntu/logs/btrfs-balance.log 2&gt;<span class="p">&amp;</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl">@monthly   /home/ubuntu/scripts/btrfs-scrub.sh    &gt;&gt; /home/ubuntu/logs/btrfs-scrub.log   2&gt;<span class="p">&amp;</span><span class="m">1</span>
+</span></span></code></pre></div><h3 id="btrfs-balance">btrfs balance</h3>
+<p>I do a weekly <a href="https://btrfs.wiki.kernel.org/index.php/Manpage/btrfs-balance" target="_blank" rel="noopener">btrfs balance</a> using the following script adapted from <a href="https://github.com/kdave/btrfsmaintenance" target="_blank" rel="noopener">btrfsmaintenance</a>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nv">BTRFS_BALANCE_BASEURL</span><span class="o">=</span><span class="s2">&#34;https://hc-ping.com/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;*****************************************************&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="k">$(</span>date<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34; &#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">baseurl</span><span class="o">=</span><span class="nv">$BTRFS_BALANCE_BASEURL</span>
+</span></span><span class="line"><span class="cl"><span class="nv">url</span><span class="o">=</span><span class="nv">$baseurl</span>
+</span></span><span class="line"><span class="cl">curl -s -m <span class="m">10</span> --retry <span class="m">5</span> <span class="nv">$url</span>/start &gt; /dev/null
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34; &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">MOUNTPOINTS</span><span class="o">=</span><span class="s2">&#34;/&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DUSAGES</span><span class="o">=</span><span class="s2">&#34;0 5 10&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">MUSAGES</span><span class="o">=</span><span class="s2">&#34;0 5 10&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> MP in <span class="nv">$MOUNTPOINTS</span><span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> DU in <span class="nv">$DUSAGES</span><span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> MU in <span class="nv">$MUSAGES</span><span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">      <span class="nv">cmd</span><span class="o">=</span><span class="s2">&#34;btrfs balance start -dusage=</span><span class="nv">$DU</span><span class="s2"> -musage=</span><span class="nv">$MU</span><span class="s2"> </span><span class="nv">$MP</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">echo</span> <span class="nv">$cmd</span>
+</span></span><span class="line"><span class="cl">      <span class="nv">$cmd</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -ne <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span> <span class="nv">url</span><span class="o">=</span><span class="nv">$baseurl</span>/fail<span class="p">;</span><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">    <span class="k">done</span>
+</span></span><span class="line"><span class="cl">  <span class="k">done</span>
+</span></span><span class="line"><span class="cl">  btrfs filesystem df <span class="nv">$MP</span>
+</span></span><span class="line"><span class="cl">  df -H <span class="nv">$MP</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34; &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34; &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;HealthChecks.io:&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="nv">$url</span>
+</span></span><span class="line"><span class="cl">curl -s -m <span class="m">10</span> --retry <span class="m">5</span> <span class="nv">$url</span> &gt; /dev/null
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34; &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="k">$(</span>date<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Finished&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;*****************************************************&#34;</span>
+</span></span></code></pre></div><h3 id="btrfs-scrub">btrfs scrub</h3>
+<p>I do a monthly <a href="https://btrfs.wiki.kernel.org/index.php/Manpage/btrfs-scrub" target="_blank" rel="noopener">btrfs scrub</a> using the following script adapted from <a href="https://github.com/kdave/btrfsmaintenance" target="_blank" rel="noopener">btrfsmaintenance</a>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nv">BTRFS_SCRUB_BASEURL</span><span class="o">=</span><span class="s2">&#34;https://hc-ping.com/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;*****************************************************&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="k">$(</span>date<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34; &#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">baseurl</span><span class="o">=</span><span class="nv">$BTRFS_SCRUB_BASEURL</span>
+</span></span><span class="line"><span class="cl"><span class="nv">url</span><span class="o">=</span><span class="nv">$baseurl</span>
+</span></span><span class="line"><span class="cl">curl -s -m <span class="m">10</span> --retry <span class="m">5</span> <span class="nv">$url</span>/start &gt; /dev/null
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34; &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">MOUNTPOINTS</span><span class="o">=</span><span class="s2">&#34;/&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Priority of IO at which the scrub process will run. Idle should not degrade performance but may take longer to finish.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">BTRFS_SCRUB_PRIORITY</span><span class="o">=</span><span class="s2">&#34;normal&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Do read-only scrub and don&#39;t try to repair anything.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">BTRFS_SCRUB_READ_ONLY</span><span class="o">=</span><span class="s2">&#34;false&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">readonly</span><span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$BTRFS_SCRUB_READ_ONLY</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;true&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">readonly</span><span class="o">=</span>-r
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ioprio</span><span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$BTRFS_SCRUB_PRIORITY</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;normal&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># ionice(3) best-effort, level 4</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">ioprio</span><span class="o">=</span><span class="s2">&#34;-c 2 -n 4&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> MNT in <span class="nv">$MOUNTPOINTS</span><span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;Running scrub on </span><span class="nv">$MNT</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">  btrfs scrub start -Bd <span class="nv">$ioprio</span> <span class="nv">$readonly</span> <span class="s2">&#34;</span><span class="nv">$MNT</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$?</span><span class="s2">&#34;</span> !<span class="o">=</span> <span class="s2">&#34;0&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Scrub cancelled at </span><span class="nv">$MNT</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">url</span><span class="o">=</span><span class="nv">$baseurl</span>/fail
+</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34; &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;HealthChecks.io:&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="nv">$url</span>
+</span></span><span class="line"><span class="cl">curl -s -m <span class="m">10</span> --retry <span class="m">5</span> <span class="nv">$url</span> &gt; /dev/null
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34; &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="k">$(</span>date<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Finished&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;*****************************************************&#34;</span>
+</span></span></code></pre></div><h3 id="backup-home-directory-to-wasabi-using-restic">Backup home directory to Wasabi using restic</h3>
+<p>I do a daily encrypted backup of my home directory files with <a href="https://restic.net/" target="_blank" rel="noopener">Restic</a> to <a href="https://wasabi-support.zendesk.com/hc/en-us/articles/115002240372-How-do-I-use-Restic-with-Wasabi-" target="_blank" rel="noopener">Wasabi cloud storage</a>. First let&rsquo;s install restic:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo apt install restic
+</span></span><span class="line"><span class="cl">sudo restic self-update <span class="c1">#optionally</span>
+</span></span></code></pre></div><p>Optionally, if you have not done so yet, create a new bucket on Wasabi (let&rsquo;s call it raspi4) and initialize it with restic:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">WASABI_BASEURL</span><span class="o">=</span><span class="s2">&#34;https://hc-ping.com/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">RESTIC_PASSWORD</span><span class="o">=</span><span class="s2">&#34;XXXXXXXXXX&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span><span class="s2">&#34;XXXXXXXXXXXXXX&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">AWS_SECRET_ACCESS_KEY</span><span class="o">=</span><span class="s2">&#34;XXXXXXXXXXXXXXXXXXXXXX&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">WASABI_SERVICE_URL</span><span class="o">=</span><span class="s2">&#34;s3.eu-central-1.wasabisys.com&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">WASABI_BUCKET_NAME</span><span class="o">=</span><span class="s2">&#34;raspi4&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">restic -r s3:https://<span class="nv">$WASABI_SERVICE_URL</span>/<span class="nv">$WASABI_BUCKET_NAME</span> init
+</span></span></code></pre></div><p>The script (<code>wasabi.sh</code>) which I use for the backup is:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nb">export</span> <span class="nv">WASABI_BASEURL</span><span class="o">=</span><span class="s2">&#34;https://hc-ping.com/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">RESTIC_PASSWORD</span><span class="o">=</span><span class="s2">&#34;XXXXXXXXXX&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span><span class="s2">&#34;XXXXXXXXXXXXXX&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">AWS_SECRET_ACCESS_KEY</span><span class="o">=</span><span class="s2">&#34;XXXXXXXXXXXXXXXXXXXXXX&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">WASABI_SERVICE_URL</span><span class="o">=</span><span class="s2">&#34;s3.eu-central-1.wasabisys.com&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">WASABI_BUCKET_NAME</span><span class="o">=</span><span class="s2">&#34;raspi4&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;*****************************************************&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="k">$(</span>date<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34; &#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">baseurl</span><span class="o">=</span><span class="nv">$WASABI_BASEURL</span>
+</span></span><span class="line"><span class="cl">curl -s --retry <span class="m">3</span> <span class="nv">$baseurl</span>/start  &gt; /dev/null
+</span></span><span class="line"><span class="cl"><span class="nv">url</span><span class="o">=</span><span class="nv">$baseurl</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34; &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Backing up /home/ubuntu to WASABI&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">btrfs subvolume snapshot -r /btr_pool/@home /btr_pool/@home_wasabi
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -ne <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span> <span class="nv">url</span><span class="o">=</span><span class="nv">$baseurl</span>/fail<span class="p">;</span> <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">restic cache --cleanup
+</span></span><span class="line"><span class="cl">restic backup -r s3:https://<span class="nv">$WASABI_SERVICE_URL</span>/<span class="nv">$WASABI_BUCKET_NAME</span> /btr_pool/@home_wasabi/ubuntu
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -ne <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span> <span class="nv">url</span><span class="o">=</span><span class="nv">$baseurl</span>/fail<span class="p">;</span> <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">restic -r s3:https://<span class="nv">$WASABI_SERVICE_URL</span>/<span class="nv">$WASABI_BUCKET_NAME</span> snapshots
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -ne <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span> <span class="nv">url</span><span class="o">=</span><span class="nv">$baseurl</span>/fail<span class="p">;</span> <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">btrfs subvolume delete /btr_pool/@home_wasabi
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -ne <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span> <span class="nv">url</span><span class="o">=</span><span class="nv">$baseurl</span>/fail<span class="p">;</span> <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34; &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;HealthChecks.io:&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="nv">$url</span>
+</span></span><span class="line"><span class="cl">curl -s --retry <span class="m">3</span> <span class="nv">$url</span> &gt; /dev/null
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34; &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="k">$(</span>date<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Finished&#34;</span>
+</span></span></code></pre></div><p><a href="#restore-backup">See below</a> for how to restore files with Restic from Wasabi.</p>
+<h2 id="backup-target-for-btrfs-sendreceive-with-btrbk">Backup target for btrfs send/receive with BTRBK</h2>
+<h3 id="on-my-raspberry-pi">On my Raspberry Pi</h3>
+<p>On my computers, I use <a href="https://github.com/digint/btrbk" target="_blank" rel="noopener">BTRBK</a> to send and receive my btrfs snapshots to <code>/btr_pool/btrbk-precision</code>. So I make sure that all dependencies are installed by also installing <code>BTRBK</code> on the PI:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">mkdir /btr_pool/btrbk-precision
+</span></span><span class="line"><span class="cl">sudo apt install btrbk
+</span></span></code></pre></div><p>I have a dedicated SSH Key for BTRBK on my computers. I add the corresponding public key to <code>/root/.ssh/authorized_keys</code>. Also I restrict this access using the <code>ssh_filter_btrbk.sh</code> script:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo -i
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;command=&#34;/usr/share/btrbk/scripts/ssh_filter_btrbk.sh --log --target --info --delete&#34; ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTN6c3+YNVXfilLIZWT0yecFyfzWuqC/33LAETIqFmDYo2IC6Q5LNoH3AJ45vrrcLWZMIrP1de9tn9JCWR9PoKap6/WOf307nFNwnYlv1/L/5+LsJTmCxxvTHFJqYHojeYZu3E7kYzviejUIBGcWbzSBJKorMpy1UgsuvlDyBhgc4KdyXjh5gyAG8UZrYgUDmYZg9gZ/arCeyCTinPIANN0ZAyAnBHvCBiNFLZjVei3Sh2+VQTmjRTPazFst1ABuE169Lp6QUdfiizsjYoInA5b4yODgYv614YBA8fmP41Yt1oMrOEOQBLgRP80itzHBmoSVD+UNQva2HP6C2fPml1 btrbk&#39;</span> &gt;&gt; /root/.ssh/authorized_keys
+</span></span></code></pre></div><h3 id="on-my-fedora-machine">On my Fedora machine</h3>
+<p>For example, the configuration file <code>/home/wmutschl/scripts/btrbk-precision.conf</code> of BTRBK on my Fedora machine looks like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">transaction_log         /var/log/btrbk.log
+</span></span><span class="line"><span class="cl">stream_buffer           256m
+</span></span><span class="line"><span class="cl">snapshot_dir            _btrbk_snap
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">snapshot_qgroup_destroy yes
+</span></span><span class="line"><span class="cl">target_qgroup_destroy   yes
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">snapshot_preserve_min   2d
+</span></span><span class="line"><span class="cl">snapshot_preserve       14d
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">target_preserve_min     2d
+</span></span><span class="line"><span class="cl">target_preserve         5d 3w 2m 1y
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">archive_preserve_min    latest
+</span></span><span class="line"><span class="cl">archive_preserve        5d 3w 2m 1y
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ssh_identity            /home/wmutschl/.ssh/id_btrbk
+</span></span><span class="line"><span class="cl">ssh_user                root
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">volume /btr_pool
+</span></span><span class="line"><span class="cl">  snapshot_create  always
+</span></span><span class="line"><span class="cl">  target /btr_backup
+</span></span><span class="line"><span class="cl">  target ssh://192.168.178.50/btr_pool/btrbk-precision
+</span></span><span class="line"><span class="cl">  subvolume root
+</span></span><span class="line"><span class="cl">  subvolume home
+</span></span></code></pre></div><p>Also, I run BTRBK daily to create snapshots and backup this to both an encrypted internal disk (mounted to /btr_backup) as well as the (encrypted) Raspberry Pi using btrfs send/receive.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">cat /etc/cron.daily/btrbk 
+</span></span><span class="line"><span class="cl"><span class="c1">#!/bin/sh</span>
+</span></span><span class="line"><span class="cl"><span class="nb">exec</span> /usr/bin/btrbk -q -c /home/wmutschl/scripts/btrbk-precision.conf run
+</span></span></code></pre></div><h2 id="zram-not-yet">ZRam [Not yet]</h2>
+<p>Instead of a <a href="../ubuntu-btrfs-20-04/#encrypted-swap">encrypted swap partition or file</a>, I am using [ZRam].</p>
+<h2 id="docker">Docker</h2>
+<p>As Docker might <a href="https://github.com/moby/moby/issues/27653" target="_blank" rel="noopener">gradually exhaust disk space on a BTRFS filesystem</a>, I am creating an (encrypted) ext4 partition for my (disposable) docker images. Alternatively, I will also cover <a href="https://gist.github.com/hopeseekr/cd2058e71d01deca5bae9f4e5a555440" target="_blank" rel="noopener">putting Docker on its own pseudo filesystem using an image file</a>. Note that my docker configuration files and personal data reside in my home directory which gets regular btrfs snapshots with Timeshift (see my <a href="../raspi-btrfs">installation guide</a>) and gets backed up to Wasabi daily.</p>
+<h3 id="option-a-create-dedicated-encrypted-docker-image-partition">Option A: Create dedicated encrypted docker image partition</h3>
+<p>I will show how to encrypt my second partition (<code>/dev/sda2</code>) with luks and auto-unlock it with a key-file. So, open an interactive root shell:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo -i
+</span></span></code></pre></div><p>Now let&rsquo;s encrypt <code>sda2</code> with luks and add a key-file to open it:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">cryptsetup luksFormat --type<span class="o">=</span>luks2 -c xchacha20,aes-adiantum-plain64 /dev/sda2
+</span></span><span class="line"><span class="cl"><span class="c1"># WARNING: Device /dev/sda2 already contains a &#39;ext4&#39; superblock signature.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># WARNING!</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ========</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># This will overwrite data on /dev/sda2 irrevocably.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Are you sure? (Type &#39;yes&#39; in capital letters): YES</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Enter passphrase for /dev/sda2: </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Verify passphrase: </span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mkdir /etc/luks
+</span></span><span class="line"><span class="cl">dd <span class="k">if</span><span class="o">=</span>/dev/urandom <span class="nv">of</span><span class="o">=</span>/etc/luks/boot_os.keyfile <span class="nv">bs</span><span class="o">=</span><span class="m">4096</span> <span class="nv">count</span><span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1+0 records in</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1+0 records out</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 4096 bytes (4.1 kB, 4.0 KiB) copied, 0.000928939 s, 4.4 MB/s</span>
+</span></span><span class="line"><span class="cl">chmod <span class="nv">u</span><span class="o">=</span>rx,go-rwx /etc/luks
+</span></span><span class="line"><span class="cl">chmod <span class="nv">u</span><span class="o">=</span>r,go-rwx /etc/luks/boot_os.keyfile
+</span></span><span class="line"><span class="cl">cryptsetup luksAddKey /dev/sda2 /etc/luks/boot_os.keyfile
+</span></span><span class="line"><span class="cl"><span class="c1"># Enter any existing passphrase: </span>
+</span></span></code></pre></div><p>Let&rsquo;s restrict the pattern of keyfiles and avoid leaking key material for the initramfs hook:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;KEYFILE_PATTERN=/etc/luks/*.keyfile&#34;</span> &gt;&gt; /etc/cryptsetup-initramfs/conf-hook
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;UMASK=0077&#34;</span> &gt;&gt; /etc/initramfs-tools/initramfs.conf
+</span></span></code></pre></div><p>These commands will harden the security options in the intiramfs configuration file and hook.</p>
+<p>Let&rsquo;s unlock the luks partition and create an ext4 filesystem in <code>crypt_docker</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">cryptsetup luksOpen /dev/sda2 crypt_docker
+</span></span><span class="line"><span class="cl"><span class="c1"># Enter passphrase for /dev/sda2:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mkfs.ext4 /dev/mapper/crypt_docker
+</span></span><span class="line"><span class="cl"><span class="c1"># mke2fs 1.45.6 (20-Mar-2020)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Creating filesystem with 1210112 4k blocks and 303104 inodes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Filesystem UUID: b34df824-3749-421e-9ad4-c1c86a6ef55e</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Superblock backups stored on blocks: </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	32768, 98304, 163840, 229376, 294912, 819200, 884736</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Allocating group tables: done                            </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Writing inode tables: done                            </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Creating journal (16384 blocks): done</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Writing superblocks and filesystem accounting information: done </span>
+</span></span></code></pre></div><p>Next, add the partition and keyfile to your <code>crypttab</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;crypt_docker   /dev/sda2   /etc/luks/boot_os.keyfile luks&#34;</span> &gt;&gt; /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># crypt_raspi  /dev/sda3   none   luks</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># crypt_docker /dev/sda2   /etc/luks/boot_os.keyfile luks</span>
+</span></span></code></pre></div><p>Mount the partition to <code>/var/lib/docker</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">mkdir -p /var/lib/docker
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;/dev/mapper/crypt_docker   /var/lib/docker   ext4   defaults,x-systemd.after=/   0   0&#34;</span> &gt;&gt; /etc/fstab
+</span></span></code></pre></div><p>Don&rsquo;t forget to update the initramfs before rebooting your system:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">update-initramfs -u -k all
+</span></span><span class="line"><span class="cl">reboot now
+</span></span></code></pre></div><h3 id="option-b-create-pseudo-filesystem-for-docker-images">Option B: Create pseudo filesystem for docker images</h3>
+<p>Alternatively, you can create an image file <code>docker-volume.img</code> with a pseudo ext4 filesystem for docker. These steps are similar to creating a <a href="../-20-04/#option-b-swapfile">swapfile on btrfs</a> as we need to be careful to not mess up snapshots and compression. So we&rsquo;ll put the file in the top-level btrfs root. If you are running a RAID1 system, though, you should probably go with Option A.</p>
+<p>So, open an interactive root shell and run the following commands:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo -i
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">truncate -s <span class="m">0</span> /btr_pool/docker-volume.img
+</span></span><span class="line"><span class="cl">chattr +C /btr_pool/docker-volume.img
+</span></span><span class="line"><span class="cl">fallocate -l 10G /btr_pool/docker-volume.img
+</span></span><span class="line"><span class="cl">mkfs.ext4 /btr_pool/docker-volume.img
+</span></span><span class="line"><span class="cl"><span class="c1"># mke2fs 1.45.6 (20-Mar-2020)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Discarding device blocks: done                            </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Creating filesystem with 2621440 4k blocks and 655360 inodes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Filesystem UUID: 7da7f4d8-6518-4ec3-894b-8819ac2f7c22</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Superblock backups stored on blocks: </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Allocating group tables: done                            </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Writing inode tables: done                            </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Creating journal (16384 blocks): done</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Writing superblocks and filesystem accounting information: done </span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mkdir -p /var/lib/docker
+</span></span><span class="line"><span class="cl">mount -o loop -t ext4 /btr_pool/docker-volume.img /var/lib/docker
+</span></span><span class="line"><span class="cl">df -h
+</span></span><span class="line"><span class="cl"><span class="c1"># You should see: /dev/loop6      9.8G   37M  9.3G   1% /var/lib/docker</span>
+</span></span><span class="line"><span class="cl">umount /var/lib/docker
+</span></span></code></pre></div><p>Add the pesudo filesystem to the <code>fstab</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;/btr_pool/docker-volume.img /var/lib/docker ext4 defaults,x-systemd.after=/ 0 0&#34;</span> &gt;&gt; /etc/fstab
+</span></span><span class="line"><span class="cl">mount /var/lib/docker
+</span></span></code></pre></div><p>Now reboot the system and confirm that the volume has auto-mounted.</p>
+<h3 id="install-docker-and-docker-compose">Install docker and docker-compose</h3>
+<p>If you want the latest Docker version, follow the official <a href="https://docs.docker.com/engine/install/ubuntu/" target="_blank" rel="noopener">Install Docker Engine on Ubuntu</a> steps. I am fine with using the version from the Ubuntu archive:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo apt install docker docker-compose docker.io
+</span></span><span class="line"><span class="cl">sudo usermod -aG docker <span class="si">${</span><span class="nv">USER</span><span class="si">}</span>
+</span></span></code></pre></div><h3 id="create-alias">Create alias</h3>
+<p>My global docker-compose file resides in <code>/home/ubuntu/scripts/raspi4-compose.yml</code>, I make an alias <code>dc</code> which I can use for all things related to docker-compose:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;alias dc=&#39;docker-compose -f /home/ubuntu/scripts/raspi4-compose.yml&#39;&#34;</span> &gt;&gt; /home/ubuntu/.bashrc
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> ~/.bashrc
+</span></span></code></pre></div><h2 id="home-assistant-docker">Home Assistant Docker</h2>
+<p>I am installing <a href="https://www.home-assistant.io/docs/installation/docker/" target="_blank" rel="noopener">Home Assistant Core running in a Docker environment</a>.</p>
+<h3 id="restore-backup">Restore backup</h3>
+<p>My configuration files and data reside in <code>/home/ubuntu/homeassistant</code>, so I first restore a backup of this from e.g. Wasabi:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo -i
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">RESTIC_PASSWORD</span><span class="o">=</span><span class="s2">&#34;XXXXXXXXXX&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span><span class="s2">&#34;XXXXXXXXXXXXXX&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">AWS_SECRET_ACCESS_KEY</span><span class="o">=</span><span class="s2">&#34;XXXXXXXXXXXXXXXXXXXXXX&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">WASABI_SERVICE_URL</span><span class="o">=</span><span class="s2">&#34;s3.eu-central-1.wasabisys.com&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">WASABI_BUCKET_NAME</span><span class="o">=</span><span class="s2">&#34;raspi4&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">restic -r s3:https://<span class="nv">$WASABI_SERVICE_URL</span>/<span class="nv">$WASABI_BUCKET_NAME</span> restore latest --target /home/ubuntu/homeassistant-restore --include <span class="s2">&#34;/btr_pool/@home_wasabi/ubuntu/homeassistant&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mv /home/ubuntu/homeassistant-restore/btr_pool/<span class="se">\@</span>home_wasabi/ubuntu/homeassistant/ /home/ubuntu/homeassistant
+</span></span></code></pre></div><h3 id="docker-compose-file">docker-compose file</h3>
+<p>My docker-compose file looks like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">version: <span class="s1">&#39;3&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">services:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  homeassistant:
+</span></span><span class="line"><span class="cl">    container_name: home-assistant
+</span></span><span class="line"><span class="cl">    image: homeassistant/raspberrypi4-homeassistant:stable
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - /home/ubuntu/homeassistant:/config
+</span></span><span class="line"><span class="cl">    environment:
+</span></span><span class="line"><span class="cl">      - <span class="nv">USER_UID</span><span class="o">=</span><span class="m">1000</span>
+</span></span><span class="line"><span class="cl">      - <span class="nv">USER_GID</span><span class="o">=</span><span class="m">1000</span>
+</span></span><span class="line"><span class="cl">      - <span class="nv">TZ</span><span class="o">=</span>Europe/Berlin
+</span></span><span class="line"><span class="cl">    restart: always
+</span></span><span class="line"><span class="cl">    network_mode: host
+</span></span></code></pre></div><p>Doing a `docker-compose pull &amp;&amp; docker-compose up -d``gets the service up and running. Of course, I am using my alias for this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">dc pull
+</span></span><span class="line"><span class="cl">dc up -d
+</span></span></code></pre></div><p>Check whether it is working by opening the url of your Pi appended with port 8123 (e.g. <a href="http://192.168.178.50:8123" target="_blank" rel="noopener">http://192.168.178.50:8123</a>).</p>
+
+          </div>
+
+          
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/linux/">linux</a>
+  
+  <a class="badge badge-light" href="/tag/raspberry-pi/">raspberry pi</a>
+  
+  <a class="badge badge-light" href="/tag/ubuntu/">ubuntu</a>
+  
+  <a class="badge badge-light" href="/tag/install-guide/">install guide</a>
+  
+  <a class="badge badge-light" href="/tag/btrfs/">btrfs</a>
+  
+  <a class="badge badge-light" href="/tag/luks/">luks</a>
+  
+  <a class="badge badge-light" href="/tag/timeshift/">timeshift</a>
+  
+  <a class="badge badge-light" href="/tag/timeshift-autosnap-apt/">timeshift-autosnap-apt</a>
+  
+  <a class="badge badge-light" href="/tag/usb-boot/">usb boot</a>
+  
+</div>
+
+
+
+          
+          
+          <div class="article-widget">
+            
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/linux/pop-os-btrfs-21-04/" rel="next">Pop!_OS 21.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/linux/raspi-btrfs/" rel="prev">Ubuntu Server 20.10 on Raspberry Pi 4: installation guide with USB Boot (no SD card) and full disk encryption (excluding /boot) using btrfs-inside-luks and auto-apt snapshots with Timeshift</a>
+  </div>
+  
+</div>
+
+          </div>
+          
+        </div>
+
+        <div class="body-footer">
+          <p>Last updated on Jun 17, 2022</p>
+
+          
+
+
+
+          
+
+
+
+
+          
+
+
+        </div>
+
+      </article>
+
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+  </p>
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2022 Willi Mutschler. This work is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank">CC BY SA 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-sa fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+
+    </main>
+  </div>
+</div>
+
+  </div>
+
+  <div class="page-footer">
+    
+    
+  </div>
+
+      
+
+    
+    <script src="/js/vendor-bundle.min.3d946de2e8784a477845261d87025092.js"></script>
+
+    
+    
+    
+      
+      
+        <script src="https://cdn.jsdelivr.net/gh/desandro/imagesloaded@v4.1.4/imagesloaded.pkgd.min.js" integrity="sha512-S5PZ9GxJZO16tT9r3WJp/Safn31eu8uWrzglMahDT4dsmgqWonRY9grk3j+3tfuPr9WJNsfooOR7Gi7HL5W2jw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/metafizzy/isotope@v3.0.6/dist/isotope.pkgd.min.js" integrity="sha512-Zq2BOxyhvnRFXu0+WE6ojpZLOU2jdnqbrM1hmVdGzyeCa1DgM3X5Q4A/Is9xA1IkbUeDd7755dNNI/PzSf2Pew==" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/r.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/matlab.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+      <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script src="https://cdn.jsdelivr.net/gh/bryanbraun/anchorjs@4.2.2/anchor.min.js" integrity="sha512-I7w3ZdSFzw5j3jU3ZkNikBNeIrl3i+hEuEdwNmqUJvwNcaBUNcijnP2gd9DtGlgVYDplfjGoD8vTNsID+lCjqg==" crossorigin="anonymous"></script>
+    <script>
+      anchors.add();
+    </script>
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+
+    
+    
+    
+    <script id="page-data" type="application/json">{"use_headroom":false}</script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.9162604ef5b82e6fdeff386200ab6db9.js"></script>
+
+    
+    
+      <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+    
+    
+    
+    
+
+
+
+
+
+
+</body>
+</html>

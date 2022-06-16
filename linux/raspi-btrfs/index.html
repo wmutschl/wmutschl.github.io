@@ -1,0 +1,1665 @@
+<!DOCTYPE html><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.4.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Willi Mutschler" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="In this guide I will walk you through the installation procedure to get an Ubuntu 20.10 system with a luks-encrypted partition for the root filesystem (excluding /boot) formatted with btrfs that contains a subvolume @ for / and a subvolume @home for /home running on a Raspberry Pi 4. The system is installed to an external bootable USB drive so no SD card is required. I will show how to optimize the btrfs mount options and how to get a headless server, i.e. remotely unlock the luks partition using Dropbear which enables one to use SSH to decrypt the luks-encrypted partitions after a reboot. This layout enables one to use Timeshift and timeshift-autosnap-apt which will regularly take snapshots of the system and particularly on any apt operation." />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://mutschler.dev/linux/raspi-btrfs/" />
+
+  
+  
+  
+    <meta name="theme-color" content="#bbdefb" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.c7b8d9abd591ba2253ea42747e3ac3f5.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css" integrity="sha512-W0xM4mr6dEP9nREo7Z9z+9X70wytKvMGeDsj7ps2+xg5QPrEBXC8tAW1IFnzjR6eoJ90JmCnFzerQJTLzIEHjA==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'" disabled>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'">
+        
+      
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.0b8400c2e374cd7dd4f9ae4909fd9914.css" />
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://mutschler.dev/linux/raspi-btrfs/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary" />
+  
+  <meta property="og:site_name" content="mutschler.dev" />
+  <meta property="og:url" content="https://mutschler.dev/linux/raspi-btrfs/" />
+  <meta property="og:title" content="Ubuntu Server 20.10 on Raspberry Pi 4: installation guide with USB Boot (no SD card) and full disk encryption (excluding /boot) using btrfs-inside-luks and auto-apt snapshots with Timeshift | mutschler.dev" />
+  <meta property="og:description" content="In this guide I will walk you through the installation procedure to get an Ubuntu 20.10 system with a luks-encrypted partition for the root filesystem (excluding /boot) formatted with btrfs that contains a subvolume @ for / and a subvolume @home for /home running on a Raspberry Pi 4. The system is installed to an external bootable USB drive so no SD card is required. I will show how to optimize the btrfs mount options and how to get a headless server, i.e. remotely unlock the luks partition using Dropbear which enables one to use SSH to decrypt the luks-encrypted partitions after a reboot. This layout enables one to use Timeshift and timeshift-autosnap-apt which will regularly take snapshots of the system and particularly on any apt operation." /><meta property="og:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" />
+    <meta property="twitter:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2021-01-10T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2022-06-17T13:47:19&#43;02:00">
+  
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Ubuntu Server 20.10 on Raspberry Pi 4: installation guide with USB Boot (no SD card) and full disk encryption (excluding /boot) using btrfs-inside-luks and auto-apt snapshots with Timeshift | mutschler.dev</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper  dark " data-wc-page-id="f19b19bc2c3e2cac2594849ec76e01f9" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.6c07fd79b08c404df0504bd310968f2f.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="header--fixed">
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/apple/"><span>Apple</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link  active" href="/linux/"><span>Linux</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/stuff/"><span>Stuff</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://buymeacoffee.com/mutschler" data-toggle="tooltip" data-placement="bottom" title="Buy me a coffee" target="_blank" rel="noopener" aria-label="Buy me a coffee">
+                <i class="fas fa-coffee" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="mailto:willi@mutschler.dev" data-toggle="tooltip" data-placement="bottom" title="Write me an email"  aria-label="Write me an email">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://github.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on GitHub" target="_blank" rel="noopener" aria-label="Follow me on GitHub">
+                <i class="fab fa-github" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://gitlab.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on Gitlab" target="_blank" rel="noopener" aria-label="Follow me on Gitlab">
+                <i class="fab fa-gitlab" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://www.youtube.com/c/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on YouTube" target="_blank" rel="noopener" aria-label="Follow me on YouTube">
+                <i class="fab fa-youtube" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        
+
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    
+
+
+
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      <form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-md-3 w-100" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <div class="d-flex">
+      <span class="d-md-none pl-1 flex-grow-1 text-left overflow-hidden">
+        
+          Linux
+        
+      </span>
+      <span><i class="fas fa-chevron-down"></i></span>
+    </div>
+  </button>
+
+  
+  <button class="form-control sidebar-search js-search d-none d-md-flex">
+    <i class="fas fa-search pr-2"></i>
+    <span class="sidebar-search-text">Search...</span>
+    <span class="sidebar-search-shortcut">/</span>
+  </button>
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+  
+  
+  
+  
+  
+
+  
+  
+    
+
+    
+      
+
+      
+
+
+  
+    
+    
+    
+    
+      
+    
+    
+
+    
+      <ul class="nav docs-sidenav">
+        <li class=""><a href="/linux/">Linux</a></li>
+    
+      
+
+
+  <li class=""><a href="/linux/elementary-os-post-install/">elementary OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/elementary-os-6-1/">elementary OS 6.1 Jólnir: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-22-04/">Pop!_OS 22.04: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-post-install/">Pop!_OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-post-install/">Fedora Workstation: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-btrfs-35/">Fedora Workstation 35 with automatic btrfs snapshots and backups using BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-10/">DRAFT: Pop!_OS 21.10: installation guide with btrfs-LVM-luks and auto snapshots with BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-04/">Pop!_OS 21.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/raspi-post-install/">Ubuntu Server Raspberry Pi: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class="active"><a href="/linux/raspi-btrfs/">Ubuntu Server 20.10 on Raspberry Pi 4: installation guide with USB Boot (no SD card) and full disk encryption (excluding /boot) using btrfs-inside-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-btrfs-33/">Fedora Workstation 33: installation guide with btrfs-luks full disk encryption (optionally including /boot) and auto snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/btrfs/">Why I (still) like btrfs</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-btrfs-raid1-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks-RAID1 full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-btrfs-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-post-install/">Ubuntu Desktop: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-raid1-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks-RAID1 and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/timeshift/">Timeshift</a></li>
+
+      
+    
+
+    
+      </ul>
+    
+
+  
+</nav>
+
+    </div>
+
+    
+    
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      
+
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+      </ul>
+
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#tested-environment">Tested environment</a></li>
+    <li><a href="#step-0-optional-enable-usb-boot-on-raspberry-pi-4">Step 0 (optional): Enable USB Boot on Raspberry Pi 4</a></li>
+    <li><a href="#step-1-flash-ubuntu-server-2010-on-an-external-usb-drive">Step 1: Flash Ubuntu Server 20.10 on an external USB drive</a></li>
+    <li><a href="#step-2-prepare-partitions-manually">Step 2: Prepare partitions manually</a></li>
+    <li><a href="#step-3-create-luks-partition-and-btrfs-root-filesystem">Step 3: Create LUKS partition and btrfs root filesystem</a></li>
+    <li><a href="#step-4-boot-your-raspberry-pi-and-ssh-into-it">Step 4: Boot your Raspberry Pi and SSH into it</a></li>
+    <li><a href="#step-5-update-your-raspberry-pi-system">Step 5: Update your Raspberry Pi system</a></li>
+    <li><a href="#step-6-create-subvolumes--and-home-and-rsync-system-and-home-files">Step 6: Create subvolumes (@ and @home) and rsync system and home files</a></li>
+    <li><a href="#step-7-create-a-chroot-environment-on-your-pi-using-the--subvolume">Step 7: Create a chroot environment on your Pi using the @ subvolume</a></li>
+    <li><a href="#step-8-make-changes-to-fstab-crypttab-and-cmdlinetxt">Step 8: Make changes to fstab, crypttab and cmdline.txt</a></li>
+    <li><a href="#step-9-optional-remote-unlocking-using-dropbear-ssh">Step 9 (optional): Remote unlocking using Dropbear SSH</a></li>
+    <li><a href="#step-10-some-checks">Step 10: Some checks</a></li>
+    <li><a href="#step-11-optional-optimize-btrfs-mount-options">Step 11 (optional): Optimize btrfs mount options</a>
+      <ul>
+        <li><a href="#hdd-and-ssd">HDD and SSD</a></li>
+        <li><a href="#ssd-specific">SSD-specific</a></li>
+        <li><a href="#check-mount-options">Check mount options</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-12-install-timeshift-and-timeshift-autosnap-apt">Step 12: Install Timeshift and Timeshift-autosnap-apt</a>
+      <ul>
+        <li><a href="#timeshift">Timeshift</a></li>
+        <li><a href="#timeshift-autosnap-apt">Timeshift-autosnap-apt</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-13-decide-what-to-do-with-second-ext4-partition">Step 13: Decide what to do with second ext4 partition</a></li>
+    <li><a href="#troubleshooting">Troubleshooting</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+      
+    </div>
+    
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <article class="article">
+
+        <div class="docs-article-container">
+          
+
+          <h1>Ubuntu Server 20.10 on Raspberry Pi 4: installation guide with USB Boot (no SD card) and full disk encryption (excluding /boot) using btrfs-inside-luks and auto-apt snapshots with Timeshift</h1>
+
+          <div class="article-style">
+            <p><em><strong>Please feel free to raise any comments or issues on the <a href="https://github.com/wmutschl/mutschler.dev" target="_blank" rel="noopener">website&rsquo;s Github repository</a>. Pull requests are very much appreciated.</strong></em>
+<a href="https://www.buymeacoffee.com/mutschler" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+<details class="toc-inpage d-print-none d-xl-none " open>
+  <summary class="font-weight-bold">Table of Contents</summary>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#tested-environment">Tested environment</a></li>
+    <li><a href="#step-0-optional-enable-usb-boot-on-raspberry-pi-4">Step 0 (optional): Enable USB Boot on Raspberry Pi 4</a></li>
+    <li><a href="#step-1-flash-ubuntu-server-2010-on-an-external-usb-drive">Step 1: Flash Ubuntu Server 20.10 on an external USB drive</a></li>
+    <li><a href="#step-2-prepare-partitions-manually">Step 2: Prepare partitions manually</a></li>
+    <li><a href="#step-3-create-luks-partition-and-btrfs-root-filesystem">Step 3: Create LUKS partition and btrfs root filesystem</a></li>
+    <li><a href="#step-4-boot-your-raspberry-pi-and-ssh-into-it">Step 4: Boot your Raspberry Pi and SSH into it</a></li>
+    <li><a href="#step-5-update-your-raspberry-pi-system">Step 5: Update your Raspberry Pi system</a></li>
+    <li><a href="#step-6-create-subvolumes--and-home-and-rsync-system-and-home-files">Step 6: Create subvolumes (@ and @home) and rsync system and home files</a></li>
+    <li><a href="#step-7-create-a-chroot-environment-on-your-pi-using-the--subvolume">Step 7: Create a chroot environment on your Pi using the @ subvolume</a></li>
+    <li><a href="#step-8-make-changes-to-fstab-crypttab-and-cmdlinetxt">Step 8: Make changes to fstab, crypttab and cmdline.txt</a></li>
+    <li><a href="#step-9-optional-remote-unlocking-using-dropbear-ssh">Step 9 (optional): Remote unlocking using Dropbear SSH</a></li>
+    <li><a href="#step-10-some-checks">Step 10: Some checks</a></li>
+    <li><a href="#step-11-optional-optimize-btrfs-mount-options">Step 11 (optional): Optimize btrfs mount options</a>
+      <ul>
+        <li><a href="#hdd-and-ssd">HDD and SSD</a></li>
+        <li><a href="#ssd-specific">SSD-specific</a></li>
+        <li><a href="#check-mount-options">Check mount options</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-12-install-timeshift-and-timeshift-autosnap-apt">Step 12: Install Timeshift and Timeshift-autosnap-apt</a>
+      <ul>
+        <li><a href="#timeshift">Timeshift</a></li>
+        <li><a href="#timeshift-autosnap-apt">Timeshift-autosnap-apt</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-13-decide-what-to-do-with-second-ext4-partition">Step 13: Decide what to do with second ext4 partition</a></li>
+    <li><a href="#troubleshooting">Troubleshooting</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</details>
+</p>
+<h2 id="overview">Overview</h2>
+<p>Since 2020, I am exclusively using btrfs as filesystem on all my systems, see: <a href="../btrfs/">Why I (still) like btrfs</a>. So, in this guide I will show how to install Ubuntu Server 20.10 on a Raspberry Pi 4 with the following structure:</p>
+<ul>
+<li>an unencrypted boot partition to make the Pi boot completely from USB (no SD card required)</li>
+<li>a btrfs-inside-luks partition for the root filesystem (excluding <code>/boot</code>) containing a subvolume <code>@</code> mounted as <code>/</code> and a subvolume <code>@home</code>  mounted as <code>/home</code></li>
+<li>headless server: remote unlocking using Dropbear (passphrase prompt via dedicated SSH login on different port)</li>
+<li>automatic system snapshots and easy rollback similar to <em>zsys</em> using:
+<ul>
+<li><a href="https://github.com/teejee2008/timeshift" target="_blank" rel="noopener">Timeshift</a> which will regularly take (almost instant) snapshots of the system</li>
+<li><a href="https://github.com/wmutschl/timeshift-autosnap-apt" target="_blank" rel="noopener">timeshift-autosnap-apt</a> which will automatically run Timeshift on any apt operation and also keep a backup of your boot partition inside the snapshot</li>
+</ul>
+</li>
+</ul>
+<p>With this setup you basically get the same comfort of Ubuntu&rsquo;s 20.10&rsquo;s ZFS and <em>zsys</em> initiative, but with much more flexibility and comfort due to the awesome <a href="https://github.com/teejee2008/timeshift" target="_blank" rel="noopener">Timeshift</a> program, which saved my bacon quite a few times. This setup works similarly well on other distributions, for which I also have <a href="../../install-guides">installation guides with optional RAID1</a>.</p>
+<p>This tutorial is most likely not the fastest way to achieve this, but it works for me and once everything is set up, you never have to go through it again (unless you get another Raspberry Pi of course;-) ).</p>
+<h2 id="tested-environment">Tested environment</h2>
+<ul>
+<li>Raspberry Pi 4 4GB</li>
+<li>Ubuntu Server 20.10</li>
+<li>Drives
+<ul>
+<li>Samsung T5 portable SSD (1 TB)</li>
+<li>LaCie Porsche Design Mobile Drive (2TB)</li>
+</ul>
+</li>
+</ul>
+<h2 id="step-0-optional-enable-usb-boot-on-raspberry-pi-4">Step 0 (optional): Enable USB Boot on Raspberry Pi 4</h2>
+<p>Depending on when your Raspberry Pi 4 was manufactured, the bootloader EEPROM may need to be updated to enable booting from USB mass storage devices. I followed this <a href="https://www.raspberrypi.org/documentation/computers/raspberry-pi.html#usb-mass-storage-boot" target="_blank" rel="noopener">USB mass storage boot guide</a> to update my EEPROM, there is also an official <a href="https://ubuntu.com/tutorials/how-to-install-ubuntu-desktop-on-raspberry-pi-4#4-optional-usb-boot" target="_blank" rel="noopener">Ubuntu (optional) USB Boot guide</a>. Note that you need to do this only once, afterwards your Pi will always be able to boot from USB.</p>
+<h2 id="step-1-flash-ubuntu-server-2010-on-an-external-usb-drive">Step 1: Flash Ubuntu Server 20.10 on an external USB drive</h2>
+<p>In this tutorial we flash <a href="https://ubuntu.com/raspberry-pi" target="_blank" rel="noopener">Ubuntu Server 20.10 for Raspberry Pi</a> to an external USB 3.0 drive. To download and flash the image I first installed the <a href="https://snapcraft.io/rpi-imager" target="_blank" rel="noopener">Raspberry Pi Imager</a> from the snap store (<code>sudo snap install rpi-imager</code>). On my Fedora machine I had to switch, temporarily, from <em>Wayland</em> to <em>Gnome on Xorg</em> to run it. Then select the following:</p>
+<ul>
+<li><code>CHOOSE OS</code> -&gt; Other general purpose OS -&gt; Ubuntu -&gt; Ubuntu Server 20.10 (RPi 3/4/400) 64-bit server OS for arm64 architectures</li>
+<li><code>CHOOSE SD CARD</code>: Your external USB 3.0 drive</li>
+</ul>
+<p>In short, instead of selecting the SD card I am simply choosing my external USB drive instead. If you cannot do that for some reason, you can always <a href="https://www.raspberrypi.org/documentation/installation/installing-images/" target="_blank" rel="noopener">directly flash the image</a> to your USB drive or copy it over from a SD card.</p>
+<h2 id="step-2-prepare-partitions-manually">Step 2: Prepare partitions manually</h2>
+<p>By default the partition scheme looks like this (my external USB drive is named <em>sdb</em>, look for <em>system-boot</em> and <em>writable</em> in the <code>blkid</code> output):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo blkid
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/sdb1: LABEL_FATBOOT=&#34;system-boot&#34; LABEL=&#34;system-boot&#34; UUID=&#34;2EC5-A982&#34; BLOCK_SIZE=&#34;512&#34; TYPE=&#34;vfat&#34; PARTUUID=&#34;254a9658-01&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/sdb2: LABEL=&#34;writable&#34; UUID=&#34;c21fdada-1423-4a06-be66-0b9c02860d1d&#34; BLOCK_SIZE=&#34;4096&#34; TYPE=&#34;ext4&#34; PARTUUID=&#34;254a9658-02&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo parted /dev/sdb print
+</span></span><span class="line"><span class="cl"><span class="c1"># Model: LaCie P9227 Slim (scsi)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Disk /dev/sdb: 2000GB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Sector size (logical/physical): 512B/4096B</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Partition Table: msdos</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Disk Flags: </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Number  Start   End     Size    Type     File system  Flags</span>
+</span></span><span class="line"><span class="cl"> <span class="c1"># 1      1049kB  269MB   268MB   primary  fat32        boot, lba</span>
+</span></span><span class="line"><span class="cl"> <span class="c1"># 2      269MB   3348MB  3079MB  primary  ext4</span>
+</span></span></code></pre></div><p>If you would now boot from the drive, the second partition would expand on first boot to take over all space. One would then need to manually shrink it and move files around. To make life a bit easier, we will leave some space after the second partition and create a third partition which will actually contain our LUKS encrypted root btrfs filesystem and re-use the second partition for something else (e.g. <a href="../ubuntu-btrfs-20-04/#encrypted-swap">encrypted swap</a> or an <a href="../raspi-post-install/#option-a-create-dedicated-encrypted-docker-image-partition">encrypted dedicated docker image partition</a>) later on. With btrfs I do not need any other partitions for e.g. <code>/home</code>, as we will use subvolumes instead.</p>
+<p>Let&rsquo;s use <code>parted</code> for this (feel free to use <code>gparted</code> accordingly):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo parted /dev/sdb mkpart primary 5000MiB 100%
+</span></span><span class="line"><span class="cl">sudo parted /dev/sdb print
+</span></span><span class="line"><span class="cl"><span class="c1"># Model: LaCie P9227 Slim (scsi)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Disk /dev/sdb: 2000GB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Sector size (logical/physical): 512B/4096B</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Partition Table: msdos</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Disk Flags: </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Number  Start   End     Size    Type     File system  Flags</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  1      1049kB  269MB   268MB   primary  fat32        boot, lba</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  2      269MB   3348MB  3079MB  primary  ext4</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  3      5243MB  2000GB  1995GB  primary</span>
+</span></span></code></pre></div><p>Note that the third partition starts at 5243MB, so my second partition will have a size of 5243MB-268MB=4975MB once the second partition gets extended on first boot.</p>
+<h2 id="step-3-create-luks-partition-and-btrfs-root-filesystem">Step 3: Create LUKS partition and btrfs root filesystem</h2>
+<p>The Raspberry Pi 4 doesn&rsquo;t have hardware-accelerated AES support, so encryption is usually not very fast. <a href="https://security.googleblog.com/2019/02/introducing-adiantum-encryption-for.html" target="_blank" rel="noopener">Google&rsquo;s Adiantum algorithm performs better on ARM</a> so we use it for our LUKS partition:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo cryptsetup luksFormat --type<span class="o">=</span>luks2 -c xchacha20,aes-adiantum-plain64 /dev/sdb3
+</span></span><span class="line"><span class="cl"><span class="c1"># WARNING!</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ========</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># This will overwrite data on /dev/sdb3 irrevocably.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Are you sure? (Type uppercase yes): YES</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Enter passphrase for /dev/sdb3: </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Verify passphrase:</span>
+</span></span></code></pre></div><p>Use a very good password here. Now map the encrypted partition to a device called <code>crypt_raspi</code>, which will be our root filesystem:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo cryptsetup luksOpen /dev/sdb3 crypt_raspi
+</span></span><span class="line"><span class="cl"><span class="c1"># Enter passphrase for /dev/sdb3:</span>
+</span></span><span class="line"><span class="cl">ls /dev/mapper/
+</span></span><span class="line"><span class="cl"><span class="c1"># control ... crypt_raspi</span>
+</span></span></code></pre></div><p>Now let&rsquo;s format <code>crypt_raspi</code> with the btrfs filesystem:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mkfs.btrfs /dev/mapper/crypt_raspi
+</span></span><span class="line"><span class="cl"><span class="c1"># btrfs-progs v5.9 </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># See http://btrfs.wiki.kernel.org for more information.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Label:              (null)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID:               b220ee50-3511-4cfe-8988-fa2d4dedf677</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Node size:          16384</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Sector size:        4096</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Filesystem size:    1.81TiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Block group profiles:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   Data:             single            8.00MiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   Metadata:         DUP               1.00GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   System:           DUP               8.00MiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># SSD detected:       no</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Incompat features:  extref, skinny-metadata</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Runtime features:   </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Checksum:           crc32c</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Number of devices:  1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Devices:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    ID        SIZE  PATH</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     1     1.81TiB  /dev/mapper/crypt_raspi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo cryptsetup luksClose crypt_raspi
+</span></span></code></pre></div><p>Note that for an external SSD drive, like my Samsung Portable SSD T5, the SSD should be detected by btrfs automatically. Disconnect the external usb drive and connect it to your Pi.</p>
+<h2 id="step-4-boot-your-raspberry-pi-and-ssh-into-it">Step 4: Boot your Raspberry Pi and SSH into it</h2>
+<p>Before you boot your Pi, make sure that it is either connected to an HDMI display and you have Keyboard access to it or you are using it headless via SSH, i.e. by connecting it to your network either with <a href="https://ubuntu.com/tutorials/how-to-install-ubuntu-on-your-raspberry-pi#3-wifi-or-ethernet" target="_blank" rel="noopener">Wi-Fi or Ethernet</a>.</p>
+<p>In all the following steps I will focus on the SSH way as I am connecting my Pi via ethernet (acutally I am also connecting a display just in case) so I can now plug in the USB drive and boot from it. If you need to set up Wi-Fi, check out the linked guide above. In any case, you need to find out the ip address of your pi (e.g. in your router). I have dedicated 192.168.178.50 (or ubuntu.fritz.box) to the Raspberry pi in the admin interface of my router. You can find out the ip by running either of these two commands on your computer (which should also be connected to the same network of course):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">arp -na <span class="p">|</span> grep -i <span class="s2">&#34;b8:27:eb&#34;</span>
+</span></span><span class="line"><span class="cl">arp -na <span class="p">|</span> grep -i <span class="s2">&#34;dc:a6:32&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ? (192.168.178.50) at dc:a6:32:d3:da:c2 [ether] on enp12s0u1u2</span>
+</span></span></code></pre></div><p>Note that the first boot might take a couple of minutes before the Pi&rsquo;s SSH server is up and running. Now let&rsquo;s SSH into it and change the default password <code>ubuntu</code> to one of your choice:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ssh ubuntu@192.168.178.50
+</span></span><span class="line"><span class="cl"><span class="c1"># The authenticity of host &#39;192.168.178.50 (192.168.178.50)&#39; can&#39;t be established.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ECDSA key fingerprint is SHA256:JrZAxm31CLs4ECU8BK9KsctGZciwO5xpcU7VdKDI/G8.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Warning: Permanently added &#39;192.168.178.50&#39; (ECDSA) to the list of known hosts.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ubuntu@192.168.178.50&#39;s password: </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># You are required to change your password immediately (administrator enforced)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Welcome to Ubuntu 20.10 (GNU/Linux 5.8.0-1006-raspi aarch64)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># .....</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># .....</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># WARNING: Your password has expired.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># You must change your password now and login again!</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Changing password for ubuntu.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Current password: </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># New password: </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Retype new password: </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># passwd: password updated successfully</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Connection to 192.168.178.50 closed.</span>
+</span></span></code></pre></div><p>Reconnect using your newly created password:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ssh ubuntu@192.168.178.50
+</span></span></code></pre></div><h2 id="step-5-update-your-raspberry-pi-system">Step 5: Update your Raspberry Pi system</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt upgrade
+</span></span><span class="line"><span class="cl">sudo apt autoremove
+</span></span><span class="line"><span class="cl">sudo snap refresh
+</span></span><span class="line"><span class="cl">sudo reboot now
+</span></span></code></pre></div><p>Wait a short while and SSH back into your system; recheck if there are any further updates. If so, then install them and reboot again. If not, then power down your Pi</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo shutdown now
+</span></span></code></pre></div><p>and remove the USB drive from your Pi.</p>
+<h2 id="step-6-create-subvolumes--and-home-and-rsync-system-and-home-files">Step 6: Create subvolumes (@ and @home) and rsync system and home files</h2>
+<p>Plug the USB drive back into your computer. You might get prompts from your file manager to mount the LUKS partition, cancel these prompts. Find out the name of your USB drive (look at <code>LABEL_FATBOOT=&quot;system-boot&quot;</code> and <code>LABEL=&quot;writable&quot;</code>), for me it is again <code>sdb</code>, and have a look at the partition table:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo blkid
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/sdb1: LABEL_FATBOOT=&#34;system-boot&#34; LABEL=&#34;system-boot&#34; UUID=&#34;2EC5-A982&#34; BLOCK_SIZE=&#34;512&#34; TYPE=&#34;vfat&#34; PARTUUID=&#34;254a9658-01&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/sdb2: LABEL=&#34;writable&#34; UUID=&#34;c21fdada-1423-4a06-be66-0b9c02860d1d&#34; BLOCK_SIZE=&#34;4096&#34; TYPE=&#34;ext4&#34; PARTUUID=&#34;254a9658-02&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/sdb3: UUID=&#34;cd2b99fd-11c1-423f-b07b-44f704da1599&#34; TYPE=&#34;crypto_LUKS&#34; PTTYPE=&#34;atari&#34; PARTUUID=&#34;254a9658-03&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo parted /dev/sdb print
+</span></span><span class="line"><span class="cl"><span class="c1"># Model: LaCie P9227 Slim (scsi)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Disk /dev/sdb: 2000GB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Sector size (logical/physical): 512B/4096B</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Partition Table: msdos</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Disk Flags: </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Number  Start   End     Size    Type     File system  Flags</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  1      1049kB  269MB   268MB   primary  fat32        boot, lba</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  2      269MB   5243MB  4973MB  primary  ext4</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  3      5243MB  2000GB  1995GB  primary</span>
+</span></span></code></pre></div><p>Note that the second partition <code>sdb2</code> has been resized and contains the ext4 filesystem with the system files (the Pi&rsquo;s <code>/</code> and <code>/home</code> directories); whereas <code>sdb3</code> contains our btrfs-luks partition with the remaining space.</p>
+<p>Now, let&rsquo;s map the btrfs-luks partition to a device called <code>crypt_raspi</code> and mount this to <code>/mnt/btrfs</code>. Also, we&rsquo;ll mount the ext4 partition to <code>/mnt/ext4</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo mkdir -p /mnt/btrfs
+</span></span><span class="line"><span class="cl">sudo cryptsetup luksOpen /dev/sdb3 crypt_raspi
+</span></span><span class="line"><span class="cl"><span class="c1"># Enter passphrase for /dev/sdb3:</span>
+</span></span><span class="line"><span class="cl">sudo mount /dev/mapper/crypt_raspi /mnt/btrfs
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo mkdir -p /mnt/ext4
+</span></span><span class="line"><span class="cl">sudo mount /dev/sdb2 /mnt/ext4
+</span></span></code></pre></div><p>Let&rsquo;s create two subvolumes: <code>@</code> for the <code>/</code> directory and <code>@home</code> for the <code>/home</code> directory:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo btrfs subvolume create /mnt/btrfs/@
+</span></span><span class="line"><span class="cl">sudo btrfs subvolume create /mnt/btrfs/@home
+</span></span></code></pre></div><p>Rsync to copy all files from the ext4 partition into our <code>@</code> and <code>@home</code> subvolumes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo rsync -avhP /mnt/ext4/ /mnt/btrfs/@/
+</span></span><span class="line"><span class="cl">sudo mv /mnt/btrfs/@/home/ubuntu /mnt/btrfs/@home/ubuntu
+</span></span><span class="line"><span class="cl">sudo sync <span class="o">&amp;&amp;</span> sync <span class="c1">#make sure everything is written to disk</span>
+</span></span></code></pre></div><p>Note that the home directories reside in the <code>@home</code> subvolume. This might take a little while depending on the speed of your drive. Unmount and clean-up on your computer:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo umount /mnt/btrfs
+</span></span><span class="line"><span class="cl">sudo umount /mnt/ext4
+</span></span><span class="line"><span class="cl">sudo cryptsetup luksClose crypt_raspi
+</span></span><span class="line"><span class="cl">sudo rmdir /mnt/btrfs
+</span></span><span class="line"><span class="cl">sudo rmdir /mnt/ext4
+</span></span></code></pre></div><p>Unplug the USB drive from your computer.</p>
+<h2 id="step-7-create-a-chroot-environment-on-your-pi-using-the--subvolume">Step 7: Create a chroot environment on your Pi using the @ subvolume</h2>
+<p>Plug the USB drive back into your Pi, boot it and SSH into your Pi. Find out the name of your drive (usually <code>sda</code>):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo blkid
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/sda2: LABEL=&#34;writable&#34; UUID=&#34;c21fdada-1423-4a06-be66-0b9c02860d1d&#34; BLOCK_SIZE=&#34;4096&#34; TYPE=&#34;ext4&#34; PARTUUID=&#34;254a9658-02&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/loop0: TYPE=&#34;squashfs&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/loop1: TYPE=&#34;squashfs&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/loop2: TYPE=&#34;squashfs&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/loop3: TYPE=&#34;squashfs&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/loop4: TYPE=&#34;squashfs&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/loop5: TYPE=&#34;squashfs&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/sda1: LABEL_FATBOOT=&#34;system-boot&#34; LABEL=&#34;system-boot&#34; UUID=&#34;2EC5-A982&#34; BLOCK_SIZE=&#34;512&#34; TYPE=&#34;vfat&#34; PARTUUID=&#34;254a9658-01&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/sda3: UUID=&#34;cd2b99fd-11c1-423f-b07b-44f704da1599&#34; TYPE=&#34;crypto_LUKS&#34; PTTYPE=&#34;atari&#34; PARTUUID=&#34;254a9658-03&#34;</span>
+</span></span></code></pre></div><p>Unlock your LUKS partition, map it to <code>crypt_raspi</code> and mount the <code>@</code> subvolume to <code>/mnt</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo cryptsetup luksOpen /dev/sda3 crypt_raspi
+</span></span><span class="line"><span class="cl">sudo mount -o <span class="nv">subvol</span><span class="o">=</span>@ /dev/mapper/crypt_raspi /mnt
+</span></span></code></pre></div><p>Create a chroot (change-root) environment to work directly from the <code>@</code> subvolume on your Pi:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="k">for</span> i in /dev /dev/pts /proc /sys /run<span class="p">;</span> <span class="k">do</span> sudo mount -B <span class="nv">$i</span> /mnt<span class="nv">$i</span><span class="p">;</span> <span class="k">done</span>
+</span></span><span class="line"><span class="cl">sudo chroot /mnt
+</span></span></code></pre></div><p>You have now root access from your <code>@</code> subvolume as <code>/</code>. We now need to adapt the mount points correctly and enable the system to boot from the encrypted partition.</p>
+<h2 id="step-8-make-changes-to-fstab-crypttab-and-cmdlinetxt">Step 8: Make changes to fstab, crypttab and cmdline.txt</h2>
+<p>Let&rsquo;s make some changes to <code>/etc/fstab</code> to always</p>
+<ul>
+<li>mount <code>/</code> to the <code>@</code> subvolume inside <code>crypt_raspi</code></li>
+<li>mount <code>/home</code> to the <code>@home</code> subvolume inside <code>crypt_raspi</code></li>
+<li>mount the boot partition to <code>/boot/firmware</code></li>
+</ul>
+<p>Use either these <code>sed</code> and <code>echo</code> commands or open <code>/etc/fstab</code> in a text editor (e.g. nano) directly:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sed -i <span class="s1">&#39;\|^LABEL=writable|d&#39;</span> /etc/fstab <span class="c1">#this removes any lines starting with LABEL=writable</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;/dev/mapper/crypt_raspi  /               btrfs   defaults,subvol=@       0       0&#34;</span> &gt;&gt; /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;/dev/mapper/crypt_raspi  /home           btrfs   defaults,subvol=@home   0       0&#34;</span> &gt;&gt; /etc/fstab
+</span></span></code></pre></div><p>Either way, your fstab should look like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">cat /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c1"># LABEL=system-boot       /boot/firmware  vfat    defaults        0       1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/crypt_raspi  /               btrfs   defaults,subvol=@       0       0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/crypt_raspi  /home           btrfs   defaults,subvol=@home   0       0</span>
+</span></span></code></pre></div><p>Now we can mount everything:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">mount -av
+</span></span><span class="line"><span class="cl"><span class="c1"># /boot/firmware           : successfully mounted</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /                        : ignored</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /home                    : successfully mounted</span>
+</span></span></code></pre></div><p>We need to tell the system where our <code>crypt_raspi</code> resides, so edit the <code>/etc/crypttab</code> file:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;crypt_raspi  /dev/sda3   none   luks&#34;</span> &gt;&gt; /etc/crypttab
+</span></span><span class="line"><span class="cl">cat /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># crypt_raspi  /dev/sda3   none   luks</span>
+</span></span></code></pre></div><p>Lastly, we need to change the kernel parameters in <code>/boot/firmware/cmdline.txt</code>:</p>
+<ul>
+<li>Change <code>root=LABEL=writable</code> to <code>root=/dev/mapper/crypt_raspi rootflags=subvol=@</code></li>
+<li>Change <code>rootfstype=ext4</code> to <code>rootfstype=btrfs</code></li>
+<li>Add <code>cryptdevice=/dev/sda3:crypt_raspi</code> to the end of the line</li>
+<li>Remove <code>quiet</code> and <code>splash</code> (always good on a server)</li>
+</ul>
+<p>So, use these <code>sed</code> commands or open the file in a texteditor:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">cp /boot/firmware/cmdline.txt /boot/firmware/cmdline.txt.orig
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sed -i <span class="s2">&#34;s|root=LABEL=writable|root=/dev/mapper/crypt_raspi rootflags=subvol=@|&#34;</span> /boot/firmware/cmdline.txt
+</span></span><span class="line"><span class="cl">sed -i <span class="s2">&#34;s|ext4|btrfs|&#34;</span> /boot/firmware/cmdline.txt
+</span></span><span class="line"><span class="cl">sed -i <span class="s2">&#34;s|quiet splash|cryptdevice=/dev/sda3:sdcard|&#34;</span> /boot/firmware/cmdline.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat /boot/firmware/cmdline.txt
+</span></span><span class="line"><span class="cl"><span class="c1">#dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 root=/dev/mapper/crypt_raspi rootflags=subvol=@ rootfstype=btrfs elevator=deadline rootwait fixrtc cryptdevice=/dev/sda3:crypt_raspi</span>
+</span></span></code></pre></div><p>Very importantly, make the initramfs image aware of these changes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">update-initramfs -c -k all
+</span></span></code></pre></div><p>If you have a display connected, and first want to check whether you are able to boot from your encrypted LUKS partition, then exit the chroot and reboot now:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">sudo reboot now
+</span></span></code></pre></div><p>Alternatively, if you want to be able to remotely unlock your LUKS drive via a Dropbear SSH server, do the next step first in the chroot. Of course, you can always do Step 9 later after you booted into your system.</p>
+<h2 id="step-9-optional-remote-unlocking-using-dropbear-ssh">Step 9 (optional): Remote unlocking using Dropbear SSH</h2>
+<p>For headless installations it is useful to have the ability to enter the LUKS passphrase remotely via SSH. We will install a <a href="https://matt.ucc.asn.au/dropbear/dropbear.html" target="_blank" rel="noopener">Dropbear SSH server</a> for the sole purpose of unlocking your LUKS partition. I have a dedicated SSH key for unlocking via Dropbear. So on my computer I have created a dedicated SSH key and stored it in a file <code>id_dropbear</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ssh-keygen -t rsa -f ~/.ssh/id_dropbear -C dropbear <span class="c1"># do this only once</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># WRITE DOWN OR COPY YOUR PUBLIC KEY IN THE CLIPBOARD</span>
+</span></span><span class="line"><span class="cl">cat ~/.ssh/id_dropbear.pub
+</span></span><span class="line"><span class="cl"><span class="c1"># ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDHZ8L+RCQnqmXTqhfqKmpM8F/E4edFhLgclpbqi9V5dKTuuaFFkkLsRrPbWkYGxQPpYqNUcVsbOisnJKIL5WRV9TvXBqcIhT84BwDdrFEnP9DoTj6eidHUU7AOjfqJ1E0plX5j+yixKK6jW5A4CHDHPcCq3iFmprZOMkrTP2WctzNu9qfe6mP2+9CFN5MWFsEiU137865LVLMwApp9BM4eTX9k+TZi7wD7AagfYEP+GTFTGwA7+OwjBbl4jZlRnD31uRcMour+qjd7VKhEB1m9L26fWzj/lT83Sj/SCHekbpO3Yvv2LKUlnd8dW4y/Eo883ZWx5A6C5IwWDF/ruOR/ dropbear</span>
+</span></span></code></pre></div><p>Note that ed25519 keys are not supported.</p>
+<p>On your Pi, make sure you are in an interactive root mode (if you are still in the chroot environment, skip this):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo -i
+</span></span></code></pre></div><p>Next install Dropbear:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install dropbear-initramfs
+</span></span></code></pre></div><p>Add your dedicated public key (<code>/home/$USER/.ssh/id_dropbear.pub</code> on my computer) to <code>/etc/dropbear-initramfs/authorized_keys</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;no-port-forwarding,no-agent-forwarding,no-x11-forwarding,command=&#34;/bin/cryptroot-unlock&#34; ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDHZ8L+RCQnqmXTqhfqKmpM8F/E4edFhLgclpbqi9V5dKTuuaFFkkLsRrPbWkYGxQPpYqNUcVsbOisnJKIL5WRV9TvXBqcIhT84BwDdrFEnP9DoTj6eidHUU7AOjfqJ1E0plX5j+yixKK6jW5A4CHDHPcCq3iFmprZOMkrTP2WctzNu9qfe6mP2+9CFN5MWFsEiU137865LVLMwApp9BM4eTX9k+TZi7wD7AagfYEP+GTFTGwA7+OwjBbl4jZlRnD31uRcMour+qjd7VKhEB1m9L26fWzj/lT83Sj/SCHekbpO3Yvv2LKUlnd8dW4y/Eo883ZWx5A6C5IwWDF/ruOR/ dropbear&#39;</span> &gt;&gt; /etc/dropbear-initramfs/authorized_keys
+</span></span></code></pre></div><p>Note that <code>no-port-forwarding,no-agent-forwarding,no-x11-forwarding,command=&quot;/bin/cryptroot-unlock&quot;</code> restricts this SSH access to only run <code>/bin/cryptroot-unlock</code> and then close the SSH session. Moreover, I am changing the port for the Dropbear server to 4444 in <code>/etc/dropbear-initramfs/config</code> (add/uncomment <code>DROPBEAR_OPTIONS=&quot;-p 4444&quot;</code>):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sed -i <span class="s1">&#39;s|#DROPBEAR_OPTIONS=|DROPBEAR_OPTIONS=&#34;-p 4444&#34;|&#39;</span> /etc/dropbear-initramfs/config
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat /etc/dropbear-initramfs/config
+</span></span><span class="line"><span class="cl"><span class="c1"># DROPBEAR_OPTIONS=&#34;-p 4444&#34;</span>
+</span></span></code></pre></div><p>Don&rsquo;t forget to update the initramfs:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">update-initramfs -u -k all
+</span></span></code></pre></div><p>Now it is time to exit the chroot environment</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">exit</span>
+</span></span></code></pre></div><p>and reboot:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo reboot now
+</span></span></code></pre></div><p>If you have a display connected, you should see</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">Please unlock disk crypt_raspi:
+</span></span><span class="line"><span class="cl"><span class="c1"># ...</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># some other output</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ...</span>
+</span></span><span class="line"><span class="cl">Begin: Starting dropbear:
+</span></span></code></pre></div><p>Now from your computer use the dedicated SSH identity to access the Dropbear SSH server:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ssh -i ~/.ssh/id_dropbear root@192.168.178.50 -p4444
+</span></span><span class="line"><span class="cl"><span class="c1"># Please unlock disk crypt_raspi:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Connection to 192.168.178.50 closed.</span>
+</span></span></code></pre></div><p>If something goes wrong, simply connect a USB keyboard to your Pi and carefully type in your LUKS passphrase and hit Enter. This will also unlock your LUKS partition and boot into your system.</p>
+<h2 id="step-10-some-checks">Step 10: Some checks</h2>
+<p>Once the Pi booted and you entered your LUKS passphrase either remotely or directly, SSH into your system and check whether everything is working as it should:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo cat /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># crypt_raspi  /dev/sda3   none   luks</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo cat /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c1"># LABEL=system-boot        /boot/firmware  vfat    defaults                0       1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/crypt_raspi  /               btrfs   defaults,subvol=@       0       0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/crypt_raspi  /home           btrfs   defaults,subvol=@home   0       0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo mount -av
+</span></span><span class="line"><span class="cl"><span class="c1"># /boot/firmware           : already mounted</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /                        : ignored</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /home                    : already mounted</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo mount -v <span class="p">|</span> grep /dev/mapper
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/crypt_raspi on / type btrfs (rw,relatime,space_cache,subvolid=257,subvol=/@)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/crypt_raspi on /home type btrfs (rw,relatime,space_cache,subvolid=258,subvol=/@home)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo btrfs filesystem show /
+</span></span><span class="line"><span class="cl"><span class="c1"># Label: none  uuid: 0ba938bc-9f6a-4b2f-b978-c10b3528d17c677</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#         Total devices 1 FS bytes used 2.47GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#         devid    1 size 1.81TiB used 5.02GiB path /dev/mapper/crypt_raspi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo btrfs subvolume list /
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 257 gen 57 top level 5 path @</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 258 gen 51 top level 5 path @home</span>
+</span></span></code></pre></div><p>Look&rsquo;s good. Let&rsquo;s check again for updates and reboot one more time:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt upgrade
+</span></span><span class="line"><span class="cl">sudo apt dist-upgrade
+</span></span><span class="line"><span class="cl">sudo apt autoremove
+</span></span><span class="line"><span class="cl">sudo apt autoclean
+</span></span><span class="line"><span class="cl">sudo reboot now
+</span></span></code></pre></div><h2 id="step-11-optional-optimize-btrfs-mount-options">Step 11 (optional): Optimize btrfs mount options</h2>
+<h3 id="hdd-and-ssd">HDD and SSD</h3>
+<p>I have found that there is <em>some</em> general agreement to use the following mount options:</p>
+<ul>
+<li><code>noatime</code>: prevent frequent disk writes by instructing the Linux kernel not to store the last access time of files and folders</li>
+<li><code>space_cache</code>: allows btrfs to store free space cache on the disk to make caching of a block group much quicker</li>
+<li><code>commit=120</code>: time interval in which data is written to the filesystem (value of 120 is taken from Manjaro)</li>
+<li><code>compress=zstd</code>: allows to specify the compression algorithm which we want to use. btrfs provides lzo, zstd and zlib compression algorithms. Based on some Phoronix test cases, zstd seems to be the better performing candidate.</li>
+<li>Lastly the pass flag for fschk in the <code>fstab</code> is useless for btrfs and should be set to 0.</li>
+</ul>
+<p>So add these options to your btrfs subvolume mount points in your fstab:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo nano /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c1"># LABEL=system-boot        /boot/firmware  vfat    defaults                                                             0       1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/crypt_raspi  /               btrfs   defaults,noatime,space_cache,commit=120,compress=zstd,subvol=@       0       0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/crypt_raspi  /home           btrfs   defaults,noatime,space_cache,commit=120,compress=zstd,subvol=@home   0       0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/crypt_raspi  /btr_pool       btrfs   defaults,noatime,space_cache,commit=120,compress=zstd,subvolid=5     0       0</span>
+</span></span><span class="line"><span class="cl">sudo mkdir -p /btr_pool
+</span></span><span class="line"><span class="cl">sudo mount -a
+</span></span></code></pre></div><p>Note that I also add a mountpoint <code>/btr_pool</code> for the btrfs root filesystem (this has always id 5) for easy access of all my subvolumes. You would need to restart to make use of the new options. Also compression is not used on already available files, but only for new or changed files.</p>
+<h3 id="ssd-specific">SSD-specific</h3>
+<p>If you are using a SSD, don&rsquo;t forget to <strong>additionally</strong> add the following mount options to your <code>/etc/fstab</code>:</p>
+<ul>
+<li><code>ssd</code>: use SSD specific options for optimal use on SSD and NVME (if you have one)</li>
+<li><code>discard=async</code>: <a href="https://www.phoronix.com/scan.php?page=news_item&amp;px=Btrfs-Async-Discard" target="_blank" rel="noopener">Btrfs Async Discard Support Looks To Be Ready For Linux 5.6</a></li>
+</ul>
+<p>Moreover, to use the discard support in btrfs we need to pass it on in <code>/etc/crypttab</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo nano /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># crypt_raspi /dev/sda3 none luks,discard</span>
+</span></span></code></pre></div><p>As <a href="https://www.phoronix.com/scan.php?page=news_item&amp;px=Fedora-Btrfs-Opts-Discard-Comp" target="_blank" rel="noopener">both fstrim and discard=async mount option can peacefully co-exist</a>, I also enable <code>fstrim.timer</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> fstrim.timer
+</span></span></code></pre></div><h3 id="check-mount-options">Check mount options</h3>
+<p>Reboot and see which mount options are active:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo mount -v <span class="p">|</span> grep /dev/mapper
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/crypt_raspi on / type btrfs (rw,noatime,compress=zstd:3,space_cache,commit=120,subvolid=256,subvol=/@)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/crypt_raspi on /btr_pool type btrfs (rw,noatime,compress=zstd:3,space_cache,commit=120,subvolid=5,subvol=/)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/crypt_raspi on /home type btrfs (rw,noatime,compress=zstd:3,space_cache,commit=120,subvolid=258,subvol=/@home)</span>
+</span></span></code></pre></div><h2 id="step-12-install-timeshift-and-timeshift-autosnap-apt">Step 12: Install Timeshift and Timeshift-autosnap-apt</h2>
+<h3 id="timeshift">Timeshift</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install timeshift
+</span></span><span class="line"><span class="cl">sudo timeshift --btrfs
+</span></span><span class="line"><span class="cl"><span class="c1"># First run mode (config file not found)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Selected default snapshot type: BTRFS</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># App config loaded: /etc/timeshift.json</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Mounted &#39;/dev/dm-0 (sda3)&#39; at &#39;/run/timeshift/backup&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Selected default snapshot device: /dev/dm-0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># App config saved: /etc/timeshift.json</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="k">$(</span>blkid -s UUID -o value /dev/mapper/crypt_raspi<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 0ba938bc-9f6a-4b2f-b978-c10b3528d17c</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="k">$(</span>blkid -s UUID -o value /dev/sda3<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cd2b99fd-11c1-423f-b07b-44f704da1599</span>
+</span></span></code></pre></div><p>Let&rsquo;s edit the configuration file (<code>/etc/timeshift.json</code>) of Timeshift. For this, use the UUID of <code>/dev/mapper/crypt_raspi</code> for <code>backup_device_uuid</code> and of <code>/dev/sda3</code> for <code>parent_device_uuid</code> (actually as we ran Timeshift with the <code>--btrfs</code> flag this should be autodetected). Mine looks like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;backup_device_uuid&#34;</span> <span class="p">:</span> <span class="s2">&#34;0ba938bc-9f6a-4b2f-b978-c10b3528d17c&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;parent_device_uuid&#34;</span> <span class="p">:</span> <span class="s2">&#34;cd2b99fd-11c1-423f-b07b-44f704da1599&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;do_first_run&#34;</span> <span class="p">:</span> <span class="s2">&#34;false&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;btrfs_mode&#34;</span> <span class="p">:</span> <span class="s2">&#34;true&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;include_btrfs_home_for_backup&#34;</span> <span class="p">:</span> <span class="s2">&#34;true&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;include_btrfs_home_for_restore&#34;</span> <span class="p">:</span> <span class="s2">&#34;false&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;stop_cron_emails&#34;</span> <span class="p">:</span> <span class="s2">&#34;true&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;btrfs_use_qgroup&#34;</span> <span class="p">:</span> <span class="s2">&#34;true&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;schedule_monthly&#34;</span> <span class="p">:</span> <span class="s2">&#34;true&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;schedule_weekly&#34;</span> <span class="p">:</span> <span class="s2">&#34;true&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;schedule_daily&#34;</span> <span class="p">:</span> <span class="s2">&#34;true&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;schedule_hourly&#34;</span> <span class="p">:</span> <span class="s2">&#34;true&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;schedule_boot&#34;</span> <span class="p">:</span> <span class="s2">&#34;false&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;count_monthly&#34;</span> <span class="p">:</span> <span class="s2">&#34;2&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;count_weekly&#34;</span> <span class="p">:</span> <span class="s2">&#34;3&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;count_daily&#34;</span> <span class="p">:</span> <span class="s2">&#34;5&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;count_hourly&#34;</span> <span class="p">:</span> <span class="s2">&#34;6&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;count_boot&#34;</span> <span class="p">:</span> <span class="s2">&#34;5&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;snapshot_size&#34;</span> <span class="p">:</span> <span class="s2">&#34;0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;snapshot_count&#34;</span> <span class="p">:</span> <span class="s2">&#34;0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;date_format&#34;</span> <span class="p">:</span> <span class="s2">&#34;%Y-%m-%d %H:%M:%S&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;exclude&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;exclude-apps&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>You can create your first snapshot now:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo timeshift --create --comments <span class="s2">&#34;First snapshot&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Using system disk as snapshot device for creating snapshots in BTRFS mode</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/dm-0 is mounted at: /run/timeshift/backup, options: rw,relatime,compress=zstd:3,space_cache,commit=120,subvolid=5,subvol=/</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Creating new backup...(BTRFS)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Saving to device: /dev/dm-0, mounted at path: /run/timeshift/backup</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created directory: /run/timeshift/backup/timeshift-btrfs/snapshots/2021-01-11_12-51-54</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created subvolume snapshot: /run/timeshift/backup/timeshift-btrfs/snapshots/2021-01-11_12-51-54/@</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created subvolume snapshot: /run/timeshift/backup/timeshift-btrfs/snapshots/2021-01-11_12-51-54/@home</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created control file: /run/timeshift/backup/timeshift-btrfs/snapshots/2021-01-11_12-51-54/info.json</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># BTRFS Snapshot saved successfully (0s)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Tagged snapshot &#39;2021-01-11_12-51-54&#39;: ondemand</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ------------------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># E: ERROR: can&#39;t list qgroups: quotas not enabled</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># E: btrfs returned an error: 256</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># E: Failed to query subvolume quota</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Enabled subvolume quota support</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Added cron task: /etc/cron.d/timeshift-hourly</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo timeshift --list
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/dm-0 is mounted at: /run/timeshift/backup, options: rw,relatime,compress=zstd:3,space_cache,commit=120,subvolid=5,subvol=/</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Device : /dev/dm-0 (sda3)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID   : 0ba938bc-9f6a-4b2f-b978-c10b3528d17c</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Path   : /run/timeshift/backup</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Mode   : BTRFS</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Status : OK</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1 snapshots, 2.0 TB free</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Num     Name                 Tags  Description     </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ------------------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 0    &gt;  2021-01-11_12-51-54  O     First snapshot </span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo timeshift --create --comments <span class="s2">&#34;Second snapshot&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Using system disk as snapshot device for creating snapshots in BTRFS mode</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/dm-0 is mounted at: /run/timeshift/backup, options: rw,relatime,compress=zstd:3,space_cache,commit=120,subvolid=5,subvol=/</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Creating new backup...(BTRFS)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Saving to device: /dev/dm-0, mounted at path: /run/timeshift/backup</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created directory: /run/timeshift/backup/timeshift-btrfs/snapshots/2021-01-11_12-54-13</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created subvolume snapshot: /run/timeshift/backup/timeshift-btrfs/snapshots/2021-01-11_12-54-13/@</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created subvolume snapshot: /run/timeshift/backup/timeshift-btrfs/snapshots/2021-01-11_12-54-13/@home</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created control file: /run/timeshift/backup/timeshift-btrfs/snapshots/2021-01-11_12-54-13/info.json</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># BTRFS Snapshot saved successfully (0s)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Tagged snapshot &#39;2021-01-11_12-54-13&#39;: ondemand</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ------------------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo timeshift --list
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/dm-0 is mounted at: /run/timeshift/backup, options: rw,relatime,compress=zstd:3,space_cache,commit=120,subvolid=5,subvol=/</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Device : /dev/dm-0 (sda3)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID   : 0ba938bc-9f6a-4b2f-b978-c10b3528d17c</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Path   : /run/timeshift/backup</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Mode   : BTRFS</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Status : OK</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2 snapshots, 2.0 TB free</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Num     Name                 Tags  Description      </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ------------------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 0    &gt;  2021-01-11_12-51-54  O     First snapshot   </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1    &gt;  2021-01-11_12-54-13  O     Second snapshot </span>
+</span></span></code></pre></div><p>Note that the cron job and btrfs quotas are enabled on first run, so don&rsquo;t worry about the <code>qgroups: quotas not enabled</code> error. Timeshift will now check every hour if snapshots (“hourly”, “daily”, “weekly”, “monthly”, “boot”) need to be created or deleted. Note that “boot” snapshots will not be created directly but about 10 minutes after a system startup. I also include the <code>@home</code> subvolume (which is not selected by default). Note that when you restore a snapshot you can always choose whether or not you also want to restore @home (which in most cases you don&rsquo;t want to).</p>
+<p>Timeshift puts all snapshots into <code>/run/timeshift/backup/timeshift-btrfs</code>. Conveniently, the real root (subvolid 5) of your btrfs partition is also mounted to <code>/run/timeshift/backup</code>, so it is easy to view, create, delete and move around snapshots manually.</p>
+<h3 id="timeshift-autosnap-apt">Timeshift-autosnap-apt</h3>
+<p>Open a terminal and install some dependencies:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install -y btrfs-progs git make
+</span></span></code></pre></div><p>Now let’s install <a href="https://github.com/wmutschl/timeshift-autosnap-apt" target="_blank" rel="noopener">Timeshift-autosnap-apt</a> from GitHub:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git clone https://github.com/wmutschl/timeshift-autosnap-apt.git /home/<span class="nv">$USER</span>/timeshift-autosnap-apt
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /home/<span class="nv">$USER</span>/timeshift-autosnap-apt
+</span></span><span class="line"><span class="cl">sudo make install
+</span></span></code></pre></div><p>After this, make changes to the configuration file:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo nano /etc/timeshift-autosnap-apt.conf
+</span></span></code></pre></div><p>For example, as we don’t have a dedicated <code>/boot/efi</code> partition, we should set <code>snapshotEFI=false</code> in the configuration file. Check if everything is working:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo timeshift-autosnap-apt
+</span></span><span class="line"><span class="cl"><span class="c1"># Rsyncing /boot into the filesystem before the call to timeshift.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Using system disk as snapshot device for creating snapshots in BTRFS mode</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/dm-0 is mounted at: /run/timeshift/backup, options: rw,relatime,compress=zstd:3,space_cache,commit=120,subvolid=5,subvol=/</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Creating new backup...(BTRFS)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Saving to device: /dev/dm-0, mounted at path: /run/timeshift/backup</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created directory: /run/timeshift/backup/timeshift-btrfs/snapshots/2021-01-11_13-00-39</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created subvolume snapshot: /run/timeshift/backup/timeshift-btrfs/snapshots/2021-01-11_13-00-39/@</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created subvolume snapshot: /run/timeshift/backup/timeshift-btrfs/snapshots/2021-01-11_13-00-39/@home</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created control file: /run/timeshift/backup/timeshift-btrfs/snapshots/2021-01-11_13-00-39/info.json</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># BTRFS Snapshot saved successfully (9s)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Tagged snapshot &#39;2021-01-11_13-00-39&#39;: ondemand</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ------------------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo timeshift --list
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/dm-0 is mounted at: /run/timeshift/backup, options: rw,relatime,compress=zstd:3,space_cache,commit=120,subvolid=5,subvol=/</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Device : /dev/dm-0 (sda3)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID   : 0ba938bc-9f6a-4b2f-b978-c10b3528d17c</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Path   : /run/timeshift/backup</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Mode   : BTRFS</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Status : OK</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 3 snapshots, 2.0 TB free</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Num     Name                 Tags       Description                                            </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ------------------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 0    &gt;  2021-01-11_12-51-54  O H D W M  First snapshot                                         </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1    &gt;  2021-01-11_12-54-13  O          Second snapshot                                        </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2    &gt;  2021-01-11_13-00-39  O          {timeshift-autosnap-apt} {created before call to APT} </span>
+</span></span></code></pre></div><p>Now, if you run any <code>sudo apt install|remove|upgrade|dist-upgrade</code> command, <em>Timeshift-autosnap-apt</em> will create a snapshot of your system with <em>Timeshift</em>.</p>
+<h2 id="step-13-decide-what-to-do-with-second-ext4-partition">Step 13: Decide what to do with second ext4 partition</h2>
+<p>Now as everything is up and running from <code>/dev/mapper/crypt_raspi</code> on <code>/dev/sda3</code>, we don&rsquo;t have any use for <code>/dev/sda2</code> anymore. So, either let it be, delete it, or use it as an <a href="../ubuntu-btrfs-20-04/#encrypted-swap">encrypted swap partition</a> or (what I do) as an <a href="../raspi-post-install/#option-a-create-dedicated-encrypted-docker-image-partition">encrypted docker image partition</a>.</p>
+<p><strong>FINISHED! CONGRATULATIONS AND THANKS FOR STICKING THROUGH!</strong></p>
+<p><em>If you want more, check out my <a href="../raspi-post-install">Raspberry Pi post installation steps</a></em></p>
+<p><em>If you ever need to rollback your system, checkout <a href="../../timeshift/">Recovery and system rollback with Timeshift</a>.</em></p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>For troubleshooting, always connect a display. Note that we removed quiet and splashed, so you should get a verbose output.</p>
+<h4 id="fails-to-boot-fails-to-unlock-luks-boots-into-initramfs">Fails to boot, fails to unlock LUKS, boots into Initramfs:</h4>
+<p>If the Raspberry Pi fails to boot and enters <code>(initramfs)</code>, this is usally due to the fact that the initramfs hasn&rsquo;t been updated yet|correctly.</p>
+<p>So, decrypt your LUKS partition directly from initramfs:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="o">(</span>initramfs<span class="o">)</span> cryptsetup luksOpen /dev/sda3 crypt_raspi
+</span></span><span class="line"><span class="cl"><span class="c1"># Continue booting...   (initramfs) exit</span>
+</span></span></code></pre></div><p>If your passphrase is wrong, double-check whether your passphrase is compatible with the US Layout of the keyboard!</p>
+<p>Log into your system and rewrite the initramfs (there shouldn&rsquo;t be any errors):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo update-initramfs -c -k all
+</span></span><span class="line"><span class="cl">sudo reboot now
+</span></span></code></pre></div><p>After another reboot there should be a prompt for the passphrase.</p>
+
+          </div>
+
+          
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/linux/">linux</a>
+  
+  <a class="badge badge-light" href="/tag/raspberry-pi/">raspberry pi</a>
+  
+  <a class="badge badge-light" href="/tag/ubuntu/">ubuntu</a>
+  
+  <a class="badge badge-light" href="/tag/install-guide/">install guide</a>
+  
+  <a class="badge badge-light" href="/tag/btrfs/">btrfs</a>
+  
+  <a class="badge badge-light" href="/tag/luks/">luks</a>
+  
+  <a class="badge badge-light" href="/tag/timeshift/">timeshift</a>
+  
+  <a class="badge badge-light" href="/tag/timeshift-autosnap-apt/">timeshift-autosnap-apt</a>
+  
+  <a class="badge badge-light" href="/tag/usb-boot/">usb boot</a>
+  
+</div>
+
+
+
+          
+          
+          <div class="article-widget">
+            
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/linux/raspi-post-install/" rel="next">Ubuntu Server Raspberry Pi: Things to do after installation (Apps, Settings, and Tweaks)</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/linux/fedora-btrfs-33/" rel="prev">Fedora Workstation 33: installation guide with btrfs-luks full disk encryption (optionally including /boot) and auto snapshots with Timeshift</a>
+  </div>
+  
+</div>
+
+          </div>
+          
+        </div>
+
+        <div class="body-footer">
+          <p>Last updated on Jun 17, 2022</p>
+
+          
+
+
+
+          
+
+
+
+
+          
+
+
+        </div>
+
+      </article>
+
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+  </p>
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2022 Willi Mutschler. This work is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank">CC BY SA 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-sa fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+
+    </main>
+  </div>
+</div>
+
+  </div>
+
+  <div class="page-footer">
+    
+    
+  </div>
+
+      
+
+    
+    <script src="/js/vendor-bundle.min.3d946de2e8784a477845261d87025092.js"></script>
+
+    
+    
+    
+      
+      
+        <script src="https://cdn.jsdelivr.net/gh/desandro/imagesloaded@v4.1.4/imagesloaded.pkgd.min.js" integrity="sha512-S5PZ9GxJZO16tT9r3WJp/Safn31eu8uWrzglMahDT4dsmgqWonRY9grk3j+3tfuPr9WJNsfooOR7Gi7HL5W2jw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/metafizzy/isotope@v3.0.6/dist/isotope.pkgd.min.js" integrity="sha512-Zq2BOxyhvnRFXu0+WE6ojpZLOU2jdnqbrM1hmVdGzyeCa1DgM3X5Q4A/Is9xA1IkbUeDd7755dNNI/PzSf2Pew==" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/r.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/matlab.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+      <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script src="https://cdn.jsdelivr.net/gh/bryanbraun/anchorjs@4.2.2/anchor.min.js" integrity="sha512-I7w3ZdSFzw5j3jU3ZkNikBNeIrl3i+hEuEdwNmqUJvwNcaBUNcijnP2gd9DtGlgVYDplfjGoD8vTNsID+lCjqg==" crossorigin="anonymous"></script>
+    <script>
+      anchors.add();
+    </script>
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+
+    
+    
+    
+    <script id="page-data" type="application/json">{"use_headroom":false}</script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.9162604ef5b82e6fdeff386200ab6db9.js"></script>
+
+    
+    
+      <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+    
+    
+    
+    
+
+
+
+
+
+
+</body>
+</html>

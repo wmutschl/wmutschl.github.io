@@ -1,0 +1,1195 @@
+<!DOCTYPE html><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.4.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Willi Mutschler" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="My personal experience and projects regarding Timeshift." />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://mutschler.dev/linux/timeshift/" />
+
+  
+  
+  
+    <meta name="theme-color" content="#bbdefb" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.c7b8d9abd591ba2253ea42747e3ac3f5.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css" integrity="sha512-W0xM4mr6dEP9nREo7Z9z+9X70wytKvMGeDsj7ps2+xg5QPrEBXC8tAW1IFnzjR6eoJ90JmCnFzerQJTLzIEHjA==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'" disabled>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'">
+        
+      
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.0b8400c2e374cd7dd4f9ae4909fd9914.css" />
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://mutschler.dev/linux/timeshift/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary" />
+  
+  <meta property="og:site_name" content="mutschler.dev" />
+  <meta property="og:url" content="https://mutschler.dev/linux/timeshift/" />
+  <meta property="og:title" content="Timeshift | mutschler.dev" />
+  <meta property="og:description" content="My personal experience and projects regarding Timeshift." /><meta property="og:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" />
+    <meta property="twitter:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2020-04-01T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2022-06-17T13:47:19&#43;02:00">
+  
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Timeshift | mutschler.dev</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper  dark " data-wc-page-id="e3efb511c361d62441a7aad593a51204" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.6c07fd79b08c404df0504bd310968f2f.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="header--fixed">
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/apple/"><span>Apple</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link  active" href="/linux/"><span>Linux</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/stuff/"><span>Stuff</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://buymeacoffee.com/mutschler" data-toggle="tooltip" data-placement="bottom" title="Buy me a coffee" target="_blank" rel="noopener" aria-label="Buy me a coffee">
+                <i class="fas fa-coffee" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="mailto:willi@mutschler.dev" data-toggle="tooltip" data-placement="bottom" title="Write me an email"  aria-label="Write me an email">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://github.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on GitHub" target="_blank" rel="noopener" aria-label="Follow me on GitHub">
+                <i class="fab fa-github" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://gitlab.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on Gitlab" target="_blank" rel="noopener" aria-label="Follow me on Gitlab">
+                <i class="fab fa-gitlab" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://www.youtube.com/c/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on YouTube" target="_blank" rel="noopener" aria-label="Follow me on YouTube">
+                <i class="fab fa-youtube" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        
+
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    
+
+
+
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      <form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-md-3 w-100" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <div class="d-flex">
+      <span class="d-md-none pl-1 flex-grow-1 text-left overflow-hidden">
+        
+          Linux
+        
+      </span>
+      <span><i class="fas fa-chevron-down"></i></span>
+    </div>
+  </button>
+
+  
+  <button class="form-control sidebar-search js-search d-none d-md-flex">
+    <i class="fas fa-search pr-2"></i>
+    <span class="sidebar-search-text">Search...</span>
+    <span class="sidebar-search-shortcut">/</span>
+  </button>
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+  
+  
+  
+  
+  
+
+  
+  
+    
+
+    
+      
+
+      
+
+
+  
+    
+    
+    
+    
+      
+    
+    
+
+    
+      <ul class="nav docs-sidenav">
+        <li class=""><a href="/linux/">Linux</a></li>
+    
+      
+
+
+  <li class=""><a href="/linux/elementary-os-post-install/">elementary OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/elementary-os-6-1/">elementary OS 6.1 Jólnir: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-22-04/">Pop!_OS 22.04: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-post-install/">Pop!_OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-post-install/">Fedora Workstation: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-btrfs-35/">Fedora Workstation 35 with automatic btrfs snapshots and backups using BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-10/">DRAFT: Pop!_OS 21.10: installation guide with btrfs-LVM-luks and auto snapshots with BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-04/">Pop!_OS 21.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/raspi-post-install/">Ubuntu Server Raspberry Pi: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/raspi-btrfs/">Ubuntu Server 20.10 on Raspberry Pi 4: installation guide with USB Boot (no SD card) and full disk encryption (excluding /boot) using btrfs-inside-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-btrfs-33/">Fedora Workstation 33: installation guide with btrfs-luks full disk encryption (optionally including /boot) and auto snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/btrfs/">Why I (still) like btrfs</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-btrfs-raid1-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks-RAID1 full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-btrfs-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-post-install/">Ubuntu Desktop: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-raid1-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks-RAID1 and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class="active"><a href="/linux/timeshift/">Timeshift</a></li>
+
+      
+    
+
+    
+      </ul>
+    
+
+  
+</nav>
+
+    </div>
+
+    
+    
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      
+
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+      </ul>
+
+      <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#if-you-can-access-your-desktop-environment-either-directly-or-via-an-old-snapshot">If you can access your desktop environment (either directly or via an old snapshot)</a></li>
+        <li><a href="#if-you-cant-boot-into-your-desktop-environment">If you can&rsquo;t boot into your desktop environment</a></li>
+        <li><a href="#manually-or-if-the-above-fails">Manually or if the above fails</a></li>
+        <li><a href="#last-resort-chroot-method">Last resort: chroot method</a></li>
+      </ul>
+    </li>
+    <li><a href="#emergency-scenario-raid1-is-broken-in-progress-to-generalize-this">Emergency scenario: RAID1 is broken (in-progress to generalize this)</a>
+      <ul>
+        <li><a href="#vda-is-broken">vda is broken</a></li>
+        <li><a href="#vdb-is-broken">vdb is broken</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+      
+    </div>
+    
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <article class="article">
+
+        <div class="docs-article-container">
+          
+
+          <h1>Timeshift</h1>
+
+          <div class="article-style">
+            <p>[Work-In-Progress]
+<em><strong>Please feel free to raise any comments or issues on the <a href="https://github.com/wmutschl/mutschler.dev" target="_blank" rel="noopener">website&rsquo;s Github repository</a>. Pull requests are very much appreciated.</strong></em>
+<a href="https://www.buymeacoffee.com/mutschler" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+<details class="toc-inpage d-print-none d-xl-none " open>
+  <summary class="font-weight-bold">Table of Contents</summary>
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#if-you-can-access-your-desktop-environment-either-directly-or-via-an-old-snapshot">If you can access your desktop environment (either directly or via an old snapshot)</a></li>
+        <li><a href="#if-you-cant-boot-into-your-desktop-environment">If you can&rsquo;t boot into your desktop environment</a></li>
+        <li><a href="#manually-or-if-the-above-fails">Manually or if the above fails</a></li>
+        <li><a href="#last-resort-chroot-method">Last resort: chroot method</a></li>
+      </ul>
+    </li>
+    <li><a href="#emergency-scenario-raid1-is-broken-in-progress-to-generalize-this">Emergency scenario: RAID1 is broken (in-progress to generalize this)</a>
+      <ul>
+        <li><a href="#vda-is-broken">vda is broken</a></li>
+        <li><a href="#vdb-is-broken">vdb is broken</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</details>
+</p>
+<h3 id="if-you-can-access-your-desktop-environment-either-directly-or-via-an-old-snapshot">If you can access your desktop environment (either directly or via an old snapshot)</h3>
+<p>Launch Timeshift from the menu (or desktop shortcut) and select a snapshot and hit restore. A reboot and you&rsquo;re done. Takes mere seconds and doesn’t get any easier.</p>
+<h3 id="if-you-cant-boot-into-your-desktop-environment">If you can&rsquo;t boot into your desktop environment</h3>
+<p>Run a live system, decrypt all partitions and install Timeshift.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo cryptsetup luksOpen /dev/vda3 cryptdata
+</span></span><span class="line"><span class="cl">sudo apt install timeshift
+</span></span></code></pre></div><p>Run timeshift either in GUI or CLI mode, set the options and restore your system.</p>
+<h3 id="manually-or-if-the-above-fails">Manually or if the above fails</h3>
+<p>Run a live system (e.g. Ubuntu install medium), decrypt all partitions and install timeshift.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo cryptsetup luksOpen /dev/vda3 cryptdata
+</span></span><span class="line"><span class="cl">sudo apt install timeshift
+</span></span></code></pre></div><p>Mount the top level root filesystem to /mnt:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mount -o <span class="nv">subvolid</span><span class="o">=</span>@ /dev/mapper/cryptdata /mnt
+</span></span></code></pre></div><p>Now move or rename the bad @ snapshot.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mv /mnt/@ /mnt/@.bad
+</span></span></code></pre></div><p>and move a good one to be your new @:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mv /mnt/timeshift-btrfs/snapshots/2020-05-06_23-35-24/@ /mnt/@
+</span></span></code></pre></div><p>In some cases (if you want to revert failed kernel updates or failed changes to initramfs), you should also restore your EFI partition. That is, mount your efi partition into the the new @ and restore the efi backup:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mount /dev/vda1 /mnt/@/boot/efi
+</span></span><span class="line"><span class="cl">sudo rsync -avuP --delete /mnt/@/boot.backup/efi/ /mnt/@/boot/efi/
+</span></span></code></pre></div><p>Reboot. If something went wrong, but you are sure that your snapshot is actually fine, then you need to chroot into your system as described in the next section.</p>
+<h3 id="last-resort-chroot-method">Last resort: chroot method</h3>
+<p>If you need to access your system via a chroot environment, then run a live system (e.g. Ubuntu install medium), decrypt all partitions and mount @:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo cryptsetup luksOpen /dev/vda3 cryptdata
+</span></span><span class="line"><span class="cl">mount -o <span class="nv">subvol</span><span class="o">=</span>@,ssd,noatime,space_cache,commit<span class="o">=</span>120,compress<span class="o">=</span>zstd /dev/mapper/cryptdata /mnt
+</span></span><span class="line"><span class="cl"><span class="k">for</span> n in proc sys dev etc/resolv.conf<span class="p">;</span> <span class="k">do</span> mount --rbind /<span class="nv">$n</span> /mnt/<span class="nv">$n</span><span class="p">;</span> <span class="k">done</span>
+</span></span><span class="line"><span class="cl">chroot /mnt
+</span></span><span class="line"><span class="cl">mount -av <span class="c1"># in case you need the other subvolumes and partitions</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># DO SOME ROOT STUFF</span>
+</span></span></code></pre></div><p>Typically, these commands should restore a working snapshot:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt install -y --reinstall grub-efi-amd64-signed linux-generic linux-headers-generic
+</span></span><span class="line"><span class="cl">update-initramfs -c -k all
+</span></span><span class="line"><span class="cl">grub-install /dev/vda
+</span></span><span class="line"><span class="cl">update-grub
+</span></span></code></pre></div><p>Reboot!</p>
+<h2 id="emergency-scenario-raid1-is-broken-in-progress-to-generalize-this">Emergency scenario: RAID1 is broken (in-progress to generalize this)</h2>
+<h3 id="vda-is-broken">vda is broken</h3>
+<p>Let&rsquo;s assume vda is broken (to this end I shutdown the virtual machine and added an empty vda).
+Now we need to open the EFI BOOT MANAGER IN BIOS and select to boot from the EFI partition on vdb. The system will not boot, but we have our recovery system on vdb, so let&rsquo;s boot into it. Then, we need to chroot in degraded mode into the system, change PARTUUID in the fstab, and remove the bad drive from the crypttab:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo -i
+</span></span><span class="line"><span class="cl">cryptsetup luksOpen /dev/vdb4 crypt_vdb
+</span></span><span class="line"><span class="cl">mount -o <span class="nv">subvol</span><span class="o">=</span>@,degraded /dev/mapper/data_vdb-root /mnt
+</span></span><span class="line"><span class="cl">mount /dev/vdb1 /mnt/boot/efi
+</span></span><span class="line"><span class="cl"><span class="k">for</span> n in proc sys dev etc/resolv.conf<span class="p">;</span> <span class="k">do</span> mount --rbind /<span class="nv">$n</span> /mnt/<span class="nv">$n</span><span class="p">;</span> <span class="k">done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">chroot /mnt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># get PARTUUID</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="k">$(</span>blkid -s PARTUUID -o value /dev/vdb1<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># df1701f7-6e8b-4db1-8192-3a7931e3a905</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="k">$(</span>blkid -s PARTUUID -o value /dev/vdb2<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 3560ffd1-39f0-44da-9c3b-a5d98ea43f08</span>
+</span></span><span class="line"><span class="cl">nano /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c1"># USE df1701f7-6e8b-4db1-8192-3a7931e3a905 FOR /boot/efi</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># USE 3560ffd1-39f0-44da-9c3b-a5d98ea43f08 FOR /recovery</span>
+</span></span><span class="line"><span class="cl">cat /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c1"># PARTUUID=df1701f7-6e8b-4db1-8192-3a7931e3a905  /boot/efi  vfat  umask=0077  0  0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># PARTUUID=3560ffd1-39f0-44da-9c3b-a5d98ea43f08  /recovery  vfat  umask=0077  0  0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=c277ed84-e32f-4204-a211-1d80596e6e15  /  btrfs  defaults,subvol=@,ssd,noatime,space_cache,commit=120,compress=zstd  0  0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=c277ed84-e32f-4204-a211-1d80596e6e15   /home   btrfs   defaults,subvol=@home,ssd,noatime,space_cache,commit=120,compress=zstd   0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/cryptswap  none  swap  defaults  0  0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mkswap /dev/vdb3
+</span></span><span class="line"><span class="cl"><span class="c1"># Setting up swapspace version 1, size = 4 GiB (4294963200 bytes)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># no label, UUID=a6a9ec65-a225-4185-8edd-f9dd3c243a2a</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">nano /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># UNCOMMENT THE NOT WORKING DEVICE AND CHANGE UUID of cryptswap</span>
+</span></span><span class="line"><span class="cl">cat /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># cryptswap UUID=a6a9ec65-a225-4185-8edd-f9dd3c243a2a /dev/urandom swap,offset=1024,cipher=aes-xts-plain64,size=512</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># #crypt_vda UUID=9fc916b2-bdd8-4fbd-b557-4c4366f8cd63 none luks</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># crypt_vdb UUID=93fc3643-a687-4a1c-9859-409b090448b9 none luks</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">update-initramfs -c -k all
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">reboot now
+</span></span></code></pre></div><p>Choose POP!_OS (degraded) in the boot menu and you can boot into your system and repair it!</p>
+<h3 id="vdb-is-broken">vdb is broken</h3>
+<p>Let&rsquo;s assume vdb is broken (to this end I shutdown the virtual machine and added a empty vdb).
+Now we need to open the EFI BOOT MANAGER IN BIOS and select to boot from the EFI partition on vdb. The system will not boot, but we have our recovery system on vda, so let&rsquo;s boot into it. Then, we need to chroot in degraded mode into the system and remove the bad drive from the crypttab:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo -i
+</span></span><span class="line"><span class="cl">cryptsetup luksOpen /dev/vda4 crypt_vda
+</span></span><span class="line"><span class="cl">mount -o <span class="nv">subvol</span><span class="o">=</span>@,degraded /dev/mapper/data_vda-root /mnt
+</span></span><span class="line"><span class="cl">mount /dev/vda1 /mnt/boot/efi
+</span></span><span class="line"><span class="cl"><span class="k">for</span> n in proc sys dev etc/resolv.conf<span class="p">;</span> <span class="k">do</span> mount --rbind /<span class="nv">$n</span> /mnt/<span class="nv">$n</span><span class="p">;</span> <span class="k">done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">chroot /mnt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># NO NEED TO CHANGE THE FSTAB</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">nano /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># UNCOMMENT THE NOT WORKING DEVICE</span>
+</span></span><span class="line"><span class="cl">cat /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># cryptswap UUID=03019356-3691-4002-a013-be15f291cde2 /dev/urandom swap,offset=1024,cipher=aes-xts-plain64,size=512</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># crypt_vda UUID=9fc916b2-bdd8-4fbd-b557-4c4366f8cd63 none luks</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># #crypt_vdb UUID=93fc3643-a687-4a1c-9859-409b090448b9 none luks</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">update-initramfs -c -k all
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">reboot now
+</span></span></code></pre></div><p>Choose POP!_OS (degraded) in the boot menu and you can boot into your system and repair it!</p>
+<p>TO DO SHOW HOW TO <a href="https://support.system76.com/articles/bootloader/" target="_blank" rel="noopener">Repair the Bootloader</a></p>
+
+          </div>
+
+          
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/backup/">backup</a>
+  
+  <a class="badge badge-light" href="/tag/linux/">linux</a>
+  
+  <a class="badge badge-light" href="/tag/timeshift/">timeshift</a>
+  
+  <a class="badge badge-light" href="/tag/btrfs/">btrfs</a>
+  
+</div>
+
+
+
+          
+          
+          <div class="article-widget">
+            
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/linux/pop-os-btrfs-20-04/" rel="next">Pop!_OS 20.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a>
+  </div>
+  
+  
+</div>
+
+          </div>
+          
+        </div>
+
+        <div class="body-footer">
+          <p>Last updated on Jun 17, 2022</p>
+
+          
+
+
+
+          
+
+
+
+
+          
+
+
+        </div>
+
+      </article>
+
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+  </p>
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2022 Willi Mutschler. This work is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank">CC BY SA 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-sa fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+
+    </main>
+  </div>
+</div>
+
+  </div>
+
+  <div class="page-footer">
+    
+    
+  </div>
+
+      
+
+    
+    <script src="/js/vendor-bundle.min.3d946de2e8784a477845261d87025092.js"></script>
+
+    
+    
+    
+      
+      
+        <script src="https://cdn.jsdelivr.net/gh/desandro/imagesloaded@v4.1.4/imagesloaded.pkgd.min.js" integrity="sha512-S5PZ9GxJZO16tT9r3WJp/Safn31eu8uWrzglMahDT4dsmgqWonRY9grk3j+3tfuPr9WJNsfooOR7Gi7HL5W2jw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/metafizzy/isotope@v3.0.6/dist/isotope.pkgd.min.js" integrity="sha512-Zq2BOxyhvnRFXu0+WE6ojpZLOU2jdnqbrM1hmVdGzyeCa1DgM3X5Q4A/Is9xA1IkbUeDd7755dNNI/PzSf2Pew==" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/r.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/matlab.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+      <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script src="https://cdn.jsdelivr.net/gh/bryanbraun/anchorjs@4.2.2/anchor.min.js" integrity="sha512-I7w3ZdSFzw5j3jU3ZkNikBNeIrl3i+hEuEdwNmqUJvwNcaBUNcijnP2gd9DtGlgVYDplfjGoD8vTNsID+lCjqg==" crossorigin="anonymous"></script>
+    <script>
+      anchors.add();
+    </script>
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+
+    
+    
+    
+    <script id="page-data" type="application/json">{"use_headroom":false}</script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.9162604ef5b82e6fdeff386200ab6db9.js"></script>
+
+    
+    
+      <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+    
+    
+    
+    
+
+
+
+
+
+
+</body>
+</html>

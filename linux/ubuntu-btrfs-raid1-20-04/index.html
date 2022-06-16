@@ -1,0 +1,1861 @@
+<!DOCTYPE html><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.4.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Willi Mutschler" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="In this guide I will walk you through the installation procedure to get an Ubuntu 20.04 system with a luks-encrypted partition for the root filesystem (including /boot) formatted with btrfs that contains a subvolume @ for / and a subvolume @home for /home. The system is set up in a RAID1 managed by the btrfs filesystem. I will show how to optimize the btrfs mount options and how to add key-files to type the luks passphrase only once for each disk for GRUB. I will also cover how to setup encrypted swap partitions. This layout enables one to use Timeshift and timeshift-autosnap-apt which will regularly take snapshots of the system and particularly on any apt operation. Moreover, using grub-btrfs all snapshots can be accessed and booted into from the GRUB menu. Due to the RAID1 managed by btrfs you get redundancy of your data." />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://mutschler.dev/linux/ubuntu-btrfs-raid1-20-04/" />
+
+  
+  
+  
+    <meta name="theme-color" content="#bbdefb" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.c7b8d9abd591ba2253ea42747e3ac3f5.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css" integrity="sha512-W0xM4mr6dEP9nREo7Z9z+9X70wytKvMGeDsj7ps2+xg5QPrEBXC8tAW1IFnzjR6eoJ90JmCnFzerQJTLzIEHjA==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'" disabled>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'">
+        
+      
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.0b8400c2e374cd7dd4f9ae4909fd9914.css" />
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://mutschler.dev/linux/ubuntu-btrfs-raid1-20-04/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary" />
+  
+  <meta property="og:site_name" content="mutschler.dev" />
+  <meta property="og:url" content="https://mutschler.dev/linux/ubuntu-btrfs-raid1-20-04/" />
+  <meta property="og:title" content="Ubuntu Desktop 20.04: installation guide with btrfs-luks-RAID1 full disk encryption including /boot and auto-apt snapshots with Timeshift | mutschler.dev" />
+  <meta property="og:description" content="In this guide I will walk you through the installation procedure to get an Ubuntu 20.04 system with a luks-encrypted partition for the root filesystem (including /boot) formatted with btrfs that contains a subvolume @ for / and a subvolume @home for /home. The system is set up in a RAID1 managed by the btrfs filesystem. I will show how to optimize the btrfs mount options and how to add key-files to type the luks passphrase only once for each disk for GRUB. I will also cover how to setup encrypted swap partitions. This layout enables one to use Timeshift and timeshift-autosnap-apt which will regularly take snapshots of the system and particularly on any apt operation. Moreover, using grub-btrfs all snapshots can be accessed and booted into from the GRUB menu. Due to the RAID1 managed by btrfs you get redundancy of your data." /><meta property="og:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" />
+    <meta property="twitter:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2020-05-21T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2022-06-17T13:47:19&#43;02:00">
+  
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Ubuntu Desktop 20.04: installation guide with btrfs-luks-RAID1 full disk encryption including /boot and auto-apt snapshots with Timeshift | mutschler.dev</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper  dark " data-wc-page-id="c3602641b9c825711ec88c6e3c5da93a" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.6c07fd79b08c404df0504bd310968f2f.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="header--fixed">
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/apple/"><span>Apple</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link  active" href="/linux/"><span>Linux</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/stuff/"><span>Stuff</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://buymeacoffee.com/mutschler" data-toggle="tooltip" data-placement="bottom" title="Buy me a coffee" target="_blank" rel="noopener" aria-label="Buy me a coffee">
+                <i class="fas fa-coffee" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="mailto:willi@mutschler.dev" data-toggle="tooltip" data-placement="bottom" title="Write me an email"  aria-label="Write me an email">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://github.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on GitHub" target="_blank" rel="noopener" aria-label="Follow me on GitHub">
+                <i class="fab fa-github" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://gitlab.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on Gitlab" target="_blank" rel="noopener" aria-label="Follow me on Gitlab">
+                <i class="fab fa-gitlab" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://www.youtube.com/c/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on YouTube" target="_blank" rel="noopener" aria-label="Follow me on YouTube">
+                <i class="fab fa-youtube" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        
+
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    
+
+
+
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      <form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-md-3 w-100" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <div class="d-flex">
+      <span class="d-md-none pl-1 flex-grow-1 text-left overflow-hidden">
+        
+          Linux
+        
+      </span>
+      <span><i class="fas fa-chevron-down"></i></span>
+    </div>
+  </button>
+
+  
+  <button class="form-control sidebar-search js-search d-none d-md-flex">
+    <i class="fas fa-search pr-2"></i>
+    <span class="sidebar-search-text">Search...</span>
+    <span class="sidebar-search-shortcut">/</span>
+  </button>
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+  
+  
+  
+  
+  
+
+  
+  
+    
+
+    
+      
+
+      
+
+
+  
+    
+    
+    
+    
+      
+    
+    
+
+    
+      <ul class="nav docs-sidenav">
+        <li class=""><a href="/linux/">Linux</a></li>
+    
+      
+
+
+  <li class=""><a href="/linux/elementary-os-post-install/">elementary OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/elementary-os-6-1/">elementary OS 6.1 Jólnir: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-22-04/">Pop!_OS 22.04: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-post-install/">Pop!_OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-post-install/">Fedora Workstation: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-btrfs-35/">Fedora Workstation 35 with automatic btrfs snapshots and backups using BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-10/">DRAFT: Pop!_OS 21.10: installation guide with btrfs-LVM-luks and auto snapshots with BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-04/">Pop!_OS 21.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/raspi-post-install/">Ubuntu Server Raspberry Pi: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/raspi-btrfs/">Ubuntu Server 20.10 on Raspberry Pi 4: installation guide with USB Boot (no SD card) and full disk encryption (excluding /boot) using btrfs-inside-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-btrfs-33/">Fedora Workstation 33: installation guide with btrfs-luks full disk encryption (optionally including /boot) and auto snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/btrfs/">Why I (still) like btrfs</a></li>
+
+
+
+  <li class="active"><a href="/linux/ubuntu-btrfs-raid1-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks-RAID1 full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-btrfs-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-post-install/">Ubuntu Desktop: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-raid1-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks-RAID1 and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/timeshift/">Timeshift</a></li>
+
+      
+    
+
+    
+      </ul>
+    
+
+  
+</nav>
+
+    </div>
+
+    
+    
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      
+
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+      </ul>
+
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#step-0-general-remarks">Step 0: General remarks</a></li>
+    <li><a href="#step-1-boot-the-install-check-uefi-mode-and-open-an-interactive-root-shell">Step 1: Boot the install, check UEFI mode and open an interactive root shell</a></li>
+    <li><a href="#step-2-prepare-partitions-manually">Step 2: Prepare partitions manually</a>
+      <ul>
+        <li><a href="#create-partition-table-and-layout">Create partition table and layout</a></li>
+        <li><a href="#create-luks1-partition-and-btrfs-root-filesystem">Create luks1 partition and btrfs root filesystem</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-3-optional-optimize-mount-options-for-ssd-or-nvme-drives">Step 3 (optional): Optimize mount options for SSD or NVME drives</a></li>
+    <li><a href="#step-4-install-ubuntu-using-the-ubiquity-installer-without-the-bootloader">Step 4: Install Ubuntu using the Ubiquity installer without the bootloader</a></li>
+    <li><a href="#step-5-post-installation-steps">Step 5: Post-Installation steps</a>
+      <ul>
+        <li><a href="#create-a-chroot-environment-and-enter-your-system">Create a chroot environment and enter your system</a></li>
+        <li><a href="#create-raid-1-for-root-filesystem-using-btrfs-balance">Create RAID 1 for root filesystem using btrfs balance</a></li>
+        <li><a href="#create-crypttab">Create crypttab</a></li>
+        <li><a href="#encrypted-swap">Encrypted swap</a></li>
+        <li><a href="#add-a-key-file-to-type-luks-passphrase-only-once-optional-but-recommended">Add a key-file to type luks passphrase only once (optional, but recommended)</a></li>
+        <li><a href="#install-the-efi-bootloader">Install the EFI bootloader</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-6-reboot-some-checks-and-update-system">Step 6: Reboot, some checks, and update system</a></li>
+    <li><a href="#step-7-duplicate-efi-partition-to-the-second-disk">Step 7: Duplicate EFI partition to the second disk</a></li>
+    <li><a href="#step-8-install-timeshift-timeshift-autosnap-apt-and-grub-btrfs">Step 8: Install Timeshift, timeshift-autosnap-apt and grub-btrfs</a>
+      <ul>
+        <li><a href="#step-10-wip-keep-efi-partitions-in-sync">Step 10 (WIP): Keep efi partitions in sync</a></li>
+        <li><a href="#emergency-scenario-raid1-is-broken">Emergency scenario: RAID1 is broken</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+      
+    </div>
+    
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <article class="article">
+
+        <div class="docs-article-container">
+          
+
+          <h1>Ubuntu Desktop 20.04: installation guide with btrfs-luks-RAID1 full disk encryption including /boot and auto-apt snapshots with Timeshift</h1>
+
+          <div class="article-style">
+            <p><em><strong>Please feel free to raise any comments or issues on the <a href="https://github.com/wmutschl/mutschler.dev" target="_blank" rel="noopener">website&rsquo;s Github repository</a>. Pull requests are very much appreciated.</strong></em>
+<a href="https://www.buymeacoffee.com/mutschler" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a></p>
+<details class="toc-inpage d-print-none d-xl-none " open>
+  <summary class="font-weight-bold">Table of Contents</summary>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#step-0-general-remarks">Step 0: General remarks</a></li>
+    <li><a href="#step-1-boot-the-install-check-uefi-mode-and-open-an-interactive-root-shell">Step 1: Boot the install, check UEFI mode and open an interactive root shell</a></li>
+    <li><a href="#step-2-prepare-partitions-manually">Step 2: Prepare partitions manually</a>
+      <ul>
+        <li><a href="#create-partition-table-and-layout">Create partition table and layout</a></li>
+        <li><a href="#create-luks1-partition-and-btrfs-root-filesystem">Create luks1 partition and btrfs root filesystem</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-3-optional-optimize-mount-options-for-ssd-or-nvme-drives">Step 3 (optional): Optimize mount options for SSD or NVME drives</a></li>
+    <li><a href="#step-4-install-ubuntu-using-the-ubiquity-installer-without-the-bootloader">Step 4: Install Ubuntu using the Ubiquity installer without the bootloader</a></li>
+    <li><a href="#step-5-post-installation-steps">Step 5: Post-Installation steps</a>
+      <ul>
+        <li><a href="#create-a-chroot-environment-and-enter-your-system">Create a chroot environment and enter your system</a></li>
+        <li><a href="#create-raid-1-for-root-filesystem-using-btrfs-balance">Create RAID 1 for root filesystem using btrfs balance</a></li>
+        <li><a href="#create-crypttab">Create crypttab</a></li>
+        <li><a href="#encrypted-swap">Encrypted swap</a></li>
+        <li><a href="#add-a-key-file-to-type-luks-passphrase-only-once-optional-but-recommended">Add a key-file to type luks passphrase only once (optional, but recommended)</a></li>
+        <li><a href="#install-the-efi-bootloader">Install the EFI bootloader</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-6-reboot-some-checks-and-update-system">Step 6: Reboot, some checks, and update system</a></li>
+    <li><a href="#step-7-duplicate-efi-partition-to-the-second-disk">Step 7: Duplicate EFI partition to the second disk</a></li>
+    <li><a href="#step-8-install-timeshift-timeshift-autosnap-apt-and-grub-btrfs">Step 8: Install Timeshift, timeshift-autosnap-apt and grub-btrfs</a>
+      <ul>
+        <li><a href="#step-10-wip-keep-efi-partitions-in-sync">Step 10 (WIP): Keep efi partitions in sync</a></li>
+        <li><a href="#emergency-scenario-raid1-is-broken">Emergency scenario: RAID1 is broken</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</details>
+
+<h2 id="overview">Overview</h2>
+<p>Since a couple of months, I am exclusively using btrfs as my filesystem on all my systems, see: <a href="../btrfs/">Why I (still) like btrfs</a>. So, in this guide I will show how to install Ubuntu 20.04 with the following structure:</p>
+<ul>
+<li>a btrfs-inside-luks partition for the root filesystem (including <code>/boot</code>) on two hard disks in a RAID1 managed by btrfs.
+<ul>
+<li>the root filesystem contains a subvolume <code>@</code> for <code>/</code> and a subvolume <code>@home</code> for <code>/home</code> with only one passphrase prompt from GRUB</li>
+</ul>
+</li>
+<li>an encrypted swap partition on each disk</li>
+<li>an unencrypted EFI partition for the GRUB bootloader duplicated on both disks</li>
+<li>automatic system snapshots and easy rollback similar to <em>zsys</em> using:
+<ul>
+<li><a href="https://github.com/teejee2008/timeshift" target="_blank" rel="noopener">Timeshift</a> which will regularly take (almost instant) snapshots of the system</li>
+<li><a href="https://github.com/wmutschl/timeshift-autosnap-apt" target="_blank" rel="noopener">timeshift-autosnap-apt</a> which will automatically run Timeshift on any apt operation and also keep a backup of your EFI partition inside the snapshot</li>
+<li><a href="https://github.com/Antynea/grub-btrfs" target="_blank" rel="noopener">grub-btrfs</a> which will automatically create GRUB entries for all your btrfs snapshots</li>
+</ul>
+</li>
+<li>If you don&rsquo;t need RAID1, follow this guide: <a href="../ubuntu-btrfs-20-04">Ubuntu 20.04 btrfs-luks</a></li>
+</ul>
+<p>With this setup you basically get the same comfort of Ubuntu&rsquo;s 20.04&rsquo;s ZFS and <em>zsys</em> initiative, but with much more flexibility and comfort due to the awesome <a href="https://github.com/teejee2008/timeshift" target="_blank" rel="noopener">Timeshift</a> program, which saved my bacon quite a few times. This setup works similarly well on other distributions, for which I also have <a href="../../install-guides">installation guides with optional RAID1</a>.</p>
+<p><strong>If you ever need to rollback your system, checkout <a href="../../timeshift/">Recovery and system rollback with Timeshift</a>.</strong>
+In the video, I also show what to do if your RAID1 is broken.</p>
+<h2 id="step-0-general-remarks">Step 0: General remarks</h2>
+<p><strong>I strongly advise to try the following installation steps in a virtual machine first before doing anything like that on real hardware!</strong></p>
+<p>So, let&rsquo;s spin up a virtual machine with 4 cores, 8 GB RAM, and two 64GB disk using e.g. my fork of the awesome bash script <a href="https://github.com/wmutschl/quickemu" target="_blank" rel="noopener">quickemu</a> to automatically create 2 disks. I can confirm that the installation works equally well on my Dell Precision 7520 (RAID1 between a SSD and NVME) and on my KVM server (RAID1 between two HDD).</p>
+<p>This tutorial is made with <a href="http://releases.ubuntu.com/focal/" target="_blank" rel="noopener">Ubuntu 20.04 Focal Fossa</a> copied to an installation media (usually a USB Flash device but may be a DVD or the ISO file attached to a virtual machine hypervisor). Other versions of Ubuntu or distributions that use the Ubiquity installer (like Linux Mint) also work, see my other <a href="../../install-guides">installation guides</a>.</p>
+<h2 id="step-1-boot-the-install-check-uefi-mode-and-open-an-interactive-root-shell">Step 1: Boot the install, check UEFI mode and open an interactive root shell</h2>
+<p>Since most modern PCs have UEFI, I will cover only the UEFI installation (see the <a href="../../references/#btrfs-installation-guides">References</a> on how to deal with Legacy installs). So, boot the installation medium in UEFI mode, choose your language and click <code>Try Ubuntu</code>. Once the Live Desktop environment has started we need to use a Terminal shell command-line to issue a series of commands to prepare the target device before executing the installer itself. As I have a German Keyboard, I first go to <code>Settings -- Region &amp; Language</code> and set my keyboard layout.</p>
+<p>Then, open a terminal (<kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>T</kbd>) and run the following command:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mount <span class="p">|</span> grep efivars
+</span></span><span class="line"><span class="cl"><span class="c1"># efivarfs on /sys/firmware/efi/efivars type efivarfs (rw,nosuid,nodev,noexec,relatime)</span>
+</span></span></code></pre></div><p>to detect whether we are in UEFI mode. Now switch to an interactive root session:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo -i
+</span></span></code></pre></div><p>You might find maximizing the terminal window is helpful for working with the command-line. Do not close this terminal window during the whole installation process until we are finished with everything.</p>
+<h2 id="step-2-prepare-partitions-manually">Step 2: Prepare partitions manually</h2>
+<h3 id="create-partition-table-and-layout">Create partition table and layout</h3>
+<p>First find out the name of your drive. For me the installation target device is called <code>vda</code> and I will use <code>vdb</code> for the RAID1 managed by btrfs:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">lsblk
+</span></span><span class="line"><span class="cl"><span class="c1"># NAME  MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># loop0   7:0    0   1.9G  1 loop /rofs</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># loop1   7:1    0  27.1M  1 loop /snap/snapd/7264</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># loop2   7:2    0    55M  1 loop /snap/core18/1705</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># loop3   7:3    0 240.8M  1 loop /snap/gnome-3-34-1804/24</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># loop4   7:4    0  62.1M  1 loop /snap/gtk-common-themes/1506</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># loop5   7:5    0  49.8M  1 loop /snap/snap-store/433</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sr0    11:0    1   2.5G  0 rom  /cdrom</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sr1    11:1    1  1024M  0 rom  </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sr2    11:2    1  1024M  0 rom  </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># vda   252:0    0    64G  0 disk </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># vdb   252:16   0    64G  0 disk </span>
+</span></span></code></pre></div><p>You can also open <code>gparted</code> or have a look into the <code>/dev</code> folder to make sure what your hard drives are called. In most cases they are called <code>sda</code> and <code>sdb</code> for normal SSD and HDD, whereas for NVME storage the naming is <code>nvme0</code> and <code>nvme1</code>. Also note that there are no partitions or data on my hard drive, you should always double check which partition layout fits your use case, particularly if you dual-boot with other systems.</p>
+<p>We&rsquo;ll now create the following partition layout on <code>vda</code> and <code>vdb</code>:</p>
+<ol>
+<li>a 512 MiB FAT32 EFI partition for the GRUB bootloader</li>
+<li>a 4 GiB partition for encrypted swap use</li>
+<li>a luks1 encrypted partition which will be our root btrfs filesystem</li>
+</ol>
+<p>Some remarks:</p>
+<ul>
+<li><code>/boot</code> will reside on the encrypted luks1 partition. The GRUB bootloader is able to decrypt luks1 at boot time. Alternatively, you could create an encrypted luks1 partition for <code>/boot</code> and a luks2 encrypted partition for the root filesystem.</li>
+<li>With btrfs I do not need any other partitions for e.g. <code>/home</code>, as we will use subvolumes instead.</li>
+<li>As we plan to use RAID1 managed by btrfs, we cannot use swapfiles as these are not supported in RAID1.</li>
+</ul>
+<p>Let&rsquo;s use <code>parted</code> for this (feel free to use <code>gparted</code> accordingly):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">parted /dev/vda
+</span></span><span class="line"><span class="cl">  mklabel gpt
+</span></span><span class="line"><span class="cl">  mkpart primary 1MiB 513MiB
+</span></span><span class="line"><span class="cl">  mkpart primary 513MiB 4609MiB
+</span></span><span class="line"><span class="cl">  mkpart primary 4609MiB 100%
+</span></span><span class="line"><span class="cl">  print
+</span></span><span class="line"><span class="cl">  <span class="c1"># Model: Virtio Block Device (virtblk)</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Disk /dev/vda: 68.7GB</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Sector size (logical/physical): 512B/512B</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Partition Table: gpt</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Disk Flags: </span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># </span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Number  Start   End     Size    File system  Name     Flags</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#  1      1049kB  538MB   537MB                primary</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#  2      538MB   4833MB  4295MB               primary</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#  3      4833MB  68.7GB  63.9GB               primary</span>
+</span></span><span class="line"><span class="cl">  quit
+</span></span></code></pre></div><p>Do not set names or flags, as in my experience the Ubiquity installer has some problems with that.</p>
+<p>And the same commands for <code>vdb</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">parted /dev/vdb
+</span></span><span class="line"><span class="cl">  mklabel gpt
+</span></span><span class="line"><span class="cl">  mkpart primary 1MiB 513MiB
+</span></span><span class="line"><span class="cl">  mkpart primary 513MiB 4609MiB
+</span></span><span class="line"><span class="cl">  mkpart primary 4609MiB 100%
+</span></span><span class="line"><span class="cl">  print
+</span></span><span class="line"><span class="cl">  <span class="c1"># Model: Virtio Block Device (virtblk)</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Disk /dev/vdb: 68.7GB</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Sector size (logical/physical): 512B/512B</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Partition Table: gpt</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Disk Flags: </span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># </span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Number  Start   End     Size    File system  Name     Flags</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#  1      1049kB  538MB   537MB                primary</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#  2      538MB   4833MB  4295MB               primary</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#  3      4833MB  68.7GB  63.9GB               primary</span>
+</span></span><span class="line"><span class="cl">  quit
+</span></span></code></pre></div><h3 id="create-luks1-partition-and-btrfs-root-filesystem">Create luks1 partition and btrfs root filesystem</h3>
+<p>The default luks (Linux Unified Key Setup) format used by the cryptsetup tool has changed since the release of Ubuntu 18.04 Bionic. 18.04 used version 1 (&ldquo;luks1&rdquo;) but more recent Ubuntu releases default to version 2 (&ldquo;luks2&rdquo;) and check that <code>/boot</code> is not located inside an encrypted partition. GRUB is able to decrypt luks version 1 at boot time, but Ubiquity does not allow this by default. Note that if you want to use luks version 2 you should create an encrypted <code>/boot</code> partition using version 1, whereas the root filesystem can then be formatted using version 2. Either way, we need to prepare the luks1 partition or else GRUB will not be able to unlock the encrypted device. Note that most Linux distributions also default to version 1 if you do a full disk encryption (e.g. Manjaro Architect).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cryptsetup luksFormat --type<span class="o">=</span>luks1 /dev/vda3
+</span></span><span class="line"><span class="cl"><span class="c1"># WARNING!</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ========</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># This will overwrite data on /dev/vda3 irrevocably.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Are you sure? (Type uppercase yes): YES</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Enter passphrase for /dev/vda3: </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Verify passphrase:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cryptsetup luksFormat --type<span class="o">=</span>luks1 /dev/vdb3
+</span></span><span class="line"><span class="cl"><span class="c1"># WARNING!</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ========</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># This will overwrite data on /dev/vdb3 irrevocably.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Are you sure? (Type uppercase yes): YES</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Enter passphrase for /dev/vdb3: </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Verify passphrase:</span>
+</span></span></code></pre></div><p>Use very good passwords here. Now map the encrypted partitions to devices called <code>crypt_vda</code> and <code>crypt_vdb</code>, which will contain our root filesystem:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cryptsetup luksOpen /dev/vda3 crypt_vda
+</span></span><span class="line"><span class="cl"><span class="c1"># Enter passphrase for /dev/vda3:</span>
+</span></span><span class="line"><span class="cl">cryptsetup luksOpen /dev/vdb3 crypt_vdb
+</span></span><span class="line"><span class="cl"><span class="c1"># Enter passphrase for /dev/vdb3:</span>
+</span></span><span class="line"><span class="cl">ls /dev/mapper/
+</span></span><span class="line"><span class="cl"><span class="c1"># control  crypt_vda crypt_vdb</span>
+</span></span></code></pre></div><p>We need to pre-format <code>crypt_vda</code>, which will be the installation target for root during the graphical installer, because, in my experience, the Ubiquity installer messes up and complains about devices with the same name being mounted twice. After the installation we create the RAID1 with btrfs between <code>crypt_vda</code> and <code>crypt_vdb</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkfs.btrfs /dev/mapper/crypt_vda
+</span></span><span class="line"><span class="cl"><span class="c1"># btrfs-progs v5.4.1 </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># See http://btrfs.wiki.kernel.org for more information.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Label:              (null)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID:               f9a73348-8e30-4265-a909-4e99ae7b380b</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Node size:          16384</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Sector size:        4096</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Filesystem size:    59.50GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Block group profiles:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   Data:             single            8.00MiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   Metadata:         DUP               1.00GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   System:           DUP               8.00MiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># SSD detected:       no</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Incompat features:  extref, skinny-metadata</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Checksum:           crc32c</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Number of devices:  1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Devices:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    ID        SIZE  PATH</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     1    59.50GiB  /dev/mapper/crypt_vda</span>
+</span></span></code></pre></div><p>Note that the SSD is not detected for me here, because I am running this in a Virtual Machine, but I will still pretend that I am on a SSD.</p>
+<h2 id="step-3-optional-optimize-mount-options-for-ssd-or-nvme-drives">Step 3 (optional): Optimize mount options for SSD or NVME drives</h2>
+<p>Unfortunately, the Ubiquity installer does not set good mount options for btrfs on SSD or NVME drives, so you should change this for optimized performance and durability. I have found that there is some general agreement to use the following mount options:</p>
+<ul>
+<li><code>ssd</code>: use SSD specific options for optimal use on SSD and NVME</li>
+<li><code>noatime</code>: prevent frequent disk writes by instructing the Linux kernel not to store the last access time of files and folders</li>
+<li><code>space_cache</code>: allows btrfs to store free space cache on the disk to make caching of a block group much quicker</li>
+<li><code>commit=120</code>: time interval in which data is written to the filesystem (value of 120 is taken from Manjaro)</li>
+<li><code>compress=zstd</code>: allows to specify the compression algorithm which we want to use. btrfs provides lzo, zstd and zlib compression algorithms. Based on some Phoronix test cases, zstd seems to be the better performing candidate.</li>
+<li>Lastly the pass flag for fschk in the <code>fstab</code> is useless for btrfs and should be set to 0.</li>
+</ul>
+<p>We need to change two configuration files:</p>
+<ul>
+<li><code>/usr/lib/partman/mount.d/70btrfs</code></li>
+<li><code>/usr/lib/partman/fstab.d/btrfs</code></li>
+</ul>
+<p>So let&rsquo;s use an editor to change the following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nano /usr/lib/partman/mount.d/70btrfs
+</span></span><span class="line"><span class="cl"><span class="c1"># line 24: options=&#34;${options:+$options,}subvol=@,ssd,noatime,space_cache,commit=120,compress=zstd&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># line 31: options=&#34;${options:+$options,}subvol=@home,ssd,noatime,space_cache,commit=120,compress=zstd&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">nano /usr/lib/partman/fstab.d/btrfs
+</span></span><span class="line"><span class="cl"><span class="c1"># line 30: pass=0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># line 31: home_options=&#34;${options:+$options,}subvol=@home,ssd,noatime,space_cache,commit=120,compress=zstd&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># line 32: options=&#34;${options:+$options,}subvol=@,ssd,noatime,space_cache,commit=120,compress=zstd&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># line 36: pass=0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># line 37: options=&#34;${options:+$options,}subvol=@home,ssd,noatime,space_cache,commit=120,compress=zstd&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># line 40: pass=0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># line 56: echo &#34;$home_path&#34; &#34;$home_mp&#34; btrfs &#34;$home_options&#34; 0 0</span>
+</span></span></code></pre></div><h2 id="step-4-install-ubuntu-using-the-ubiquity-installer-without-the-bootloader">Step 4: Install Ubuntu using the Ubiquity installer without the bootloader</h2>
+<p>Now let&rsquo;s run the installation process, but without installing the bootloader, as we want to put <code>/boot</code> on an encrypted partition which is actually not allowed by Ubiquity. So we need to run the installer with:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ubiquity --no-bootloader
+</span></span></code></pre></div><p>Choose the installation language, keyboard layout, Normal or Minimal installation, check the boxes of the Other options according to your needs. In the &ldquo;Installation type&rdquo; options choose &ldquo;Something Else&rdquo; and the manual partitioner will start:</p>
+<ul>
+<li>Select /dev/vda1, press the <code>Change</code> button. Choose <code>Use as</code> &lsquo;EFI System Partition&rsquo;.</li>
+<li>Select /dev/vda2, press the <code>Change</code> button. Choose <code>Use as</code> &lsquo;swap area&rsquo; to create a swap partition. We will encrypt this partition later in the <code>crypttab</code>.</li>
+<li>Select the root filesystem device for formatting (/dev/mapper/crypt_vda type btrfs on top), press the <code>Change</code> button. Choose <code>Use as</code> &lsquo;btrfs journaling filesystem&rsquo;, check <code>Format the partition</code> and use &lsquo;/&rsquo; as <code>Mount point</code>.</li>
+<li>If you have other partitions, check their types and use; particularly,deactivate other EFI partitions.</li>
+</ul>
+<p>Recheck everything, press the <code>Install Now</code> button to write the changes to the disk and hit the <code>Continue button</code>. Select the time zone and fill out your user name and password. If your installation is successful choose the <code>Continue Testing</code> option. <strong>DO NOT REBOOT!</strong>, but return to your terminal.</p>
+<h2 id="step-5-post-installation-steps">Step 5: Post-Installation steps</h2>
+<h3 id="create-a-chroot-environment-and-enter-your-system">Create a chroot environment and enter your system</h3>
+<p>Return to the terminal and create a chroot (change-root) environment to work directly inside your newly installed operating system:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mount -o <span class="nv">subvol</span><span class="o">=</span>@,ssd,noatime,space_cache,commit<span class="o">=</span>120,compress<span class="o">=</span>zstd /dev/mapper/crypt_vda /mnt
+</span></span><span class="line"><span class="cl"><span class="k">for</span> i in /dev /dev/pts /proc /sys /run<span class="p">;</span> <span class="k">do</span> sudo mount -B <span class="nv">$i</span> /mnt<span class="nv">$i</span><span class="p">;</span> <span class="k">done</span>
+</span></span><span class="line"><span class="cl">sudo cp /etc/resolv.conf /mnt/etc/
+</span></span><span class="line"><span class="cl">sudo chroot /mnt
+</span></span></code></pre></div><p>Now you are actually inside your system, so let&rsquo;s mount all other partitions and have a look at the btrfs subvolumes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mount -av
+</span></span><span class="line"><span class="cl"><span class="c1"># /                        : ignored</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /boot/efi                : successfully mounted</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /home                    : successfully mounted</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># none                     : ignored</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">btrfs subvolume list /
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 256 gen 195 top level 5 path @</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 258 gen 22 top level 5 path @home</span>
+</span></span></code></pre></div><p>Looks great. Note that the subvolume <code>@</code> is mounted to <code>/</code>, whereas the subvolume <code>@home</code> is mounted to <code>/home</code>.</p>
+<h3 id="create-raid-1-for-root-filesystem-using-btrfs-balance">Create RAID 1 for root filesystem using btrfs balance</h3>
+<p>Currently btrfs uses only one device <code>/dev/mapper/crypt_vda</code>, So let&rsquo;s add our other encrypted device <code>/dev/mapper/crypt_vdb</code> to it:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">btrfs filesystem show /
+</span></span><span class="line"><span class="cl"><span class="c1"># Label: none  uuid: d02e5c1d-292b-4a6e-9d44-c93572db897b</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	Total devices 1 FS bytes used 2.88GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	devid    1 size 59.50GiB used 7.02GiB path /dev/mapper/crypt_vda</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">btrfs device add /dev/mapper/crypt_vdb /
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">btrfs filesystem show /
+</span></span><span class="line"><span class="cl"><span class="c1"># Label: none  uuid: d02e5c1d-292b-4a6e-9d44-c93572db897b</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	  Total devices 2 FS bytes used 2.88GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	  devid    1 size 59.50GiB used 7.02GiB path /dev/mapper/crypt_vda</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  	  devid    2 size 59.50GiB used 0.00B path /dev/mapper/crypt_vdb</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">btrfs filesystem usage /
+</span></span><span class="line"><span class="cl"><span class="c1"># Overall:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Device size:		 118.99GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Device allocated:	   7.02GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Device unallocated:	 111.97GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Device missing:		     0.00B</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Used:			   3.04GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Free (estimated):	 112.25GiB	(min: 56.27GiB)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Data ratio:		      1.00</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Metadata ratio:		      2.00</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Global reserve:		  10.17MiB	(used: 0.00B)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Data,single: Size:3.01GiB, Used:2.72GiB (90.51%)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/crypt_vda	   3.01GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Metadata,DUP: Size:2.00GiB, Used:160.73MiB (7.85%)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/crypt_vda	   4.00GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># System,DUP: Size:8.00MiB, Used:16.00KiB (0.20%)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/crypt_vda	  16.00MiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Unallocated:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/crypt_vda	  52.47GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/crypt_vdb	  59.50GiB</span>
+</span></span></code></pre></div><p>Note, however, that on the second device there is no data yet (see the &ldquo;single&rdquo; and &ldquo;DUP&rdquo; flags of the above &ldquo;usage&rdquo; command). We need to move the data chunks around to have a working RAID1 and btrfs has a balance command just for this case: &ldquo;A balance passes all data in the filesystem through the allocator again. It is primarly intended to rebalance the data in the filesystem across the devices when a device eis added or removed. A balance will regenerate missing copies for the redundant <em>RAID</em> levels, if a device has failed&rdquo;.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">btrfs balance start -dconvert<span class="o">=</span>raid1 -mconvert<span class="o">=</span>raid1 /
+</span></span><span class="line"><span class="cl"><span class="c1"># Done, had to relocate 9 out of 9 chunks</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">btrfs filesystem usage /
+</span></span><span class="line"><span class="cl"><span class="c1"># Overall:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Device size:		 118.99GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Device allocated:	  10.06GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Device unallocated:	 108.93GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Device missing:		     0.00B</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Used:			   5.76GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Free (estimated):	  54.74GiB	(min: 54.74GiB)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Data ratio:		      2.00</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Metadata ratio:		      2.00</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Global reserve:		  11.81MiB	(used: 0.00B)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Data,RAID1: Size:3.00GiB, Used:2.72GiB (90.73%)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/crypt_vda	   3.00GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/crypt_vdb	   3.00GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Metadata,RAID1: Size:2.00GiB, Used:162.38MiB (7.93%)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/crypt_vda	   2.00GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/crypt_vdb	   2.00GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># System,RAID1: Size:32.00MiB, Used:16.00KiB (0.05%)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/crypt_vda	  32.00MiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/crypt_vdb	  32.00MiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Unallocated:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/crypt_vda	  54.46GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/crypt_vdb	  54.46GiB</span>
+</span></span></code></pre></div><p>You can monitor the progress in a new terminal using <code>sudo btrfs balance status /mnt</code>. Sometimes, one gets an ERROR:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ERROR: error during balancing <span class="s1">&#39;/&#39;</span>: No space left on device
+</span></span><span class="line"><span class="cl">There may be more info in syslog - try dmesg <span class="p">|</span> tail
+</span></span></code></pre></div><p>and the output of <code>sudo btrfs filesystem usage /</code> still shows &ldquo;Data,single&rdquo; or &ldquo;Metadata,single&rdquo; (instead of the &ldquo;RAID1&rdquo; tag like above), then you should try to run with different values for &ldquo;dusage&rdquo; and &ldquo;musage&rdquo;, starting with e.g. 80:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">btrfs balance start -dconvert<span class="o">=</span>raid1 -mconvert<span class="o">=</span>raid1 -dusage<span class="o">=</span><span class="m">80</span> -musage<span class="o">=</span><span class="m">80</span> /
+</span></span><span class="line"><span class="cl"><span class="c1"># Done, had to relocate 7 out of 9 chunks</span>
+</span></span><span class="line"><span class="cl">btrfs filesystem usage /
+</span></span><span class="line"><span class="cl"><span class="c1"># Overall:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Device size:		 118.99GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Device allocated:	  10.06GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Device unallocated:	 108.93GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Device missing:		     0.00B</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Used:			   5.76GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Free (estimated):	  54.74GiB	(min: 54.74GiB)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Data ratio:		      2.00</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Metadata ratio:		      2.00</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Global reserve:		  11.81MiB	(used: 0.00B)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Data,RAID1: Size:3.00GiB, Used:2.72GiB (90.73%)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/crypt_vda	   3.00GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/crypt_vdb	   3.00GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Metadata,RAID1: Size:2.00GiB, Used:162.38MiB (7.93%)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/crypt_vda	   2.00GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/crypt_vdb	   2.00GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># System,RAID1: Size:32.00MiB, Used:16.00KiB (0.05%)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/crypt_vda	  32.00MiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/crypt_vdb	  32.00MiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Unallocated:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/crypt_vda	  54.46GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    /dev/mapper/crypt_vdb	  54.46GiB</span>
+</span></span></code></pre></div><p>and try to lower values for dusage and musage by 5 (one at a time) in case of errors, until there is the &ldquo;RAID1&rdquo; tag everywhere and all chunks are reallocated. Just to make sure, I rerun the balance command from above:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">btrfs balance start -dconvert<span class="o">=</span>raid1 -mconvert<span class="o">=</span>raid1 /
+</span></span><span class="line"><span class="cl"><span class="c1"># Done, had to relocate 5 out of 5 chunks</span>
+</span></span></code></pre></div><p>Note also that you cannot have a swapfile in a RAID1, so deactivate and delete it, if you have one for some reason.</p>
+<h3 id="create-crypttab">Create crypttab</h3>
+<p>We need to create the <code>crypttab</code> manually:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">UUID_VDA3</span><span class="o">=</span><span class="k">$(</span>blkid -s UUID -o value /dev/vda3<span class="k">)</span> <span class="c1">#this is an environmental variable</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">UUID_VDB3</span><span class="o">=</span><span class="k">$(</span>blkid -s UUID -o value /dev/vdb3<span class="k">)</span> <span class="c1">#this is an environmental variable</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;crypt_vda UUID=</span><span class="si">${</span><span class="nv">UUID_VDA3</span><span class="si">}</span><span class="s2"> none luks&#34;</span> &gt;&gt; /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;crypt_vdb UUID=</span><span class="si">${</span><span class="nv">UUID_VDB3</span><span class="si">}</span><span class="s2"> none luks&#34;</span> &gt;&gt; /etc/crypttab
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># crypt_vda UUID=d8a7cab6-c875-4e65-b711-3ac2e2763ada none luks</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># crypt_vdb UUID=06d53b48-6731-4926-a680-1b9b00a0e420 none luks</span>
+</span></span></code></pre></div><p>Note that the UUID is from the luks partitions /dev/vda3 and /dev/vdb3, not from the device mappers <code>/dev/mapper/crypt_vda</code> or <code>/dev/mapper/crypt_vdb</code>! You can get all UUID using <code>blkid</code>.</p>
+<h3 id="encrypted-swap">Encrypted swap</h3>
+<p>There are many ways to encrypt the swap partition, a good reference is <a href="https://wiki.archlinux.org/index.php/Dm-crypt/Swap_encryption" target="_blank" rel="noopener">dm-crypt/Swap encryption</a>.</p>
+<p>As I have no use for hibernation or suspend-to-disk, I will simply use a random password to decrypt the swap partition using the <code>crypttab</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkswap /dev/vda2
+</span></span><span class="line"><span class="cl"><span class="c1"># mkswap: error: /dev/vda2 is mounted; will not make swapspace</span>
+</span></span><span class="line"><span class="cl">mkswap /dev/vdb2
+</span></span><span class="line"><span class="cl"><span class="c1"># Setting up swapspace version 1, size = 4 GiB (4294963200 bytes)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># no label, UUID=f608784e-4497-4eac-8a7a-26c3415630dc</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">UUID_SWAP_VDA</span><span class="o">=</span><span class="k">$(</span>blkid -s UUID -o value /dev/vda2<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">UUID_SWAP_VDB</span><span class="o">=</span><span class="k">$(</span>blkid -s UUID -o value /dev/vdb2<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;cryptswap_vda UUID=</span><span class="si">${</span><span class="nv">UUID_SWAP_VDA</span><span class="si">}</span><span class="s2"> /dev/urandom swap,offset=1024,cipher=aes-xts-plain64,size=512&#34;</span> &gt;&gt; /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;cryptswap_vdb UUID=</span><span class="si">${</span><span class="nv">UUID_SWAP_VDB</span><span class="si">}</span><span class="s2"> /dev/urandom swap,offset=1024,cipher=aes-xts-plain64,size=512&#34;</span> &gt;&gt; /etc/crypttab
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># crypt_vda UUID=d8a7cab6-c875-4e65-b711-3ac2e2763ada none luks</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># crypt_vdb UUID=06d53b48-6731-4926-a680-1b9b00a0e420 none luks</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cryptswap_vda UUID=361e5a10-29df-4561-b4f2-a88335f316ce /dev/urandom swap,offset=1024,cipher=aes-xts-plain64,size=512</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cryptswap_vdb UUID=f608784e-4497-4eac-8a7a-26c3415630dc /dev/urandom swap,offset=1024,cipher=aes-xts-plain64,size=512</span>
+</span></span></code></pre></div><p>We also need to adapt the fstab accordingly:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed -i <span class="s2">&#34;/UUID=</span><span class="si">${</span><span class="nv">UUID_SWAP_VDA</span><span class="si">}</span><span class="s2">/d&#34;</span> /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;/dev/mapper/cryptswap_vda none swap defaults,pri=1 0 0&#34;</span> &gt;&gt; /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;/dev/mapper/cryptswap_vdb none swap defaults,pri=1 0 0&#34;</span> &gt;&gt; /etc/fstab
+</span></span><span class="line"><span class="cl">cat /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/crypt_vda /               btrfs   defaults,subvol=@,ssd,noatime,space_cache,commit=120,compress=zstd 0       0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=0685-B0C8  /boot/efi       vfat    umask=0077      0       1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/crypt_vda /home           btrfs   defaults,subvol=@home,ssd,noatime,space_cache,commit=120,compress=zstd 0       0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/cryptswap_vda none swap defaults,pri=1 0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/cryptswap_vdb none swap defaults,pri=1 0 0</span>
+</span></span></code></pre></div><p>The sed command simply removed the previous line containing the swap partition. There you go, you have two encrypted swap partitions.</p>
+<p>Also, let&rsquo;s use UUIDs instead of /dev/mapper/crypt_vda in the fstab:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed -i <span class="s2">&#34;s|/dev/mapper/crypt_vda|</span><span class="k">$(</span>blkid -s UUID -o value /dev/mapper/crypt_vda<span class="k">)</span><span class="s2">|&#34;</span> /etc/fstab
+</span></span><span class="line"><span class="cl">cat /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=d02e5c1d-292b-4a6e-9d44-c93572db897b /               btrfs   defaults,subvol=@,ssd,noatime,space_cache,commit=120,compress=zstd 0       0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=0685-B0C8  /boot/efi       vfat    umask=0077      0       1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=d02e5c1d-292b-4a6e-9d44-c93572db897b /home           btrfs   defaults,subvol=@home,ssd,noatime,space_cache,commit=120,compress=zstd 0       0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/cryptswap_vda none swap defaults,pri=1 0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/cryptswap_vdb none swap defaults,pri=1 0 0</span>
+</span></span></code></pre></div><h3 id="add-a-key-file-to-type-luks-passphrase-only-once-optional-but-recommended">Add a key-file to type luks passphrase only once (optional, but recommended)</h3>
+<p>The device holding the kernel (and the initramfs image) is unlocked by GRUB, but the root device needs to be unlocked again at initramfs stage, regardless whether it’s the same device or not, so you&rsquo;ll get a second prompt for your passphrase. This is because GRUB boots with the given vmlinuz and initramfs images; in other words, all devices are locked, and the root device needs to be unlocked again. To avoid extra passphrase prompts at initramfs stage, a workaround is to unlock via key files stored into the initramfs image. This can also be used to unlock any additional luks partitions you want on your disk. Since the initramfs image now resides on an encrypted device, this still provides protection for data at rest. After all for luks the volume key can already be found by user space in the Device Mapper table, so one could argue that including key files to the initramfs image – created with restrictive permissions – doesn’t change the threat model for luks devices. Note that this is exactly what e.g. the Manjaro architect installer does as well.</p>
+<p>Long story short, let&rsquo;s create a key-file, secure it, and add it to our luks volumes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir /etc/luks
+</span></span><span class="line"><span class="cl">dd <span class="k">if</span><span class="o">=</span>/dev/urandom <span class="nv">of</span><span class="o">=</span>/etc/luks/boot_os.keyfile <span class="nv">bs</span><span class="o">=</span><span class="m">4096</span> <span class="nv">count</span><span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1+0 records in</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1+0 records out</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 4096 bytes (4.1 kB, 4.0 KiB) copied, 0.000928939 s, 4.4 MB/s</span>
+</span></span><span class="line"><span class="cl">chmod <span class="nv">u</span><span class="o">=</span>rx,go-rwx /etc/luks
+</span></span><span class="line"><span class="cl">chmod <span class="nv">u</span><span class="o">=</span>r,go-rwx /etc/luks/boot_os.keyfile
+</span></span><span class="line"><span class="cl">cryptsetup luksAddKey /dev/vda3 /etc/luks/boot_os.keyfile
+</span></span><span class="line"><span class="cl"><span class="c1"># Enter any existing passphrase: </span>
+</span></span><span class="line"><span class="cl">cryptsetup luksDump /dev/vda3 <span class="p">|</span> grep <span class="s2">&#34;Key Slot&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Key Slot 0: ENABLED</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Key Slot 1: ENABLED</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Key Slot 2: DISABLED</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Key Slot 3: DISABLED</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Key Slot 4: DISABLED</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Key Slot 5: DISABLED</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Key Slot 6: DISABLED</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Key Slot 7: DISABLED</span>
+</span></span><span class="line"><span class="cl">cryptsetup luksAddKey /dev/vdb3 /etc/luks/boot_os.keyfile
+</span></span><span class="line"><span class="cl"><span class="c1"># Enter any existing passphrase: </span>
+</span></span><span class="line"><span class="cl">cryptsetup luksDump /dev/vdb3 <span class="p">|</span> grep <span class="s2">&#34;Key Slot&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Key Slot 0: ENABLED</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Key Slot 1: ENABLED</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Key Slot 2: DISABLED</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Key Slot 3: DISABLED</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Key Slot 4: DISABLED</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Key Slot 5: DISABLED</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Key Slot 6: DISABLED</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Key Slot 7: DISABLED</span>
+</span></span></code></pre></div><p>Note that &ldquo;Key Slot 0&rdquo; contains our passphrase, whereas &ldquo;Key Slot 1&rdquo; contains the key-file. Let&rsquo;s restrict the pattern of keyfiles and avoid leaking key material for the initramfs hook:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;KEYFILE_PATTERN=/etc/luks/*.keyfile&#34;</span> &gt;&gt; /etc/cryptsetup-initramfs/conf-hook
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;UMASK=0077&#34;</span> &gt;&gt; /etc/initramfs-tools/initramfs.conf
+</span></span></code></pre></div><p>These commands will harden the security options in the intiramfs configuration file and hook.</p>
+<p>Next, add the keyfile to your <code>crypttab</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed -i <span class="s2">&#34;s|none|/etc/luks/boot_os.keyfile|&#34;</span> /etc/crypttab <span class="c1"># this replaces none with /etc/luks/boot_os.keyfile</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># crypt_vda UUID=d8a7cab6-c875-4e65-b711-3ac2e2763ada /etc/luks/boot_os.keyfile luks</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># crypt_vdb UUID=06d53b48-6731-4926-a680-1b9b00a0e420 /etc/luks/boot_os.keyfile luks</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cryptswap_vda UUID=361e5a10-29df-4561-b4f2-a88335f316ce /dev/urandom swap,offset=1024,cipher=aes-xts-plain64,size=512</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cryptswap_vdb UUID=f608784e-4497-4eac-8a7a-26c3415630dc /dev/urandom swap,offset=1024,cipher=aes-xts-plain64,size=512</span>
+</span></span></code></pre></div><h3 id="install-the-efi-bootloader">Install the EFI bootloader</h3>
+<p>Now it is time to finalize the setup and install the GRUB bootloader. First we need to make it capable to unlock luks1-type partitions by setting <code>GRUB_ENABLE_CRYPTODISK=y</code> in <code>/etc/default/grub</code>. Then we install the bootloader and update GRUB. Just in case, I also reinstall the generic kernel (&ldquo;linux-generic&rdquo; and &ldquo;linux-headers-generic&rdquo;) and also install the Hardware Enablement kernel (&ldquo;linux-generic-hwe-20.04&rdquo; &ldquo;linux-headers-generic-hwe-20.04&rdquo;):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;GRUB_ENABLE_CRYPTODISK=y&#34;</span> &gt;&gt; /etc/default/grub
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">apt install -y --reinstall grub-efi-amd64-signed linux-generic linux-headers-generic linux-generic-hwe-20.04 linux-headers-generic-hwe-20.04
+</span></span><span class="line"><span class="cl"><span class="c1"># --- SOME APT INSTALLATION OUTPUT ---</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">update-initramfs -c -k all
+</span></span><span class="line"><span class="cl"><span class="c1"># update-initramfs: Generating /boot/initrd.img-5.4.0-26-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># update-initramfs: Generating /boot/initrd.img-5.4.0-31-generic</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">grub-install /dev/vda
+</span></span><span class="line"><span class="cl"><span class="c1"># Installing for x86_64-efi platform.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Installation finished. No error reported.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">update-grub
+</span></span><span class="line"><span class="cl"><span class="c1"># Sourcing file `/etc/default/grub&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Sourcing file `/etc/default/grub.d/init-select.cfg&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Generating grub configuration file ...</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Found linux image: /boot/vmlinuz-5.4.0-31-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Found initrd image: /boot/initrd.img-5.4.0-31-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Found linux image: /boot/vmlinuz-5.4.0-26-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Found initrd image: /boot/initrd.img-5.4.0-26-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Adding boot menu entry for UEFI Firmware Settings</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># done</span>
+</span></span></code></pre></div><p>Lastly, double-check that the initramfs image has restrictive permissions and includes the keyfile:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">stat -L -c <span class="s2">&#34;%A  %n&#34;</span> /boot/initrd.img
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-------  /boot/initrd.img</span>
+</span></span><span class="line"><span class="cl">lsinitramfs /boot/initrd.img <span class="p">|</span> grep <span class="s2">&#34;^cryptroot/keyfiles/&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cryptroot/keyfiles/cryptdata.key</span>
+</span></span></code></pre></div><p>Note that cryptsetup-initramfs may rename key files inside the initramfs.</p>
+<h2 id="step-6-reboot-some-checks-and-update-system">Step 6: Reboot, some checks, and update system</h2>
+<p>Now, it is time to exit the chroot - cross your fingers - and reboot the system:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">exit</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># exit</span>
+</span></span><span class="line"><span class="cl">reboot now
+</span></span></code></pre></div><p>If all went well you should see a single passphrase prompt (YAY!) from GRUB for both your disks:</p>
+<pre tabindex="0"><code>Enter the passphrase for hd0,gpt3 (some very long number):
+....
+Enter the passphrase for hd1,gpt3 (some very long number):
+</code></pre><p>where you enter the luks passphrase to unlock GRUB, which then either asks you again for your passphrase or uses the key-file to unlock <code>/dev/vda3</code> and <code>/dev/vdb3</code> and then map it to <code>/dev/mapper/crypt_vda</code> and <code>/dev/mapper/crypt_vdb</code>. If you added a key-file you don&rsquo;t need to type your passwords again. Note that if you mistyped the password for GRUB, you must restart the computer and retry.</p>
+<p>Now let&rsquo;s click through the welcome screen and open up a terminal to see whether everything is set up correctly:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo cat /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># crypt_vda UUID=d8a7cab6-c875-4e65-b711-3ac2e2763ada /etc/luks/boot_os.keyfile luks</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># crypt_vdb UUID=06d53b48-6731-4926-a680-1b9b00a0e420 /etc/luks/boot_os.keyfile luks</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cryptswap_vda UUID=361e5a10-29df-4561-b4f2-a88335f316ce /dev/urandom swap,offset=1024,cipher=aes-xts-plain64,size=512</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cryptswap_vdb UUID=f608784e-4497-4eac-8a7a-26c3415630dc /dev/urandom swap,offset=1024,cipher=aes-xts-plain64,size=512</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo cat /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=d02e5c1d-292b-4a6e-9d44-c93572db897b /               btrfs   defaults,subvol=@,ssd,noatime,space_cache,commit=120,compress=zstd 0       0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=0685-B0C8  /boot/efi       vfat    umask=0077      0       1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=d02e5c1d-292b-4a6e-9d44-c93572db897b /home           btrfs   defaults,subvol=@home,ssd,noatime,space_cache,commit=120,compress=zstd 0       0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/cryptswap_vda none swap defaults,pri=1 0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/cryptswap_vdb none swap defaults,pri=1 0 0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo mount -av
+</span></span><span class="line"><span class="cl"><span class="c1"># /                        : ignored</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /boot/efi                : already mounted</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /home                    : already mounted</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># none                     : ignored</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># none                     : ignored</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo mount -v <span class="p">|</span> grep /dev/mapper
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/crypt_vda on / type btrfs (rw,noatime,compress=zstd:3,ssd,space_cache,commit=120,subvolid=256,subvol=/@)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/crypt_vda on /home type btrfs (rw,noatime,compress=zstd:3,ssd,space_cache,commit=120,subvolid=258,subvol=/@home)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo swapon
+</span></span><span class="line"><span class="cl"><span class="c1"># NAME      TYPE      SIZE USED PRIO</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/dm-2 partition   4G   0B    1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/dm-3 partition   4G   0B    1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo btrfs filesystem show /
+</span></span><span class="line"><span class="cl"><span class="c1"># Label: none  uuid: d02e5c1d-292b-4a6e-9d44-c93572db897b</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	Total devices 2 FS bytes used 2.92GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	devid    1 size 59.50GiB used 4.03GiB path /dev/mapper/crypt_vda</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	devid    2 size 59.50GiB used 4.03GiB path /dev/mapper/crypt_vdb</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo btrfs subvolume list /
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 256 gen 403 top level 5 path @</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 258 gen 403 top level 5 path @home</span>
+</span></span></code></pre></div><p>Look&rsquo;s good.</p>
+<p>Let&rsquo;s update the system and reboot one more time:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt upgrade
+</span></span><span class="line"><span class="cl">sudo apt dist-upgrade
+</span></span><span class="line"><span class="cl">sudo apt autoremove
+</span></span><span class="line"><span class="cl">sudo apt autoclean
+</span></span></code></pre></div><p>Optionally, if you installed on a SSD and NVME, enable <code>fstrim.timer</code> as we did not add <code>discard</code> to the <code>crypttab</code>. This is due to the fact that <a href="https://www.phoronix.com/scan.php?page=news_item&amp;px=Btrfs-Async-Discard" target="_blank" rel="noopener">Btrfs Async Discard Support Looks To Be Ready For Linux 5.6</a> is quite new, but 20.04 still runs kernel 5.4, it is better to enable the <code>fstrim.timer</code> systemd service:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> fstrim.timer
+</span></span></code></pre></div><p>Now reboot:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo reboot now
+</span></span></code></pre></div><h2 id="step-7-duplicate-efi-partition-to-the-second-disk">Step 7: Duplicate EFI partition to the second disk</h2>
+<p>Open an interactive sudo terminal, duplicate the efi partition to the second disk, unmount the current efi partition and mount the one from the second disk:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo -i
+</span></span><span class="line"><span class="cl">umount /boot/efi
+</span></span><span class="line"><span class="cl">dd <span class="k">if</span><span class="o">=</span>/dev/vda1 <span class="nv">of</span><span class="o">=</span>/dev/vdb1 <span class="nv">bs</span><span class="o">=</span><span class="m">1024</span> <span class="nv">status</span><span class="o">=</span>progress
+</span></span><span class="line"><span class="cl"><span class="c1"># 491181056 bytes (491 MB, 468 MiB) copied, 6 s, 81,9 MB/s</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 524288+0 records in</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 524288+0 records out</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 536870912 bytes (537 MB, 512 MiB) copied, 9,07637 s, 59,2 MB/s</span>
+</span></span><span class="line"><span class="cl">mount /dev/vdb1 /boot/efi
+</span></span></code></pre></div><p>Reinstall the GRUB boot manager to <code>vdb1</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt install -y --reinstall grub-efi-amd64-signed linux-generic linux-headers-generic linux-generic-hwe-20.04 linux-headers-generic-hwe-20.04
+</span></span><span class="line"><span class="cl"><span class="c1"># --- SOME APT INSTALLATION OUTPUT ---</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">update-initramfs -c -k all
+</span></span><span class="line"><span class="cl"><span class="c1"># update-initramfs: Generating /boot/initrd.img-5.4.0-26-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cryptsetup: WARNING: Resume target cryptswap_vda uses a key file</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># update-initramfs: Generating /boot/initrd.img-5.4.0-31-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cryptsetup: WARNING: Resume target cryptswap_vda uses a key file</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">grub-install /dev/vdb
+</span></span><span class="line"><span class="cl"><span class="c1"># Installing for x86_64-efi platform.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Installation finished. No error reported.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">update-grub
+</span></span><span class="line"><span class="cl"><span class="c1"># Sourcing file `/etc/default/grub&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Sourcing file `/etc/default/grub.d/init-select.cfg&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Generating grub configuration file ...</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Found linux image: /boot/vmlinuz-5.4.0-31-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Found initrd image: /boot/initrd.img-5.4.0-31-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Found linux image: /boot/vmlinuz-5.4.0-26-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Found initrd image: /boot/initrd.img-5.4.0-26-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Adding boot menu entry for UEFI Firmware Settings</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># done</span>
+</span></span></code></pre></div><p>Now, you should reboot and check whether both EFI partitions work and are bootable.</p>
+<h2 id="step-8-install-timeshift-timeshift-autosnap-apt-and-grub-btrfs">Step 8: Install Timeshift, timeshift-autosnap-apt and grub-btrfs</h2>
+<p>Open a terminal and install some dependencies:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install -y btrfs-progs git make
+</span></span></code></pre></div><p>Install Timeshift and configure it directly via the GUI:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install timeshift
+</span></span><span class="line"><span class="cl">sudo timeshift-gtk
+</span></span></code></pre></div><ul>
+<li>Select btrfs as the “Snapshot Type”; continue with “Next”</li>
+<li>Choose your btrfs system partition as “Snapshot Location”; continue with “Next”</li>
+<li>&ldquo;Select Snapshot Levels&rdquo; (type and number of snapshots that will be automatically created and managed/deleted by Timeshift), my recommendations:
+<ul>
+<li>Activate &ldquo;Monthly&rdquo; and set it to 1</li>
+<li>Activate &ldquo;Weekly&rdquo; and set it to 3</li>
+<li>Activate &ldquo;Daily&rdquo; and set it to 5</li>
+<li>Deactivate &ldquo;Hourly&rdquo;</li>
+<li>Activate &ldquo;Boot&rdquo; and set it to 3</li>
+<li>Activate &ldquo;Stop cron emails for scheduled tasks&rdquo;</li>
+<li>continue with &ldquo;Next&rdquo;</li>
+<li>I also include the <code>@home</code> subvolume (which is not selected by default). Note that when you restore a snapshot Timeshift you get the choise whether you want to restore it as well (which in most cases you don&rsquo;t want to).</li>
+<li>Click &ldquo;Finish&rdquo;</li>
+</ul>
+</li>
+<li>&ldquo;Create&rdquo; a manual first snapshot &amp; exit Timeshift</li>
+</ul>
+<p><em>Timeshift</em> will now check every hour if snapshots (&ldquo;hourly&rdquo;, &ldquo;daily&rdquo;, &ldquo;weekly&rdquo;, &ldquo;monthly&rdquo;, &ldquo;boot&rdquo;) need to be created or deleted. Note that &ldquo;boot&rdquo; snapshots will not be created directly but about 10 minutes after a system startup.</p>
+<p><em>Timeshift</em> puts all snapshots into <code>/run/timeshift/backup</code>. Conveniently, the real root (subvolid 5) of your btrfs partition is also mounted here, so it is easy to view, create, delete and move around snapshots manually.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ls /run/timeshift/backup
+</span></span><span class="line"><span class="cl"><span class="c1"># @  @home  timeshift-btrfs</span>
+</span></span></code></pre></div><p>Note that <code>/run/timeshift/backup/@</code> contains your <code>/</code> folder and <code>/run/timeshift/backup/@home</code> contains your <code>/home</code> folder.</p>
+<p>Now let&rsquo;s install <em>timeshift-autosnap-apt</em> and <em>grub-btrfs</em> from GitHub</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/wmutschl/timeshift-autosnap-apt.git /home/<span class="nv">$USER</span>/timeshift-autosnap-apt
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /home/<span class="nv">$USER</span>/timeshift-autosnap-apt
+</span></span><span class="line"><span class="cl">sudo make install
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git clone https://github.com/Antynea/grub-btrfs.git /home/<span class="nv">$USER</span>/grub-btrfs
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /home/<span class="nv">$USER</span>/grub-btrfs
+</span></span><span class="line"><span class="cl">sudo make install
+</span></span></code></pre></div><p>After this, optionally, make changes to the configuration files:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /etc/timeshift-autosnap-apt.conf
+</span></span><span class="line"><span class="cl">sudo nano /etc/default/grub-btrfs/config
+</span></span></code></pre></div><p>For example, as we don&rsquo;t have a dedicated /boot partition, we can set <code>snapshotBoot=false</code> in the <code>timeshift-autosnap-apt-conf</code> file to not rsync the <code>/boot</code> directory to <code>/boot.backup</code>. Note that the EFI partition is still rsynced into your snapshot to <code>/boot.backup/efi</code>. For <em>grub-btrfs</em>, I change <code>GRUB_BTRFS_SUBMENUNAME</code> to &ldquo;My BTRFS Snapshots&rdquo;.</p>
+<p>Check if everything is working:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo timeshift-autosnap-apt
+</span></span><span class="line"><span class="cl"><span class="c1"># Rsyncing /boot/efi into the filesystem before the call to timeshift.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Using system disk as snapshot device for creating snapshots in BTRFS mode</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/dm-1 is mounted at: /run/timeshift/backup, options: rw,relatime,compress=zstd:3,ssd,space_cache,commit=120,subvolid=5,subvol=/</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Creating new backup...(BTRFS)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Saving to device: /dev/dm-0, mounted at path: /run/timeshift/backup</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created directory: /run/timeshift/backup/timeshift-btrfs/snapshots/2020-05-22_11-16-45</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created subvolume snapshot: /run/timeshift/backup/timeshift-btrfs/snapshots/2020-05-22_11-16-45/@</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created subvolume snapshot: /run/timeshift/backup/timeshift-btrfs/snapshots/2020-05-22_11-16-45/@home</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created control file: /run/timeshift/backup/timeshift-btrfs/snapshots/2020-05-22_11-16-45/info.json</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># BTRFS Snapshot saved successfully (0s)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Tagged snapshot &#39;2020-05-22_11-16-45&#39;: ondemand</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ------------------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Sourcing file `/etc/default/grub&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Sourcing file `/etc/default/grub.d/init-select.cfg&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Generating grub configuration file ...</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Found linux image: /boot/vmlinuz-5.4.0-31-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Found initrd image: /boot/initrd.img-5.4.0-31-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Found linux image: /boot/vmlinuz-5.4.0-26-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Found initrd image: /boot/initrd.img-5.4.0-26-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Adding boot menu entry for UEFI Firmware Settings</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ###### - Grub-btrfs: Snapshot detection started - ######</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># # Info: Separate boot partition not detected </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># # Found snapshot: 2020-05-22 11:16:45 | timeshift-btrfs/snapshots/2020-05-22_11-16-45/@</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># # Found snapshot: 2020-05-22 11:15:10 | timeshift-btrfs/snapshots/2020-05-22_11-15-10/@</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># # Found 2 snapshot(s)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ###### - Grub-btrfs: Snapshot detection ended   - ######</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># done</span>
+</span></span></code></pre></div><p>Now, if you run <code>sudo apt install|remove|upgrade|dist-upgrade</code>, <em>timeshift-autosnap-apt</em> will create a snapshot of your system with <em>Timeshift</em> and <em>grub-btrfs</em> creates the corresponding boot menu entries (actually it creates boot menu entries for all subvolumes of your system). For example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install rolldice
+</span></span><span class="line"><span class="cl"><span class="c1"># Reading package lists... Done</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Building dependency tree       </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Reading state information... Done</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># The following NEW packages will be installed:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   rolldice</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Need to get 9.628 B of archives.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># After this operation, 31,7 kB of additional disk space will be used.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Get:1 http://de.archive.ubuntu.com/ubuntu focal/universe amd64 rolldice amd64 1.16-1build1 [9.628 B]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Fetched 9.628 B in 0s (137 kB/s)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Rsyncing /boot/efi into the filesystem before the call to timeshift.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Using system disk as snapshot device for creating snapshots in BTRFS mode</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/dm-1 is mounted at: /run/timeshift/backup, options: rw,relatime,compress=zstd:3,ssd,space_cache,commit=120,subvolid=5,subvol=/</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Creating new backup...(BTRFS)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Saving to device: /dev/dm-0, mounted at path: /run/timeshift/backup</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created directory: /run/timeshift/backup/timeshift-btrfs/snapshots/2020-05-22_11-17-36</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created subvolume snapshot: /run/timeshift/backup/timeshift-btrfs/snapshots/2020-05-22_11-17-36/@</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created subvolume snapshot: /run/timeshift/backup/timeshift-btrfs/snapshots/2020-05-22_11-17-36/@home</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created control file: /run/timeshift/backup/timeshift-btrfs/snapshots/2020-05-22_11-17-36/info.json</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># BTRFS Snapshot saved successfully (0s)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Tagged snapshot &#39;2020-05-22_11-17-36&#39;: ondemand</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ------------------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Sourcing file `/etc/default/grub&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Sourcing file `/etc/default/grub.d/init-select.cfg&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Generating grub configuration file ...</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Found linux image: /boot/vmlinuz-5.4.0-31-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Found initrd image: /boot/initrd.img-5.4.0-31-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Found linux image: /boot/vmlinuz-5.4.0-26-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Found initrd image: /boot/initrd.img-5.4.0-26-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Adding boot menu entry for UEFI Firmware Settings</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ###### - Grub-btrfs: Snapshot detection started - ######</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># # Info: Separate boot partition not detected </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># # Found snapshot: 2020-05-22 11:17:36 | timeshift-btrfs/snapshots/2020-05-22_11-17-36/@</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># # Found snapshot: 2020-05-22 11:16:45 | timeshift-btrfs/snapshots/2020-05-22_11-16-45/@</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># # Found snapshot: 2020-05-22 11:15:10 | timeshift-btrfs/snapshots/2020-05-22_11-15-10/@</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># # Found 3 snapshot(s)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ###### - Grub-btrfs: Snapshot detection ended   - ######</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># done</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Selecting previously unselected package rolldice.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># (Reading database ... 185770 files and directories currently installed.)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Preparing to unpack .../rolldice_1.16-1build1_amd64.deb ...</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Unpacking rolldice (1.16-1build1) ...</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Setting up rolldice (1.16-1build1) ...</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Processing triggers for man-db (2.9.1-1) ...</span>
+</span></span></code></pre></div><p><strong>FINISHED! CONGRATULATIONS AND THANKS FOR STICKING THROUGH!</strong>
+<strong>If you ever need to rollback your system, checkout <a href="../../timeshift/">Recovery and system rollback with Timeshift</a>.</strong></p>
+<h3 id="step-10-wip-keep-efi-partitions-in-sync">Step 10 (WIP): Keep efi partitions in sync</h3>
+<p>To Do list:</p>
+<ul>
+<li><input disabled="" type="checkbox"> mount both efi partitions via fstab</li>
+<li><input disabled="" type="checkbox"> add dpkg hook similar to timeshift-autosnap-apt</li>
+<li><input disabled="" type="checkbox"> alternatively show how to reinstall EFI partition</li>
+</ul>
+<p>Note that if you use timeshift-autosnap-apt you always have a backup of your efi parition inside any btrfs snapshot in the folder <code>/boot.backup/efi/</code>.</p>
+<h3 id="emergency-scenario-raid1-is-broken">Emergency scenario: RAID1 is broken</h3>
+<h4 id="wip-efi-is-broken">[WIP] efi is broken</h4>
+<p>see Repair bootloader in the <a href="../../references/#btrfs-installation-guides">References</a>&hellip;.</p>
+<h4 id="vda-is-broken">vda is broken</h4>
+<p>Let&rsquo;s assume <code>vda</code> is broken (to this end I shutdown the virtual machine and add an empty <code>vda</code>). Now we need to open the &ldquo;EFI BOOT MANAGER IN BIOS&rdquo; and select to boot from the EFI partition on <code>vda</code>. The system will not boot, but we have our recovery system on <code>vdb</code>, so let&rsquo;s boot into it. Then, we need to chroot in degraded mode into the system, change PARTUUID in the fstab, and remove the bad drive from the crypttab:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo -i
+</span></span><span class="line"><span class="cl">cryptsetup luksOpen /dev/vdb4 crypt_vdb
+</span></span><span class="line"><span class="cl">mount -o <span class="nv">subvol</span><span class="o">=</span>@,degraded /dev/mapper/data_vdb-root /mnt
+</span></span><span class="line"><span class="cl">mount /dev/vdb1 /mnt/boot/efi
+</span></span><span class="line"><span class="cl"><span class="k">for</span> i in /dev /dev/pts /proc /sys /run<span class="p">;</span> <span class="k">do</span> sudo mount -B <span class="nv">$i</span> /mnt<span class="nv">$i</span><span class="p">;</span> <span class="k">done</span>
+</span></span><span class="line"><span class="cl">sudo cp /etc/resolv.conf /mnt/etc/
+</span></span><span class="line"><span class="cl">sudo chroot /mnt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># get PARTUUID</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="k">$(</span>blkid -s PARTUUID -o value /dev/vdb1<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># df1701f7-6e8b-4db1-8192-3a7931e3a905</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="k">$(</span>blkid -s PARTUUID -o value /dev/vdb2<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 3560ffd1-39f0-44da-9c3b-a5d98ea43f08</span>
+</span></span><span class="line"><span class="cl">nano /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c1"># USE df1701f7-6e8b-4db1-8192-3a7931e3a905 FOR /boot/efi</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># USE 3560ffd1-39f0-44da-9c3b-a5d98ea43f08 FOR /recovery</span>
+</span></span><span class="line"><span class="cl">cat /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c1"># PARTUUID=df1701f7-6e8b-4db1-8192-3a7931e3a905  /boot/efi  vfat  umask=0077  0  0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># PARTUUID=3560ffd1-39f0-44da-9c3b-a5d98ea43f08  /recovery  vfat  umask=0077  0  0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=c277ed84-e32f-4204-a211-1d80596e6e15  /  btrfs  defaults,subvol=@,ssd,noatime,space_cache,commit=120,compress=zstd  0  0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=c277ed84-e32f-4204-a211-1d80596e6e15   /home   btrfs   defaults,subvol=@home,ssd,noatime,space_cache,commit=120,compress=zstd   0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/cryptswap  none  swap  defaults  0  0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mkswap /dev/vdb3
+</span></span><span class="line"><span class="cl"><span class="c1"># Setting up swapspace version 1, size = 4 GiB (4294963200 bytes)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># no label, UUID=a6a9ec65-a225-4185-8edd-f9dd3c243a2a</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">nano /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># UNCOMMENT THE NOT WORKING DEVICE AND CHANGE UUID of cryptswap</span>
+</span></span><span class="line"><span class="cl">cat /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># cryptswap UUID=a6a9ec65-a225-4185-8edd-f9dd3c243a2a /dev/urandom swap,offset=1024,cipher=aes-xts-plain64,size=512</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># #crypt_vda UUID=9fc916b2-bdd8-4fbd-b557-4c4366f8cd63 none luks</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># crypt_vdb UUID=93fc3643-a687-4a1c-9859-409b090448b9 none luks</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">update-initramfs -c -k all
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">reboot now
+</span></span></code></pre></div><p>Choose &ldquo;POP!_OS (degraded)&rdquo; in the boot menu and you can boot into your system and repair it!</p>
+<h4 id="vdb-is-broken">vdb is broken</h4>
+<p>Let&rsquo;s assume <code>vdb</code> is broken (to this end I shutdown the virtual machine and added a empty <code>vdb</code>).
+Now we need to open the &ldquo;EFI BOOT MANAGER IN BIOS&rdquo; and select to boot from the EFI partition on <code>vdb</code>. The system will not boot, but we have our recovery system on <code>vda</code>, so let&rsquo;s boot into it. Then, we need to chroot in degraded mode into the system and remove the bad drive from the crypttab:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo -i
+</span></span><span class="line"><span class="cl">cryptsetup luksOpen /dev/vda4 crypt_vda
+</span></span><span class="line"><span class="cl">mount -o <span class="nv">subvol</span><span class="o">=</span>@,degraded /dev/mapper/data_vda-root /mnt
+</span></span><span class="line"><span class="cl">mount /dev/vda1 /mnt/boot/efi
+</span></span><span class="line"><span class="cl"><span class="k">for</span> i in /dev /dev/pts /proc /sys /run<span class="p">;</span> <span class="k">do</span> sudo mount -B <span class="nv">$i</span> /mnt<span class="nv">$i</span><span class="p">;</span> <span class="k">done</span>
+</span></span><span class="line"><span class="cl">sudo cp /etc/resolv.conf /mnt/etc/
+</span></span><span class="line"><span class="cl">sudo chroot /mnt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># NO NEED TO CHANGE THE FSTAB</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">nano /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># UNCOMMENT THE NOT WORKING DEVICE</span>
+</span></span><span class="line"><span class="cl">cat /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># cryptswap UUID=03019356-3691-4002-a013-be15f291cde2 /dev/urandom swap,offset=1024,cipher=aes-xts-plain64,size=512</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># crypt_vda UUID=9fc916b2-bdd8-4fbd-b557-4c4366f8cd63 none luks</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># #crypt_vdb UUID=93fc3643-a687-4a1c-9859-409b090448b9 none luks</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">update-initramfs -c -k all
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">reboot now
+</span></span></code></pre></div><p>Choose POP!_OS (degraded) in the boot menu and you can boot into your system and repair it!</p>
+
+          </div>
+
+          
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/linux/">linux</a>
+  
+  <a class="badge badge-light" href="/tag/ubuntu/">ubuntu</a>
+  
+  <a class="badge badge-light" href="/tag/install-guide/">install guide</a>
+  
+  <a class="badge badge-light" href="/tag/btrfs/">btrfs</a>
+  
+  <a class="badge badge-light" href="/tag/luks/">luks</a>
+  
+  <a class="badge badge-light" href="/tag/timeshift/">timeshift</a>
+  
+  <a class="badge badge-light" href="/tag/timeshift-autosnap-apt/">timeshift-autosnap-apt</a>
+  
+  <a class="badge badge-light" href="/tag/raid/">raid</a>
+  
+</div>
+
+
+
+          
+          
+          <div class="article-widget">
+            
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/linux/btrfs/" rel="next">Why I (still) like btrfs</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/linux/ubuntu-btrfs-20-04/" rel="prev">Ubuntu Desktop 20.04: installation guide with btrfs-luks full disk encryption including /boot and auto-apt snapshots with Timeshift</a>
+  </div>
+  
+</div>
+
+          </div>
+          
+        </div>
+
+        <div class="body-footer">
+          <p>Last updated on Jun 17, 2022</p>
+
+          
+
+
+
+          
+
+
+
+
+          
+
+
+        </div>
+
+      </article>
+
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+  </p>
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2022 Willi Mutschler. This work is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank">CC BY SA 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-sa fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+
+    </main>
+  </div>
+</div>
+
+  </div>
+
+  <div class="page-footer">
+    
+    
+  </div>
+
+      
+
+    
+    <script src="/js/vendor-bundle.min.3d946de2e8784a477845261d87025092.js"></script>
+
+    
+    
+    
+      
+      
+        <script src="https://cdn.jsdelivr.net/gh/desandro/imagesloaded@v4.1.4/imagesloaded.pkgd.min.js" integrity="sha512-S5PZ9GxJZO16tT9r3WJp/Safn31eu8uWrzglMahDT4dsmgqWonRY9grk3j+3tfuPr9WJNsfooOR7Gi7HL5W2jw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/metafizzy/isotope@v3.0.6/dist/isotope.pkgd.min.js" integrity="sha512-Zq2BOxyhvnRFXu0+WE6ojpZLOU2jdnqbrM1hmVdGzyeCa1DgM3X5Q4A/Is9xA1IkbUeDd7755dNNI/PzSf2Pew==" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/r.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/matlab.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+      <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script src="https://cdn.jsdelivr.net/gh/bryanbraun/anchorjs@4.2.2/anchor.min.js" integrity="sha512-I7w3ZdSFzw5j3jU3ZkNikBNeIrl3i+hEuEdwNmqUJvwNcaBUNcijnP2gd9DtGlgVYDplfjGoD8vTNsID+lCjqg==" crossorigin="anonymous"></script>
+    <script>
+      anchors.add();
+    </script>
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+
+    
+    
+    
+    <script id="page-data" type="application/json">{"use_headroom":false}</script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.9162604ef5b82e6fdeff386200ab6db9.js"></script>
+
+    
+    
+      <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+    
+    
+    
+    
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,2002 @@
+<!DOCTYPE html><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.4.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Willi Mutschler" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="In the following I will go through my post installation steps on Fedora, i.e. which settings I choose and which apps I install and use." />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://mutschler.dev/linux/fedora-post-install/" />
+
+  
+  
+  
+    <meta name="theme-color" content="#bbdefb" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.c7b8d9abd591ba2253ea42747e3ac3f5.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css" integrity="sha512-W0xM4mr6dEP9nREo7Z9z+9X70wytKvMGeDsj7ps2+xg5QPrEBXC8tAW1IFnzjR6eoJ90JmCnFzerQJTLzIEHjA==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'" disabled>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'">
+        
+      
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.0b8400c2e374cd7dd4f9ae4909fd9914.css" />
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://mutschler.dev/linux/fedora-post-install/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary" />
+  
+  <meta property="og:site_name" content="mutschler.dev" />
+  <meta property="og:url" content="https://mutschler.dev/linux/fedora-post-install/" />
+  <meta property="og:title" content="Fedora Workstation: Things to do after installation (Apps, Settings, and Tweaks) | mutschler.dev" />
+  <meta property="og:description" content="In the following I will go through my post installation steps on Fedora, i.e. which settings I choose and which apps I install and use." /><meta property="og:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" />
+    <meta property="twitter:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2022-01-01T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2022-06-17T13:47:19&#43;02:00">
+  
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Fedora Workstation: Things to do after installation (Apps, Settings, and Tweaks) | mutschler.dev</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper  dark " data-wc-page-id="f226b889a998dcb330179ee2c30b7baa" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.6c07fd79b08c404df0504bd310968f2f.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="header--fixed">
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/apple/"><span>Apple</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link  active" href="/linux/"><span>Linux</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/stuff/"><span>Stuff</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://buymeacoffee.com/mutschler" data-toggle="tooltip" data-placement="bottom" title="Buy me a coffee" target="_blank" rel="noopener" aria-label="Buy me a coffee">
+                <i class="fas fa-coffee" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="mailto:willi@mutschler.dev" data-toggle="tooltip" data-placement="bottom" title="Write me an email"  aria-label="Write me an email">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://github.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on GitHub" target="_blank" rel="noopener" aria-label="Follow me on GitHub">
+                <i class="fab fa-github" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://gitlab.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on Gitlab" target="_blank" rel="noopener" aria-label="Follow me on Gitlab">
+                <i class="fab fa-gitlab" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://www.youtube.com/c/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on YouTube" target="_blank" rel="noopener" aria-label="Follow me on YouTube">
+                <i class="fab fa-youtube" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        
+
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    
+
+
+
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      <form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-md-3 w-100" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <div class="d-flex">
+      <span class="d-md-none pl-1 flex-grow-1 text-left overflow-hidden">
+        
+          Linux
+        
+      </span>
+      <span><i class="fas fa-chevron-down"></i></span>
+    </div>
+  </button>
+
+  
+  <button class="form-control sidebar-search js-search d-none d-md-flex">
+    <i class="fas fa-search pr-2"></i>
+    <span class="sidebar-search-text">Search...</span>
+    <span class="sidebar-search-shortcut">/</span>
+  </button>
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+  
+  
+  
+  
+  
+
+  
+  
+    
+
+    
+      
+
+      
+
+
+  
+    
+    
+    
+    
+      
+    
+    
+
+    
+      <ul class="nav docs-sidenav">
+        <li class=""><a href="/linux/">Linux</a></li>
+    
+      
+
+
+  <li class=""><a href="/linux/elementary-os-post-install/">elementary OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/elementary-os-6-1/">elementary OS 6.1 Jólnir: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-22-04/">Pop!_OS 22.04: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-post-install/">Pop!_OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class="active"><a href="/linux/fedora-post-install/">Fedora Workstation: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-btrfs-35/">Fedora Workstation 35 with automatic btrfs snapshots and backups using BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-10/">DRAFT: Pop!_OS 21.10: installation guide with btrfs-LVM-luks and auto snapshots with BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-04/">Pop!_OS 21.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/raspi-post-install/">Ubuntu Server Raspberry Pi: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/raspi-btrfs/">Ubuntu Server 20.10 on Raspberry Pi 4: installation guide with USB Boot (no SD card) and full disk encryption (excluding /boot) using btrfs-inside-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-btrfs-33/">Fedora Workstation 33: installation guide with btrfs-luks full disk encryption (optionally including /boot) and auto snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/btrfs/">Why I (still) like btrfs</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-btrfs-raid1-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks-RAID1 full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-btrfs-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-post-install/">Ubuntu Desktop: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-raid1-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks-RAID1 and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/timeshift/">Timeshift</a></li>
+
+      
+    
+
+    
+      </ul>
+    
+
+  
+</nav>
+
+    </div>
+
+    
+    
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      
+
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+      </ul>
+
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#basic-steps">Basic Steps</a>
+      <ul>
+        <li><a href="#go-through-welcome-screen">Go through welcome screen</a></li>
+        <li><a href="#get-thunderbolt-dock-to-work-and-adjust-monitors">Get Thunderbolt Dock to work and adjust monitors</a></li>
+        <li><a href="#wayland-or-xorg">Wayland or Xorg</a></li>
+        <li><a href="#nvidia">Nvidia</a></li>
+        <li><a href="#dnf-flags">DNF flags</a></li>
+        <li><a href="#set-hostname">Set hostname</a></li>
+        <li><a href="#check-locales">Check locales</a></li>
+        <li><a href="#btrfs-filesystem-optimizations">btrfs filesystem optimizations</a></li>
+        <li><a href="#install-updates-and-reboot">Install updates and reboot</a></li>
+        <li><a href="#fish---a-friendly-interactive-shell">Fish - A Friendly Interactive Shell</a></li>
+        <li><a href="#gnome-extensions-and-tweaks">Gnome Extensions and Tweaks</a></li>
+        <li><a href="#additional-repositories">Additional repositories</a></li>
+        <li><a href="#flatpak-support">Flatpak support</a></li>
+        <li><a href="#snap-support">Snap support</a></li>
+        <li><a href="#restore-from-backup">Restore from Backup</a></li>
+        <li><a href="#ssh-keys">SSH keys</a></li>
+      </ul>
+    </li>
+    <li><a href="#pop-theme">Pop theme</a>
+      <ul>
+        <li><a href="#install-pop-shell-tiling-extension">Install Pop-Shell Tiling Extension</a></li>
+        <li><a href="#pop-gtk-theme">Pop GTK theme</a></li>
+        <li><a href="#pop-icon-theme">Pop icon theme</a></li>
+        <li><a href="#pop-fonts">Pop fonts</a></li>
+        <li><a href="#pop-gnome-terminal-theme">Pop Gnome Terminal Theme</a></li>
+      </ul>
+    </li>
+    <li><a href="#security-steps-with-yubikey">Security steps with Yubikey</a>
+      <ul>
+        <li><a href="#yubikey-two-factor-authentication-for-adminsudo-password">Yubikey: two-factor authentication for admin/sudo password</a></li>
+        <li><a href="#yubikey-two-factor-authentication-for-luks">Yubikey: two-factor authentication for luks</a></li>
+        <li><a href="#yubikey-private-gpg-key">Yubikey: private GPG key</a></li>
+      </ul>
+    </li>
+    <li><a href="#apps">Apps</a>
+      <ul>
+        <li><a href="#browser">Browser</a></li>
+        <li><a href="#system-utilities">System utilities</a></li>
+        <li><a href="#networking">Networking</a></li>
+        <li><a href="#coding">Coding</a></li>
+        <li><a href="#text-processing">Text-processing</a></li>
+        <li><a href="#communication">Communication</a></li>
+        <li><a href="#multimedia">Multimedia</a></li>
+      </ul>
+    </li>
+    <li><a href="#gnome-settings">Gnome Settings</a></li>
+    <li><a href="#other-stuff">Other stuff</a></li>
+  </ul>
+</nav>
+
+      
+    </div>
+    
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <article class="article">
+
+        <div class="docs-article-container">
+          
+
+          <h1>Fedora Workstation: Things to do after installation (Apps, Settings, and Tweaks)</h1>
+
+          <div class="article-style">
+            <p><em><strong>Please feel free to raise any comments or issues on the <a href="https://github.com/wmutschl/mutschler.dev" target="_blank" rel="noopener">website&rsquo;s Github repository</a>. Pull requests are very much appreciated.</strong></em>
+<a href="https://www.buymeacoffee.com/mutschler" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a></p>
+<p>In the following I will go through my post installation steps, i.e. which settings I choose and which apps I install and use.
+<details class="toc-inpage d-print-none d-xl-none " open>
+  <summary class="font-weight-bold">Table of Contents</summary>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#basic-steps">Basic Steps</a>
+      <ul>
+        <li><a href="#go-through-welcome-screen">Go through welcome screen</a></li>
+        <li><a href="#get-thunderbolt-dock-to-work-and-adjust-monitors">Get Thunderbolt Dock to work and adjust monitors</a></li>
+        <li><a href="#wayland-or-xorg">Wayland or Xorg</a></li>
+        <li><a href="#nvidia">Nvidia</a></li>
+        <li><a href="#dnf-flags">DNF flags</a></li>
+        <li><a href="#set-hostname">Set hostname</a></li>
+        <li><a href="#check-locales">Check locales</a></li>
+        <li><a href="#btrfs-filesystem-optimizations">btrfs filesystem optimizations</a></li>
+        <li><a href="#install-updates-and-reboot">Install updates and reboot</a></li>
+        <li><a href="#fish---a-friendly-interactive-shell">Fish - A Friendly Interactive Shell</a></li>
+        <li><a href="#gnome-extensions-and-tweaks">Gnome Extensions and Tweaks</a></li>
+        <li><a href="#additional-repositories">Additional repositories</a></li>
+        <li><a href="#flatpak-support">Flatpak support</a></li>
+        <li><a href="#snap-support">Snap support</a></li>
+        <li><a href="#restore-from-backup">Restore from Backup</a></li>
+        <li><a href="#ssh-keys">SSH keys</a></li>
+      </ul>
+    </li>
+    <li><a href="#pop-theme">Pop theme</a>
+      <ul>
+        <li><a href="#install-pop-shell-tiling-extension">Install Pop-Shell Tiling Extension</a></li>
+        <li><a href="#pop-gtk-theme">Pop GTK theme</a></li>
+        <li><a href="#pop-icon-theme">Pop icon theme</a></li>
+        <li><a href="#pop-fonts">Pop fonts</a></li>
+        <li><a href="#pop-gnome-terminal-theme">Pop Gnome Terminal Theme</a></li>
+      </ul>
+    </li>
+    <li><a href="#security-steps-with-yubikey">Security steps with Yubikey</a>
+      <ul>
+        <li><a href="#yubikey-two-factor-authentication-for-adminsudo-password">Yubikey: two-factor authentication for admin/sudo password</a></li>
+        <li><a href="#yubikey-two-factor-authentication-for-luks">Yubikey: two-factor authentication for luks</a></li>
+        <li><a href="#yubikey-private-gpg-key">Yubikey: private GPG key</a></li>
+      </ul>
+    </li>
+    <li><a href="#apps">Apps</a>
+      <ul>
+        <li><a href="#browser">Browser</a></li>
+        <li><a href="#system-utilities">System utilities</a></li>
+        <li><a href="#networking">Networking</a></li>
+        <li><a href="#coding">Coding</a></li>
+        <li><a href="#text-processing">Text-processing</a></li>
+        <li><a href="#communication">Communication</a></li>
+        <li><a href="#multimedia">Multimedia</a></li>
+      </ul>
+    </li>
+    <li><a href="#gnome-settings">Gnome Settings</a></li>
+    <li><a href="#other-stuff">Other stuff</a></li>
+  </ul>
+</nav>
+</details>
+</p>
+<h2 id="basic-steps">Basic Steps</h2>
+<h3 id="go-through-welcome-screen">Go through welcome screen</h3>
+<p>This is self-explanatory. Usually I already set up Online Accounts for Nextcloud.</p>
+<h3 id="get-thunderbolt-dock-to-work-and-adjust-monitors">Get Thunderbolt Dock to work and adjust monitors</h3>
+<p>I use a Thunderbolt Dock (DELL TB16) with three monitors, which is great but also a bit tricky to set up. The most important step is to check in &ldquo;Settings-Privacy-Thunderbolt&rdquo;, whether &ldquo;Dell Thunderbord Cable&rdquo; and &ldquo;Dell Thunderbord Dock&rdquo; are both set to &ldquo;Authorized&rdquo;. You may need to go into your BIOS to make some changes as outlined on the <a href="https://wiki.archlinux.org/index.php/Dell_TB16" target="_blank" rel="noopener">Dell TB16 Archwiki</a>. I noticed that sometimes I just need to plug the USB-C cable in and out a couple of times or turn it around to make it work. A reboot might help as well. Once it works, it usually keeps working, so this is annoying just for a short time :-) Once it works, I can arrange my three monitors in &ldquo;Settings-Display&rdquo;.</p>
+<h3 id="wayland-or-xorg">Wayland or Xorg</h3>
+<p>By Default Wayland is enabled. If you have a Nvidia card this is not working well, so you would have to disable it. Also MATLAB seems to work better on Xorg than Wayland, but I still need to test this. Anyways, on my Dell XPS 13 I usually stick to Wayland, whereas on my Dell Precision 7520 I disable it by uncommenting <code>WaylandEnable=false</code> and adding <code>DefaultSession=gnome-xorg.desktop</code> to the [daemon] section of /etc/gdm/custom.conf:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo nano /etc/gdm/custom.conf
+</span></span><span class="line"><span class="cl"><span class="c1"># [daemon]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># WaylandEnable=false</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># DefaultSession=gnome-xorg.desktop</span>
+</span></span></code></pre></div><p>Next time you reboot the system it will boot into an Xorg Gnome session.</p>
+<h3 id="nvidia">Nvidia</h3>
+<p>If you have a Nvidia card, run Xorg and the following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">modinfo -F version nvidia
+</span></span><span class="line"><span class="cl">sudo dnf update -y <span class="c1"># and reboot if you are not on the latest kernel</span>
+</span></span><span class="line"><span class="cl">sudo dnf install -y akmod-nvidia <span class="c1"># rhel/centos users can use kmod-nvidia instead</span>
+</span></span><span class="line"><span class="cl">sudo dnf install -y xorg-x11-drv-nvidia-cuda <span class="c1">#optional for cuda/nvdec/nvenc support</span>
+</span></span><span class="line"><span class="cl">sudo dnf install -y xorg-x11-drv-nvidia-cuda-libs
+</span></span><span class="line"><span class="cl">sudo dnf install -y vdpauinfo libva-vdpau-driver libva-utils
+</span></span><span class="line"><span class="cl">sudo dnf install -y vulkan
+</span></span><span class="line"><span class="cl">modinfo -F version nvidia
+</span></span></code></pre></div><h3 id="dnf-flags">DNF flags</h3>
+<p>I add some flags to the dnf conf file to speed it up:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;fastestmirror=1&#39;</span> <span class="p">|</span> sudo tee -a /etc/dnf/dnf.conf
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;max_parallel_downloads=10&#39;</span> <span class="p">|</span> sudo tee -a /etc/dnf/dnf.conf
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;deltarpm=true&#39;</span> <span class="p">|</span> sudo tee -a /etc/dnf/dnf.conf
+</span></span><span class="line"><span class="cl">cat /etc/dnf/dnf.conf
+</span></span><span class="line"><span class="cl"><span class="c1"># [main]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># gpgcheck=1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># installonly_limit=3</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># clean_requirements_on_remove=True</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># best=False</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># skip_if_unavailable=True</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># fastestmirror=1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># max_parallel_downloads=10</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># deltarpm=true</span>
+</span></span></code></pre></div><h3 id="set-hostname">Set hostname</h3>
+<p>By default my machine is called localhost; hence, I rename it for better accessability on the network:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">hostnamectl set-hostname fedora
+</span></span></code></pre></div><h3 id="check-locales">Check locales</h3>
+<p>Let&rsquo;s check if the locales and timezone is correctly set:</p>
+<pre tabindex="0"><code>localectl status
+# System Locale: LANG=de_DE.UTF-8
+# VC Keymap: de-nodeadkeys
+# X11 Layout: de
+# X11 Variant: nodeadkeys
+timedatectl
+# Local time: Di 2020-11-03 13:58:54 CET
+# Universal time: Di 2020-11-03 12:58:54 UTC
+# RTC time: Di 2020-11-03 12:58:54    
+# Time zone: Europe/Berlin (CET, +0100)
+# System clock synchronized: yes                       
+# NTP service: active                    
+# RTC in local TZ: no
+</code></pre><p>Looks good, if not see the help file on the two commands or change locales and timezone in Gnome-Settings.</p>
+<h3 id="btrfs-filesystem-optimizations">btrfs filesystem optimizations</h3>
+<p>Fedora has not optimized the mount options for btrfs yet. I have found that there is <em>some</em> general agreement on the following mount options if you are on a SSD or NVME:</p>
+<ul>
+<li><code>ssd</code>: use SSD specific options for optimal use on SSD and NVME</li>
+<li><code>noatime</code>: prevent frequent disk writes by instructing the Linux kernel not to store the last access time of files and folders</li>
+<li><code>space_cache</code>: allows btrfs to store free space cache on the disk to make caching of a block group much quicker</li>
+<li><code>commit=120</code>: time interval in which data is written to the filesystem (value of 120 is taken from Manjaro’s minimal iso)</li>
+<li><code>compress=zstd</code>: allows to specify the compression algorithm which we want to use. btrfs provides lzo, zstd and zlib compression algorithms. Based on some Phoronix test cases, zstd seems to be the better performing candidate.</li>
+<li><code>discard=async</code>: <a href="https://www.phoronix.com/scan.php?page=news_item&amp;px=Btrfs-Async-Discard" target="_blank" rel="noopener">Btrfs Async Discard Support Looks To Be Ready For Linux 5.6</a></li>
+</ul>
+<p>So add these options to your btrfs subvolume mount points in your fstab:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo nano /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=47faf958-b80a-43e1-a36f-ca5a932474f7 /                       btrfs   subvol=root,x-systemd.device-timeout=0,ssd,noatime,space_cache,commit=120,compress=zstd,discard=async 0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=04ae92cd-717c-4aaf-bb24-58001be8d334 /boot                   ext4    defaults        1 2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=C17B-722D                            /boot/efi               vfat    umask=0077,shortname=winnt 0 2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=47faf958-b80a-43e1-a36f-ca5a932474f7 /home                   btrfs   subvol=home,x-systemd.device-timeout=0,ssd,noatime,space_cache,commit=120,compress=zstd,discard=async 0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=47faf958-b80a-43e1-a36f-ca5a932474f7 /btrfs_pool             btrfs   subvolid=5,x-systemd.device-timeout=0,ssd,noatime,space_cache,commit=120,compress=zstd,discard=async 0 0</span>
+</span></span><span class="line"><span class="cl">sudo mkdir -p /btrfs_pool
+</span></span><span class="line"><span class="cl">sudo mount -a
+</span></span></code></pre></div><p>Note that I also add a mountpoint for the btrfs root filesystem (this has always id 5) for easy access of all my subvolumes in <code>/btrfs_pool</code>. You would need to restart to make use of the new options. I usually first run updates and restart prior to restoring my backups, such that my restored files are using the optimized mount options such as compression.</p>
+<p>Furthermore, as I am using btrfs discard support, let&rsquo;s check whether the <code>discard</code> option is passed on in <code>/etc/crypttab</code> (as I am using LUKS to encrypt my drives):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo nano /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># luks-fcc669e7-32d5-43b2-ba03-2db6a7f5b33d UUID=fcc669e7-32d5-43b2-ba03-2db6a7f5b33d none discard</span>
+</span></span></code></pre></div><p>As <a href="https://www.phoronix.com/scan.php?page=news_item&amp;px=Fedora-Btrfs-Opts-Discard-Comp" target="_blank" rel="noopener">both fstrim and discard=async mount option can peacefully co-exist</a>, I also enable <code>fstrim.timer</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> fstrim.timer
+</span></span></code></pre></div><h3 id="install-updates-and-reboot">Install updates and reboot</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf upgrade --refresh
+</span></span><span class="line"><span class="cl">sudo dnf check
+</span></span><span class="line"><span class="cl">sudo dnf autoremove
+</span></span><span class="line"><span class="cl">sudo fwupdmgr get-devices
+</span></span><span class="line"><span class="cl">sudo fwupdmgr refresh --force
+</span></span><span class="line"><span class="cl">sudo fwupdmgr get-updates
+</span></span><span class="line"><span class="cl">sudo fwupdmgr update
+</span></span><span class="line"><span class="cl">sudo reboot now
+</span></span></code></pre></div><h3 id="fish---a-friendly-interactive-shell">Fish - A Friendly Interactive Shell</h3>
+<p>I am trying out the Fish shell, due to its <a href="https://fedoramagazine.org/fish-a-friendly-interactive-shell/" target="_blank" rel="noopener">user-friendly features</a>, so I install it and make it my default shell:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y fish util-linux-user
+</span></span><span class="line"><span class="cl">chsh -s /usr/bin/fish
+</span></span></code></pre></div><p>You will need to log out and back in for this change to take effect. Lastly, I want to add the ~/.local/bin to my $PATH <a href="https://github.com/fish-shell/fish-shell/issues/527" target="_blank" rel="noopener">persistently</a> in Fish:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">mkdir -p /home/<span class="nv">$USER</span>/.local/bin
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -Ua fish_user_paths /home/<span class="nv">$USER</span>/.local/bin
+</span></span></code></pre></div><p>Also I make sure that it is in my $PATH also on bash:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">bash -c <span class="s1">&#39;echo $PATH&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#/home/$USER/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin</span>
+</span></span></code></pre></div><p>If it isn&rsquo;t then I make the necessary changes in my <code>.bashrc</code>, see <a href="#pop-gnome-terminal-theme">below</a>.</p>
+<h3 id="gnome-extensions-and-tweaks">Gnome Extensions and Tweaks</h3>
+<p>Let&rsquo;s install the extensions app, Gnome Tweaks, and some extensions:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y gnome-extensions-app gnome-tweaks
+</span></span><span class="line"><span class="cl">sudo dnf install -y gnome-shell-extension-appindicator
+</span></span></code></pre></div><p>I install <a href="https://extensions.gnome.org/extension/906/sound-output-device-chooser/" target="_blank" rel="noopener">Sound Input &amp; Output Device Chooser</a> using Firefox. Lastly, I also like Pop Shell, see <a href="#pop-theme">below</a> how to install it.</p>
+<p>In Gnome Tweaks I make the following changes:</p>
+<ul>
+<li>Disable &ldquo;Suspend when laptop lid is closed&rdquo; in General</li>
+<li>Disable &ldquo;Activities Overview Hot Corner&rdquo; in Top Bar</li>
+<li>Enable &ldquo;Weekday&rdquo; and &ldquo;Date&rdquo; in &ldquo;Top Bar&rdquo;</li>
+<li>Enable Battery Percentage (also possible in Gnome Settings - Power)</li>
+<li>Check Autostart programs</li>
+</ul>
+<h3 id="additional-repositories">Additional repositories</h3>
+<p>I enable third party repositories by going into Software -&gt; Software Repositories -&gt; Third Party Repositories -&gt; Enable All. I go through the list and enable all the repositories I think I need such as RPM Fusion NVIDIA Driver. Then I run</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y  https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-<span class="k">$(</span>rpm -E %fedora<span class="k">)</span>.noarch.rpm
+</span></span><span class="line"><span class="cl">sudo dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-<span class="k">$(</span>rpm -E %fedora<span class="k">)</span>.noarch.rpm
+</span></span></code></pre></div><p>to enable the RPM Fusion free and nonfree repositories. Afterwards I run</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf upgrade --refresh
+</span></span><span class="line"><span class="cl">sudo dnf groupupdate core
+</span></span><span class="line"><span class="cl">sudo dnf install -y rpmfusion-free-release-tainted
+</span></span><span class="line"><span class="cl">sudo dnf install -y dnf-plugins-core
+</span></span></code></pre></div><p>Checkout <code>sudo dnf grouplist -v</code> to see available groups you might be interested in.</p>
+<h3 id="flatpak-support">Flatpak support</h3>
+<p>Flatpak is installed by default on Fedora Workstation, but one needs to enable the Flathub store:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+</span></span><span class="line"><span class="cl">flatpak update
+</span></span></code></pre></div><h3 id="snap-support">Snap support</h3>
+<p>Enabling snap support boils down to running the following commands:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y snapd
+</span></span><span class="line"><span class="cl">sudo ln -s /var/lib/snapd/snap /snap <span class="c1"># for classic snap support</span>
+</span></span><span class="line"><span class="cl">sudo reboot now
+</span></span></code></pre></div><p>The restart is needed to ensure snap’s paths are updated correctly. After the reboot, check whether there are any updates:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo snap refresh
+</span></span></code></pre></div><h3 id="restore-from-backup">Restore from Backup</h3>
+<p>I mount my LUKS encrypted backup storage drive using nautilus (simply click on it in the file manager). Then let&rsquo;s use rsync to copy over my files and important configuration scripts:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">BACKUP</span><span class="o">=</span>/run/media/<span class="nv">$USER</span>/NAME_OR_UUID_BACKUP_DRIVE/@home/<span class="nv">$USER</span>/
+</span></span><span class="line"><span class="cl">sudo rsync -avuP <span class="nv">$BACKUP</span>/Desktop ~/
+</span></span><span class="line"><span class="cl">sudo rsync -avuP <span class="nv">$BACKUP</span>/Documents ~/
+</span></span><span class="line"><span class="cl">sudo rsync -avuP <span class="nv">$BACKUP</span>/Downloads ~/
+</span></span><span class="line"><span class="cl">sudo rsync -avuP <span class="nv">$BACKUP</span>/Music ~/
+</span></span><span class="line"><span class="cl">sudo rsync -avuP <span class="nv">$BACKUP</span>/Pictures ~/
+</span></span><span class="line"><span class="cl">sudo rsync -avuP <span class="nv">$BACKUP</span>/Templates ~/
+</span></span><span class="line"><span class="cl">sudo rsync -avuP <span class="nv">$BACKUP</span>/Videos ~/
+</span></span><span class="line"><span class="cl">sudo rsync -avuP <span class="nv">$BACKUP</span>/.ssh ~/
+</span></span><span class="line"><span class="cl">sudo rsync -avuP <span class="nv">$BACKUP</span>/.gnupg ~/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo rsync -avuP <span class="nv">$BACKUP</span>/.local/share/applications ~/.local/share/
+</span></span><span class="line"><span class="cl">sudo rsync -avuP <span class="nv">$BACKUP</span>/.gitconfig ~/
+</span></span><span class="line"><span class="cl">sudo rsync -avuP <span class="nv">$BACKUP</span>/.gitkraken ~/
+</span></span><span class="line"><span class="cl">sudo rsync -avuP <span class="nv">$BACKUP</span>/.config/Nextcloud ~/.config/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo rsync -avuP <span class="nv">$BACKUP</span>/dynare ~/
+</span></span><span class="line"><span class="cl">sudo rsync -avuP <span class="nv">$BACKUP</span>/.dynare ~/
+</span></span><span class="line"><span class="cl">sudo rsync -avuP <span class="nv">$BACKUP</span>/Images ~/
+</span></span><span class="line"><span class="cl">sudo rsync -avuP <span class="nv">$BACKUP</span>/SofortUpload ~/
+</span></span><span class="line"><span class="cl">sudo rsync -avuP <span class="nv">$BACKUP</span>/Work ~/
+</span></span><span class="line"><span class="cl">sudo rsync -avuP <span class="nv">$BACKUP</span>/Zotero ~/
+</span></span><span class="line"><span class="cl">sudo rsync -avuP <span class="nv">$BACKUP</span>/MATLAB ~/
+</span></span><span class="line"><span class="cl">sudo rsync -avuP <span class="nv">$BACKUP</span>/.matlab ~/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo chown -R <span class="nv">$USER</span>:<span class="nv">$USER</span> /home/<span class="nv">$USER</span> <span class="c1"># make sure I own everything</span>
+</span></span></code></pre></div><h3 id="ssh-keys">SSH keys</h3>
+<p>If I want to create a new SSH key, I run e.g.:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ssh-keygen -t ed25519 -C <span class="s2">&#34;fedora-on-precision&#34;</span>
+</span></span></code></pre></div><p>Usually, however, I restore my <code>.ssh</code> folder from my backup (see above). Either way, afterwards, one needs to add the file containing your key, usually <code>id_rsa</code> or <code>id_ed25519</code>, to the ssh-agent:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">eval</span> <span class="s2">&#34;</span><span class="k">$(</span>ssh-agent -s<span class="k">)</span><span class="s2">&#34;</span> <span class="c1">#works in bash</span>
+</span></span><span class="line"><span class="cl"><span class="nb">eval</span> <span class="o">(</span>ssh-agent -c<span class="o">)</span> <span class="c1">#works in fish</span>
+</span></span><span class="line"><span class="cl">ssh-add ~/.ssh/id_ed25519
+</span></span></code></pre></div><p>Don&rsquo;t forget to add your public key to GitHub, Gitlab, Servers, etc.</p>
+<h2 id="pop-theme">Pop theme</h2>
+<p>I love the experience and theming of Gnome in Pop!_OS, so I make Fedora look and behave similarly:</p>
+<h3 id="install-pop-shell-tiling-extension">Install Pop-Shell Tiling Extension</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y gnome-shell-extension-pop-shell
+</span></span></code></pre></div><p>Logout and Login, then activate it in the Extensions App (I usually don&rsquo;t activate Native Window Placement) and you get an icon in your system tray. Turn on Tiling by clicking on the icon. Note that this will overwrite several Keyboard shortcuts, which is for me a good thing as I am quite used to the shortcuts in Pop!_OS. If you want to be able to view these shortcuts in the icon in the tray, run the following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Pop shell keyboard shortcuts</span>
+</span></span><span class="line"><span class="cl">sudo dnf install -y make cargo rust gtk3-devel
+</span></span><span class="line"><span class="cl">git clone https://github.com/pop-os/shell-shortcuts /home/<span class="nv">$USER</span>/fedora/pop-theme/shell-shortcuts
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /home/<span class="nv">$USER</span>/fedora/pop-theme/shell-shortcuts
+</span></span><span class="line"><span class="cl">make
+</span></span><span class="line"><span class="cl">sudo make install
+</span></span><span class="line"><span class="cl">pop-shell-shortcuts
+</span></span></code></pre></div><h3 id="pop-gtk-theme">Pop GTK theme</h3>
+<p>The following installs the Pop!_OS GTK theme:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y sassc meson glib2-devel
+</span></span><span class="line"><span class="cl">git clone https://github.com/pop-os/gtk-theme /home/<span class="nv">$USER</span>/fedora/pop-theme/gtk-theme
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /home/<span class="nv">$USER</span>/fedora/pop-theme/gtk-theme
+</span></span><span class="line"><span class="cl">meson build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
+</span></span><span class="line"><span class="cl">ninja
+</span></span><span class="line"><span class="cl">sudo ninja install
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">gsettings <span class="nb">set</span> org.gnome.desktop.interface gtk-theme <span class="s2">&#34;Pop&#34;</span>
+</span></span></code></pre></div><h3 id="pop-icon-theme">Pop icon theme</h3>
+<p>The following installs the Pop!_OS icon theme:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git clone https://github.com/pop-os/icon-theme /home/<span class="nv">$USER</span>/fedora/pop-theme/icon-theme
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /home/<span class="nv">$USER</span>/fedora/pop-theme/icon-theme
+</span></span><span class="line"><span class="cl">meson build
+</span></span><span class="line"><span class="cl">sudo ninja -C <span class="s2">&#34;build&#34;</span> install
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">gsettings <span class="nb">set</span> org.gnome.desktop.interface icon-theme <span class="s2">&#34;Pop&#34;</span>
+</span></span><span class="line"><span class="cl">gsettings <span class="nb">set</span> org.gnome.desktop.interface cursor-theme <span class="s2">&#34;Pop&#34;</span>
+</span></span></code></pre></div><h3 id="pop-fonts">Pop fonts</h3>
+<p>For fonts, install</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y fira-code-fonts <span class="s1">&#39;mozilla-fira*&#39;</span> <span class="s1">&#39;google-roboto*&#39;</span>
+</span></span></code></pre></div><p>and then go into Gnome Tweaks and make the following changes in Fonts:</p>
+<ul>
+<li>Interface Text: Fira Sans Book 10</li>
+<li>Document Text: Roboto Slab Regular 11</li>
+<li>Monospace Text: Fira Mono Regular 11</li>
+<li>Legacy Window Titles: Fira Sans SemiBold 10</li>
+<li>Hinting: Slight</li>
+<li>Antialiasing: Standard (greyscale)</li>
+<li>Scaling Factor: 1.00</li>
+</ul>
+<h3 id="pop-gnome-terminal-theme">Pop Gnome Terminal Theme</h3>
+<p>Open gnome-terminal, go to Preferences and change the <code>Theme variant</code> to <code>Default</code> in the Global tab. Then create a new Profile called <code>Pop</code> with the following settings:</p>
+<ul>
+<li>Text
+<ul>
+<li>Custom font: Fira Mono 12</li>
+<li>Deactivate Terminal bell</li>
+</ul>
+</li>
+<li>Colors
+<ul>
+<li>Deactivate Use colors from system theme</li>
+<li>Built-in schemes: Custom</li>
+<li>Default color: Text #F2F2F2 | Background: #333333</li>
+<li>Bold color (unchecked) #73C48F</li>
+<li>Cursor color (checked): Text #49B9C7 | Background: #F6F6F6</li>
+<li>Highlight color (checked): Text #FFFFFF | Background: #48B9C7</li>
+<li>Uncheck Transparend background</li>
+<li>Palette colors:
+<ul>
+<li>0: #333333 1: #CC0000 2: #4E9A06 3: #C4A000 4: #3465A4 5: #75507B 6: #06989A 7: #D3D7CF</li>
+<li>8: #88807C 9: #F15D22 10: #73C48F 11: #FFCE51 12: #48B9C7 13: #AD7FA8 14: #34E2E2 15: #EEEEEC</li>
+</ul>
+</li>
+<li>Uncheck Show bold text in bright colors</li>
+</ul>
+</li>
+</ul>
+<p>Right click on the Pop profile and set as default.</p>
+<p>Lastly, we need to append some things to <code>PS1</code> in our <code>.bashrc</code> to get the green prompt and some other neat colors in the terminal. Mine looks like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># .bashrc</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Source global definitions</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -f /etc/bashrc <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">	. /etc/bashrc
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># User specific environment</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> ! <span class="o">[[</span> <span class="s2">&#34;</span><span class="nv">$PATH</span><span class="s2">&#34;</span> <span class="o">=</span>~ <span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$HOME</span><span class="s2">/bin:&#34;</span> <span class="o">]]</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">PATH</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$HOME</span><span class="s2">/bin:</span><span class="nv">$PATH</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> PATH
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Uncomment the following line if you don&#39;t like systemctl&#39;s auto-paging feature:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># export SYSTEMD_PAGER=</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># User specific aliases and functions</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># set a fancy prompt (non-color, unless we know we &#34;want&#34; color)</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="s2">&#34;</span><span class="nv">$TERM</span><span class="s2">&#34;</span> in
+</span></span><span class="line"><span class="cl">    xterm-color<span class="p">|</span>*-256color<span class="o">)</span> <span class="nv">color_prompt</span><span class="o">=</span>yes<span class="p">;;</span>
+</span></span><span class="line"><span class="cl"><span class="k">esac</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># uncomment for a colored prompt, if the terminal has the capability; turned</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># off by default to not distract the user: the focus in a terminal window</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># should be on the output of commands, not on the prompt</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#force_color_prompt=yes</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$force_color_prompt</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">[</span> -x /usr/bin/tput <span class="o">]</span> <span class="o">&amp;&amp;</span> tput setaf <span class="m">1</span> &gt;<span class="p">&amp;</span>/dev/null<span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">	<span class="c1"># We have color support; assume it&#39;s compliant with Ecma-48</span>
+</span></span><span class="line"><span class="cl">	<span class="c1"># (ISO/IEC-6429). (Lack of such support is extremely rare, and such</span>
+</span></span><span class="line"><span class="cl">	<span class="c1"># a case would tend to support setf rather than setaf.)</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">color_prompt</span><span class="o">=</span>yes
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">color_prompt</span><span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$color_prompt</span><span class="s2">&#34;</span> <span class="o">=</span> yes <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ &#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\u@\h:\w\$ &#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="nb">unset</span> color_prompt force_color_prompt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># If this is an xterm set the title to user@host:dir</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="s2">&#34;</span><span class="nv">$TERM</span><span class="s2">&#34;</span> in
+</span></span><span class="line"><span class="cl">xterm*<span class="p">|</span>rxvt*<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">PS1</span><span class="o">=</span><span class="s2">&#34;\[\e]0;\u@\h: \w\a\]</span><span class="nv">$PS1</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">*<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">;;</span>
+</span></span><span class="line"><span class="cl"><span class="k">esac</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># enable color support of ls and also add handy aliases</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -x /usr/bin/dircolors <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">test</span> -r ~/.dircolors <span class="o">&amp;&amp;</span> <span class="nb">eval</span> <span class="s2">&#34;</span><span class="k">$(</span>dircolors -b ~/.dircolors<span class="k">)</span><span class="s2">&#34;</span> <span class="o">||</span> <span class="nb">eval</span> <span class="s2">&#34;</span><span class="k">$(</span>dircolors -b<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">alias</span> <span class="nv">ls</span><span class="o">=</span><span class="s1">&#39;ls --color=auto&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#alias dir=&#39;dir --color=auto&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#alias vdir=&#39;vdir --color=auto&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nb">alias</span> <span class="nv">grep</span><span class="o">=</span><span class="s1">&#39;grep --color=auto&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">alias</span> <span class="nv">fgrep</span><span class="o">=</span><span class="s1">&#39;fgrep --color=auto&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">alias</span> <span class="nv">egrep</span><span class="o">=</span><span class="s1">&#39;egrep --color=auto&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></div><h2 id="security-steps-with-yubikey">Security steps with Yubikey</h2>
+<p>I have two Yubikeys and use them</p>
+<ul>
+<li>as second-factor for all admin/sudo tasks using <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1860888" target="_blank" rel="noopener">authselect</a></li>
+<li>to unlock my luks encrypted partitions using <a href="https://github.com/eworm-de/mkinitcpio-ykfde/blob/master/README-dracut.md" target="_blank" rel="noopener">mkinitcpio-ykfde</a></li>
+<li>for my private GPG key using the smart card capabilities of the yubikey</li>
+</ul>
+<p>For this I need to install several packages:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y yubikey-manager <span class="c1"># some common packages</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Insert the yubikey</span>
+</span></span><span class="line"><span class="cl">ykman info <span class="c1"># your key should be recognized</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Device type: YubiKey 5 NFC</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Serial number: </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Firmware version: 5.1.2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Form factor: Keychain (USB-A)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Enabled USB interfaces: OTP+FIDO+CCID</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># NFC interface is enabled.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Applications	USB    	NFC     </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># OTP     	Enabled	Enabled 	</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># FIDO U2F	Enabled	Enabled 	</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># OpenPGP 	Enabled	Enabled 	</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># PIV     	Enabled	Enabled	</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># OATH    	Enabled	Enabled 	</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># FIDO2   	Enabled	Enabled 	</span>
+</span></span></code></pre></div><p>Make sure that OpenPGP and PIV are enabled on both Yubikeys as shown above.</p>
+<h3 id="yubikey-two-factor-authentication-for-adminsudo-password">Yubikey: two-factor authentication for admin/sudo password</h3>
+<p>Let&rsquo;s set up the Yubikeys as second-factor for everything related to sudo using the pam.d module and authselect:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y pam-u2f pamu2fcfg
+</span></span><span class="line"><span class="cl">sudo authselect <span class="k">select</span> sssd with-pam-u2f-2fa without-nullok
+</span></span><span class="line"><span class="cl">mkdir ~/.config/Yubico
+</span></span><span class="line"><span class="cl">pamu2fcfg &gt; ~/.config/Yubico/u2f_keys <span class="c1"># When your device begins flashing, touch the metal contact to confirm the association.</span>
+</span></span><span class="line"><span class="cl">pamu2fcfg -n &gt;&gt; ~/.config/Yubico/u2f_keys <span class="c1"># Do the same with your backup device</span>
+</span></span></code></pre></div><p>Important: before you close the terminal, open a new one and check whether you can do <code>sudo echo test</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo <span class="nb">echo</span> <span class="nb">test</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Please touch the device.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># [sudo] Passwort for $USER</span>
+</span></span></code></pre></div><h3 id="yubikey-two-factor-authentication-for-luks">Yubikey: two-factor authentication for luks</h3>
+<p>Let&rsquo;s set up the Yubikeys as second-factor to unlock the luks partition. If you have brand new keys, then create a new key on them (BE CAREFUL TO NOT OVERWRITE, I.E. IF YOU HAVE ALREADY DONE THIS, DON&rsquo;T RUN THIS COMMAND AGAIN):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ykpersonalize -2 -ochal-resp -ochal-hmac -ohmac-lt64 -oserial-api-visible 
+</span></span></code></pre></div><p>Now we can enroll both yubikeys to the luks partition using <a href="https://github.com/eworm-de/mkinitcpio-ykfde/blob/master/README-dracut.md" target="_blank" rel="noopener">mkinitcpio-ykfde</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y libyubikey-devel ykpers-devel iniparser-devel libarchive-devel cryptsetup-devel python-markdown systemd-devel keyutils-libs-devel make pkg-config
+</span></span><span class="line"><span class="cl">git clone https://github.com/eworm-de/mkinitcpio-ykfde.git /home/<span class="nv">$USER</span>/fedora/mkinitcpio-ykfde
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /home/<span class="nv">$USER</span>/fedora/mkinitcpio-ykfde
+</span></span><span class="line"><span class="cl">make <span class="nv">MD</span><span class="o">=</span>markdown_py
+</span></span><span class="line"><span class="cl">sudo make install-dracut
+</span></span></code></pre></div><p>Get the serial number(s) from your Yubikey(s):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo ykinfo -s <span class="c1">#with first yubikey</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># serial: 9600174</span>
+</span></span><span class="line"><span class="cl">sudo ykinfo -s <span class="c1">#with second yubikey</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># serial: 9243118</span>
+</span></span></code></pre></div><p>and write them down. Get the luks mapping name by looking into the crypttab (it&rsquo;s the first entry in each line):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo cat /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># luks-6e7e8f26-4f38-468e-aa2c-9ddaaad4aedf UUID=6e7e8f26-4f38-468e-aa2c-9ddaaad4aedf none discard</span>
+</span></span></code></pre></div><p>Now, open <code>/etc/ykfde.conf</code> with a text editor and add your mapping name and serial numbers to the bottom of the file and save it:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo nano /etc/ykfde.conf
+</span></span><span class="line"><span class="cl"><span class="c1"># [general]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># device name = luks-6e7e8f26-4f38-468e-aa2c-9ddaaad4aedf</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># second factor = yes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># [9600174]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># luks slot = 1</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># [9243118]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># luks slot = 2</span>
+</span></span></code></pre></div><p>Make sure to choose the appropriate LUKS slot; they are numbered from 0 and slot 0 is used by default and contains your passphrase chosen in the installer. Better check it with <code>cryptsetup luksDump /dev/vda3</code> if you have other slots occupied.</p>
+<p>Now, add your Yubikey with your 2-factor password of choice:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1">## Put in your first yubikey</span>
+</span></span><span class="line"><span class="cl">sudo ykfde --ask-new-2nd-factor
+</span></span><span class="line"><span class="cl"><span class="c1"># Please give new second factor: ## put in a password of your choice</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Please give new second factor for verification: ## put in a password of your choice again</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Please give existing LUKS passphrase: ## put in your existing LUKS passphrase</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Put in your second yubikey</span>
+</span></span><span class="line"><span class="cl">sudo ykfde --ask-new-2nd-factor
+</span></span><span class="line"><span class="cl"><span class="c1"># Please give new second factor: ## put in a password of your choice</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Please give new second factor for verification: ## put in a password of your choice again</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Please give existing LUKS passphrase: ## put in your existing LUKS passphrase</span>
+</span></span></code></pre></div><p>Set up your Yubikey challenges to run at boot with these two commands:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo ykfde-cpio
+</span></span><span class="line"><span class="cl">sudo dracut -f
+</span></span></code></pre></div><p>and update your GRUB bootloader configuration:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;GRUB_EARLY_INITRD_LINUX_CUSTOM=&#34;ykfde-challenges.img&#34;&#39;</span> <span class="p">|</span> sudo tee -a /etc/default/grub
+</span></span><span class="line"><span class="cl">sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+</span></span></code></pre></div><p>Reboot and check whether you can unlock your luks partitions using your Yubikey and the chosen 2nd-factor password. Try to unlock with and without the Yubikeys to make sure everything works as you expect.</p>
+<p>Now, as I have a fully encrypted luks system and am the sole user of my computer, I can turn on automatic login in the settings.</p>
+<h3 id="yubikey-private-gpg-key">Yubikey: private GPG key</h3>
+<p>Let&rsquo;s use the private GPG key on the Yubikey (a tutorial on how to put it there is taken from <a href="https://www.heise.de/ratgeber/FIDO2-YubiKey-als-OpenPGP-Smartcard-einsetzen-4590032.html" target="_blank" rel="noopener">Heise</a> or <a href="https://github.com/drduh/YubiKey-Guide" target="_blank" rel="noopener">YubiKey-Guide</a>). Installing some packages first:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y gpg gnupg2 gnupg-pkcs11-scd pcsc-tools opensc pcsc-lite-ccid
+</span></span><span class="line"><span class="cl">sudo systemctl start pcscd
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> pcscd
+</span></span></code></pre></div><p>Insert your yubikey and check whether the card is readable by gpg:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --card-status
+</span></span></code></pre></div><p>If there is a <code>No such device</code> message, then try restarting pcscd by running:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo systemctl restart pcscd
+</span></span></code></pre></div><p>This is a known <a href="https://ludovicrousseau.blogspot.com/2019/06/gnupg-and-pcsc-conflicts.html" target="_blank" rel="noopener">bug</a>, that is, if you ever run into the issue that <code>gpg --card-status</code> does not find your Yubikey, simply run <code>sudo systemctl restart pcscd</code> and it&rsquo;ll work.</p>
+<p>My public key is given in a file called <code>/home/$USER/.gnupg/public.asc</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">cd</span> ~/.gnupg
+</span></span><span class="line"><span class="cl">gpg --import public.asc <span class="c1">#this is my public key, my private one is on my yubikey</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">KEYID</span><span class="o">=</span>91E724BF17A73F6D
+</span></span><span class="line"><span class="cl">gpg --edit-key <span class="nv">$KEYID</span>
+</span></span><span class="line"><span class="cl">  trust
+</span></span><span class="line"><span class="cl">  <span class="m">5</span>
+</span></span><span class="line"><span class="cl">  y
+</span></span><span class="line"><span class="cl">  quit
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;This is an encrypted message&#34;</span> <span class="p">|</span> gpg --encrypt --armor --recipient <span class="nv">$KEYID</span> -o encrypted.txt
+</span></span><span class="line"><span class="cl">gpg --decrypt --armor encrypted.txt
+</span></span></code></pre></div><h2 id="apps">Apps</h2>
+<h3 id="browser">Browser</h3>
+<h4 id="firefox">Firefox</h4>
+<p>I used to use Firefox for almost all of my browsing which is installed by default with the following:</p>
+<ul>
+<li>Extensions
+<ul>
+<li>Bitwarden</li>
+<li>Disable HTML5 Autoplay</li>
+<li>GNOME Shell-Integration</li>
+<li>HTTPS Everywhere</li>
+<li>uBlock Origin</li>
+</ul>
+</li>
+<li>Plugins
+<ul>
+<li>OpenH264-Videocodec</li>
+<li>Widevine Content Decryption Module</li>
+</ul>
+</li>
+<li>Theme: <a href="https://github.com/rafaelmardojai/firefox-gnome-theme" target="_blank" rel="noopener">firefox-gnome-theme</a>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git clone https://github.com/rafaelmardojai/firefox-gnome-theme/ /home/<span class="nv">$USER</span>/fedora/firefox-gnome-theme
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /home/<span class="nv">$USER</span>/fedora/firefox-gnome-theme
+</span></span><span class="line"><span class="cl">./scripts/install.sh
+</span></span></code></pre></div><h4 id="vivaldi">Vivaldi</h4>
+<p>I am in the process of switching to Vivaldi:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y dnf-utils
+</span></span><span class="line"><span class="cl">sudo dnf config-manager --add-repo https://repo.vivaldi.com/archive/vivaldi-fedora.repo
+</span></span><span class="line"><span class="cl">sudo dnf install -y vivaldi-stable
+</span></span></code></pre></div><p>I use the following Extensions installable from the Chrome store:</p>
+<ul>
+<li>Bitwarden</li>
+<li>GNOME Shell-Integration</li>
+<li>uBlock Origin</li>
+</ul>
+<h4 id="google-chrome">Google Chrome</h4>
+<p>If I ever need Google Chrome, then I enable the repo in the software manager and install it via the software shop.</p>
+<h4 id="profile-sync-daemon">Profile-sync-daemon</h4>
+<p>This neat little utility improves your browsing experience:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y profile-sync-daemon
+</span></span><span class="line"><span class="cl">psd
+</span></span><span class="line"><span class="cl"><span class="c1"># First time running psd so please edit /home/$USER/.config/psd/psd.conf to your liking and run again</span>
+</span></span><span class="line"><span class="cl">nano /home/<span class="nv">$USER</span>/.config/psd/psd.conf
+</span></span><span class="line"><span class="cl"><span class="c1"># Close your browser now</span>
+</span></span><span class="line"><span class="cl">systemctl --user <span class="nb">enable</span> psd.service
+</span></span><span class="line"><span class="cl">systemctl --user start psd.service
+</span></span><span class="line"><span class="cl">systemctl --user status psd.service
+</span></span><span class="line"><span class="cl">psd preview
+</span></span></code></pre></div><h3 id="system-utilities">System utilities</h3>
+<h4 id="flatseal">Flatseal</h4>
+<p>Flatseal is a great tool to check or change the permissions of your flatpaks:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">flatpak install -y flatseal
+</span></span></code></pre></div><h4 id="timeshift">Timeshift</h4>
+<p>For Timeshift, you would need to change the subvolume layout of Fedora 33. I have described these steps in my <a href="../fedora-btrfs-33">Fedora 33 installation guide</a>.</p>
+<h4 id="virtual-machines-quickemu-and-other-stuff">Virtual machines: Quickemu and other stuff</h4>
+<p>Fedora by default has KVM, Qemu, virt-manager and gnome-boxes set up; however, I have found a much easier tool for most virtualization tasks: <a href="https://github.com/wmutschl/quickemu" target="_blank" rel="noopener">Quickqemu</a> which uses the snap package <code>Qemu-virgil</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git clone https://github.com/wmutschl/quickemu /home/<span class="nv">$USER</span>/fedora/quickemu
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /home/<span class="nv">$USER</span>/fedora/quickemu
+</span></span><span class="line"><span class="cl">sudo dnf install -y bsd-games wget
+</span></span><span class="line"><span class="cl">sudo snap install qemu-virgil
+</span></span><span class="line"><span class="cl">sudo snap refresh qemu-virgil --edge
+</span></span><span class="line"><span class="cl">sudo snap connect qemu-virgil:audio-record
+</span></span><span class="line"><span class="cl">sudo snap connect qemu-virgil:kvm
+</span></span><span class="line"><span class="cl">sudo snap connect qemu-virgil:raw-usb
+</span></span><span class="line"><span class="cl">sudo snap connect qemu-virgil:removable-media
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mkdir -p /home/<span class="nv">$USER</span>/.local/bin
+</span></span><span class="line"><span class="cl">ln -s /home/<span class="nv">$USER</span>/fedora/quickemu/quickemu /home/<span class="nv">$USER</span>/.local/bin/quickemu
+</span></span></code></pre></div><p>I keep the conf files for my virtual machines on an external SSD.</p>
+<h3 id="networking">Networking</h3>
+<h4 id="dropbox">Dropbox</h4>
+<p>Unfortunately, I still have some use case for Dropbox:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y dropbox nautilus-dropbox
+</span></span></code></pre></div><p>Open dropbox and set it up, check options.</p>
+<h4 id="nextcloud">Nextcloud</h4>
+<p>I have all my files synced to my own Nextcloud server, so I need the sync client:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y nextcloud-client nextcloud-client-nautilus
+</span></span></code></pre></div><p>Open Nextcloud and set it up. Recheck options and note to ignore hidden files once the first folder sync is set up.</p>
+<p>I get two anoying issues with Nextcloud, which will probably be fixed in the future. For now the following works for me:</p>
+<ol>
+<li>If you have many subfolders (which I do), there are not enough inotify-watches and Nextcloud does not sync instantenously but only periodically. This can be solved by</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo -i
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;fs.inotify.max_user_watches = 524288&#39;</span> &gt;&gt; /etc/sysctl.conf
+</span></span><span class="line"><span class="cl">sysctl -p
+</span></span></code></pre></div><p>The same issue happens with <a href="#visual-studio-code">Visual Studio Code</a> and the workaround is taken from <a href="https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc" target="_blank" rel="noopener">there instructions page</a>.</p>
+<ol start="2">
+<li>If you use X11 instead of Wayland, the app indicator icon does not show if I enable autostart of Nextcloud in its settings menu. The problem is, that while the nextcloud client is actually running after being autostarted, there is no tray icon (I use the &lsquo;KStatusNotifierItem/AppIndicator Support&rsquo; extension). Whereas, if I start the client manually after logging in (without autostart or after killing the autostarted instance), the icon is there. For anyone experiencing this issue the workaround is to delay the autostart. That is, make the following changes to the .desktop file which resides in the subdirectory <code>~/.config/autostart</code> of the users home directory:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">nano /home/<span class="nv">$USER</span>/.config/autostart/com.nextcloud.desktopclient.nextcloud.desktop 
+</span></span><span class="line"><span class="cl"><span class="c1"># [Desktop Entry]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Categories=Utility;X-SuSE-SyncUtility;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Type=Application</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Exec=bash -c &#39;sleep 5 &amp;&amp; nextcloud&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Name=Nextcloud desktop sync client</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Comment=Nextcloud desktop synchronization client</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># GenericName=Folder Sync</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Icon=Nextcloud</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Keywords=Nextcloud;syncing;file;sharing;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># X-GNOME-Autostart-Delay=3</span>
+</span></span></code></pre></div><p>What it does is simply waiting 3+5 seconds before launching the client. Your mileage may vary - perhaps you need to give it more time if your startup takes longer than mine.</p>
+<p>Alternatively, you might install <a href="https://extensions.gnome.org/extension/1031/topicons/" target="_blank" rel="noopener">TopIcons Plus Gnome Extension</a> in addition to the KStatusNotifierItem/AppIndicator Support Extension. I set the &lsquo;Icon size&rsquo; to 18 in the settings of TopIcons Plus, the &lsquo;Tray horizontal alignment&rsquo; to &lsquo;Right&rsquo; and &lsquo;Tray offset&rsquo; to 1, see also <a href="#mattermost">Mattermost</a>.</p>
+<h4 id="openconnect-and-openvpn">OpenConnect and OpenVPN</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y openconnect NetworkManager-openconnect NetworkManager-openconnect-gnome
+</span></span><span class="line"><span class="cl">sudo dnf install -y openvpn NetworkManager-openvpn NetworkManager-openvpn-gnome
+</span></span></code></pre></div><p>Go to Settings-Network-VPN and add openconnect for my university VPN and openvpn for ProtonVPN, check connections.</p>
+<h4 id="remote-desktop">Remote desktop</h4>
+<p>To access our University remote Windows desktop session:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y rdesktop
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;rdesktop -g 1680x900 wiwi-farm.uni-muenster.de -r disk:home=/home/</span><span class="nv">$USER</span><span class="s2">/ -u &#34;</span>WIWI<span class="se">\w</span>_muts01<span class="s2">&#34; &amp;&#34;</span> &gt; ~/wiwi.sh
+</span></span><span class="line"><span class="cl">chmod +x wiwi.sh
+</span></span><span class="line"><span class="cl">cat <span class="s">&lt;&lt;EOF &gt; ~/.local/share/applications/wiwi.desktop
+</span></span></span><span class="line"><span class="cl"><span class="s">[Desktop Entry]
+</span></span></span><span class="line"><span class="cl"><span class="s">Name=WIWI Terminal Server
+</span></span></span><span class="line"><span class="cl"><span class="s">Comment=WIWI Terminal Server wiwi-farm
+</span></span></span><span class="line"><span class="cl"><span class="s">Keywords=WIWI;RDP;
+</span></span></span><span class="line"><span class="cl"><span class="s">Exec=/home/$USER/wiwi.sh
+</span></span></span><span class="line"><span class="cl"><span class="s">Icon=preferences-desktop-remote-desktop
+</span></span></span><span class="line"><span class="cl"><span class="s">Terminal=false
+</span></span></span><span class="line"><span class="cl"><span class="s">MimeType=application/x-remote-connection;x-scheme-handler/vnc;
+</span></span></span><span class="line"><span class="cl"><span class="s">Type=Application
+</span></span></span><span class="line"><span class="cl"><span class="s">StartupNotify=true
+</span></span></span><span class="line"><span class="cl"><span class="s">Categories=Network;RemoteAccess;
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></div><p>Note that this also adds a shortcut to the menu.</p>
+<h3 id="coding">Coding</h3>
+<h4 id="git-related-packages">git related packages:</h4>
+<p>git and git-lfs are very important tools for me; as a GUI I like to use GitKraken:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y git git-lfs
+</span></span><span class="line"><span class="cl">git-lfs install
+</span></span><span class="line"><span class="cl">flatpak install -y gitkraken
+</span></span></code></pre></div><p>The flatpak version of GitKraken works perfectly. Open GitKraken and set up Accounts and Settings (or restore from Backup see above). Note that for the flatpak version, one needs to add the following Custom Terminal Command: <code>flatpak-spawn --host gnome-terminal %d</code> to be able to open the repository quickly in the terminal.</p>
+<h4 id="dynare-related-packages">Dynare related packages</h4>
+<p>I am a developer of <a href="https://www.dynare.org" target="_blank" rel="noopener">Dynare</a> and need these packages to compile it from source and run it optimally on a Fedora-based system:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Minimal packages (use --disable-doc and --disable-octave flags)</span>
+</span></span><span class="line"><span class="cl">sudo dnf install -y gcc gcc-g++ gfortran boost-devel gsl-devel lapack lapack-devel matio-devel openblas openblas-devel suitesparse-devel bison flex make autoconf automake redhat-rpm-config
+</span></span><span class="line"><span class="cl"><span class="c1"># Octave packages (use --disable-doc flag)</span>
+</span></span><span class="line"><span class="cl">sudo dnf install -y octave octave-devel octave-statistics octave-io octave-optim octave-control
+</span></span><span class="line"><span class="cl"><span class="c1"># Documentation packages</span>
+</span></span><span class="line"><span class="cl">sudo dnf install -y texlive-scheme-minimal texlive-collection-publishers texlive-collection-latexextra texlive-collection-fontsextra texlive-collection-latexrecommended texlive-collection-science texlive-collection-plaingeneric texlive-lm python3-sphinx latexmk mathjax doxygen
+</span></span></code></pre></div><p>Next, we need to compile <code>slicot</code> and <code>x13as</code> from source as it is not packaged in Fedora (yet):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># slicot</span>
+</span></span><span class="line"><span class="cl">mkdir -p /home/<span class="nv">$USER</span>/dynare/slicot
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /home/<span class="nv">$USER</span>/dynare/slicot
+</span></span><span class="line"><span class="cl">wget https://deb.debian.org/debian/pool/main/s/slicot/slicot_5.0+20101122.orig.tar.gz
+</span></span><span class="line"><span class="cl">tar xf slicot_5.0+20101122.orig.tar.gz
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> slicot-5.0+20101122
+</span></span><span class="line"><span class="cl">make <span class="nv">FORTRAN</span><span class="o">=</span>gfortran <span class="nv">OPTS</span><span class="o">=</span><span class="s2">&#34;-O2 -fPIC -fdefault-integer-8&#34;</span> <span class="nv">LOADER</span><span class="o">=</span>gfortran lib
+</span></span><span class="line"><span class="cl">mkdir -p /home/<span class="nv">$USER</span>/dynare/slicot/lib
+</span></span><span class="line"><span class="cl">cp slicot.a /home/<span class="nv">$USER</span>/dynare/slicot/lib/libslicot64_pic.a <span class="c1">#for MATLAB</span>
+</span></span><span class="line"><span class="cl">cp slicot.a /home/<span class="nv">$USER</span>/dynare/slicot/lib/libslicot_pic.a <span class="c1">#for octave</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># x13as</span>
+</span></span><span class="line"><span class="cl">mkdir -p /home/<span class="nv">$USER</span>/dynare/x13as
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /home/<span class="nv">$USER</span>/dynare/x13as
+</span></span><span class="line"><span class="cl">wget https://www.census.gov/ts/x13as/unix/x13assrc_V1.1_B39.tar.gz
+</span></span><span class="line"><span class="cl">tar xf x13assrc_V1.1_B39.tar.gz
+</span></span><span class="line"><span class="cl">sed -i <span class="s2">&#34;s|-static| |&#34;</span> makefile.gf <span class="c1"># this removes &#39;-static&#39; in the makefile.gf</span>
+</span></span><span class="line"><span class="cl">make -f makefile.gf <span class="nv">FFLAGS</span><span class="o">=</span><span class="s2">&#34;-O2 -std=legacy&#34;</span> <span class="nv">PROGRAM</span><span class="o">=</span>x13as
+</span></span><span class="line"><span class="cl">mkdir -p /home/<span class="nv">$USER</span>/.local/bin
+</span></span><span class="line"><span class="cl">ln -s /home/<span class="nv">$USER</span>/dynare/x13as/x13as /home/<span class="nv">$USER</span>/.local/bin/x13as
+</span></span></code></pre></div><p>Lastly, after installing MATLAB, I am compiling several versions of Dynare from source:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git clone --recurse-submodules --single-branch --branch 4.5 https://git.dynare.org/dynare/dynare.git /home/<span class="nv">$USER</span>/dynare/stable-4.5
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /home/<span class="nv">$USER</span>/dynare/stable-4.5
+</span></span><span class="line"><span class="cl">autoreconf -si
+</span></span><span class="line"><span class="cl">./configure --with-slicot<span class="o">=</span>/home/<span class="nv">$USER</span>/dynare/slicot --with-matlab<span class="o">=</span>/home/<span class="nv">$USER</span>/MATLAB/R2020b <span class="nv">MATLAB_VERSION</span><span class="o">=</span>R2020b <span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">&#34;-L/usr/lib64 -L/usr/lib64/octave/5.2.0&#34;</span>
+</span></span><span class="line"><span class="cl">make -j<span class="k">$(($(</span>nproc<span class="k">)</span><span class="o">+</span><span class="m">1</span><span class="k">))</span> <span class="c1">#rule of thumb: one more than CPUs as shown by e.g. lscpu, better check </span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git clone --recurse-submodules --single-branch --branch 4.6 https://git.dynare.org/dynare/dynare.git /home/<span class="nv">$USER</span>/dynare/stable-4.6
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /home/<span class="nv">$USER</span>/dynare/stable-4.6
+</span></span><span class="line"><span class="cl">autoreconf -si
+</span></span><span class="line"><span class="cl">./configure --with-slicot<span class="o">=</span>/home/<span class="nv">$USER</span>/dynare/slicot --with-matlab<span class="o">=</span>/home/<span class="nv">$USER</span>/MATLAB/R2020b <span class="nv">MATLAB_VERSION</span><span class="o">=</span>R2020b <span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">&#34;-L/usr/lib64 -L/usr/lib/octave/5.2.0&#34;</span>
+</span></span><span class="line"><span class="cl">make -j<span class="k">$(($(</span>nproc<span class="k">)</span><span class="o">+</span><span class="m">1</span><span class="k">))</span> <span class="c1">#rule of thumb: one more than CPUs as shown by e.g. lscpu, better check </span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git clone --recurse-submodules --single-branch --branch master https://git.dynare.org/dynare/dynare.git /home/<span class="nv">$USER</span>/dynare/unstable
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /home/<span class="nv">$USER</span>/dynare/unstable
+</span></span><span class="line"><span class="cl">autoreconf -si
+</span></span><span class="line"><span class="cl">./configure --with-slicot<span class="o">=</span>/home/<span class="nv">$USER</span>/dynare/slicot --with-matlab<span class="o">=</span>/home/<span class="nv">$USER</span>/MATLAB/R2020b
+</span></span><span class="line"><span class="cl">make -j<span class="k">$(($(</span>nproc<span class="k">)</span><span class="o">+</span><span class="m">1</span><span class="k">))</span> <span class="c1">#rule of thumb: one more than CPUs as shown by e.g. lscpu, better check </span>
+</span></span></code></pre></div><h4 id="matlab">MATLAB</h4>
+<p>I have a license for MATLAB R2020a and R2020b; which I both install. In the following I will focus on the latest, but mention some details for the other version if needed.</p>
+<p>First download the installation files from <a href="https://mathworks.com" target="_blank" rel="noopener">Mathworks</a>, then unzip the installation files. The normal installer does not work for me as I am getting a &ldquo;terminate called after throwing an instance of &lsquo;std::runtime_error&rsquo;; what():  Unable to launch the MATLAB Window application Aborted&rdquo; error, so I run the legacy installer:</p>
+<pre tabindex="0"><code>unzip matlab_R2020b_glnxa64.zip -d /home/$USER/matlab_installer/R2020b
+/home/$USER/matlab_installer/R2020b/bin/glnxa64/install_unix_legacy
+</code></pre><p>Note that I don&rsquo;t run this as root as I am installing it into my home folder under <code>/home/$USER/MATLAB/R2020b</code> and will create the symbolic links myself. If you want to install MATLAB into the default directory <code>/usr/local/MATLAB/R2020b</code> you have to run the installer as root.</p>
+<p>Unfortunately, there is no <code>matlab-support</code> package as for Debian-based systems, so I need to do several things by hand using the <a href="https://wiki.archlinux.org/index.php/MATLAB" target="_blank" rel="noopener">Arch Wiki on MATLAB</a> as a main reference.</p>
+<ol start="0">
+<li>Make sure you have ownership of the configuration and installation files (probably not necessary)</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">mkdir -p /home/<span class="nv">$USER</span>/.matlab
+</span></span><span class="line"><span class="cl">sudo chown -R <span class="nv">$USER</span>:<span class="nv">$USER</span> /home/<span class="nv">$USER</span>/.matlab
+</span></span><span class="line"><span class="cl">sudo chown -R <span class="nv">$USER</span>:<span class="nv">$USER</span> /home/<span class="nv">$USER</span>/MATLAB
+</span></span></code></pre></div><ol>
+<li>Create a symbolic link
+In order to open MATLAB from the terminal, create a symbolic link into your .local/bin folder:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">mkdir -p /home/<span class="nv">$USER</span>/.local/bin
+</span></span><span class="line"><span class="cl">ln -s /home/<span class="nv">$USER</span>/MATLAB/R2020b/bin/matlab /home/<span class="nv">$USER</span>/.local/bin/matlab
+</span></span></code></pre></div><p>Now open MATLAB in the terminal and activate your license. Make note of any errors and warnings in the terminal such as</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">matlab
+</span></span><span class="line"><span class="cl"><span class="c1"># Gtk-Message: 21:10:59.44: Failed to load module &#34;canberra-gtk-module&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Gtk-Message: 21:10:59.44: Failed to load module &#34;pk-gtk-module&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span>
+</span></span></code></pre></div><p>Inside MATLAB try opening Settings and the Add-Ons Manager and make note of any errors. For instance, I get all sorts of <code>matlab.internal.webwindow</code> and <code>matlab.internal.cef.webwindow</code> when I try to open e.g. the AddOns window. We will solve this later, for now exit MATLAB again.</p>
+<ol start="2">
+<li>Create desktop entry</li>
+</ol>
+<p>First download a MATLAB icon from <a href="https://salsa.debian.org/debian/matlab-support/-/tree/master/icons" target="_blank" rel="noopener">here</a> or <a href="https://de.mathworks.com/matlabcentral/fileexchange/24085-matlab-icon-for-linux-with-transparency" target="_blank" rel="noopener">here</a>. Then we create a desktop entry for the local user:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">cat <span class="s">&lt;&lt; EOF &gt; /home/$USER/.local/share/applications/matlabR2020b.desktop
+</span></span></span><span class="line"><span class="cl"><span class="s">[Desktop Entry]
+</span></span></span><span class="line"><span class="cl"><span class="s">Version=1.0
+</span></span></span><span class="line"><span class="cl"><span class="s">Type=Application
+</span></span></span><span class="line"><span class="cl"><span class="s">Terminal=false
+</span></span></span><span class="line"><span class="cl"><span class="s">Exec=/home/$USER/MATLAB/R2020b/bin/matlab -desktop
+</span></span></span><span class="line"><span class="cl"><span class="s">Name=MATLAB R2020b
+</span></span></span><span class="line"><span class="cl"><span class="s">Icon=/home/wmutschl/matlabicon_128.png
+</span></span></span><span class="line"><span class="cl"><span class="s">Categories=Development;Math;Science
+</span></span></span><span class="line"><span class="cl"><span class="s">Comment=Scientific computing environment
+</span></span></span><span class="line"><span class="cl"><span class="s">StartupNotify=true
+</span></span></span><span class="line"><span class="cl"><span class="s">StartupWMClass=sun-awt-X11-XFramePeer
+</span></span></span><span class="line"><span class="cl"><span class="s">MimeType=text/x-matlab
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></div><ol start="3">
+<li>Use system libraries instead of MATLAB&rsquo;s shipped libraries
+Renaming or excluding some libraries from MATLAB solves a whole bunch of issues (actually almost all), so let&rsquo;s do it! First, install minimal development tools:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y gcc gcc-g++ gfortran
+</span></span></code></pre></div><p>Then put the shipped libraries from MATLAB into exclude folders:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">MATLAB_ROOT</span><span class="o">=</span>/home/wmutschl/MATLAB/R2020b
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$MATLAB_ROOT</span>/sys/os/glnxa64
+</span></span><span class="line"><span class="cl">mkdir -p exclude
+</span></span><span class="line"><span class="cl">mv libgcc_s* exclude/
+</span></span><span class="line"><span class="cl">mv libgfortran* exclude/ <span class="c1">#only for R2020b, not for R2020a</span>
+</span></span><span class="line"><span class="cl">mv libquadmath* exclude/
+</span></span><span class="line"><span class="cl">mv libstdc++* exclude/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$MATLAB_ROOT</span>/bin/glnxa64
+</span></span><span class="line"><span class="cl">mkdir -p exclude
+</span></span><span class="line"><span class="cl">mv libfreetype* exclude/
+</span></span><span class="line"><span class="cl">mv libcrypto* exclude/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$MATLAB_ROOT</span>/cefclient/sys/glib/glnxa64 <span class="o">||</span> <span class="nb">cd</span> <span class="nv">$MATLAB_ROOT</span>/cefclient/sys/os/glnxa64 <span class="c1">#the path has changed in R2020b</span>
+</span></span><span class="line"><span class="cl">mkdir -p exclude
+</span></span><span class="line"><span class="cl">mv libgio* exclude/
+</span></span><span class="line"><span class="cl">mv libglib* exclude/
+</span></span><span class="line"><span class="cl">mv libgmodule* exclude/
+</span></span><span class="line"><span class="cl">mv libgobject* exclude/
+</span></span><span class="line"><span class="cl">mv libgthread* exclude/
+</span></span></code></pre></div><ol start="4">
+<li>OpenGL acceleration (and some other graphics issues)</li>
+</ol>
+<p>Force Mesa to use the old driver which seems to be more <a href="https://discourse.ubuntu.com/t/gnome-shell-performance-improvements-in-ubuntu-20-04/15972/27" target="_blank" rel="noopener">performant on Gnome</a> and solves many graphics issues in MATLAB like OpenGL acceleration:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;MESA_LOADER_DRIVER_OVERRIDE=i965&#39;</span> <span class="p">|</span> sudo tee -a /etc/environment
+</span></span></code></pre></div><p>Open a new terminal (or better reboot) and check the following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">glxinfo <span class="p">|</span> grep <span class="s2">&#34;direct rendering&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#should be yes</span>
+</span></span><span class="line"><span class="cl">matlab -nodesktop -nosplash -r <span class="s2">&#34;opengl info; exit&#34;</span> <span class="p">|</span> grep Software
+</span></span><span class="line"><span class="cl"><span class="c1">#should be false</span>
+</span></span></code></pre></div><p>If you run into a <a href="https://de.mathworks.com/matlabcentral/answers/342906-could-not-initialize-shared-resources-for-x11graphicsdevice#answer_425485?s_tid=prof_contriblnk" target="_blank" rel="noopener">shared resources-for-x11-graphics bug</a>, this can be solved by</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;-Djogl.disable.openglarbcontext=1&#34;</span> &gt; /home/<span class="nv">$USER</span>/MATLAB/R2020b/bin/glnxa64/java.opts
+</span></span></code></pre></div><ol start="5">
+<li>gtk modules</li>
+</ol>
+<p>This is more of a cosmetic issue if you run MATLAB from the terminal you get some warnings. To get rid of them:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y libcanberra-gtk2 PackageKit-gtk3-module
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo bash -c <span class="s1">&#39;cat &gt; /etc/ld.so.conf.d/gtk2.conf &lt;&lt; &#39;</span>EOF<span class="s1">&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">/usr/lib64/gtk-2.0/modules
+</span></span></span><span class="line"><span class="cl"><span class="s1">EOF&#39;</span>
+</span></span><span class="line"><span class="cl">sudo bash -c <span class="s1">&#39;cat &gt; /etc/ld.so.conf.d/gtk3.conf &lt;&lt; &#39;</span>EOF<span class="s1">&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">/usr/lib64/gtk-3.0/modules
+</span></span></span><span class="line"><span class="cl"><span class="s1">EOF&#39;</span>
+</span></span><span class="line"><span class="cl">sudo ldconfig
+</span></span><span class="line"><span class="cl">matlab
+</span></span><span class="line"><span class="cl"><span class="c1">#no more warnings</span>
+</span></span></code></pre></div><ol start="6">
+<li>Help browser issues</li>
+</ol>
+<p>The quick help (F1) only displays the help message once after that it stops working for me, unfortunately. I don&rsquo;t have a solution yet&hellip;, maybe <code>webutils.htmlrenderer('basic');</code> Clicking on Open Help Browser does give me the relevant help page, so this is not severe for me.</p>
+<p>If MATLAB works as it should, I change some settings to use Windows type shortcuts on the Keyboard, add <code>mod</code> files as supported extensions. Also I do not use MATLAB&rsquo;s source control capabilities and enable antialiasing in the fonts section.</p>
+<h4 id="r">R</h4>
+<p>For teaching and data analysis there is nothing better than R and RStudio:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y R rstudio-desktop
+</span></span></code></pre></div><p>Open rstudio, set it up to your liking.</p>
+<h4 id="java-via-openjdk">Java via Openjdk</h4>
+<p>Install the default OpenJDK Runtime Environment:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y java-latest-openjdk
+</span></span><span class="line"><span class="cl">java -version
+</span></span></code></pre></div><h4 id="visual-studio-code">Visual Studio Code</h4>
+<p>I am in the process of transitioning all my coding to Visual Studio code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+</span></span><span class="line"><span class="cl">sudo sh -c <span class="s1">&#39;echo -e &#34;[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc&#34; &gt; /etc/yum.repos.d/vscode.repo&#39;</span>
+</span></span><span class="line"><span class="cl">sudo dnf check-update
+</span></span><span class="line"><span class="cl">sudo dnf install -y code
+</span></span></code></pre></div><p>I sync my settings and extensions inside VScode. Similar to <a href="#nextcloud">Nextcloud</a> there is an error labeled <a href="https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc" target="_blank" rel="noopener">&ldquo;Visual Studio Code is unable to watch for file changes in this large workspace&rdquo; (error ENOSPC)</a> which has to do with the limit of inotify. The workaround (if you haven&rsquo;t done so already) is to run:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo -i
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;fs.inotify.max_user_watches = 524288&#39;</span> &gt;&gt; /etc/sysctl.conf
+</span></span><span class="line"><span class="cl">sysctl -p
+</span></span></code></pre></div><p>The same issue happens with <a href="#nextcloud">Nextcloud</a>.</p>
+<h3 id="text-processing">Text-processing</h3>
+<h4 id="hugo">Hugo</h4>
+<p>My website uses the <a href="https://github.com/wmutschl/starter-hugo-academic" target="_blank" rel="noopener">Academic Template for Hugo</a>, which is based on Go. As I need the extended version I don&rsquo;t install hugo from the repo, but instead download the official release binary from Github:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y golang <span class="c1">#dependency I need</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HUGOVER</span><span class="o">=</span><span class="sb">`</span>curl --silent <span class="s2">&#34;https://api.github.com/repos/gohugoio/hugo/releases/latest&#34;</span> <span class="p">|</span> grep -Po <span class="s1">&#39;&#34;tag_name&#34;: &#34;\K.*?(?=&#34;)&#39;</span><span class="sb">`</span>
+</span></span><span class="line"><span class="cl">wget https://github.com/gohugoio/hugo/releases/download/v<span class="si">${</span><span class="nv">HUGOVER</span><span class="p">:</span><span class="nv">1</span><span class="si">}</span>/hugo_extended_<span class="si">${</span><span class="nv">HUGOVER</span><span class="p">:</span><span class="nv">1</span><span class="si">}</span>_Linux-64bit.tar.gz
+</span></span><span class="line"><span class="cl">tar -xvf hugo_extended_<span class="si">${</span><span class="nv">HUGOVER</span><span class="p">:</span><span class="nv">1</span><span class="si">}</span>_Linux-64bit.tar.gz hugo
+</span></span><span class="line"><span class="cl">rm hugo_extended_<span class="si">${</span><span class="nv">HUGOVER</span><span class="p">:</span><span class="nv">1</span><span class="si">}</span>_Linux-64bit.tar.gz
+</span></span><span class="line"><span class="cl">mv hugo ~/.local/bin/hugo
+</span></span><span class="line"><span class="cl">hugo version
+</span></span><span class="line"><span class="cl"><span class="c1"># Hugo Static Site Generator v0.78.2-959724F0/extended linux/amd64 BuildDate: ...</span>
+</span></span></code></pre></div><h4 id="latex-related-packages">Latex related packages</h4>
+<p>I write all my papers and presentations with Latex using either TexStudio or VScode as editors:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y texlive-scheme-full
+</span></span><span class="line"><span class="cl">sudo dnf install -y texstudio
+</span></span></code></pre></div><p>Open texstudio and set it up.</p>
+<h4 id="microsoft-fonts">Microsoft Fonts</h4>
+<p>Sometimes I get documents which require fonts from Microsoft:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y curl cabextract xorg-x11-font-utils fontconfig
+</span></span><span class="line"><span class="cl">sudo rpm -i https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
+</span></span></code></pre></div><h4 id="masterpdf">Masterpdf</h4>
+<p>I have purchased a license for Master PDF in case I need advanced PDF editing tools:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">flatpak install -y masterpdf
+</span></span></code></pre></div><p>Open masterpdf and enter license. Also I use flatseal to give the app full access to my home folder.</p>
+<h4 id="softmaker-office">Softmaker Office</h4>
+<p>I have a personal license for Softmaker Office, which needs to be installed via its own repo:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo rpm --import https://shop.softmaker.com/repo/linux-repo-public.key
+</span></span><span class="line"><span class="cl">sudo sh -c <span class="s1">&#39;echo -e &#34;[SoftMaker_Office_Repository]\nname=SoftMaker Office Repository\nenabled=1\nautorefresh=1\nbaseurl=https://shop.softmaker.com/repo/rpm\npath=/\ntype=rpm-md\nkeeppackages=0\nrepo_gpgcheck=1\ngpgkey=https://shop.softmaker.com/repo/linux-repo-public.key\nenabled_metadata=0&#34; &gt; /etc/yum.repos.d/softmaker.repo&#39;</span>
+</span></span><span class="line"><span class="cl">sudo dnf check-update
+</span></span><span class="line"><span class="cl">sudo dnf install -y softmaker-office-2018
+</span></span></code></pre></div><p>Open it and enter license.</p>
+<h4 id="zotero">Zotero</h4>
+<p>Zotero is great to keep track of the literature I use in my research and teaching. I install it via a flatpak:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">flatpak install -y zotero
+</span></span></code></pre></div><p>Open zotero, log in to account, install extension <a href="https://github.com/retorquere/zotero-better-bibtex/releases/" target="_blank" rel="noopener">better-bibtex</a> and sync.</p>
+<h3 id="communication">Communication</h3>
+<h4 id="mattermost">Mattermost</h4>
+<p>Our Dynare team communication is happening via Mattermost which can be installed via flatpak:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">flatpak install -y Mattermost
+</span></span></code></pre></div><p>Unfortunately, I still have an <a href="https://github.com/flathub/com.mattermost.Desktop/issues/15" target="_blank" rel="noopener">issue with the tray icon</a> as it is only shown when turning the KStatusNotifierItem/AppIndicator Support Extension off and on again. However, what works for me is to additionally install the <a href="https://extensions.gnome.org/extension/1031/topicons/" target="_blank" rel="noopener">TopIcons Plus Gnome Extension</a>. I set the &lsquo;Icon size&rsquo; to 18 in the settings of TopIcons Plus, the &lsquo;Tray horizontal alignment&rsquo; to &lsquo;Right&rsquo; and &lsquo;Tray offset&rsquo; to 1.</p>
+<h4 id="skype">Skype</h4>
+<p>Skype can be installed either via snap or flatpak. I find the flatpak version works better with the system tray icons:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">flatpak install -y skype
+</span></span></code></pre></div><p>Open skype, log in and set up audio and video.</p>
+<h4 id="zoom">Zoom</h4>
+<p>Zoom can be installed either via snap or flatpak. I find the flatpak version works better with the system tray icons:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">flatpak install -y zoom
+</span></span></code></pre></div><p>Open zoom, log in and set up audio and video.</p>
+<h3 id="multimedia">Multimedia</h3>
+<h4 id="vlc">VLC</h4>
+<p>The best video player:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf install -y vlc
+</span></span></code></pre></div><p>Open it and check whether it works.</p>
+<h4 id="multimedia-codecs">Multimedia Codecs</h4>
+<p>If you have VLC installed, you should be fine as it has builtin support for all relevant audio and video codecs. In other cases, I have found that the following commands install all required stuff for Audio and Video:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf groupupdate sound-and-video
+</span></span><span class="line"><span class="cl">sudo dnf install -y libdvdcss
+</span></span><span class="line"><span class="cl">sudo dnf install -y gstreamer1-plugins-<span class="o">{</span>bad-<span class="se">\*</span>,good-<span class="se">\*</span>,ugly-<span class="se">\*</span>,base<span class="o">}</span> gstreamer1-libav --exclude<span class="o">=</span>gstreamer1-plugins-bad-free-devel ffmpeg gstreamer-ffmpeg 
+</span></span><span class="line"><span class="cl">sudo dnf install -y lame<span class="se">\*</span> --exclude<span class="o">=</span>lame-devel
+</span></span><span class="line"><span class="cl">sudo dnf group upgrade --with-optional Multimedia
+</span></span></code></pre></div><p>For OpenH264 in Firefox I run:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo dnf config-manager --set-enabled fedora-cisco-openh264
+</span></span><span class="line"><span class="cl">sudo dnf install -y gstreamer1-plugin-openh264 mozilla-openh264
+</span></span></code></pre></div><p>Afterwards you need to open Firefox, go to menu → Add-ons → Plugins and enable OpenH264 plugin. You can do a simple test whether your H.264 works in RTC on this <a href="https://mozilla.github.io/webrtc-landing/pc_test.html" target="_blank" rel="noopener">page</a> (check Require H.264 video).</p>
+<h4 id="obs">OBS</h4>
+<p>I like that the snap version has all popular extensions included, so I use it:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo snap install obs-studio --edge
+</span></span><span class="line"><span class="cl">sudo snap connect obs-studio:audio-record
+</span></span><span class="line"><span class="cl">sudo snap connect obs-studio:avahi-control
+</span></span><span class="line"><span class="cl">sudo snap connect obs-studio:camera
+</span></span><span class="line"><span class="cl">sudo snap connect obs-studio:jack1
+</span></span><span class="line"><span class="cl">sudo snap connect obs-studio:joystick
+</span></span><span class="line"><span class="cl">sudo snap connect obs-studio:removable-media
+</span></span></code></pre></div><p>Open OBS and set it up, import your scenes, etc.</p>
+<h2 id="gnome-settings">Gnome Settings</h2>
+<ul>
+<li>Set up Wifi, Ethernet and VPN</li>
+<li>Turn off bluetooth</li>
+<li>Change wallpaper</li>
+<li>Automatically delete recent files and trash</li>
+<li>Turn of screen after 15 min</li>
+<li>Turn on night mode</li>
+<li>Add online account for Nextcloud and Fedora</li>
+<li>Deactivate system sounds, mute mic</li>
+<li>Turn of suspend, shutdown for power button</li>
+<li>Turn on natural scrolling for mouse touchpad</li>
+<li>Go through keyboard shortcuts and adapt, I also add custom ones:
+<ul>
+<li><code>xkill</code> on <kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>X</kbd></li>
+<li><code>gnome-terminal</code> on <kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>T</kbd></li>
+</ul>
+</li>
+<li>Change clock to 24h format</li>
+<li>Display battery as percentage</li>
+<li>Check your default programs</li>
+</ul>
+<h2 id="other-stuff">Other stuff</h2>
+<ul>
+<li>Bookmarks for netdrives: Using <kbd>CTRL</kbd>+<kbd>L</kbd> in nautilus, I can open the following links inside nautilus and add bookmarks to these drives for easy access:
+<ul>
+<li>university netdrive: <code>davs://w_muts01@wiwi-webdav.uni-muenster.de/</code></li>
+<li>university cluster <code>sftp://w_muts01@palma2c.uni-muenster.de</code></li>
+<li>personal homepage <code>sftp://mutschler.eu</code></li>
+</ul>
+</li>
+<li>Reorder Favorites: I like to reorder the favorites on the gnome launcher (when one hits the <kbd>SUPER</kbd>) key</li>
+<li>Go through all programs: Hit <kbd>META</kbd>+<kbd>A</kbd> and go through all programs, decide whether you need them or uninstall these</li>
+<li>Check autostart programs in Gnome Tweaks</li>
+<li>In the file manager preferences I enable &ldquo;Sort folders before files</li>
+<li>Click on the clock and set the location for your weather forecast</li>
+</ul>
+
+          </div>
+
+          
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/linux/">linux</a>
+  
+  <a class="badge badge-light" href="/tag/fedora/">fedora</a>
+  
+  <a class="badge badge-light" href="/tag/install-guide/">install guide</a>
+  
+  <a class="badge badge-light" href="/tag/btrfs/">btrfs</a>
+  
+  <a class="badge badge-light" href="/tag/luks/">luks</a>
+  
+  <a class="badge badge-light" href="/tag/timeshift/">timeshift</a>
+  
+</div>
+
+
+
+          
+          
+          <div class="article-widget">
+            
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/linux/pop-os-post-install/" rel="next">Pop!_OS: Things to do after installation (Apps, Settings, and Tweaks)</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/linux/fedora-btrfs-35/" rel="prev">Fedora Workstation 35 with automatic btrfs snapshots and backups using BTRBK</a>
+  </div>
+  
+</div>
+
+          </div>
+          
+        </div>
+
+        <div class="body-footer">
+          <p>Last updated on Jun 17, 2022</p>
+
+          
+
+
+
+          
+
+
+
+
+          
+
+
+        </div>
+
+      </article>
+
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+  </p>
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2022 Willi Mutschler. This work is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank">CC BY SA 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-sa fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+
+    </main>
+  </div>
+</div>
+
+  </div>
+
+  <div class="page-footer">
+    
+    
+  </div>
+
+      
+
+    
+    <script src="/js/vendor-bundle.min.3d946de2e8784a477845261d87025092.js"></script>
+
+    
+    
+    
+      
+      
+        <script src="https://cdn.jsdelivr.net/gh/desandro/imagesloaded@v4.1.4/imagesloaded.pkgd.min.js" integrity="sha512-S5PZ9GxJZO16tT9r3WJp/Safn31eu8uWrzglMahDT4dsmgqWonRY9grk3j+3tfuPr9WJNsfooOR7Gi7HL5W2jw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/metafizzy/isotope@v3.0.6/dist/isotope.pkgd.min.js" integrity="sha512-Zq2BOxyhvnRFXu0+WE6ojpZLOU2jdnqbrM1hmVdGzyeCa1DgM3X5Q4A/Is9xA1IkbUeDd7755dNNI/PzSf2Pew==" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/r.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/matlab.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+      <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script src="https://cdn.jsdelivr.net/gh/bryanbraun/anchorjs@4.2.2/anchor.min.js" integrity="sha512-I7w3ZdSFzw5j3jU3ZkNikBNeIrl3i+hEuEdwNmqUJvwNcaBUNcijnP2gd9DtGlgVYDplfjGoD8vTNsID+lCjqg==" crossorigin="anonymous"></script>
+    <script>
+      anchors.add();
+    </script>
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+
+    
+    
+    
+    <script id="page-data" type="application/json">{"use_headroom":false}</script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.9162604ef5b82e6fdeff386200ab6db9.js"></script>
+
+    
+    
+      <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+    
+    
+    
+    
+
+
+
+
+
+
+</body>
+</html>

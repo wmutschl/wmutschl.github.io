@@ -1,0 +1,1519 @@
+<!DOCTYPE html><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.4.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Willi Mutschler" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="In the following I will go through my post installation steps on elementary OS, i.e. which settings I choose and which apps I install and use." />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://mutschler.dev/linux/elementary-os-post-install/" />
+
+  
+  
+  
+    <meta name="theme-color" content="#bbdefb" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.c7b8d9abd591ba2253ea42747e3ac3f5.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css" integrity="sha512-W0xM4mr6dEP9nREo7Z9z+9X70wytKvMGeDsj7ps2+xg5QPrEBXC8tAW1IFnzjR6eoJ90JmCnFzerQJTLzIEHjA==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'" disabled>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'">
+        
+      
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.0b8400c2e374cd7dd4f9ae4909fd9914.css" />
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://mutschler.dev/linux/elementary-os-post-install/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary" />
+  
+  <meta property="og:site_name" content="mutschler.dev" />
+  <meta property="og:url" content="https://mutschler.dev/linux/elementary-os-post-install/" />
+  <meta property="og:title" content="elementary OS: Things to do after installation (Apps, Settings, and Tweaks) | mutschler.dev" />
+  <meta property="og:description" content="In the following I will go through my post installation steps on elementary OS, i.e. which settings I choose and which apps I install and use." /><meta property="og:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" />
+    <meta property="twitter:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2022-06-16T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2022-06-17T11:41:33&#43;02:00">
+  
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>elementary OS: Things to do after installation (Apps, Settings, and Tweaks) | mutschler.dev</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper  dark " data-wc-page-id="1211017cd8cef9525178d7d11a386688" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.6c07fd79b08c404df0504bd310968f2f.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="header--fixed">
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/apple/"><span>Apple</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link  active" href="/linux/"><span>Linux</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/stuff/"><span>Stuff</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://buymeacoffee.com/mutschler" data-toggle="tooltip" data-placement="bottom" title="Buy me a coffee" target="_blank" rel="noopener" aria-label="Buy me a coffee">
+                <i class="fas fa-coffee" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="mailto:willi@mutschler.dev" data-toggle="tooltip" data-placement="bottom" title="Write me an email"  aria-label="Write me an email">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://github.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on GitHub" target="_blank" rel="noopener" aria-label="Follow me on GitHub">
+                <i class="fab fa-github" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://gitlab.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on Gitlab" target="_blank" rel="noopener" aria-label="Follow me on Gitlab">
+                <i class="fab fa-gitlab" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://www.youtube.com/c/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on YouTube" target="_blank" rel="noopener" aria-label="Follow me on YouTube">
+                <i class="fab fa-youtube" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        
+
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    
+
+
+
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      <form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-md-3 w-100" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <div class="d-flex">
+      <span class="d-md-none pl-1 flex-grow-1 text-left overflow-hidden">
+        
+          Linux
+        
+      </span>
+      <span><i class="fas fa-chevron-down"></i></span>
+    </div>
+  </button>
+
+  
+  <button class="form-control sidebar-search js-search d-none d-md-flex">
+    <i class="fas fa-search pr-2"></i>
+    <span class="sidebar-search-text">Search...</span>
+    <span class="sidebar-search-shortcut">/</span>
+  </button>
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+  
+  
+  
+  
+  
+
+  
+  
+    
+
+    
+      
+
+      
+
+
+  
+    
+    
+    
+    
+      
+    
+    
+
+    
+      <ul class="nav docs-sidenav">
+        <li class=""><a href="/linux/">Linux</a></li>
+    
+      
+
+
+  <li class="active"><a href="/linux/elementary-os-post-install/">elementary OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/elementary-os-6-1/">elementary OS 6.1 Jólnir: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-22-04/">Pop!_OS 22.04: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-post-install/">Pop!_OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-post-install/">Fedora Workstation: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-btrfs-35/">Fedora Workstation 35 with automatic btrfs snapshots and backups using BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-10/">DRAFT: Pop!_OS 21.10: installation guide with btrfs-LVM-luks and auto snapshots with BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-04/">Pop!_OS 21.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/raspi-post-install/">Ubuntu Server Raspberry Pi: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/raspi-btrfs/">Ubuntu Server 20.10 on Raspberry Pi 4: installation guide with USB Boot (no SD card) and full disk encryption (excluding /boot) using btrfs-inside-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-btrfs-33/">Fedora Workstation 33: installation guide with btrfs-luks full disk encryption (optionally including /boot) and auto snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/btrfs/">Why I (still) like btrfs</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-btrfs-raid1-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks-RAID1 full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-btrfs-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-post-install/">Ubuntu Desktop: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-raid1-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks-RAID1 and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/timeshift/">Timeshift</a></li>
+
+      
+    
+
+    
+      </ul>
+    
+
+  
+</nav>
+
+    </div>
+
+    
+    
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      
+
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+      </ul>
+
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#basic-steps">Basic Steps</a>
+      <ul>
+        <li><a href="#go-through-system-settings">Go through System Settings</a></li>
+        <li><a href="#set-hostname">Set hostname</a></li>
+      </ul>
+    </li>
+    <li><a href="#install-required-drivers">Install Required Drivers</a></li>
+    <li><a href="#install-software-properties-common">Install software-properties-common</a></li>
+    <li><a href="#deb-get-to-install-third-party-software-on-ubuntu-easily">deb-get to install third-party software on Ubuntu easily</a></li>
+    <li><a href="#restore-from-backup">Restore from Backup</a></li>
+    <li><a href="#install-updates-and-reboot">Install updates and reboot</a></li>
+    <li><a href="#browser">Browser</a></li>
+    <li><a href="#fish---a-friendly-interactive-shell">Fish - A Friendly Interactive Shell</a></li>
+    <li><a href="#ssh-keys">SSH keys</a></li>
+    <li><a href="#apps">Apps</a>
+      <ul>
+        <li><a href="#snap-support">Snap support</a></li>
+        <li><a href="#system-utilities">System utilities</a></li>
+        <li><a href="#networking">Networking</a></li>
+        <li><a href="#coding">Coding</a></li>
+        <li><a href="#text-processing">Text-processing</a></li>
+        <li><a href="#communication">Communication</a></li>
+        <li><a href="#multimedia">Multimedia</a></li>
+      </ul>
+    </li>
+    <li><a href="#misc-tweaks-and-settings">Misc tweaks and settings</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#security-steps-with-yubikey">Security steps with Yubikey</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#to-do">To Do</a></li>
+  </ul>
+</nav>
+
+      
+    </div>
+    
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <article class="article">
+
+        <div class="docs-article-container">
+          
+
+          <h1>elementary OS: Things to do after installation (Apps, Settings, and Tweaks)</h1>
+
+          <div class="article-style">
+            <p><em><strong>Please feel free to raise any comments or issues on the <a href="https://github.com/wmutschl/mutschler.dev" target="_blank" rel="noopener">website&rsquo;s Github repository</a>. Pull requests are very much appreciated</strong></em></p>
+<p><a href="https://www.buymeacoffee.com/mutschler" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a></p>
+<p>In the following I will go through my post installation steps, i.e. which settings I choose and which apps I install and use.</p>
+<details class="toc-inpage d-print-none d-xl-none " open>
+  <summary class="font-weight-bold">Table of Contents</summary>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#basic-steps">Basic Steps</a>
+      <ul>
+        <li><a href="#go-through-system-settings">Go through System Settings</a></li>
+        <li><a href="#set-hostname">Set hostname</a></li>
+      </ul>
+    </li>
+    <li><a href="#install-required-drivers">Install Required Drivers</a></li>
+    <li><a href="#install-software-properties-common">Install software-properties-common</a></li>
+    <li><a href="#deb-get-to-install-third-party-software-on-ubuntu-easily">deb-get to install third-party software on Ubuntu easily</a></li>
+    <li><a href="#restore-from-backup">Restore from Backup</a></li>
+    <li><a href="#install-updates-and-reboot">Install updates and reboot</a></li>
+    <li><a href="#browser">Browser</a></li>
+    <li><a href="#fish---a-friendly-interactive-shell">Fish - A Friendly Interactive Shell</a></li>
+    <li><a href="#ssh-keys">SSH keys</a></li>
+    <li><a href="#apps">Apps</a>
+      <ul>
+        <li><a href="#snap-support">Snap support</a></li>
+        <li><a href="#system-utilities">System utilities</a></li>
+        <li><a href="#networking">Networking</a></li>
+        <li><a href="#coding">Coding</a></li>
+        <li><a href="#text-processing">Text-processing</a></li>
+        <li><a href="#communication">Communication</a></li>
+        <li><a href="#multimedia">Multimedia</a></li>
+      </ul>
+    </li>
+    <li><a href="#misc-tweaks-and-settings">Misc tweaks and settings</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#security-steps-with-yubikey">Security steps with Yubikey</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#to-do">To Do</a></li>
+  </ul>
+</nav>
+</details>
+
+<h2 id="basic-steps">Basic Steps</h2>
+<h3 id="go-through-system-settings">Go through System Settings</h3>
+<h4 id="desktop">Desktop</h4>
+<ul>
+<li>Choose a Wallpaper</li>
+<li>Choose Appearance
+<ul>
+<li>Default</li>
+<li>Schedule &lsquo;Sunset to Sunrise&rsquo;</li>
+<li>Accent: Mint</li>
+</ul>
+</li>
+<li>Text
+<ul>
+<li>Size 1.00</li>
+<li>disable Dyslexia-friendly</li>
+</ul>
+</li>
+<li>Dock &amp; Panel
+<ul>
+<li>Icon size &lsquo;small&rsquo;</li>
+<li>Turn on Hide when &lsquo;Any window overlaps the dock&rsquo;</li>
+<li>Turn off Hide when &lsquo;Pressure reveal&rsquo;</li>
+<li>Turn on &rsquo; Panel translucency'</li>
+</ul>
+</li>
+<li>Multitasking
+<ul>
+<li>Do nothing for the corners</li>
+<li>Activate Move windows to a new workspace &lsquo;When entering fullscreen&rsquo;</li>
+<li>Deactivate Move windows to a new workspace &lsquo;When maximizing&rsquo;</li>
+<li>Activate &lsquo;Window animations&rsquo;</li>
+</ul>
+</li>
+</ul>
+<h4 id="language--region">Language &amp; Region</h4>
+<p>For some reason elementary OS installs a bunch of languages which unnecessarily increases the system updates. So to speed this up, I remove all the languages that I do not need and keep only &lsquo;English&rsquo; and &lsquo;German&rsquo;. This takes some clicking and unfortunately the system settings don&rsquo;t show the progress until you re-open the settings dialog. At the end click &lsquo;Complete Installation&rsquo; to install missing language support for the remaining languages. Re-open the dialog and change:</p>
+<ul>
+<li>Region: United States</li>
+<li>Formats: Germany</li>
+<li>Temperature: Celsius</li>
+</ul>
+<p>Confirm with &lsquo;Set Language&rsquo;. Open a terminal and update the locales:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo locale-gen de_DE.UTF.8
+</span></span><span class="line"><span class="cl">sudo locale-gen en_US.UTF.8
+</span></span><span class="line"><span class="cl">sudo update-locale <span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8
+</span></span></code></pre></div><h4 id="notifications">Notifications</h4>
+<p>I leave everything turned on at the beginning and re-visit this settings panel for applications that bother me. Mostly I deactivate the &lsquo;Sounds&rsquo; switch for those applications.</p>
+<h4 id="security--privacy">Security &amp; Privacy</h4>
+<ul>
+<li>History
+<ul>
+<li>I enable it and check all &lsquo;Data Sources&rsquo;.</li>
+</ul>
+</li>
+<li>Locking
+<ul>
+<li>Activate &lsquo;Lock on suspend&rsquo;</li>
+<li>Activate &lsquo;Lock after screen turns off&rsquo;</li>
+<li>Activate &lsquo;Forbid new USB devices when locked&rsquo;</li>
+</ul>
+</li>
+<li>Firewall
+<ul>
+<li>As this is a desktop computer, I do not need the Firewall or adapt any settings</li>
+</ul>
+</li>
+<li>Housekeeping
+<ul>
+<li>&lsquo;Automatically Delete&rsquo;: &lsquo;Old temporary files&rsquo; and &lsquo;Trashed files&rsquo;</li>
+<li>&lsquo;Delete Old Files After:&rsquo; 30 days</li>
+</ul>
+</li>
+<li>Location Services:
+<ul>
+<li>I enable this by default and re-visit this setting after installing other applications</li>
+</ul>
+</li>
+</ul>
+<h4 id="displays">Displays</h4>
+<p>I use a Thunderbolt Dock (either a DELL TB16 or a Anker PowerExpand Elite 13-in-1 or a builtin dock of my LG 38 curved monitor). Setting this up is sometimes a bit fiddly, so in this settings panel I try to arrange them correctly and check the &lsquo;Scaling factor&rsquo;. I also activate &lsquo;Night Light&rsquo; mode with &lsquo;Sunset to Sunrise&rsquo;.</p>
+<h4 id="keyboard">Keyboard</h4>
+<p>I change the behavior of the <kbd>SUPER</kbd> key to show the &lsquo;Multitasking View&rsquo;. Then I go through the Shortcuts page. I typically try to use the distro&rsquo;s default shortcuts and change them only if I keep forgetting them or persistently use other shortcuts which are in my muscle memory.  I don&rsquo;t change the <code>Behavior</code> settings as they are fine with me.</p>
+<h4 id="mouse--touchpad">Mouse &amp; Touchpad</h4>
+<p>Go through the settings, but I usually stick to the defaults. For my external mouse I make sure that &lsquo;Natural Scrolling&rsquo; is turned off, whereas for a Touchpad I like to turn it on.</p>
+<h4 id="power">Power</h4>
+<ul>
+<li>Turn off display when inactive for: 15 min</li>
+<li>Power button: Prompt to shutdown</li>
+<li>Suspend when inactive for 30 min</li>
+</ul>
+<h4 id="printers">Printers</h4>
+<p>My printer is connected to the network, so usually it is automatically detected.</p>
+<h4 id="sound">Sound</h4>
+<ul>
+<li>Deactivate &lsquo;Event alerts&rsquo;</li>
+</ul>
+<h4 id="wacom">Wacom</h4>
+<p>I don&rsquo;t have a Wacom tablet.</p>
+<h4 id="bluetooth">Bluetooth</h4>
+<p>On my Desktop computer I typically deactivate Bluetooth unless I really need it. Sometimes deactivating it in the system settings does not work, but from the panel you can deactivate it just fine.</p>
+<h4 id="network">Network</h4>
+<p>Even though my computer is connected via LAN, I also enter my WiFi password.</p>
+<h4 id="online-accounts">Online Accounts</h4>
+<p>I add a CalDAV account pointing towards my Nextcloud.</p>
+<h4 id="sharing">Sharing</h4>
+<p>I typically don&rsquo;t use this feature and deactivate &lsquo;Media Library&rsquo;.</p>
+<h4 id="date--time">Date &amp; Time</h4>
+<ul>
+<li>Time format: 24-hour</li>
+<li>Time zone: deactivate &lsquo;Based on location&rsquo; and choose Europe-Berlin-Germany (most areas)</li>
+<li>Activate &lsquo;Network time&rsquo;</li>
+<li>Deactivate &lsquo;Show week numbers&rsquo;</li>
+<li>Show in Panel: &lsquo;Date&rsquo;, &lsquo;Day of the week</li>
+</ul>
+<h4 id="screen-time--limits">Screen Time &amp; Limits</h4>
+<p>I don&rsquo;t use this feature.</p>
+<h4 id="system">System</h4>
+<p>Nothing to do here.</p>
+<h4 id="universal-access">Universal Access</h4>
+<p>I don&rsquo;t use any features here.</p>
+<h4 id="user-accounts">User Accounts</h4>
+<p>I change my profile picture.</p>
+<h3 id="set-hostname">Set hostname</h3>
+<p>When creating a user, you can also choose the name of your computer for better accessability on the network. If I forgot to do this, I change it with:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hostnamectl set-hostname green-lantern
+</span></span></code></pre></div><h2 id="install-required-drivers">Install Required Drivers</h2>
+<p>Not all drivers are installed, particularly proprietary drivers Nvidia GPUs or special WiFi drivers need to be manually installed to get the maximum performance from your system:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo ubuntu-drivers autoinstall
+</span></span></code></pre></div><h2 id="install-software-properties-common">Install software-properties-common</h2>
+<p>In order to fully elementary OS I install software-properties-common, which allows to &ldquo;easily manage your distribution and independent software vendor software sources&rdquo;:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install software-properties-common
+</span></span></code></pre></div><p>In essence this allows to make use of third-party apt repositories by providing the infamous <code>add-apt-repository</code> command.</p>
+<h2 id="deb-get-to-install-third-party-software-on-ubuntu-easily">deb-get to install third-party software on Ubuntu easily</h2>
+<p>I am a fan of easy ways to install third-party software, Martin Wimpress has created a neat tool called <a href="https://github.com/wimpysworld/deb-get" target="_blank" rel="noopener">deb-get</a> which I use on Ubuntu-based systems such as elementary OS.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install curl
+</span></span><span class="line"><span class="cl">curl -sL https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get <span class="p">|</span> sudo -E bash -s install deb-get
+</span></span></code></pre></div><h2 id="restore-from-backup">Restore from Backup</h2>
+<p>I mount my luks encrypted backup storage drive and use e.g. <code>rsync -avup $BACKUP/Documents ~/</code>  to copy over my files and important configuration scripts. At the end I run</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo chown -R <span class="nv">$USER</span>:<span class="nv">$USER</span> /home/<span class="nv">$USER</span>
+</span></span></code></pre></div><p>to make sure the permissions are correctly set.</p>
+<h2 id="install-updates-and-reboot">Install updates and reboot</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt upgrade
+</span></span><span class="line"><span class="cl">sudo apt dist-upgrade
+</span></span><span class="line"><span class="cl">sudo apt autoremove
+</span></span><span class="line"><span class="cl">sudo apt autoclean
+</span></span><span class="line"><span class="cl">sudo fwupdmgr get-devices
+</span></span><span class="line"><span class="cl">sudo fwupdmgr get-updates
+</span></span><span class="line"><span class="cl">sudo fwupdmgr update
+</span></span><span class="line"><span class="cl">flatpak update
+</span></span><span class="line"><span class="cl">sudo deb-get update
+</span></span><span class="line"><span class="cl">sudo deb-get upgrade
+</span></span><span class="line"><span class="cl">sudo reboot now
+</span></span></code></pre></div><h2 id="browser">Browser</h2>
+<p>I mostly use the shipped browser; however, sometimes I do need Chrome, which can easily be installed via deb-get:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo deb-get install google-chrome-stable
+</span></span></code></pre></div><p>and sync my Account, Settings and Extensions.</p>
+<h2 id="fish---a-friendly-interactive-shell">Fish - A Friendly Interactive Shell</h2>
+<p>I am using the Fish shell on all my systems, due to its <a href="https://fedoramagazine.org/fish-a-friendly-interactive-shell/" target="_blank" rel="noopener">user-friendly features</a>, so I install it and make it my default shell:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install -y fish
+</span></span><span class="line"><span class="cl">chsh -s /usr/bin/fish
+</span></span></code></pre></div><p>You will need to log out and back in for this change to take effect. Lastly, I want to add the ~/.local/bin to my $PATH <a href="https://github.com/fish-shell/fish-shell/issues/527" target="_blank" rel="noopener">persistently</a> in Fish:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir -p /home/<span class="nv">$USER</span>/.local/bin
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -Ua fish_user_paths /home/<span class="nv">$USER</span>/.local/bin
+</span></span></code></pre></div><p>Also I make sure that it is in my $PATH also on bash:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash -c <span class="s1">&#39;echo $PATH&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#/home/wmutschl/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin</span>
+</span></span></code></pre></div><p>If it isn&rsquo;t then I make the necessary changes in my <code>/home/$USER/.bashrc</code> file.</p>
+<h2 id="ssh-keys">SSH keys</h2>
+<p>If I want to create a new SSH key, I run e.g.:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh-keygen -t ed25519 -C <span class="s2">&#34;elementary-on-green-lantern&#34;</span>
+</span></span></code></pre></div><p>Usually, however, I restore my <code>.ssh</code> folder from my backup. Either way, afterwards, one needs to add the file containing your key, usually <code>id_rsa</code> or <code>id_ed25519</code>, to the ssh-agent:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">eval</span> <span class="s2">&#34;</span><span class="k">$(</span>ssh-agent -s<span class="k">)</span><span class="s2">&#34;</span> <span class="c1">#works in bash</span>
+</span></span><span class="line"><span class="cl"><span class="nb">eval</span> <span class="o">(</span>ssh-agent -c<span class="o">)</span> <span class="c1">#works in fish</span>
+</span></span><span class="line"><span class="cl">ssh-add ~/.ssh/id_ed25519
+</span></span></code></pre></div><p>Don&rsquo;t forget to add your public key to GitHub, Gitlab, Servers, etc.</p>
+<h2 id="apps">Apps</h2>
+<h3 id="snap-support">Snap support</h3>
+<p>Enable snap support</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install snapd
+</span></span></code></pre></div><h3 id="system-utilities">System utilities</h3>
+<h4 id="bitwarden">Bitwarden</h4>
+<p>Bitwarden is my password manager of choice:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo deb-get install bitwarden
+</span></span></code></pre></div><h4 id="flatseal">Flatseal</h4>
+<p>Flatseal is a great tool to check or change the permissions of your flatpaks:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">flatpak install flatseal
+</span></span></code></pre></div><h4 id="gparted">GParted</h4>
+<p>In case I need to adjust the partition layout:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install -y gparted
+</span></span></code></pre></div><p>Open GParted, check whether it works.</p>
+<h4 id="quickemu">Quickemu</h4>
+<p>I used to set up KVM, Qemu, virt-manager and gnome-boxes as this is much faster as VirtualBox. However, I have found a much easier tool for most tasks: <a href="https://github.com/wmutschl/quickemu" target="_blank" rel="noopener">quickemu</a>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo deb-get quickemu
+</span></span></code></pre></div><h3 id="networking">Networking</h3>
+<h4 id="tailscale">Tailscale</h4>
+<p>I use <a href="https://tailscale.com/kb/1187/install-ubuntu-2204/" target="_blank" rel="noopener">Tailscale</a> on all my systems to be able to connect them via Wireguard wherever I am. It is extremely easy to install. I use deb-get:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo deb-get install tailscale
+</span></span></code></pre></div><p>Connect your machine to your Tailscale network and authenticate in your browser:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo tailscale up
+</span></span></code></pre></div><p>That&rsquo;s it, check your ip:</p>
+<pre tabindex="0"><code>tailscale ip -4
+</code></pre><p>I also chose (in the browser) to disable key expiry to prevent the need to periodically re-authenticate.</p>
+<h4 id="openssh-server">OpenSSH Server</h4>
+<p>I sometimes access my linux machine via ssh from other machines, for this I install the OpenSSH server:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install openssh-server
+</span></span></code></pre></div><p>Then I make some changes to</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /etc/ssh/sshd_config
+</span></span></code></pre></div><p>to disable password login, to allow for X11forwarding and permit root logins.</p>
+<h4 id="nextcloud">Nextcloud</h4>
+<p>I have all my files synced to my own Nextcloud server, so I need the sync client. deb-get has the newer version, so:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo deb-get install nextcloud-desktop
+</span></span></code></pre></div><p>Open Nextcloud and set it up. Double check the options.</p>
+<h3 id="coding">Coding</h3>
+<h4 id="dynare-related-packages">Dynare related packages</h4>
+<p>I am a developer of <a href="https://www.dynare.org" target="_blank" rel="noopener">Dynare</a> and need these packages to compile it from source and run it optimally ob Ubuntu-based systems:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install -y build-essential gfortran liboctave-dev libboost-graph-dev libgsl-dev libmatio-dev libslicot-dev libslicot-pic libsuitesparse-dev flex bison autoconf automake texlive texlive-publishers texlive-latex-extra texlive-fonts-extra texlive-latex-recommended texlive-science texlive-plain-generic lmodern python3-sphinx latexmk libjs-mathjax doxygen x13as
+</span></span></code></pre></div><h4 id="git-related-packages">git related packages:</h4>
+<p>git is most important, as a GUI for it, I use GitKraken. Also to use lfs on some repositories one needs to initialize it once:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install -y git git-lfs
+</span></span><span class="line"><span class="cl">git-lfs install
+</span></span><span class="line"><span class="cl">sudo deb-get install gitkraken
+</span></span></code></pre></div><p>Open GitKraken and set up Accounts and Settings.</p>
+<p>You can also use the flatpak version of Gitkraken, but one needs to add the following Custom Terminal Command: <code>flatpak-spawn --host gnome-terminal %d</code>.</p>
+<h4 id="matlab">MATLAB</h4>
+<p>I have a license for MATLAB, unzipping the installation files in the the Downloads folder and then run the installer:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./home/<span class="nv">$USER</span>/Downloads/matlab/install
+</span></span></code></pre></div><p>Note that I do not use <code>sudo</code> but install MATLAB into my home folder into <code>/home/wmutschl/MATLAB/R2022a</code> and don&rsquo;t create symbolic links (as this will be later done by the <code>matlab-support</code> package).</p>
+<p>Once the installation process finishes, install <code>matlab-support</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install matlab-support
+</span></span></code></pre></div><p>Activate MATLAB and make sure to select <code>Yes</code> to <code>Rename MATLAB's GCC libraries</code> as these are typically older than the one&rsquo;s from the distribution.</p>
+<p>I don&rsquo;t have the <a href="https://de.mathworks.com/matlabcentral/answers/342906-could-not-initialize-shared-resources-for-x11graphicsdevice#answer_425485?s_tid=prof_contriblnk" target="_blank" rel="noopener">shared resources-for-x11-graphics bug</a>, if you do, follow the link for a solution.</p>
+<p>Open matlab and I change some settings to use Windows type shortcuts on the Keyboard, add <code>mod</code> and <code>inc</code> files as supported extensions, and do not use MATLAB&rsquo;s source control capabilities.</p>
+<h4 id="visual-studio-code">Visual Studio Code</h4>
+<p>I have transitioned to do most of my coding in Visual Studio code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo deb-get install code
+</span></span></code></pre></div><p>I keep my profiles and extensions synced using GitHub.</p>
+<h3 id="text-processing">Text-processing</h3>
+<h4 id="latex-related-packages">Latex related packages</h4>
+<p>I write all my papers and presentations with Latex using the very powerful <a href="https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop" target="_blank" rel="noopener">LaTeX Workshop Extension</a> for Visual Studio Code as an editor. So let&rsquo;s install all tex-related packages:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install -y texlive texlive-font-utils texlive-pstricks-doc texlive-base texlive-formats-extra texlive-lang-german texlive-metapost texlive-publishers texlive-bibtex-extra texlive-latex-base texlive-metapost-doc texlive-publishers-doc texlive-binaries texlive-latex-base-doc texlive-science texlive-extra-utils texlive-latex-extra texlive-science-doc texlive-fonts-extra texlive-latex-extra-doc texlive-pictures texlive-xetex texlive-fonts-extra-doc texlive-latex-recommended texlive-pictures-doc texlive-fonts-recommended texlive-humanities texlive-lang-english texlive-latex-recommended-doc texlive-fonts-recommended-doc texlive-humanities-doc texlive-luatex texlive-pstricks perl-tk
+</span></span></code></pre></div><h4 id="sejda-pdf-editor">Sejda PDF editor</h4>
+<p>Most of the times elementary OS&rsquo;s pdf viewer works just fine. As an alternative, I find Sejda as an easy, pleasant and productive PDF editor:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo deb-get install sejda-desktop
+</span></span></code></pre></div><p>Open it and check it out.</p>
+<h3 id="communication">Communication</h3>
+<h4 id="mattermost">Mattermost</h4>
+<p>Our Dynare team communication is happening via Mattermost. Mattermost can be installed via snap, flatpak or deb-get:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo deb-get install mattermost-desktop
+</span></span></code></pre></div><p>Open mattermost and connect to server.</p>
+<h4 id="skype">Skype</h4>
+<p>Skype can be installed either via snap, flatpak or deb-get:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo deb-get install skypeforlinux
+</span></span></code></pre></div><p>Open skype, log in and set up audio and video.</p>
+<h4 id="zoom">Zoom</h4>
+<p>Zoom can be installed either via snap, flatpak or deb-get:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo deb-get install zoom
+</span></span></code></pre></div><p>Open zoom, log in and set up audio and video.</p>
+<h3 id="multimedia">Multimedia</h3>
+<h4 id="multimedia-codecs">Multimedia Codecs</h4>
+<p>Install and compile multimedia codecs:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install -y ubuntu-restricted-extras libavcodec-extra libdvd-pkg
+</span></span><span class="line"><span class="cl">sudo dpkg-reconfigure libdvd-pkg
+</span></span></code></pre></div><h4 id="vlc">VLC</h4>
+<p>Still one of the best video players:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install -y vlc
+</span></span></code></pre></div><p>Open it and check whether it works.</p>
+<h4 id="obs">OBS</h4>
+<p>To get a full-loaded OBS Studio version I install it with either deb-get:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo deb-get install obs-studio
+</span></span></code></pre></div><p>Open OBS and set it up, import your scenes, etc. The snap version works also fine for me.</p>
+<h2 id="misc-tweaks-and-settings">Misc tweaks and settings</h2>
+<h4 id="reorder-favorites-on-dock">Reorder Favorites on Dock</h4>
+<p>I like to reorder the favorites on the dock and add additional ones.</p>
+<h4 id="go-through-all-programs">Go through all programs</h4>
+<p>Go through all programs, decide whether you need them or uninstall these.</p>
+<h4 id="deactivate-grub-timeout">Deactivate GRUB timeout</h4>
+<p>If you don&rsquo;t want to see the GRUB menu, then change <code>GRUB_TIMEOUT=0</code> in <code>/etc/default/grub</code>. You need to run <code>sudo update-grub</code> afterwards. I typically set <code>GRUB_TIMEOUT=3</code>.</p>
+<h4 id="enable-tray-icons-for-third-party-apps">Enable tray icons for third-party apps</h4>
+<p>Some/Most apps use outdated/different code for their tray icons and this code is not compatible with elementary OS, so one has no tray icons (top right) for these apps. To fix this incompatibility there are different approaches, I still have to find one that works easy and reliable. Please let me know which one you are using (e.g. <a href="https://gist.github.com/isneezy/ee88f7702368e064021d884f0e98ec85#tweaking-the-ui" target="_blank" rel="noopener">old panel indicator approach</a>)?</p>
+<h2 id="security-steps-with-yubikey">Security steps with Yubikey</h2>
+<p>I have two Yubikeys and use them</p>
+<ul>
+<li>as second-factor for all admin/sudo tasks</li>
+<li>to unlock my luks encrypted partitions</li>
+<li>for my private GPG key</li>
+</ul>
+<p>For this I need to install several packages:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install -y yubikey-manager yubikey-personalization <span class="c1"># some common packages</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Insert the yubikey</span>
+</span></span><span class="line"><span class="cl">ykman info <span class="c1"># your key should be recognized</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Device type: YubiKey 5 NFC</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Serial number: </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Firmware version:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Form factor:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Enabled USB interfaces: OTP+FIDO+CCID</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># NFC interface is enabled.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Applications	USB    	NFC     </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># OTP     	Enabled	Enabled 	</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># FIDO U2F	Enabled	Enabled 	</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># OpenPGP 	Enabled	Enabled 	</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># PIV     	Enabled	Enabled</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># OATH    	Enabled	Enabled 	</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># FIDO2   	Enabled	Enabled 	</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo apt install -y libpam-u2f <span class="c1"># second-factor for sudo commands</span>
+</span></span><span class="line"><span class="cl">sudo apt install -y yubikey-luks  <span class="c1"># second-factor for luks</span>
+</span></span><span class="line"><span class="cl">sudo apt install -y gpg scdaemon gnupg-agent pcscd gnupg2 <span class="c1"># stuff for GPG</span>
+</span></span></code></pre></div><p>Make sure that OpenPGP and PIV are enabled on both Yubikeys as shown above.</p>
+<h4 id="yubikey-private-gpg-key">Yubikey: private GPG key</h4>
+<p>Let&rsquo;s use the private GPG key on the Yubikey (a tutorial on how to put it there is taken from <a href="https://www.heise.de/ratgeber/FIDO2-YubiKey-als-OpenPGP-Smartcard-einsetzen-4590032.html" target="_blank" rel="noopener">Heise</a>, <a href="https://github.com/drduh/YubiKey-Guide" target="_blank" rel="noopener">YubiKey-Guide</a>) and particularly <a href="https://developer.okta.com/blog/2021/07/07/developers-guide-to-gpg" target="_blank" rel="noopener">Developer&rsquo;s Guide to GPG</a>.
+First, enable and start <code>pcscd</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> pcscd
+</span></span><span class="line"><span class="cl">sudo systemctl start pcscd
+</span></span></code></pre></div><p>My public key is available on <a href="https://github.com/wmutschl.gpg" target="_blank" rel="noopener">GitHub</a> and this URL is also specified on my Yubikey, so I can simply fetch that. Insert the Yubikey and then:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gpg --card-status
+</span></span><span class="line"><span class="cl"><span class="c1"># If this did not find your Yubikey, then try to first reboot or look into the above references.</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ~/.gnupg
+</span></span><span class="line"><span class="cl">gpg --edit-card
+</span></span><span class="line"><span class="cl">gpg/card&gt; fetch
+</span></span><span class="line"><span class="cl">gpg/card&gt; quit
+</span></span></code></pre></div><p>Write down your keyid and export this into an environmental variable (this will always be the same):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">KEYID</span><span class="o">=</span>91E724BF17A73F6D
+</span></span><span class="line"><span class="cl">gpg --edit-key <span class="nv">$KEYID</span>
+</span></span><span class="line"><span class="cl">  trust
+</span></span><span class="line"><span class="cl">  <span class="m">5</span>
+</span></span><span class="line"><span class="cl">  y
+</span></span><span class="line"><span class="cl">  quit
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;This is an encrypted message&#34;</span> <span class="p">|</span> gpg --encrypt --armor --recipient <span class="nv">$KEYID</span> -o encrypted.txt
+</span></span><span class="line"><span class="cl">gpg --decrypt --armor encrypted.txt
+</span></span><span class="line"><span class="cl"><span class="c1"># gpg: encrypted with 4096-bit RSA key, ID XYZ, create 2019-12-09</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        &#34;Willi Mutschler &lt;willi@mutschler.eu&gt;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># This is encrypted</span>
+</span></span></code></pre></div><p>If this did not trigger to enter the Personal Key on your Yubikey, then try to run <code>echo 'reader-port Yubico YubiKey' &gt;&gt; ~/.gnupg/scdaemon.conf</code>, reboot and try again. Also check the above references and enable pcscd.</p>
+<h4 id="yubikey-two-factor-authentication-for-adminsudo-password">Yubikey: two-factor authentication for admin/sudo password</h4>
+<p>Let&rsquo;s set up the Yubikeys as second-factor for everything related to sudo using the common-auth pam.d module:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pamu2fcfg &gt; ~/u2f_keys
+</span></span></code></pre></div><p>When your device begins flashing, touch the metal contact to confirm the association. You might need to insert a user pin as well. Do the same with your backup device:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pamu2fcfg -n &gt;&gt; ~/u2f_keys
+</span></span></code></pre></div><p>Now move the file into /etc:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mv ~/u2f_keys /etc/u2f_keys
+</span></span></code></pre></div><p>and make this a required action for <code>common-auth</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;auth    required                        pam_u2f.so nouserok authfile=/etc/u2f_keys cue&#34;</span> <span class="p">|</span> sudo tee -a /etc/pam.d/common-auth
+</span></span></code></pre></div><p>Before you close the terminal, open a new one and check whether you can do <code>sudo echo test</code> and are required to touch your Yubikey. You can always deactivate this feature by commenting out the above line in <code>/etc/pam.d/common-auth</code>.</p>
+<h4 id="yubikey-two-factor-authentication-for-luks-partitions">Yubikey: two-factor authentication for luks partitions</h4>
+<p>Let&rsquo;s set up the Yubikeys as second-factor to unlock the luks partitions. If you have brand new keys, then create a new key on them (BE CAREFUL DON&rsquo;T OVERWRITE IF YOU HAVE ALREADY DONE THIS):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ykpersonalize -2 -ochal-resp -ochal-hmac -ohmac-lt64 -oserial-api-visible <span class="c1">#</span>
+</span></span></code></pre></div><p>First, I create an environmental variable to point towards my luks drive quickly (I installed on /dev/sdb3):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">LUKSDRIVE</span><span class="o">=</span>/dev/sdb3
+</span></span></code></pre></div><p>Next enroll both Yubikeys to the luks partition. Insert the first Yubikey and type:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo yubikey-luks-enroll -d <span class="nv">$LUKSDRIVE</span> -s <span class="m">7</span>
+</span></span></code></pre></div><p>Insert the second Yubikey:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo yubikey-luks-enroll -d <span class="nv">$LUKSDRIVE</span> -s <span class="m">8</span>
+</span></span></code></pre></div><p>Activate the keyscript in your crypttab:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">CRYPTKEY</span><span class="o">=</span><span class="s2">&#34;luks,keyscript=/usr/share/yubikey-luks/ykluks-keyscript&#34;</span>
+</span></span><span class="line"><span class="cl">sudo sed -i <span class="s2">&#34;s|luks|</span><span class="nv">$CRYPTKEY</span><span class="s2">|&#34;</span> /etc/crypttab
+</span></span></code></pre></div><p>Your crypttab should look similar to this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /etc/crypttab
+</span></span><span class="line"><span class="cl"><span class="c1"># data UUID=aa371a41-81f4-4f12-800e-8830a9afa8c8 none luks,keyscript=/usr/share/yubikey-luks/ykluks-keyscript,discard</span>
+</span></span></code></pre></div><p>Lastly, update the initramfs:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo update-initramfs -u -k all
+</span></span><span class="line"><span class="cl"><span class="c1"># update-initramfs: Generating /boot/initrd.img-5.13.0-51-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># I: The initramfs will attempt to resume from /dev/dm-2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># I: (/dev/mapper/data-swap)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># I: Set the RESUME variable to override this.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># update-initramfs: Generating /boot/initrd.img-5.13.0-43-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># I: The initramfs will attempt to resume from /dev/dm-2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># I: (/dev/mapper/data-swap)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># I: Set the RESUME variable to override this.</span>
+</span></span></code></pre></div><p>Reboot and check whether the prompt has changed to &ldquo;Please insert yubikey and press enter or enter a valid passphrase&rdquo;. So I typically do two reboots to check whether I can either use your Yubikey (with the new passphrase you selected above) or the original luks passphrase.</p>
+<p>If you want to deactivate this feature, remove the crypttab entry and update the initramfs.</p>
+<h2 id="to-do">To Do</h2>
+<ul>
+<li>Best way to disable single click?</li>
+<li>Best way to add tray icons? for
+<ul>
+<li><input disabled="" type="checkbox"> mattermost</li>
+<li><input disabled="" type="checkbox"> skype</li>
+<li><input disabled="" type="checkbox"> zoom</li>
+<li><input disabled="" type="checkbox"> nextcloud</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+
+          
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/linux/">linux</a>
+  
+  <a class="badge badge-light" href="/tag/elementary-os/">elementary-os</a>
+  
+  <a class="badge badge-light" href="/tag/install-guide/">install guide</a>
+  
+  <a class="badge badge-light" href="/tag/post-install/">post-install</a>
+  
+</div>
+
+
+
+          
+          
+          <div class="article-widget">
+            
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/linux/elementary-os-6-1/" rel="prev">elementary OS 6.1 Jólnir: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a>
+  </div>
+  
+</div>
+
+          </div>
+          
+        </div>
+
+        <div class="body-footer">
+          <p>Last updated on Jun 17, 2022</p>
+
+          
+
+
+
+          
+
+
+
+
+          
+
+
+        </div>
+
+      </article>
+
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+  </p>
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2022 Willi Mutschler. This work is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank">CC BY SA 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-sa fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+
+    </main>
+  </div>
+</div>
+
+  </div>
+
+  <div class="page-footer">
+    
+    
+  </div>
+
+      
+
+    
+    <script src="/js/vendor-bundle.min.3d946de2e8784a477845261d87025092.js"></script>
+
+    
+    
+    
+      
+      
+        <script src="https://cdn.jsdelivr.net/gh/desandro/imagesloaded@v4.1.4/imagesloaded.pkgd.min.js" integrity="sha512-S5PZ9GxJZO16tT9r3WJp/Safn31eu8uWrzglMahDT4dsmgqWonRY9grk3j+3tfuPr9WJNsfooOR7Gi7HL5W2jw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/metafizzy/isotope@v3.0.6/dist/isotope.pkgd.min.js" integrity="sha512-Zq2BOxyhvnRFXu0+WE6ojpZLOU2jdnqbrM1hmVdGzyeCa1DgM3X5Q4A/Is9xA1IkbUeDd7755dNNI/PzSf2Pew==" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/r.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/matlab.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+      <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script src="https://cdn.jsdelivr.net/gh/bryanbraun/anchorjs@4.2.2/anchor.min.js" integrity="sha512-I7w3ZdSFzw5j3jU3ZkNikBNeIrl3i+hEuEdwNmqUJvwNcaBUNcijnP2gd9DtGlgVYDplfjGoD8vTNsID+lCjqg==" crossorigin="anonymous"></script>
+    <script>
+      anchors.add();
+    </script>
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+
+    
+    
+    
+    <script id="page-data" type="application/json">{"use_headroom":false}</script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.9162604ef5b82e6fdeff386200ab6db9.js"></script>
+
+    
+    
+      <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+    
+    
+    
+    
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,815 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>post-install | mutschler.dev</title>
+    <link>https://mutschler.dev/tag/post-install/</link>
+      <atom:link href="https://mutschler.dev/tag/post-install/index.xml" rel="self" type="application/rss+xml" />
+    <description>post-install</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Thu, 16 Jun 2022 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png</url>
+      <title>post-install</title>
+      <link>https://mutschler.dev/tag/post-install/</link>
+    </image>
+    
+    <item>
+      <title>elementary OS: Things to do after installation (Apps, Settings, and Tweaks)</title>
+      <link>https://mutschler.dev/linux/elementary-os-post-install/</link>
+      <pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
+      <guid>https://mutschler.dev/linux/elementary-os-post-install/</guid>
+      <description>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Please feel free to raise any comments or issues on the &lt;a href=&#34;https://github.com/wmutschl/mutschler.dev&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;website&amp;rsquo;s Github repository&lt;/a&gt;. Pull requests are very much appreciated&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.buymeacoffee.com/mutschler&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://cdn.buymeacoffee.com/buttons/v2/default-red.png&#34; alt=&#34;Buy Me A Coffee&#34; style=&#34;height: 60px !important;width: 217px !important;&#34; &gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;In the following I will go through my post installation steps, i.e. which settings I choose and which apps I install and use.&lt;/p&gt;
+&lt;details class=&#34;toc-inpage d-print-none d-xl-none &#34; open&gt;
+  &lt;summary class=&#34;font-weight-bold&#34;&gt;Table of Contents&lt;/summary&gt;
+  &lt;nav id=&#34;TableOfContents&#34;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&#34;#basic-steps&#34;&gt;Basic Steps&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#go-through-system-settings&#34;&gt;Go through System Settings&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#set-hostname&#34;&gt;Set hostname&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#install-required-drivers&#34;&gt;Install Required Drivers&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#install-software-properties-common&#34;&gt;Install software-properties-common&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#deb-get-to-install-third-party-software-on-ubuntu-easily&#34;&gt;deb-get to install third-party software on Ubuntu easily&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#restore-from-backup&#34;&gt;Restore from Backup&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#install-updates-and-reboot&#34;&gt;Install updates and reboot&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#browser&#34;&gt;Browser&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#fish---a-friendly-interactive-shell&#34;&gt;Fish - A Friendly Interactive Shell&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#ssh-keys&#34;&gt;SSH keys&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#apps&#34;&gt;Apps&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#snap-support&#34;&gt;Snap support&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#system-utilities&#34;&gt;System utilities&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#networking&#34;&gt;Networking&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#coding&#34;&gt;Coding&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#text-processing&#34;&gt;Text-processing&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#communication&#34;&gt;Communication&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#multimedia&#34;&gt;Multimedia&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#misc-tweaks-and-settings&#34;&gt;Misc tweaks and settings&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#security-steps-with-yubikey&#34;&gt;Security steps with Yubikey&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#to-do&#34;&gt;To Do&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+&lt;/details&gt;
+
+&lt;h2 id=&#34;basic-steps&#34;&gt;Basic Steps&lt;/h2&gt;
+&lt;h3 id=&#34;go-through-system-settings&#34;&gt;Go through System Settings&lt;/h3&gt;
+&lt;h4 id=&#34;desktop&#34;&gt;Desktop&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Choose a Wallpaper&lt;/li&gt;
+&lt;li&gt;Choose Appearance
+&lt;ul&gt;
+&lt;li&gt;Default&lt;/li&gt;
+&lt;li&gt;Schedule &amp;lsquo;Sunset to Sunrise&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Accent: Mint&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Text
+&lt;ul&gt;
+&lt;li&gt;Size 1.00&lt;/li&gt;
+&lt;li&gt;disable Dyslexia-friendly&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Dock &amp;amp; Panel
+&lt;ul&gt;
+&lt;li&gt;Icon size &amp;lsquo;small&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Turn on Hide when &amp;lsquo;Any window overlaps the dock&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Turn off Hide when &amp;lsquo;Pressure reveal&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Turn on &amp;rsquo; Panel translucency&#39;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Multitasking
+&lt;ul&gt;
+&lt;li&gt;Do nothing for the corners&lt;/li&gt;
+&lt;li&gt;Activate Move windows to a new workspace &amp;lsquo;When entering fullscreen&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Deactivate Move windows to a new workspace &amp;lsquo;When maximizing&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Activate &amp;lsquo;Window animations&amp;rsquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;language--region&#34;&gt;Language &amp;amp; Region&lt;/h4&gt;
+&lt;p&gt;For some reason elementary OS installs a bunch of languages which unnecessarily increases the system updates. So to speed this up, I remove all the languages that I do not need and keep only &amp;lsquo;English&amp;rsquo; and &amp;lsquo;German&amp;rsquo;. This takes some clicking and unfortunately the system settings don&amp;rsquo;t show the progress until you re-open the settings dialog. At the end click &amp;lsquo;Complete Installation&amp;rsquo; to install missing language support for the remaining languages. Re-open the dialog and change:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Region: United States&lt;/li&gt;
+&lt;li&gt;Formats: Germany&lt;/li&gt;
+&lt;li&gt;Temperature: Celsius&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Confirm with &amp;lsquo;Set Language&amp;rsquo;. Open a terminal and update the locales:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo locale-gen de_DE.UTF.8
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo locale-gen en_US.UTF.8
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo update-locale &lt;span class=&#34;nv&#34;&gt;LANG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;en_US.UTF-8
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;notifications&#34;&gt;Notifications&lt;/h4&gt;
+&lt;p&gt;I leave everything turned on at the beginning and re-visit this settings panel for applications that bother me. Mostly I deactivate the &amp;lsquo;Sounds&amp;rsquo; switch for those applications.&lt;/p&gt;
+&lt;h4 id=&#34;security--privacy&#34;&gt;Security &amp;amp; Privacy&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;History
+&lt;ul&gt;
+&lt;li&gt;I enable it and check all &amp;lsquo;Data Sources&amp;rsquo;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Locking
+&lt;ul&gt;
+&lt;li&gt;Activate &amp;lsquo;Lock on suspend&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Activate &amp;lsquo;Lock after screen turns off&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Activate &amp;lsquo;Forbid new USB devices when locked&amp;rsquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Firewall
+&lt;ul&gt;
+&lt;li&gt;As this is a desktop computer, I do not need the Firewall or adapt any settings&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Housekeeping
+&lt;ul&gt;
+&lt;li&gt;&amp;lsquo;Automatically Delete&amp;rsquo;: &amp;lsquo;Old temporary files&amp;rsquo; and &amp;lsquo;Trashed files&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;&amp;lsquo;Delete Old Files After:&amp;rsquo; 30 days&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Location Services:
+&lt;ul&gt;
+&lt;li&gt;I enable this by default and re-visit this setting after installing other applications&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;displays&#34;&gt;Displays&lt;/h4&gt;
+&lt;p&gt;I use a Thunderbolt Dock (either a DELL TB16 or a Anker PowerExpand Elite 13-in-1 or a builtin dock of my LG 38 curved monitor). Setting this up is sometimes a bit fiddly, so in this settings panel I try to arrange them correctly and check the &amp;lsquo;Scaling factor&amp;rsquo;. I also activate &amp;lsquo;Night Light&amp;rsquo; mode with &amp;lsquo;Sunset to Sunrise&amp;rsquo;.&lt;/p&gt;
+&lt;h4 id=&#34;keyboard&#34;&gt;Keyboard&lt;/h4&gt;
+&lt;p&gt;I change the behavior of the &lt;kbd&gt;SUPER&lt;/kbd&gt; key to show the &amp;lsquo;Multitasking View&amp;rsquo;. Then I go through the Shortcuts page. I typically try to use the distro&amp;rsquo;s default shortcuts and change them only if I keep forgetting them or persistently use other shortcuts which are in my muscle memory.  I don&amp;rsquo;t change the &lt;code&gt;Behavior&lt;/code&gt; settings as they are fine with me.&lt;/p&gt;
+&lt;h4 id=&#34;mouse--touchpad&#34;&gt;Mouse &amp;amp; Touchpad&lt;/h4&gt;
+&lt;p&gt;Go through the settings, but I usually stick to the defaults. For my external mouse I make sure that &amp;lsquo;Natural Scrolling&amp;rsquo; is turned off, whereas for a Touchpad I like to turn it on.&lt;/p&gt;
+&lt;h4 id=&#34;power&#34;&gt;Power&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Turn off display when inactive for: 15 min&lt;/li&gt;
+&lt;li&gt;Power button: Prompt to shutdown&lt;/li&gt;
+&lt;li&gt;Suspend when inactive for 30 min&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;printers&#34;&gt;Printers&lt;/h4&gt;
+&lt;p&gt;My printer is connected to the network, so usually it is automatically detected.&lt;/p&gt;
+&lt;h4 id=&#34;sound&#34;&gt;Sound&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Deactivate &amp;lsquo;Event alerts&amp;rsquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;wacom&#34;&gt;Wacom&lt;/h4&gt;
+&lt;p&gt;I don&amp;rsquo;t have a Wacom tablet.&lt;/p&gt;
+&lt;h4 id=&#34;bluetooth&#34;&gt;Bluetooth&lt;/h4&gt;
+&lt;p&gt;On my Desktop computer I typically deactivate Bluetooth unless I really need it. Sometimes deactivating it in the system settings does not work, but from the panel you can deactivate it just fine.&lt;/p&gt;
+&lt;h4 id=&#34;network&#34;&gt;Network&lt;/h4&gt;
+&lt;p&gt;Even though my computer is connected via LAN, I also enter my WiFi password.&lt;/p&gt;
+&lt;h4 id=&#34;online-accounts&#34;&gt;Online Accounts&lt;/h4&gt;
+&lt;p&gt;I add a CalDAV account pointing towards my Nextcloud.&lt;/p&gt;
+&lt;h4 id=&#34;sharing&#34;&gt;Sharing&lt;/h4&gt;
+&lt;p&gt;I typically don&amp;rsquo;t use this feature and deactivate &amp;lsquo;Media Library&amp;rsquo;.&lt;/p&gt;
+&lt;h4 id=&#34;date--time&#34;&gt;Date &amp;amp; Time&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Time format: 24-hour&lt;/li&gt;
+&lt;li&gt;Time zone: deactivate &amp;lsquo;Based on location&amp;rsquo; and choose Europe-Berlin-Germany (most areas)&lt;/li&gt;
+&lt;li&gt;Activate &amp;lsquo;Network time&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Deactivate &amp;lsquo;Show week numbers&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;Show in Panel: &amp;lsquo;Date&amp;rsquo;, &amp;lsquo;Day of the week&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;screen-time--limits&#34;&gt;Screen Time &amp;amp; Limits&lt;/h4&gt;
+&lt;p&gt;I don&amp;rsquo;t use this feature.&lt;/p&gt;
+&lt;h4 id=&#34;system&#34;&gt;System&lt;/h4&gt;
+&lt;p&gt;Nothing to do here.&lt;/p&gt;
+&lt;h4 id=&#34;universal-access&#34;&gt;Universal Access&lt;/h4&gt;
+&lt;p&gt;I don&amp;rsquo;t use any features here.&lt;/p&gt;
+&lt;h4 id=&#34;user-accounts&#34;&gt;User Accounts&lt;/h4&gt;
+&lt;p&gt;I change my profile picture.&lt;/p&gt;
+&lt;h3 id=&#34;set-hostname&#34;&gt;Set hostname&lt;/h3&gt;
+&lt;p&gt;When creating a user, you can also choose the name of your computer for better accessability on the network. If I forgot to do this, I change it with:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hostnamectl set-hostname green-lantern
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;install-required-drivers&#34;&gt;Install Required Drivers&lt;/h2&gt;
+&lt;p&gt;Not all drivers are installed, particularly proprietary drivers Nvidia GPUs or special WiFi drivers need to be manually installed to get the maximum performance from your system:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo ubuntu-drivers autoinstall
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;install-software-properties-common&#34;&gt;Install software-properties-common&lt;/h2&gt;
+&lt;p&gt;In order to fully elementary OS I install software-properties-common, which allows to &amp;ldquo;easily manage your distribution and independent software vendor software sources&amp;rdquo;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install software-properties-common
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In essence this allows to make use of third-party apt repositories by providing the infamous &lt;code&gt;add-apt-repository&lt;/code&gt; command.&lt;/p&gt;
+&lt;h2 id=&#34;deb-get-to-install-third-party-software-on-ubuntu-easily&#34;&gt;deb-get to install third-party software on Ubuntu easily&lt;/h2&gt;
+&lt;p&gt;I am a fan of easy ways to install third-party software, Martin Wimpress has created a neat tool called &lt;a href=&#34;https://github.com/wimpysworld/deb-get&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;deb-get&lt;/a&gt; which I use on Ubuntu-based systems such as elementary OS.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install curl
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl -sL https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sudo -E bash -s install deb-get
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;restore-from-backup&#34;&gt;Restore from Backup&lt;/h2&gt;
+&lt;p&gt;I mount my luks encrypted backup storage drive and use e.g. &lt;code&gt;rsync -avup $BACKUP/Documents ~/&lt;/code&gt;  to copy over my files and important configuration scripts. At the end I run&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chown -R &lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;:&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt; /home/&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;to make sure the permissions are correctly set.&lt;/p&gt;
+&lt;h2 id=&#34;install-updates-and-reboot&#34;&gt;Install updates and reboot&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt upgrade
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt dist-upgrade
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt autoremove
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt autoclean
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo fwupdmgr get-devices
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo fwupdmgr get-updates
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo fwupdmgr update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;flatpak update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get upgrade
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo reboot now
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;browser&#34;&gt;Browser&lt;/h2&gt;
+&lt;p&gt;I mostly use the shipped browser; however, sometimes I do need Chrome, which can easily be installed via deb-get:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install google-chrome-stable
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and sync my Account, Settings and Extensions.&lt;/p&gt;
+&lt;h2 id=&#34;fish---a-friendly-interactive-shell&#34;&gt;Fish - A Friendly Interactive Shell&lt;/h2&gt;
+&lt;p&gt;I am using the Fish shell on all my systems, due to its &lt;a href=&#34;https://fedoramagazine.org/fish-a-friendly-interactive-shell/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;user-friendly features&lt;/a&gt;, so I install it and make it my default shell:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y fish
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;chsh -s /usr/bin/fish
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You will need to log out and back in for this change to take effect. Lastly, I want to add the ~/.local/bin to my $PATH &lt;a href=&#34;https://github.com/fish-shell/fish-shell/issues/527&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;persistently&lt;/a&gt; in Fish:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir -p /home/&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;/.local/bin
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -Ua fish_user_paths /home/&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;/.local/bin
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Also I make sure that it is in my $PATH also on bash:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;bash -c &lt;span class=&#34;s1&#34;&gt;&amp;#39;echo $PATH&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#/home/wmutschl/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If it isn&amp;rsquo;t then I make the necessary changes in my &lt;code&gt;/home/$USER/.bashrc&lt;/code&gt; file.&lt;/p&gt;
+&lt;h2 id=&#34;ssh-keys&#34;&gt;SSH keys&lt;/h2&gt;
+&lt;p&gt;If I want to create a new SSH key, I run e.g.:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh-keygen -t ed25519 -C &lt;span class=&#34;s2&#34;&gt;&amp;#34;elementary-on-green-lantern&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Usually, however, I restore my &lt;code&gt;.ssh&lt;/code&gt; folder from my backup. Either way, afterwards, one needs to add the file containing your key, usually &lt;code&gt;id_rsa&lt;/code&gt; or &lt;code&gt;id_ed25519&lt;/code&gt;, to the ssh-agent:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;eval&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;ssh-agent -s&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;#works in bash&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;eval&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;ssh-agent -c&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;#works in fish&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh-add ~/.ssh/id_ed25519
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Don&amp;rsquo;t forget to add your public key to GitHub, Gitlab, Servers, etc.&lt;/p&gt;
+&lt;h2 id=&#34;apps&#34;&gt;Apps&lt;/h2&gt;
+&lt;h3 id=&#34;snap-support&#34;&gt;Snap support&lt;/h3&gt;
+&lt;p&gt;Enable snap support&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install snapd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;system-utilities&#34;&gt;System utilities&lt;/h3&gt;
+&lt;h4 id=&#34;bitwarden&#34;&gt;Bitwarden&lt;/h4&gt;
+&lt;p&gt;Bitwarden is my password manager of choice:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install bitwarden
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;flatseal&#34;&gt;Flatseal&lt;/h4&gt;
+&lt;p&gt;Flatseal is a great tool to check or change the permissions of your flatpaks:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;flatpak install flatseal
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;gparted&#34;&gt;GParted&lt;/h4&gt;
+&lt;p&gt;In case I need to adjust the partition layout:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y gparted
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open GParted, check whether it works.&lt;/p&gt;
+&lt;h4 id=&#34;quickemu&#34;&gt;Quickemu&lt;/h4&gt;
+&lt;p&gt;I used to set up KVM, Qemu, virt-manager and gnome-boxes as this is much faster as VirtualBox. However, I have found a much easier tool for most tasks: &lt;a href=&#34;https://github.com/wmutschl/quickemu&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;quickemu&lt;/a&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get quickemu
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;networking&#34;&gt;Networking&lt;/h3&gt;
+&lt;h4 id=&#34;tailscale&#34;&gt;Tailscale&lt;/h4&gt;
+&lt;p&gt;I use &lt;a href=&#34;https://tailscale.com/kb/1187/install-ubuntu-2204/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tailscale&lt;/a&gt; on all my systems to be able to connect them via Wireguard wherever I am. It is extremely easy to install. I use deb-get:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install tailscale
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Connect your machine to your Tailscale network and authenticate in your browser:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo tailscale up
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That&amp;rsquo;s it, check your ip:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;tailscale ip -4
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I also chose (in the browser) to disable key expiry to prevent the need to periodically re-authenticate.&lt;/p&gt;
+&lt;h4 id=&#34;openssh-server&#34;&gt;OpenSSH Server&lt;/h4&gt;
+&lt;p&gt;I sometimes access my linux machine via ssh from other machines, for this I install the OpenSSH server:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install openssh-server
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then I make some changes to&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo nano /etc/ssh/sshd_config
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;to disable password login, to allow for X11forwarding and permit root logins.&lt;/p&gt;
+&lt;h4 id=&#34;nextcloud&#34;&gt;Nextcloud&lt;/h4&gt;
+&lt;p&gt;I have all my files synced to my own Nextcloud server, so I need the sync client. deb-get has the newer version, so:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install nextcloud-desktop
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open Nextcloud and set it up. Double check the options.&lt;/p&gt;
+&lt;h3 id=&#34;coding&#34;&gt;Coding&lt;/h3&gt;
+&lt;h4 id=&#34;dynare-related-packages&#34;&gt;Dynare related packages&lt;/h4&gt;
+&lt;p&gt;I am a developer of &lt;a href=&#34;https://www.dynare.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Dynare&lt;/a&gt; and need these packages to compile it from source and run it optimally ob Ubuntu-based systems:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y build-essential gfortran liboctave-dev libboost-graph-dev libgsl-dev libmatio-dev libslicot-dev libslicot-pic libsuitesparse-dev flex bison autoconf automake texlive texlive-publishers texlive-latex-extra texlive-fonts-extra texlive-latex-recommended texlive-science texlive-plain-generic lmodern python3-sphinx latexmk libjs-mathjax doxygen x13as
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;git-related-packages&#34;&gt;git related packages:&lt;/h4&gt;
+&lt;p&gt;git is most important, as a GUI for it, I use GitKraken. Also to use lfs on some repositories one needs to initialize it once:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y git git-lfs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git-lfs install
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install gitkraken
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open GitKraken and set up Accounts and Settings.&lt;/p&gt;
+&lt;p&gt;You can also use the flatpak version of Gitkraken, but one needs to add the following Custom Terminal Command: &lt;code&gt;flatpak-spawn --host gnome-terminal %d&lt;/code&gt;.&lt;/p&gt;
+&lt;h4 id=&#34;matlab&#34;&gt;MATLAB&lt;/h4&gt;
+&lt;p&gt;I have a license for MATLAB, unzipping the installation files in the the Downloads folder and then run the installer:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./home/&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;/Downloads/matlab/install
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Note that I do not use &lt;code&gt;sudo&lt;/code&gt; but install MATLAB into my home folder into &lt;code&gt;/home/wmutschl/MATLAB/R2022a&lt;/code&gt; and don&amp;rsquo;t create symbolic links (as this will be later done by the &lt;code&gt;matlab-support&lt;/code&gt; package).&lt;/p&gt;
+&lt;p&gt;Once the installation process finishes, install &lt;code&gt;matlab-support&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install matlab-support
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Activate MATLAB and make sure to select &lt;code&gt;Yes&lt;/code&gt; to &lt;code&gt;Rename MATLAB&#39;s GCC libraries&lt;/code&gt; as these are typically older than the one&amp;rsquo;s from the distribution.&lt;/p&gt;
+&lt;p&gt;I don&amp;rsquo;t have the &lt;a href=&#34;https://de.mathworks.com/matlabcentral/answers/342906-could-not-initialize-shared-resources-for-x11graphicsdevice#answer_425485?s_tid=prof_contriblnk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;shared resources-for-x11-graphics bug&lt;/a&gt;, if you do, follow the link for a solution.&lt;/p&gt;
+&lt;p&gt;Open matlab and I change some settings to use Windows type shortcuts on the Keyboard, add &lt;code&gt;mod&lt;/code&gt; and &lt;code&gt;inc&lt;/code&gt; files as supported extensions, and do not use MATLAB&amp;rsquo;s source control capabilities.&lt;/p&gt;
+&lt;h4 id=&#34;visual-studio-code&#34;&gt;Visual Studio Code&lt;/h4&gt;
+&lt;p&gt;I have transitioned to do most of my coding in Visual Studio code:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install code
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I keep my profiles and extensions synced using GitHub.&lt;/p&gt;
+&lt;h3 id=&#34;text-processing&#34;&gt;Text-processing&lt;/h3&gt;
+&lt;h4 id=&#34;latex-related-packages&#34;&gt;Latex related packages&lt;/h4&gt;
+&lt;p&gt;I write all my papers and presentations with Latex using the very powerful &lt;a href=&#34;https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;LaTeX Workshop Extension&lt;/a&gt; for Visual Studio Code as an editor. So let&amp;rsquo;s install all tex-related packages:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y texlive texlive-font-utils texlive-pstricks-doc texlive-base texlive-formats-extra texlive-lang-german texlive-metapost texlive-publishers texlive-bibtex-extra texlive-latex-base texlive-metapost-doc texlive-publishers-doc texlive-binaries texlive-latex-base-doc texlive-science texlive-extra-utils texlive-latex-extra texlive-science-doc texlive-fonts-extra texlive-latex-extra-doc texlive-pictures texlive-xetex texlive-fonts-extra-doc texlive-latex-recommended texlive-pictures-doc texlive-fonts-recommended texlive-humanities texlive-lang-english texlive-latex-recommended-doc texlive-fonts-recommended-doc texlive-humanities-doc texlive-luatex texlive-pstricks perl-tk
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;sejda-pdf-editor&#34;&gt;Sejda PDF editor&lt;/h4&gt;
+&lt;p&gt;Most of the times elementary OS&amp;rsquo;s pdf viewer works just fine. As an alternative, I find Sejda as an easy, pleasant and productive PDF editor:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install sejda-desktop
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open it and check it out.&lt;/p&gt;
+&lt;h3 id=&#34;communication&#34;&gt;Communication&lt;/h3&gt;
+&lt;h4 id=&#34;mattermost&#34;&gt;Mattermost&lt;/h4&gt;
+&lt;p&gt;Our Dynare team communication is happening via Mattermost. Mattermost can be installed via snap, flatpak or deb-get:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install mattermost-desktop
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open mattermost and connect to server.&lt;/p&gt;
+&lt;h4 id=&#34;skype&#34;&gt;Skype&lt;/h4&gt;
+&lt;p&gt;Skype can be installed either via snap, flatpak or deb-get:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install skypeforlinux
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open skype, log in and set up audio and video.&lt;/p&gt;
+&lt;h4 id=&#34;zoom&#34;&gt;Zoom&lt;/h4&gt;
+&lt;p&gt;Zoom can be installed either via snap, flatpak or deb-get:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install zoom
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open zoom, log in and set up audio and video.&lt;/p&gt;
+&lt;h3 id=&#34;multimedia&#34;&gt;Multimedia&lt;/h3&gt;
+&lt;h4 id=&#34;multimedia-codecs&#34;&gt;Multimedia Codecs&lt;/h4&gt;
+&lt;p&gt;Install and compile multimedia codecs:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y ubuntu-restricted-extras libavcodec-extra libdvd-pkg
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo dpkg-reconfigure libdvd-pkg
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;vlc&#34;&gt;VLC&lt;/h4&gt;
+&lt;p&gt;Still one of the best video players:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y vlc
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open it and check whether it works.&lt;/p&gt;
+&lt;h4 id=&#34;obs&#34;&gt;OBS&lt;/h4&gt;
+&lt;p&gt;To get a full-loaded OBS Studio version I install it with either deb-get:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo deb-get install obs-studio
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open OBS and set it up, import your scenes, etc. The snap version works also fine for me.&lt;/p&gt;
+&lt;h2 id=&#34;misc-tweaks-and-settings&#34;&gt;Misc tweaks and settings&lt;/h2&gt;
+&lt;h4 id=&#34;reorder-favorites-on-dock&#34;&gt;Reorder Favorites on Dock&lt;/h4&gt;
+&lt;p&gt;I like to reorder the favorites on the dock and add additional ones.&lt;/p&gt;
+&lt;h4 id=&#34;go-through-all-programs&#34;&gt;Go through all programs&lt;/h4&gt;
+&lt;p&gt;Go through all programs, decide whether you need them or uninstall these.&lt;/p&gt;
+&lt;h4 id=&#34;deactivate-grub-timeout&#34;&gt;Deactivate GRUB timeout&lt;/h4&gt;
+&lt;p&gt;If you don&amp;rsquo;t want to see the GRUB menu, then change &lt;code&gt;GRUB_TIMEOUT=0&lt;/code&gt; in &lt;code&gt;/etc/default/grub&lt;/code&gt;. You need to run &lt;code&gt;sudo update-grub&lt;/code&gt; afterwards. I typically set &lt;code&gt;GRUB_TIMEOUT=3&lt;/code&gt;.&lt;/p&gt;
+&lt;h4 id=&#34;enable-tray-icons-for-third-party-apps&#34;&gt;Enable tray icons for third-party apps&lt;/h4&gt;
+&lt;p&gt;Some/Most apps use outdated/different code for their tray icons and this code is not compatible with elementary OS, so one has no tray icons (top right) for these apps. To fix this incompatibility there are different approaches, I still have to find one that works easy and reliable. Please let me know which one you are using (e.g. &lt;a href=&#34;https://gist.github.com/isneezy/ee88f7702368e064021d884f0e98ec85#tweaking-the-ui&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;old panel indicator approach&lt;/a&gt;)?&lt;/p&gt;
+&lt;h2 id=&#34;security-steps-with-yubikey&#34;&gt;Security steps with Yubikey&lt;/h2&gt;
+&lt;p&gt;I have two Yubikeys and use them&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;as second-factor for all admin/sudo tasks&lt;/li&gt;
+&lt;li&gt;to unlock my luks encrypted partitions&lt;/li&gt;
+&lt;li&gt;for my private GPG key&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For this I need to install several packages:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y yubikey-manager yubikey-personalization &lt;span class=&#34;c1&#34;&gt;# some common packages&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Insert the yubikey&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ykman info &lt;span class=&#34;c1&#34;&gt;# your key should be recognized&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Device type: YubiKey 5 NFC&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Serial number: &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Firmware version:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Form factor:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Enabled USB interfaces: OTP+FIDO+CCID&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# NFC interface is enabled.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Applications	USB    	NFC     &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# OTP     	Enabled	Enabled 	&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# FIDO U2F	Enabled	Enabled 	&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# OpenPGP 	Enabled	Enabled 	&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# PIV     	Enabled	Enabled&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# OATH    	Enabled	Enabled 	&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# FIDO2   	Enabled	Enabled 	&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y libpam-u2f &lt;span class=&#34;c1&#34;&gt;# second-factor for sudo commands&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y yubikey-luks  &lt;span class=&#34;c1&#34;&gt;# second-factor for luks&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y gpg scdaemon gnupg-agent pcscd gnupg2 &lt;span class=&#34;c1&#34;&gt;# stuff for GPG&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Make sure that OpenPGP and PIV are enabled on both Yubikeys as shown above.&lt;/p&gt;
+&lt;h4 id=&#34;yubikey-private-gpg-key&#34;&gt;Yubikey: private GPG key&lt;/h4&gt;
+&lt;p&gt;Let&amp;rsquo;s use the private GPG key on the Yubikey (a tutorial on how to put it there is taken from &lt;a href=&#34;https://www.heise.de/ratgeber/FIDO2-YubiKey-als-OpenPGP-Smartcard-einsetzen-4590032.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Heise&lt;/a&gt;, &lt;a href=&#34;https://github.com/drduh/YubiKey-Guide&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;YubiKey-Guide&lt;/a&gt;) and particularly &lt;a href=&#34;https://developer.okta.com/blog/2021/07/07/developers-guide-to-gpg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Developer&amp;rsquo;s Guide to GPG&lt;/a&gt;.
+First, enable and start &lt;code&gt;pcscd&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl &lt;span class=&#34;nb&#34;&gt;enable&lt;/span&gt; pcscd
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl start pcscd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;My public key is available on &lt;a href=&#34;https://github.com/wmutschl.gpg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub&lt;/a&gt; and this URL is also specified on my Yubikey, so I can simply fetch that. Insert the Yubikey and then:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg --card-status
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# If this did not find your Yubikey, then try to first reboot or look into the above references.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~/.gnupg
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg --edit-card
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg/card&amp;gt; fetch
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg/card&amp;gt; quit
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Write down your keyid and export this into an environmental variable (this will always be the same):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;KEYID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;91E724BF17A73F6D
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg --edit-key &lt;span class=&#34;nv&#34;&gt;$KEYID&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  trust
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  y
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  quit
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;This is an encrypted message&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; gpg --encrypt --armor --recipient &lt;span class=&#34;nv&#34;&gt;$KEYID&lt;/span&gt; -o encrypted.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg --decrypt --armor encrypted.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# gpg: encrypted with 4096-bit RSA key, ID XYZ, create 2019-12-09&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#        &amp;#34;Willi Mutschler &amp;lt;willi@mutschler.eu&amp;gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# This is encrypted&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If this did not trigger to enter the Personal Key on your Yubikey, then try to run &lt;code&gt;echo &#39;reader-port Yubico YubiKey&#39; &amp;gt;&amp;gt; ~/.gnupg/scdaemon.conf&lt;/code&gt;, reboot and try again. Also check the above references and enable pcscd.&lt;/p&gt;
+&lt;h4 id=&#34;yubikey-two-factor-authentication-for-adminsudo-password&#34;&gt;Yubikey: two-factor authentication for admin/sudo password&lt;/h4&gt;
+&lt;p&gt;Let&amp;rsquo;s set up the Yubikeys as second-factor for everything related to sudo using the common-auth pam.d module:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pamu2fcfg &amp;gt; ~/u2f_keys
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;When your device begins flashing, touch the metal contact to confirm the association. You might need to insert a user pin as well. Do the same with your backup device:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pamu2fcfg -n &amp;gt;&amp;gt; ~/u2f_keys
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now move the file into /etc:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo mv ~/u2f_keys /etc/u2f_keys
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and make this a required action for &lt;code&gt;common-auth&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;auth    required                        pam_u2f.so nouserok authfile=/etc/u2f_keys cue&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sudo tee -a /etc/pam.d/common-auth
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Before you close the terminal, open a new one and check whether you can do &lt;code&gt;sudo echo test&lt;/code&gt; and are required to touch your Yubikey. You can always deactivate this feature by commenting out the above line in &lt;code&gt;/etc/pam.d/common-auth&lt;/code&gt;.&lt;/p&gt;
+&lt;h4 id=&#34;yubikey-two-factor-authentication-for-luks-partitions&#34;&gt;Yubikey: two-factor authentication for luks partitions&lt;/h4&gt;
+&lt;p&gt;Let&amp;rsquo;s set up the Yubikeys as second-factor to unlock the luks partitions. If you have brand new keys, then create a new key on them (BE CAREFUL DON&amp;rsquo;T OVERWRITE IF YOU HAVE ALREADY DONE THIS):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ykpersonalize -2 -ochal-resp -ochal-hmac -ohmac-lt64 -oserial-api-visible &lt;span class=&#34;c1&#34;&gt;#&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;First, I create an environmental variable to point towards my luks drive quickly (I installed on /dev/sdb3):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;LUKSDRIVE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/dev/sdb3
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Next enroll both Yubikeys to the luks partition. Insert the first Yubikey and type:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo yubikey-luks-enroll -d &lt;span class=&#34;nv&#34;&gt;$LUKSDRIVE&lt;/span&gt; -s &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Insert the second Yubikey:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo yubikey-luks-enroll -d &lt;span class=&#34;nv&#34;&gt;$LUKSDRIVE&lt;/span&gt; -s &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Activate the keyscript in your crypttab:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CRYPTKEY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;luks,keyscript=/usr/share/yubikey-luks/ykluks-keyscript&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo sed -i &lt;span class=&#34;s2&#34;&gt;&amp;#34;s|luks|&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CRYPTKEY&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;|&amp;#34;&lt;/span&gt; /etc/crypttab
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Your crypttab should look similar to this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cat /etc/crypttab
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# data UUID=aa371a41-81f4-4f12-800e-8830a9afa8c8 none luks,keyscript=/usr/share/yubikey-luks/ykluks-keyscript,discard&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Lastly, update the initramfs:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo update-initramfs -u -k all
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# update-initramfs: Generating /boot/initrd.img-5.13.0-51-generic&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# I: The initramfs will attempt to resume from /dev/dm-2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# I: (/dev/mapper/data-swap)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# I: Set the RESUME variable to override this.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# update-initramfs: Generating /boot/initrd.img-5.13.0-43-generic&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# I: The initramfs will attempt to resume from /dev/dm-2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# I: (/dev/mapper/data-swap)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# I: Set the RESUME variable to override this.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Reboot and check whether the prompt has changed to &amp;ldquo;Please insert yubikey and press enter or enter a valid passphrase&amp;rdquo;. So I typically do two reboots to check whether I can either use your Yubikey (with the new passphrase you selected above) or the original luks passphrase.&lt;/p&gt;
+&lt;p&gt;If you want to deactivate this feature, remove the crypttab entry and update the initramfs.&lt;/p&gt;
+&lt;h2 id=&#34;to-do&#34;&gt;To Do&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Best way to disable single click?&lt;/li&gt;
+&lt;li&gt;Best way to add tray icons? for
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; mattermost&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; skype&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; zoom&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; nextcloud&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Pop!_OS: Things to do after installation (Apps, Settings, and Tweaks)</title>
+      <link>https://mutschler.dev/linux/pop-os-post-install/</link>
+      <pubDate>Thu, 12 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://mutschler.dev/linux/pop-os-post-install/</guid>
+      <description>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Please feel free to raise any comments or issues on the &lt;a href=&#34;https://github.com/wmutschl/mutschler.dev&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;website&amp;rsquo;s Github repository&lt;/a&gt;. Pull requests are very much appreciated.&lt;/strong&gt;&lt;/em&gt;
+&lt;a href=&#34;https://www.buymeacoffee.com/mutschler&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://cdn.buymeacoffee.com/buttons/v2/default-red.png&#34; alt=&#34;Buy Me A Coffee&#34; style=&#34;height: 60px !important;width: 217px !important;&#34; &gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;In the following I will go through my post installation steps, i.e. which settings I choose and which apps I install and use.
+&lt;details class=&#34;toc-inpage d-print-none d-xl-none &#34; open&gt;
+  &lt;summary class=&#34;font-weight-bold&#34;&gt;Table of Contents&lt;/summary&gt;
+  &lt;nav id=&#34;TableOfContents&#34;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&#34;#basic-steps&#34;&gt;Basic Steps&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#set-hostname&#34;&gt;Set hostname&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#ssh-keys&#34;&gt;SSH keys&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#security-steps-with-yubikey&#34;&gt;Security steps with Yubikey&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#apps&#34;&gt;Apps&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#snap-support&#34;&gt;Snap support&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#system-utilities&#34;&gt;System utilities&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#networking&#34;&gt;Networking&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#coding&#34;&gt;Coding&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#text-processing&#34;&gt;Text-processing&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#communication&#34;&gt;Communication&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#multimedia&#34;&gt;Multimedia&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#misc-tweaks-and-settings&#34;&gt;Misc tweaks and settings&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+&lt;/details&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;basic-steps&#34;&gt;Basic Steps&lt;/h2&gt;
+&lt;h3 id=&#34;set-hostname&#34;&gt;Set hostname&lt;/h3&gt;
+&lt;p&gt;By default my machine is called &lt;code&gt;pop-os&lt;/code&gt;; hence, I rename it for better accessability on the network:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hostnamectl set-hostname precision
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;change-the-mirror-for-getting-updates-set-locales-get-rid-of-unnecessary-languages&#34;&gt;Change the mirror for getting updates, set locales, get rid of unnecessary languages&lt;/h4&gt;
+&lt;p&gt;I am living in Germany, so I adapt my locales:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;s|http://us.|http://de.|&amp;#39;&lt;/span&gt; /etc/apt/sources.list.d/system.sources
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo locale-gen de_DE.UTF.8
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo locale-gen en_US.UTF.8
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo update-locale &lt;span class=&#34;nv&#34;&gt;LANG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;en_US.UTF-8
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In Region Settings open &amp;ldquo;Manage Installed Languages&amp;rdquo;, do not update these, but first remove the unnecessary ones. Then reopen &amp;ldquo;languages&amp;rdquo; and update these.&lt;/p&gt;
+&lt;h4 id=&#34;install-updates-and-reboot&#34;&gt;Install updates and reboot&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt upgrade
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt dist-upgrade
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt autoremove
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt autoclean
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo fwupdmgr get-devices
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo fwupdmgr get-updates
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo fwupdmgr update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;flatpak update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo pop-upgrade recovery upgrade from-release &lt;span class=&#34;c1&#34;&gt;# this updates the recovery partition&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo reboot now
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;set-hybrid-graphics&#34;&gt;Set Hybrid Graphics&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&#34;https://support.system76.com/articles/graphics-switch-pop/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Switching Graphics in Pop!_OS&lt;/a&gt; is easy: either use the provided extension and restart or run&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo system76-power graphics hybrid
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo reboot now
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;get-thunderbolt-dock-to-work-and-adjust-monitors&#34;&gt;Get Thunderbolt Dock to work and adjust monitors&lt;/h4&gt;
+&lt;p&gt;I use a Thunderbolt Dock (DELL TB16 or Anker PowerExpand Elite 13-in-1 or builtin into my LG 38 curved monitor), which is great but also a bit tricky to set up (see &lt;a href=&#34;https://wiki.archlinux.org/index.php/Dell_TB16&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Dell TB16 Archwiki&lt;/a&gt;). I noticed that sometimes I just need to plug the USB-C cable in and out a couple of times to make it work (there seems to be a loose contact). Anyways, for me the most important step is to check in &amp;ldquo;Settings-Privacy-Thunderbolt&amp;rdquo;, whether the Thunderbolt dock works, so I can rearrange my monitors in &amp;ldquo;monitor settings&amp;rdquo;.&lt;/p&gt;
+&lt;h4 id=&#34;restore-from-backup&#34;&gt;Restore from Backup&lt;/h4&gt;
+&lt;p&gt;I mount my luks encrypted backup storage drive using nautilus and use rsync to copy over my files and important configuration scripts:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;BACKUP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/media/&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;/UUIDOFBACKUPDRIVE/@home/&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rsync -avuP &lt;span class=&#34;nv&#34;&gt;$BACKUP&lt;/span&gt;/Pictures ~/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rsync -avuP &lt;span class=&#34;nv&#34;&gt;$BACKUP&lt;/span&gt;/Documents ~/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rsync -avuP &lt;span class=&#34;nv&#34;&gt;$BACKUP&lt;/span&gt;/Downloads ~/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rsync -avuP &lt;span class=&#34;nv&#34;&gt;$BACKUP&lt;/span&gt;/dynare ~/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rsync -avuP &lt;span class=&#34;nv&#34;&gt;$BACKUP&lt;/span&gt;/Images ~/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rsync -avuP &lt;span class=&#34;nv&#34;&gt;$BACKUP&lt;/span&gt;/Music ~/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rsync -avuP &lt;span class=&#34;nv&#34;&gt;$BACKUP&lt;/span&gt;/Desktop ~/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rsync -avuP &lt;span class=&#34;nv&#34;&gt;$BACKUP&lt;/span&gt;/SofortUpload ~/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rsync -avuP &lt;span class=&#34;nv&#34;&gt;$BACKUP&lt;/span&gt;/Videos ~/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rsync -avuP &lt;span class=&#34;nv&#34;&gt;$BACKUP&lt;/span&gt;/Templates ~/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rsync -avuP &lt;span class=&#34;nv&#34;&gt;$BACKUP&lt;/span&gt;/Work ~/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rsync -avuP &lt;span class=&#34;nv&#34;&gt;$BACKUP&lt;/span&gt;/.config/Nextcloud ~/.config/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rsync -avuP &lt;span class=&#34;nv&#34;&gt;$BACKUP&lt;/span&gt;/.gitkraken ~/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rsync -avuP &lt;span class=&#34;nv&#34;&gt;$BACKUP&lt;/span&gt;/.gnupg ~/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rsync -avuP &lt;span class=&#34;nv&#34;&gt;$BACKUP&lt;/span&gt;/.local/share/applications ~/.local/share/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rsync -avuP &lt;span class=&#34;nv&#34;&gt;$BACKUP&lt;/span&gt;/.matlab ~/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rsync -avuP &lt;span class=&#34;nv&#34;&gt;$BACKUP&lt;/span&gt;/.ssh ~/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rsync -avuP &lt;span class=&#34;nv&#34;&gt;$BACKUP&lt;/span&gt;/.dynare ~/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rsync -avuP &lt;span class=&#34;nv&#34;&gt;$BACKUP&lt;/span&gt;/.gitconfig ~/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chown -R &lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;:&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt; /home/&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;sync-firefox-to-access-password-manager&#34;&gt;Sync Firefox to access password manager&lt;/h4&gt;
+&lt;p&gt;I use Firefox and like to keep my bookmarks and extensions in sync. Particularly, I use Bitwarden for all my passwords.&lt;/p&gt;
+&lt;h3 id=&#34;ssh-keys&#34;&gt;SSH keys&lt;/h3&gt;
+&lt;p&gt;If I want to create a new SSH key, I run e.g.:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh-keygen -t ed25519 -C &lt;span class=&#34;s2&#34;&gt;&amp;#34;popos-on-precision&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Usually, however, I restore my &lt;code&gt;.ssh&lt;/code&gt; folder from my backup (see above). Either way, afterwards, one needs to add the file containing your key, usually &lt;code&gt;id_rsa&lt;/code&gt; or &lt;code&gt;id_ed25519&lt;/code&gt;, to the ssh-agent:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;eval&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;ssh-agent -s&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;#works in bash&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;eval&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;ssh-agent -c&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;#works in fish&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh-add ~/.ssh/id_ed25519
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Don&amp;rsquo;t forget to add your public key to GitHub, Gitlab, Servers, etc.&lt;/p&gt;
+&lt;h2 id=&#34;security-steps-with-yubikey&#34;&gt;Security steps with Yubikey&lt;/h2&gt;
+&lt;p&gt;I have two Yubikeys and use them&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;as second-factor for all admin/sudo tasks&lt;/li&gt;
+&lt;li&gt;to unlock my luks encrypted partitions&lt;/li&gt;
+&lt;li&gt;for my private GPG key&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For this I need to install several packages:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y yubikey-manager yubikey-personalization &lt;span class=&#34;c1&#34;&gt;# some common packages&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Insert the yubikey&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ykman info &lt;span class=&#34;c1&#34;&gt;# your key should be recognized&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Device type: YubiKey 5 NFC&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Serial number: &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Firmware version: 5.1.2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Form factor: Keychain (USB-A)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Enabled USB interfaces: OTP+FIDO+CCID&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# NFC interface is enabled.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Applications	USB    	NFC     &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# OTP     	Enabled	Enabled 	&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# FIDO U2F	Enabled	Enabled 	&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# OpenPGP 	Enabled	Enabled 	&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# PIV     	Enabled	Disabled	&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# OATH    	Enabled	Enabled 	&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# FIDO2   	Enabled	Enabled 	&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y libpam-u2f &lt;span class=&#34;c1&#34;&gt;# second-factor for sudo commands&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y yubikey-luks  &lt;span class=&#34;c1&#34;&gt;# second-factor for luks&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y gpg scdaemon gnupg-agent pcscd gnupg2 &lt;span class=&#34;c1&#34;&gt;# stuff for GPG&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Make sure that OpenPGP and PIV are enabled on both Yubikeys as shown above.&lt;/p&gt;
+&lt;h4 id=&#34;yubikey-two-factor-authentication-for-adminsudo-password&#34;&gt;Yubikey: two-factor authentication for admin/sudo password&lt;/h4&gt;
+&lt;p&gt;Let&amp;rsquo;s set up the Yubikeys as second-factor for everything related to sudo using the common-auth pam.d module:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pamu2fcfg &amp;gt; ~/u2f_keys &lt;span class=&#34;c1&#34;&gt;# When your device begins flashing, touch the metal contact to confirm the association. You might need to insert a user pin as well&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pamu2fcfg -n &amp;gt;&amp;gt; ~/u2f_keys &lt;span class=&#34;c1&#34;&gt;# Do the same with your backup device&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo mv ~/u2f_keys /etc/u2f_keys
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Make this required for common-auth&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;auth    required                        pam_u2f.so nouserok authfile=/etc/u2f_keys cue&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sudo tee -a /etc/pam.d/common-auth
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Before you close the terminal, open a new one and check whether you can do &lt;code&gt;sudo echo test&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;yubikey-two-factor-authentication-for-luks-partitions&#34;&gt;Yubikey: two-factor authentication for luks partitions&lt;/h4&gt;
+&lt;p&gt;Let&amp;rsquo;s set up the Yubikeys as second-factor to unlock the luks partitions. If you have brand new keys, then create a new key on them:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ykpersonalize -2 -ochal-resp -ochal-hmac -ohmac-lt64 -oserial-api-visible &lt;span class=&#34;c1&#34;&gt;#BE CAREFUL TO NOT OVERWRITE IF YOU HAVE ALREADY DONE THIS&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now we can enroll both yubikeys to the luks partition:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;LUKSDRIVE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/dev/nvme0n1p4
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#insert first yubikey&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo yubikey-luks-enroll -d &lt;span class=&#34;nv&#34;&gt;$LUKSDRIVE&lt;/span&gt; -s &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# first yubikey&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#insert second yubikey&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo yubikey-luks-enroll -d &lt;span class=&#34;nv&#34;&gt;$LUKSDRIVE&lt;/span&gt; -s &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# second yubikey&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CRYPTKEY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;luks,keyscript=/usr/share/yubikey-luks/ykluks-keyscript&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo sed -i &lt;span class=&#34;s2&#34;&gt;&amp;#34;s|luks|&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CRYPTKEY&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;|&amp;#34;&lt;/span&gt; /etc/crypttab
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cat /etc/crypttab &lt;span class=&#34;c1&#34;&gt;#check whether this looks okay&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo update-initramfs -u
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;yubikey-private-gpg-key&#34;&gt;Yubikey: private GPG key&lt;/h4&gt;
+&lt;p&gt;Let&amp;rsquo;s use the private GPG key on the Yubikey (a tutorial on how to put it there is taken from &lt;a href=&#34;https://www.heise.de/ratgeber/FIDO2-YubiKey-als-OpenPGP-Smartcard-einsetzen-4590032.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Heise&lt;/a&gt; or &lt;a href=&#34;https://github.com/drduh/YubiKey-Guide&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;YubiKey-Guide&lt;/a&gt;). My public key is given in a file called &lt;code&gt;/home/$USER/.gnupg/public.asc&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl &lt;span class=&#34;nb&#34;&gt;enable&lt;/span&gt; pcscd
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl start pcscd
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Insert yubikey&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg --card-status
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# If this did not find your Yubikey, then try to first reboot.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# If it still does not work, then put&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# echo &amp;#39;reader-port Yubico YubiKey&amp;#39; &amp;gt;&amp;gt; ~/.gnupg/scdaemon.conf&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# reboot and try again. Make sure to enable pcscd.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~/.gnupg
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg --import public.asc &lt;span class=&#34;c1&#34;&gt;#this is my public key, my private one is on my yubikey&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;KEYID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;91E724BF17A73F6D
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg --edit-key &lt;span class=&#34;nv&#34;&gt;$KEYID&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  trust
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  y
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  quit
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;This is an encrypted message&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; gpg --encrypt --armor --recipient &lt;span class=&#34;nv&#34;&gt;$KEYID&lt;/span&gt; -o encrypted.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg --decrypt --armor encrypted.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# If this did not trigger to enter the Personal Key on your Yubikey, then try to put&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# echo &amp;#39;reader-port Yubico YubiKey&amp;#39; &amp;gt;&amp;gt; ~/.gnupg/scdaemon.conf&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# reboot and try again. Make sure to enable pcscd.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;fish---a-friendly-interactive-shell&#34;&gt;Fish - A Friendly Interactive Shell&lt;/h4&gt;
+&lt;p&gt;I am trying out the Fish shell, due to its &lt;a href=&#34;https://fedoramagazine.org/fish-a-friendly-interactive-shell/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;user-friendly features&lt;/a&gt;, so I install it and make it my default shell:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y fish util-linux-user
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;chsh -s /usr/bin/fish
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You will need to log out and back in for this change to take effect. Lastly, I want to add the ~/.local/bin to my $PATH &lt;a href=&#34;https://github.com/fish-shell/fish-shell/issues/527&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;persistently&lt;/a&gt; in Fish:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir -p /home/&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;/.local/bin
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -Ua fish_user_paths /home/&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;/.local/bin
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Also I make sure that it is in my $PATH also on bash:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;bash -c &lt;span class=&#34;s1&#34;&gt;&amp;#39;echo $PATH&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#/home/$USER/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If it isn&amp;rsquo;t then I make the necessary changes in my &lt;code&gt;.bashrc&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;apps&#34;&gt;Apps&lt;/h2&gt;
+&lt;h3 id=&#34;snap-support&#34;&gt;Snap support&lt;/h3&gt;
+&lt;p&gt;Enable snap support&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install snapd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;system-utilities&#34;&gt;System utilities&lt;/h3&gt;
+&lt;h4 id=&#34;caffeine&#34;&gt;Caffeine&lt;/h4&gt;
+&lt;p&gt;A little helper in case my laptop needs to stay up all night&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y caffeine
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Run caffeine indicator.&lt;/p&gt;
+&lt;h4 id=&#34;flatseal&#34;&gt;Flatseal&lt;/h4&gt;
+&lt;p&gt;Flatseal is a great tool to check or change the permissions of your flatpaks:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;flatpak install flatseal
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;gparted&#34;&gt;GParted&lt;/h4&gt;
+&lt;p&gt;In case I need to adjust the partition layout:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y gparted
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open GParted, check whether it works.&lt;/p&gt;
+&lt;h4 id=&#34;gnome-tweaks&#34;&gt;Gnome-tweaks&lt;/h4&gt;
+&lt;p&gt;Using gnome tweaks&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install gnome-tweaks
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In Gnome Tweaks I make the following changes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Disable &amp;ldquo;Suspend when laptop lid is closed&amp;rdquo; in General&lt;/li&gt;
+&lt;li&gt;Disable &amp;ldquo;Activities Overview Hot Corner&amp;rdquo; in Top Bar&lt;/li&gt;
+&lt;li&gt;Enable &amp;ldquo;Weekday&amp;rdquo; and &amp;ldquo;Date&amp;rdquo; in &amp;ldquo;Top Bar&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;Enable Battery Percentage (also possible in Gnome Settings - Power)&lt;/li&gt;
+&lt;li&gt;Check Autostart programs&lt;/li&gt;
+&lt;li&gt;Put the window controls to the left and disable the minimize button&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;nautilus-admin&#34;&gt;nautilus-admin&lt;/h4&gt;
+&lt;p&gt;Right-click context menu in nautilus for admin&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y nautilus-admin
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;virtual-machines-quickemu-and-other-stuff&#34;&gt;Virtual machines: Quickemu and other stuff&lt;/h4&gt;
+&lt;p&gt;I used to set up KVM, Qemu, virt-manager and gnome-boxes as this is much faster as VirtualBox. However, I have found a much easier tool for most tasks: &lt;a href=&#34;https://github.com/wmutschl/quickemu&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Quickqemu&lt;/a&gt; which uses the snap package Qemu-virgil:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone https://github.com/wmutschl/quickemu ~/quickemu
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install snapd bsdgames wget
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo snap install qemu-virgil
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo snap connect qemu-virgil:kvm
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo snap connect qemu-virgil:raw-usb
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo snap connect qemu-virgil:removable-media
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo snap connect qemu-virgil:audio-record
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo ln -s ~/quickemu/quickemu /home/&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;/.local/bin/quickemu
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Note that I keep my virtual machines on an external SSD&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In case I need the old stuff:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y qemu-kvm libvirt-clients libvirt-daemon-system bridge-utils virt-manager libvirt-daemon ovmf gnome-boxes
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo adduser &lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt; libvirt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo adduser &lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt; libvirt-qemu
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# run gnome-boxes&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# run libvirt add user session&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# As I use btrfs I need to change compression of images to no:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chattr +C ~/.local/share/gnome-boxes
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chattr +C ~/.local/share/libvirt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;networking&#34;&gt;Networking&lt;/h3&gt;
+&lt;h4 id=&#34;openssh-server&#34;&gt;OpenSSH Server&lt;/h4&gt;
+&lt;p&gt;I sometimes access my linux machine via ssh from other machines, for this I install the OpenSSH server:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install openssh-server
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then I make some changes to&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo nano /etc/ssh/sshd_config
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;to disable password login and to allow for X11forwarding.&lt;/p&gt;
+&lt;h4 id=&#34;nextcloud&#34;&gt;Nextcloud&lt;/h4&gt;
+&lt;p&gt;I have all my files synced to my own Nextcloud server, so I need the sync client:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y nextcloud-desktop
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open Nextcloud and set it up. Recheck options.&lt;/p&gt;
+&lt;h4 id=&#34;openconnect-and-openvpn&#34;&gt;OpenConnect and OpenVPN&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y openconnect network-manager-openconnect network-manager-openconnect-gnome
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y openvpn network-manager-openvpn network-manager-openvpn-gnome
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Go to Settings-Network-VPN and add openconnect for my university VPN and openvpn for ProtonVPN, check connections.&lt;/p&gt;
+&lt;h3 id=&#34;coding&#34;&gt;Coding&lt;/h3&gt;
+&lt;h4 id=&#34;dynare-related-packages&#34;&gt;Dynare related packages&lt;/h4&gt;
+&lt;p&gt;I am a developer of &lt;a href=&#34;https://www.dynare.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Dynare&lt;/a&gt; and need these packages to compile it from source and run it optimally ob Ubuntu-based systems:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y build-essential gfortran liboctave-dev libboost-graph-dev libgsl-dev libmatio-dev libslicot-dev libslicot-pic libsuitesparse-dev flex bison autoconf automake texlive texlive-publishers texlive-latex-extra texlive-fonts-extra texlive-latex-recommended texlive-science texlive-plain-generic lmodern python3-sphinx latexmk libjs-mathjax doxygen x13as
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;git-related-packages&#34;&gt;git related packages:&lt;/h4&gt;
+&lt;p&gt;git is most important, as a GUI for it, I use GitKraken. Also to use lfs on some repositories one needs to initialize it once:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y git git-lfs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git-lfs install
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;flatpak install -y gitkraken
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flatpak version of GitKraken works perfectly. Open GitKraken and set up Accounts and Settings. Note that in case of flatpak, one needs to add the following Custom Terminal Command: &lt;code&gt;flatpak-spawn --host gnome-terminal %d&lt;/code&gt;.&lt;/p&gt;
+&lt;h4 id=&#34;matlab&#34;&gt;MATLAB&lt;/h4&gt;
+&lt;p&gt;I have a license for MATLAB, unzipping the installation files in the the home folder and running:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo mkdir -p /usr/local/MATLAB/R2021a
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chown -R &lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;:&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt; /usr/local/MATLAB
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/home/&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;/matlab_R2021a_glnxa64/install
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;On Ubuntu based systems it is always recommended to install &lt;code&gt;matlab-support&lt;/code&gt; which renames/excludes the GCC libraries that ship with MATLAB such that we can use the ones from our distro:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y matlab-support
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Run matlab and activate it. Note that there is still a &lt;a href=&#34;https://de.mathworks.com/matlabcentral/answers/342906-could-not-initialize-shared-resources-for-x11graphicsdevice#answer_425485?s_tid=prof_contriblnk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;shared resources-for-x11-graphics bug&lt;/a&gt;, which can be solved by&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#this solves the shared resources for x11 graphics bug&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;-Djogl.disable.openglarbcontext=1&amp;#34;&lt;/span&gt; &amp;gt; /usr/local/MATLAB/R2021a/bin/glnxa64/java.opts
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Run matlab and I change some settings to use Windows type shortcuts on the Keyboard, add &lt;code&gt;mod&lt;/code&gt; and &lt;code&gt;inc&lt;/code&gt; files as supported extensions, and do not use MATLAB&amp;rsquo;s source control capabilities.&lt;/p&gt;
+&lt;h4 id=&#34;visual-studio-code&#34;&gt;Visual Studio Code&lt;/h4&gt;
+&lt;p&gt;I am in the process of transitioning all my coding to Visual Studio code:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y code
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I keep my profiles and extensions synced.&lt;/p&gt;
+&lt;h3 id=&#34;text-processing&#34;&gt;Text-processing&lt;/h3&gt;
+&lt;h4 id=&#34;latex-related-packages&#34;&gt;Latex related packages&lt;/h4&gt;
+&lt;p&gt;I write all my papers and presentations with Latex using Visual Studio Code as editor:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y texlive texlive-font-utils texlive-pstricks-doc texlive-base texlive-formats-extra texlive-lang-german texlive-metapost texlive-publishers texlive-bibtex-extra texlive-latex-base texlive-metapost-doc texlive-publishers-doc texlive-binaries texlive-latex-base-doc texlive-science texlive-extra-utils texlive-latex-extra texlive-science-doc texlive-fonts-extra texlive-latex-extra-doc texlive-pictures texlive-xetex texlive-fonts-extra-doc texlive-latex-recommended texlive-pictures-doc texlive-fonts-recommended texlive-humanities texlive-lang-english texlive-latex-recommended-doc texlive-fonts-recommended-doc texlive-humanities-doc texlive-luatex texlive-pstricks perl-tk
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open texstudio and set it up.&lt;/p&gt;
+&lt;h4 id=&#34;masterpdf&#34;&gt;Masterpdf&lt;/h4&gt;
+&lt;p&gt;I have purchased a license for Master PDF in case I need advanced PDF editing tools:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;flatpak install -y masterpdf
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open masterpdf and enter license. Also I use flatseal to give the app full access to my home folder.&lt;/p&gt;
+&lt;h3 id=&#34;communication&#34;&gt;Communication&lt;/h3&gt;
+&lt;h4 id=&#34;mattermost&#34;&gt;Mattermost&lt;/h4&gt;
+&lt;p&gt;Our Dynare team communication is happening via Mattermost:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;flatpak install -y mattermost-desktop
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open mattermost and connect to server. I find that the snap works best for me in terms of displaying the icon in the tray.&lt;/p&gt;
+&lt;h4 id=&#34;skype&#34;&gt;Skype&lt;/h4&gt;
+&lt;p&gt;Skype can be installed either via snap or flatpak. I find the flatpak version works better with the system tray icons:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;flatpak install -y skype
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open skype, log in and set up audio and video.&lt;/p&gt;
+&lt;h4 id=&#34;zoom&#34;&gt;Zoom&lt;/h4&gt;
+&lt;p&gt;Zoom can be installed either via snap or flatpak. I find the flatpak version works better with the system tray icons:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;flatpak install -y zoom
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open zoom, log in and set up audio and video.&lt;/p&gt;
+&lt;h3 id=&#34;multimedia&#34;&gt;Multimedia&lt;/h3&gt;
+&lt;h4 id=&#34;vlc&#34;&gt;VLC&lt;/h4&gt;
+&lt;p&gt;The best video player:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y vlc
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open it and check whether it works.&lt;/p&gt;
+&lt;h4 id=&#34;multimedia-codecs&#34;&gt;Multimedia Codecs&lt;/h4&gt;
+&lt;p&gt;Install and compile multimedia codecs:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y libavcodec-extra libdvd-pkg&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; sudo dpkg-reconfigure libdvd-pkg
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;obs&#34;&gt;OBS&lt;/h4&gt;
+&lt;p&gt;Install:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y obs-studio
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open OBS and set it up, import your scenes, etc.&lt;/p&gt;
+&lt;h2 id=&#34;misc-tweaks-and-settings&#34;&gt;Misc tweaks and settings&lt;/h2&gt;
+&lt;h4 id=&#34;reorder-favorites-on-dock&#34;&gt;Reorder Favorites on Dock&lt;/h4&gt;
+&lt;p&gt;I like to reorder the favorites on the dock and add additional ones.&lt;/p&gt;
+&lt;h4 id=&#34;go-through-all-programs&#34;&gt;Go through all programs&lt;/h4&gt;
+&lt;p&gt;Hit &lt;kbd&gt;META&lt;/kbd&gt;+&lt;kbd&gt;A&lt;/kbd&gt; and go through all programs, decide whether you need them or uninstall these.&lt;/p&gt;
+&lt;h4 id=&#34;bookmarks-for-netdrives&#34;&gt;Bookmarks for netdrives&lt;/h4&gt;
+&lt;p&gt;Using &lt;kbd&gt;CTRL&lt;/kbd&gt;+&lt;kbd&gt;L&lt;/kbd&gt; in nautilus, I can add some netdrives:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;university cluster &lt;code&gt;sftp://palma2c.uni-muenster.de&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;personal homepage &lt;code&gt;sftp://mutschler.eu&lt;/code&gt;
+and add bookmarks to these drives for easy access with nautilus.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;history-search-in-terminal-using-page-up-and-page-down&#34;&gt;History search in terminal using page up and page down&lt;/h4&gt;
+&lt;p&gt;When I use bash I like this feature:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo nano /etc/inputrc
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Uncomment &amp;#34;\e[5~&amp;#34;: history-search-backward&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Uncomment &amp;#34;\e[6~&amp;#34;: history-search-forward&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;go-through-settings&#34;&gt;Go through Settings&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Turn off bluetooth&lt;/li&gt;
+&lt;li&gt;Change wallpaper&lt;/li&gt;
+&lt;li&gt;Select Light Theme&lt;/li&gt;
+&lt;li&gt;Dock
+&lt;ul&gt;
+&lt;li&gt;Deactivate Extend dock to the edges of the screen&lt;/li&gt;
+&lt;li&gt;Dock visibility: intelligently hide&lt;/li&gt;
+&lt;li&gt;Show Dock on Display: All Displays&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Automatically delete recent files and trash&lt;/li&gt;
+&lt;li&gt;Turn of screen after 15 min&lt;/li&gt;
+&lt;li&gt;Turn on night mode&lt;/li&gt;
+&lt;li&gt;Add online account for Nextcloud&lt;/li&gt;
+&lt;li&gt;Deactivate system sounds, mute mic&lt;/li&gt;
+&lt;li&gt;Turn of suspend, turn on shutdown for power button&lt;/li&gt;
+&lt;li&gt;Turn on natural scroll for mouse touchpad&lt;/li&gt;
+&lt;li&gt;Go through keyboard shortcuts and adapt, I also add a custom one for xkill on &lt;kbd&gt;CTRL&lt;/kbd&gt;+&lt;kbd&gt;ALT&lt;/kbd&gt;+&lt;kbd&gt;X&lt;/kbd&gt;&lt;/li&gt;
+&lt;li&gt;Check region and language, remove unnecessary languages, then update&lt;/li&gt;
+&lt;li&gt;Change clock to 24h format&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stuff | mutschler.dev</title>
+    <link>https://mutschler.dev/stuff/</link>
+      <atom:link href="https://mutschler.dev/stuff/index.xml" rel="self" type="application/rss+xml" />
+    <description>Stuff</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language>
+    <image>
+      <url>https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png</url>
+      <title>Stuff</title>
+      <link>https://mutschler.dev/stuff/</link>
+    </image>
+    
+    <item>
+      <title>My backup strategy</title>
+      <link>https://mutschler.dev/stuff/backup/</link>
+      <pubDate>Thu, 13 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>https://mutschler.dev/stuff/backup/</guid>
+      <description>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Please feel free to raise any comments or issues on the &lt;a href=&#34;https://github.com/wmutschl/mutschler.dev&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;website&amp;rsquo;s Github repository&lt;/a&gt;. Pull requests are very much appreciated.&lt;/strong&gt;&lt;/em&gt;
+&lt;a href=&#34;https://www.buymeacoffee.com/mutschler&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://cdn.buymeacoffee.com/buttons/v2/default-red.png&#34; alt=&#34;Buy Me A Coffee&#34; style=&#34;height: 60px !important;width: 217px !important;&#34; &gt;&lt;/a&gt;
+&lt;details class=&#34;toc-inpage d-print-none d-xl-none &#34; open&gt;
+  &lt;summary class=&#34;font-weight-bold&#34;&gt;Table of Contents&lt;/summary&gt;
+  &lt;nav id=&#34;TableOfContents&#34;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&#34;#challenges&#34;&gt;Challenges&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#overview&#34;&gt;Overview&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#machines-and-tools&#34;&gt;Machines and Tools&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#lenovo-sr655-server&#34;&gt;Lenovo SR655 server&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#apple-macbook-air-m1-macos-bigsur&#34;&gt;Apple MacBook Air M1 (macOS BigSur)&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#dell-xps-13-9360-windows&#34;&gt;Dell XPS 13 9360 (Windows)&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#dell-precision-7520-linux&#34;&gt;Dell Precision 7520 (Linux)&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#honor-magicbook-pro-windows&#34;&gt;Honor Magicbook Pro (Windows)&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#github-and-gitlab&#34;&gt;GitHub and Gitlab&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#vps-ubuntu-server&#34;&gt;VPS (Ubuntu Server)&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+&lt;/details&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;This post serves as a mental note to me (and my relatives) about my backup strategy. Of course, this is work-in-progress and not perfect, so I will update this post from time to time. Any comments, questions, and suggestions are much appreciated.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The exact commands and scripts I use are given in &lt;a href=&#34;https://github.com/wmutschl/scripts&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this GitHub repository&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;challenges&#34;&gt;Challenges&lt;/h2&gt;
+&lt;p&gt;The year 2022 just started and and I have taken this as an opportunity to improve my backup strategy for the various machines I take care of. One difficulty is definitely that the computers run different operating systems (Linux, macOS, Windows). Some computers I don&amp;rsquo;t use regularly (like my wife&amp;rsquo;s laptop) and some I don&amp;rsquo;t use at all (like my parent&amp;rsquo;s laptop). My goal is to have both snapshots of data so one can go back in time, but also to have several layers of redundancy and some safe-nets just in case. Moreover, I want to store my backups at different locations like at home, at the office, at my parents house and also in the cloud. So these are more-or-less the challenges. Lastly, I also like to keep a copy/mirror and backup of my repositories from GitHub and Gitlab. Luckily, I have access to both a very powerful server (in a data rack at my university) and a VPS with 40 TB of storage, so I am able to overcome these challenges in order to keep all the machines both in sync but also to create automatic incremental snapshots and backups not only locally but also off-side.&lt;/p&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;Here is a graphical overview of my backup strategy (I used mermaid for the diagram, you might need to refresh your browser several times to make it appear):&lt;/p&gt;
+&lt;div class=&#34;mermaid&#34;&gt;graph TB
+    macbook{{&#34;Apple MacBook Air (M1)&lt;br/&gt;internal 1TB SSD&lt;br/&gt;(MacOS Big Sur, encrypted APFS)&lt;br/&gt;@Home or @Office&#34;}}
+    xps{{&#34;DELL XPS 13 (9360)&lt;br/&gt;internal 1TB NVME&lt;br/&gt;(Windows, NTFS, Bitlocker)&lt;br/&gt;@Home&#34;}}
+    precision{{&#34;DELL PRECISION 7520&lt;br/&gt;internal 512 GB NVME&lt;br/&gt;(Fedora/POP!_OS, btrfs, LUKS)&lt;br/&gt;@Home&#34;}}
+    precision_sda[[&#34;Internal 512 GB SSD&lt;br/&gt;(btrfs, LUKS)&lt;br/&gt;@Home&#34;]]
+    honor{{&#34;HONOR MAGICBOOK PRO LAPTOP&lt;br/&gt;internal 256GB SSD&lt;br/&gt;(Windows, NTFS, Bitlocker)&lt;br/&gt;@Parents&#34;}}
+
+    simba[(&#34;LENOVO SR655 SERVER (POP!_OS)&lt;br/&gt;System: 2x internal 128 GB SDD (Hardware-RAID1, btrfs)&lt;br/&gt;Docker: 2x internal 4 TB HDD (Hardware-RAID1, LUKS, btrfs)&lt;br/&gt;Scratch: internal 2 TB NVME (ext4)&lt;br/&gt;Server Rack @Work&#34;)]
+    simba_2[[&#34;2x Internal 4 TB HDD&lt;br/&gt;(Hardware-RAID1, LUKS, btrfs)&lt;br/&gt;Server Rack @Work&#34;]]
+    fifei[(&#34;UBUNTU VPS&lt;br/&gt;System: internal 100GB HDD (btrfs)&lt;br/&gt;Backup: 40 TB HDD (LUKS, ext4)&lt;br/&gt;Datacenter @Frankfurt&#34;)]
+    git[(&#34;GitHub &amp; Gitlab&lt;br/&gt;Repositories&#34;)]
+
+    T5_home[[&#34;External 1 TB SSD&lt;br/&gt;(encrypted APFS)&lt;br/&gt;@Home (Docking Station)&#34;]]
+    T5_office[[&#34;External 1 TB SSD&lt;br/&gt;(encrypted APFS)&lt;br/&gt;@Office (Docking Station)&#34;]]
+    T7[[&#34;External 1 TB SSD&lt;br/&gt;(exFAT)&lt;br/&gt;@Home&#34;]]
+    porsche[[&#34;External 2 TB HDD&lt;br/&gt;(exFAT)&lt;br/&gt;@Parents&#34;]]
+    cnmemory[[&#34;External 1.5 TB HDD&lt;br/&gt;(exFAT)&lt;br/&gt;@Office&#34;]]
+
+    T5_office ---|&#34;Time Machine&lt;br/&gt;(hourly snapshots)&#34;| macbook
+    T5_home ---|&#34;Time Machine&lt;br/&gt;(hourly snapshots)&#34;| macbook
+    macbook ----|&#34;Nextcloud&lt;br/&gt;(sync)&#34;| simba
+    macbook ---|&#34;Time Machine&lt;br/&gt;(hourly snapshots)&#34;| macbook
+
+    simba ---|&#34;BTRBK Snapshots&lt;br/&gt;Docker + System&lt;br/&gt;(hourly btrfs snapshots)&#34;| simba    
+    simba_2 ---|&#34;BTRBK Backup&lt;br/&gt;Docker + System&lt;br/&gt;(hourly btrfs send/receive)&#34;| simba
+    cnmemory ---|&#34;restic Backup&lt;br/&gt;Docker&lt;br/&gt;(monthly snapshots)&#34;| simba
+    simba ----|&#34;restic Backup&lt;br/&gt;Docker&lt;br/&gt;(daily snapshots)&#34;| fifei
+    
+    xps ----|&#34;Nextcloud&lt;br/&gt;(sync)&#34;| simba
+    T7 ---|&#34;restic Backup&lt;br/&gt;User Files&lt;br/&gt;(weekly snapshots)&#34;| xps
+    porsche ---|&#34;restic Backup&lt;br/&gt;User Files&lt;br/&gt;(quarterly snapshots)&#34;| xps
+
+    simba ---|&#34;Nextcloud&lt;br/&gt;(sync)&#34;| precision
+    precision ---|&#34;BTRBK Snapshots&lt;br/&gt;(hourly btrfs snapshots)&#34;| precision
+    precision ---|&#34;BTRBK Backup&lt;br/&gt;(hourly btrfs send/receive)&#34;| precision_sda
+
+    simba ----|&#34;Nextcloud&lt;br/&gt;(sync)&#34;| honor
+    simba ---|&#34;Gitea&lt;br/&gt;(mirror)&#34;| git
+&lt;/div&gt;
+&lt;p&gt;The most important piece of my backup strategy is Nextcloud which runs on my Lenovo SR655 server that I use for research purposes (located in a data rack at my university, but I have total admin access to it). This enables me to sync data between machines (which is one layer of redundancy); however, if I mess something up on one machine this will spread to all of my other machines. Therefore, I take incremental hourly snapshots and backups of all data on the server. With this I can restore data for all of my machines from different points in time, which is very important as corrupt files or malware stays often undetected for quite some time. I run a full-blown POP!_OS install on my server to be able to access it via remote desktop in order to do my research (estimations and simulations) on it. The system is installed on two 128 GB SSDs, formatted with btrfs for automatic snapshots, and set up as RAID1 by a Hardware RAID controller. I run my research on a very fast 2 TB NVME drive (no RAID required, formatted with ext4) as this is used for intermediate stuff). Moreover, the server has 4x4TB HDD drives, which I use for my Docker services and backups. To this end, I put 2 drives in RAID1 using the Hardware controller, format it with btrfs for easy snapshots and backups. I use Docker to run &lt;a href=&#34;https://github.com/linuxserver/docker-nextcloud&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Nextcloud&lt;/a&gt; and &lt;a href=&#34;https://docs.gitea.io/en-us/install-with-docker/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Gitea&lt;/a&gt; behind a &lt;a href=&#34;https://docs.linuxserver.io/general/swag&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;SWAG&lt;/a&gt; reverse proxy. My git repositories from GitHub and Gitlab are mirrored to Gitea. The other 2 drives are also in RAID 1, managed by the Hardware controller and formatted with btrfs. These two drives serve as the target for the btrfs send and receive backups. Particularly, I backup my system, home and docker subvolumes. I do a monthly btrfs scrub and weekly btrfs balance of my data to find inconsistencies and clean-up the filesystem.&lt;/p&gt;
+&lt;p&gt;I do have several other backups and redundancies due to machines being backed up to external disks, which I also keep at different locations. Ideally, this happens automatically if there is another internal disk in the computer or if the external disks are always connected to a docking station. Otherwise, one needs to manually connect the external disks on a regular schedule and run the backup. So for this I have created reminders in my To-Do app that keep bugging me to do the backups.&lt;/p&gt;
+&lt;p&gt;Nevertheless if all my machines, the server, and all external disks at all different locations brake or burn down simultaneously, I have one last backup as I keep (encrypted) snapshots of my data on a VPS located in a data center in Frankfurt. The VPS is very slow, but offers 40TB of storage, so I do daily snapshots of my server using restic and upload them to the VPS.&lt;/p&gt;
+&lt;h2 id=&#34;machines-and-tools&#34;&gt;Machines and Tools&lt;/h2&gt;
+&lt;p&gt;With that said, let&amp;rsquo;s take a closer look at the machines I care about and tools I use for backup.&lt;/p&gt;
+&lt;h3 id=&#34;lenovo-sr655-server&#34;&gt;Lenovo SR655 server&lt;/h3&gt;
+&lt;p&gt;For my research I have full admin access to a server located in a server rack at my university. The server can handle easily my backups and sync of data between machines. The server has 7 disks:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;2x128 GB SSD used for the operating system. The disks are in a Hardware-RAID1 and formatted with btrfs. &lt;code&gt;\&lt;/code&gt; and &lt;code&gt;\home&lt;/code&gt; are mounted to, respectively, btrfs subvolumes &lt;code&gt;@&lt;/code&gt; and &lt;code&gt;@home&lt;/code&gt;. I create hourly btrfs snapshots using BTRBK.&lt;/li&gt;
+&lt;li&gt;1x2 TB NVME used as a scratch partition for my research, formatted with ext4. I also mount &lt;code&gt;/var/lib/docker&lt;/code&gt; to this drive as I find that docker works better on ext4 than on btrfs. I don&amp;rsquo;t really care about the data on this drive. The drive is mounted to to &lt;code&gt;$HOME/scratch&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;2x4 TB HDD used for the data of my docker services (&lt;a href=&#34;https://github.com/linuxserver/docker-nextcloud&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Nextcloud&lt;/a&gt;, &lt;a href=&#34;https://docs.gitea.io/en-us/install-with-docker/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Gitea&lt;/a&gt;, &lt;a href=&#34;https://docs.linuxserver.io/general/swag&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;SWAG&lt;/a&gt;). The disks are in a Hardware-RAID1 which is then encrypted with LUKS and formatted with btrfs. I mount a subvolume called &lt;code&gt;@&lt;/code&gt; to &lt;code&gt;$HOME/docker&lt;/code&gt; and create hourly btrfs snapshots using BTRBK.&lt;/li&gt;
+&lt;li&gt;2x4 TB HDD used as a target device for btrfs send-receive backups of the subvolumes of the other disks (&lt;code&gt;@&lt;/code&gt;, &lt;code&gt;@home&lt;/code&gt; and &lt;code&gt;@docker&lt;/code&gt;) using BTRBK. The two disks are in a Hardware-RAID1 and encrypted with LUKS. I don&amp;rsquo;t create btrfs subvolumes here, but simply send and receive the other subvolumes to the top-level of this device.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;My backup strategy:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;continuous sync of user data from different machines to this server using &lt;em&gt;Nextcloud&lt;/em&gt; (&lt;em&gt;automatic&lt;/em&gt;)&lt;/li&gt;
+&lt;li&gt;continuous mirroring of repositories from GitHub and Gitlab to this server using &lt;em&gt;Gitea&lt;/em&gt; (&lt;em&gt;automatic&lt;/em&gt;)&lt;/li&gt;
+&lt;li&gt;hourly, daily, weekly and monthly btrfs snapshots of &lt;code&gt;@&lt;/code&gt;, &lt;code&gt;@home&lt;/code&gt; and &lt;code&gt;@docker&lt;/code&gt; using &lt;em&gt;BTRBK&lt;/em&gt; (&lt;em&gt;automatic&lt;/em&gt;)&lt;/li&gt;
+&lt;li&gt;hourly, daily, weekly and monthly btrfs send/receive of snapshots of &lt;code&gt;@&lt;/code&gt;, &lt;code&gt;@home&lt;/code&gt; and &lt;code&gt;@docker&lt;/code&gt; to the internal backup devices using &lt;em&gt;BTRBK&lt;/em&gt; (&lt;em&gt;automatic&lt;/em&gt;)&lt;/li&gt;
+&lt;li&gt;daily snapshots to my &lt;a href=&#34;#vps-ubuntu-server&#34;&gt;VPS&lt;/a&gt; using &lt;em&gt;restic&lt;/em&gt; (&lt;em&gt;automatic&lt;/em&gt;)&lt;/li&gt;
+&lt;li&gt;monthly snapshots to an older external 1.5TB harddisk (formatted with exFAT) using &lt;em&gt;restic&lt;/em&gt; (&lt;em&gt;manual&lt;/em&gt;)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Note that all machines sync data to this VPS so I really care about the integrity of the data and maintenance of the server and of Nextcloud. Therefore I run two btrfs maintenance tasks (a weekly balance and a monthly scrub) and a daily maintenance task for Nextcloud. Moreover, I heavily rely on &lt;a href=&#34;https://healthchecks.io&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;healthchecks.io&lt;/a&gt; to monitor my server and outcome of the scripts and tools I use within my backup strategy. As all items on the backup strategy need to run automatically, I use cron for that. I do have one manual task for which I have a monthly reminder in my To Do app. The exact commands and scripts I use are given in &lt;a href=&#34;https://github.com/wmutschl/scripts&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this GitHub repository&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;apple-macbook-air-m1-macos-bigsur&#34;&gt;Apple MacBook Air M1 (macOS BigSur)&lt;/h3&gt;
+&lt;p&gt;This is my main machine running macOS Monterey on a 1 TB drive (encrypted APFS). I use Nextcloud to sync data between this machine, the Dell XPS, and my Dell Precision.&lt;/p&gt;
+&lt;p&gt;My backup strategy:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;continuous sync of user data to my &lt;a href=&#34;#lenovo-sr655-server&#34;&gt;server&lt;/a&gt; using &lt;em&gt;Nextcloud&lt;/em&gt; (&lt;em&gt;automatic&lt;/em&gt;)&lt;/li&gt;
+&lt;li&gt;hourly snapshots using &lt;em&gt;Time Machine&lt;/em&gt; on the interal 1TB NVME (if there is space) (&lt;em&gt;automatic&lt;/em&gt;)&lt;/li&gt;
+&lt;li&gt;hourly snapshots using &lt;em&gt;Time Machine&lt;/em&gt; to an external 1TB SSD (Samsung T5 Portable formatted with encrypted APFS) which is always connected to my home docking station (&lt;em&gt;automatic&lt;/em&gt;)&lt;/li&gt;
+&lt;li&gt;hourly snapshots using &lt;em&gt;Time Machine&lt;/em&gt; to an external 1TB SSD (Samsung T5 Portable formatted with encrypted APFS) which is always connected to my office docking station (&lt;em&gt;automatic&lt;/em&gt;)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Time Machine is very easy to use and as the external disks are always connected to the docking stations, the backups are done automatically. Moreover, they are located at two different locations, so this is quite perfect.&lt;/p&gt;
+&lt;h3 id=&#34;dell-xps-13-9360-windows&#34;&gt;Dell XPS 13 9360 (Windows)&lt;/h3&gt;
+&lt;p&gt;This is our home laptop running Windows 10 on a 1TB NVME drive (NTFS encrypted with Bitlocker). This machine is mainly used by my wife, but I also have an user account to sync my data between this machine, the Dell Precision, and my MacBook Air.&lt;/p&gt;
+&lt;p&gt;My backup strategy:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;continuous sync of user data to my &lt;a href=&#34;#lenovo-sr655-server&#34;&gt;server&lt;/a&gt; using &lt;em&gt;Nextcloud&lt;/em&gt; (&lt;em&gt;automatic&lt;/em&gt;).&lt;/li&gt;
+&lt;li&gt;weekly snapshots on Friday to an external 1TB SSD (Samsung T7 Portable formatted with exFAT, stays at home) using &lt;em&gt;restic&lt;/em&gt; (&lt;em&gt;manual&lt;/em&gt;).&lt;/li&gt;
+&lt;li&gt;quarterly snapshots to an external 2 TB HDD (formatted with exFAT) which is located at my parents house. I need to remind my parents to bring it with them when they visit. The snapshots are done with &lt;em&gt;restic&lt;/em&gt; (&lt;em&gt;manual&lt;/em&gt;).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The exact commands for restic and particularly the exclude file for Windows is given in &lt;a href=&#34;https://github.com/wmutschl/scripts&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this GitHub repository&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;dell-precision-7520-linux&#34;&gt;Dell Precision 7520 (Linux)&lt;/h3&gt;
+&lt;p&gt;This is my former daily driver and I use it for certain development work and research that requires a Linux system. The machine runs either Fedora or Pop!_OS (I can&amp;rsquo;t decide) on a 512 GB internal NVME drive (btrfs encrypted with LUKS). Again, I use Nextcloud to sync data between this machine, the Dell XPS, and my MacBook Air. The machine also has another internal 512GB SSD drive (btrfs encrypted with LUKS) which is used for btrfs send-receive backups.&lt;/p&gt;
+&lt;p&gt;My backup strategy:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;continuous sync of user data to my &lt;a href=&#34;#lenovo-sr655-server&#34;&gt;server&lt;/a&gt; using &lt;em&gt;Nextcloud&lt;/em&gt; (&lt;em&gt;automatic&lt;/em&gt;)&lt;/li&gt;
+&lt;li&gt;hourly, daily, weekly and monthly btrfs snapshots using &lt;em&gt;BTRBK&lt;/em&gt; (&lt;em&gt;automatic&lt;/em&gt;)&lt;/li&gt;
+&lt;li&gt;hourly, daily, weekly and monthly btrfs send/receive snapshots to the internal 512GB SSD drive using &lt;em&gt;BTRBK&lt;/em&gt; (&lt;em&gt;automatic&lt;/em&gt;)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The exact configuration file and systemd timer for BTRBK are given in &lt;a href=&#34;https://github.com/wmutschl/scripts&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this GitHub repository&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;honor-magicbook-pro-windows&#34;&gt;Honor Magicbook Pro (Windows)&lt;/h3&gt;
+&lt;p&gt;This is my parent&amp;rsquo;s laptop running Windows 10 on a 256 GB SSD drive (NTFS encrypted with Bitlocker). I don&amp;rsquo;t have access to this machine, but want to make sure that my parent&amp;rsquo;s data is safe.&lt;/p&gt;
+&lt;p&gt;My backup strategy:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;continuous sync of user data to my &lt;a href=&#34;#lenovo-sr655-server&#34;&gt;server&lt;/a&gt; using &lt;em&gt;Nextcloud&lt;/em&gt; (&lt;em&gt;automatic&lt;/em&gt;)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;I am aware that this needs some additional redundancy. Maybe I will buy/find another external disk for backups or a very small usb thumbdrive that can stay plugged-in and do automatic backups to it. But as long as my VPS is regularly backed up locally as well as offsite, this is good enough. Also, in this way my parents have incremental snapshots of their data on my server.&lt;/p&gt;
+&lt;h3 id=&#34;github-and-gitlab&#34;&gt;GitHub and Gitlab&lt;/h3&gt;
+&lt;p&gt;I use &lt;a href=&#34;https://docs.gitea.io&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Gitea&lt;/a&gt; on my &lt;a href=&#34;#lenovo-sr655-server&#34;&gt;server&lt;/a&gt; to version my research codes and data (which often exceeds the size limits of GitHub and Gitlab) and some additional private repos. Moreover, I mirror all my repositories from GitHub and Gitlab. As I take automatic and regular snapshots of the server, my repositories are also saved in case GitHub or Gitlab goes down (yeah right ;-)). Every three months, I have a reminder in my To-Do app to go through all my repositories and check whether they are correctly mirrored and if I need to add new repositories as well.&lt;/p&gt;
+&lt;h3 id=&#34;vps-ubuntu-server&#34;&gt;VPS (Ubuntu Server)&lt;/h3&gt;
+&lt;p&gt;I got lucky and purchased (some time ago) a VPS with two HDD disks (100 GB and 40 TB). I partition and use them in the following way:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;the smaller 100GB disk is used for the operating system. The disk is formatted with btrfs; &lt;code&gt;\&lt;/code&gt; and &lt;code&gt;\home&lt;/code&gt; are mounted to, respectively, btrfs subvolumes &lt;code&gt;@&lt;/code&gt; and &lt;code&gt;@home&lt;/code&gt;. I create hourly btrfs snapshots using &lt;a href=&#34;https://github.com/teejee2008/timeshift&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Timeshift&lt;/a&gt; and &lt;a href=&#34;https://github.com/wmutschl/timeshift-autosnap-apt&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Timeshift-autosnap-apt&lt;/a&gt;. This is just in case some updates go wrong; I don&amp;rsquo;t really care about these snapshots as this is a very basic Ubuntu Server install.&lt;/li&gt;
+&lt;li&gt;the large 40TB disk is encrypted with luks and I format it with ext4. This disk is used for the daily snapshots of my &lt;a href=&#34;#lenovo-sr655-server&#34;&gt;server&lt;/a&gt; using &lt;em&gt;restic&lt;/em&gt; (&lt;em&gt;automatic&lt;/em&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I plan to deploy &lt;a href=&#34;https://hub.docker.com/r/minio/minio/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;MinIO&lt;/a&gt; on this server as restic works very well with block storage. Previously, I used a cheap plan for Wasabi to do that, which worked great.&lt;/p&gt;
+&lt;p&gt;As a neat by-product, I have snapshots of my server (and therefore of all other machines) on this external HDD. Every six months I also run some maintenance tasks on Wasabi to prune the snapshots. The exact commands, configuration files and scripts I use are given in &lt;a href=&#34;https://github.com/wmutschl/scripts&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this Github repository&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
