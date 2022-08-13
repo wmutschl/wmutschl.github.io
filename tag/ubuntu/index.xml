@@ -75,11 +75,11 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Generation complete.&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo update-locale &lt;span class=&#34;nv&#34;&gt;LANG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;en_US.UTF-8
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Check the timezone:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo dpkg-reconfigure tzdata
-# Current default time zone: &amp;#39;Europe/Berlin&amp;#39;
-# Local time is now:      Mon Jan 11 20:40:36 CET 2021.
-# Universal Time is now:  Mon Jan 11 19:40:36 UTC 2021.
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;and change the keyboard language to &amp;lsquo;de&amp;rsquo;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo dpkg-reconfigure tzdata
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Current default time zone: &amp;#39;Europe/Berlin&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Local time is now:      Mon Jan 11 20:40:36 CET 2021.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Universal Time is now:  Mon Jan 11 19:40:36 UTC 2021.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and change the keyboard language to &amp;lsquo;de&amp;rsquo;:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;L&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;de&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; sudo sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/XKBLAYOUT=\&amp;#34;\w*&amp;#34;/XKBLAYOUT=\&amp;#34;&amp;#39;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$L&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;\&amp;#34;/g&amp;#39;&lt;/span&gt; /etc/default/keyboard
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cat /etc/default/keyboard 
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# XKBMODEL=&amp;#34;pc105&amp;#34;&lt;/span&gt;
@@ -1484,10 +1484,10 @@ In the video, I also show what to do if your RAID1 is broken.&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# exit&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;reboot now
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If all went well you should see a single passphrase prompt (YAY!) from GRUB for both your disks:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Enter the passphrase for hd0,gpt3 (some very long number):
-....
-Enter the passphrase for hd1,gpt3 (some very long number):
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;where you enter the luks passphrase to unlock GRUB, which then either asks you again for your passphrase or uses the key-file to unlock &lt;code&gt;/dev/vda3&lt;/code&gt; and &lt;code&gt;/dev/vdb3&lt;/code&gt; and then map it to &lt;code&gt;/dev/mapper/crypt_vda&lt;/code&gt; and &lt;code&gt;/dev/mapper/crypt_vdb&lt;/code&gt;. If you added a key-file you don&amp;rsquo;t need to type your passwords again. Note that if you mistyped the password for GRUB, you must restart the computer and retry.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Enter the passphrase for hd0,gpt3 (some very long number):
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;....
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Enter the passphrase for hd1,gpt3 (some very long number):
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;where you enter the luks passphrase to unlock GRUB, which then either asks you again for your passphrase or uses the key-file to unlock &lt;code&gt;/dev/vda3&lt;/code&gt; and &lt;code&gt;/dev/vdb3&lt;/code&gt; and then map it to &lt;code&gt;/dev/mapper/crypt_vda&lt;/code&gt; and &lt;code&gt;/dev/mapper/crypt_vdb&lt;/code&gt;. If you added a key-file you don&amp;rsquo;t need to type your passwords again. Note that if you mistyped the password for GRUB, you must restart the computer and retry.&lt;/p&gt;
 &lt;p&gt;Now let&amp;rsquo;s click through the welcome screen and open up a terminal to see whether everything is set up correctly:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo cat /etc/crypttab
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# crypt_vda UUID=d8a7cab6-c875-4e65-b711-3ac2e2763ada /etc/luks/boot_os.keyfile luks&lt;/span&gt;
@@ -2124,8 +2124,8 @@ Note that the SSD is not detected for me here, because I am running this in a Vi
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# exit&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;reboot now
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If all went well you should see a single passphrase prompt (YAY!) from GRUB:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Enter the passphrase for hd0,gpt3 (some very long number):
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;where you enter the luks passphrase to unlock GRUB, which then either asks you again for your passphrase or uses the key-file to unlock &lt;code&gt;/dev/vda3&lt;/code&gt; and map it to &lt;code&gt;/dev/mapper/cryptdata&lt;/code&gt;. If you added a key-file you need to type your password only once. Note that if you mistyped the password for GRUB, you must restart the computer and retry.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Enter the passphrase for hd0,gpt3 (some very long number):
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;where you enter the luks passphrase to unlock GRUB, which then either asks you again for your passphrase or uses the key-file to unlock &lt;code&gt;/dev/vda3&lt;/code&gt; and map it to &lt;code&gt;/dev/mapper/cryptdata&lt;/code&gt;. If you added a key-file you need to type your password only once. Note that if you mistyped the password for GRUB, you must restart the computer and retry.&lt;/p&gt;
 &lt;p&gt;Now let&amp;rsquo;s click through the welcome screen and open up a terminal to see whether everything is set up correctly:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo cat /etc/crypttab
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# cryptdata UUID=8e893c0f-4060-49e3-9d96-db6dce7466dc /etc/luks/boot_os.keyfile luks&lt;/span&gt;
@@ -2590,12 +2590,12 @@ Note that the SSD is not detected for me here, because I am running this in a Vi
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flatpak version of GitKraken works perfectly for me and I do want to avoid using PPAs or DEB packages from vendors homepages. Open GitKraken and set up Accounts and Settings. Note that in case of flatpak, one needs to add the following Custom Terminal Command: &lt;code&gt;flatpak-spawn --host gnome-terminal %d&lt;/code&gt;.&lt;/p&gt;
 &lt;h4 id=&#34;matlab&#34;&gt;MATLAB&lt;/h4&gt;
 &lt;p&gt;I have a license for MATLAB R2020a, unzipping the installation files in the the home folder and running:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo /home/$USER/matlab_R2020a_glnxa64/install
-sudo apt install -y matlab-support
-matlab #activate matlab and close it again
-sudo chown -R $USER:$USER /usr/local/MATLAB
-sudo chown -R $USER:$USER /home/$USER/.matlab
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;sets up MATLAB perfectly. Note that there is still a &lt;a href=&#34;https://de.mathworks.com/matlabcentral/answers/342906-could-not-initialize-shared-resources-for-x11graphicsdevice#answer_425485?s_tid=prof_contriblnk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;shared resources-for-x11-graphics bug&lt;/a&gt;, which can be solved by&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo /home/$USER/matlab_R2020a_glnxa64/install
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y matlab-support
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;matlab #activate matlab and close it again
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chown -R $USER:$USER /usr/local/MATLAB
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chown -R $USER:$USER /home/$USER/.matlab
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;sets up MATLAB perfectly. Note that there is still a &lt;a href=&#34;https://de.mathworks.com/matlabcentral/answers/342906-could-not-initialize-shared-resources-for-x11graphicsdevice#answer_425485?s_tid=prof_contriblnk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;shared resources-for-x11-graphics bug&lt;/a&gt;, which can be solved by&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#this solves the shared resources for x11 graphics bug&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;-Djogl.disable.openglarbcontext=1&amp;#34;&lt;/span&gt; &amp;gt; /usr/local/MATLAB/R2020a/bin/glnxa64/java.opts
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Run matlab and I change some settings to use Windows type shortcuts on the Keyboard, add &lt;code&gt;mod&lt;/code&gt; files as supported extensions, and do not use MATLAB&amp;rsquo;s source control capabilities.&lt;/p&gt;

@@ -495,10 +495,10 @@ In the video, I also show what to do if your RAID1 is broken.&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# exit&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;reboot now
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If all went well you should see a single passphrase prompt (YAY!) from GRUB for both your disks:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Enter the passphrase for hd0,gpt3 (some very long number):
-....
-Enter the passphrase for hd1,gpt3 (some very long number):
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;where you enter the luks passphrase to unlock GRUB, which then either asks you again for your passphrase or uses the key-file to unlock &lt;code&gt;/dev/vda3&lt;/code&gt; and &lt;code&gt;/dev/vdb3&lt;/code&gt; and then map it to &lt;code&gt;/dev/mapper/crypt_vda&lt;/code&gt; and &lt;code&gt;/dev/mapper/crypt_vdb&lt;/code&gt;. If you added a key-file you don&amp;rsquo;t need to type your passwords again. Note that if you mistyped the password for GRUB, you must restart the computer and retry.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Enter the passphrase for hd0,gpt3 (some very long number):
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;....
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Enter the passphrase for hd1,gpt3 (some very long number):
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;where you enter the luks passphrase to unlock GRUB, which then either asks you again for your passphrase or uses the key-file to unlock &lt;code&gt;/dev/vda3&lt;/code&gt; and &lt;code&gt;/dev/vdb3&lt;/code&gt; and then map it to &lt;code&gt;/dev/mapper/crypt_vda&lt;/code&gt; and &lt;code&gt;/dev/mapper/crypt_vdb&lt;/code&gt;. If you added a key-file you don&amp;rsquo;t need to type your passwords again. Note that if you mistyped the password for GRUB, you must restart the computer and retry.&lt;/p&gt;
 &lt;p&gt;Now let&amp;rsquo;s click through the welcome screen and open up a terminal to see whether everything is set up correctly:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo cat /etc/crypttab
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# crypt_vda UUID=d8a7cab6-c875-4e65-b711-3ac2e2763ada /etc/luks/boot_os.keyfile luks&lt;/span&gt;

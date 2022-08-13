@@ -119,20 +119,20 @@
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hostnamectl set-hostname fedora
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;check-locales&#34;&gt;Check locales&lt;/h3&gt;
 &lt;p&gt;Let&amp;rsquo;s check if the locales and timezone is correctly set:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;localectl status
-# System Locale: LANG=de_DE.UTF-8
-# VC Keymap: de-nodeadkeys
-# X11 Layout: de
-# X11 Variant: nodeadkeys
-timedatectl
-# Local time: Di 2020-11-03 13:58:54 CET
-# Universal time: Di 2020-11-03 12:58:54 UTC
-# RTC time: Di 2020-11-03 12:58:54    
-# Time zone: Europe/Berlin (CET, +0100)
-# System clock synchronized: yes                       
-# NTP service: active                    
-# RTC in local TZ: no
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Looks good, if not see the help file on the two commands or change locales and timezone in Gnome-Settings.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;localectl status
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# System Locale: LANG=de_DE.UTF-8
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# VC Keymap: de-nodeadkeys
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# X11 Layout: de
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# X11 Variant: nodeadkeys
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;timedatectl
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Local time: Di 2020-11-03 13:58:54 CET
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Universal time: Di 2020-11-03 12:58:54 UTC
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# RTC time: Di 2020-11-03 12:58:54    
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Time zone: Europe/Berlin (CET, +0100)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# System clock synchronized: yes                       
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# NTP service: active                    
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# RTC in local TZ: no
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Looks good, if not see the help file on the two commands or change locales and timezone in Gnome-Settings.&lt;/p&gt;
 &lt;h3 id=&#34;btrfs-filesystem-optimizations&#34;&gt;btrfs filesystem optimizations&lt;/h3&gt;
 &lt;p&gt;Fedora has not optimized the mount options for btrfs yet. I have found that there is &lt;em&gt;some&lt;/em&gt; general agreement on the following mount options if you are on a SSD or NVME:&lt;/p&gt;
 &lt;ul&gt;
@@ -679,9 +679,9 @@ timedatectl
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;matlab&#34;&gt;MATLAB&lt;/h4&gt;
 &lt;p&gt;I have a license for MATLAB R2020a and R2020b; which I both install. In the following I will focus on the latest, but mention some details for the other version if needed.&lt;/p&gt;
 &lt;p&gt;First download the installation files from &lt;a href=&#34;https://mathworks.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Mathworks&lt;/a&gt;, then unzip the installation files. The normal installer does not work for me as I am getting a &amp;ldquo;terminate called after throwing an instance of &amp;lsquo;std::runtime_error&amp;rsquo;; what():  Unable to launch the MATLAB Window application Aborted&amp;rdquo; error, so I run the legacy installer:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;unzip matlab_R2020b_glnxa64.zip -d /home/$USER/matlab_installer/R2020b
-/home/$USER/matlab_installer/R2020b/bin/glnxa64/install_unix_legacy
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Note that I don&amp;rsquo;t run this as root as I am installing it into my home folder under &lt;code&gt;/home/$USER/MATLAB/R2020b&lt;/code&gt; and will create the symbolic links myself. If you want to install MATLAB into the default directory &lt;code&gt;/usr/local/MATLAB/R2020b&lt;/code&gt; you have to run the installer as root.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;unzip matlab_R2020b_glnxa64.zip -d /home/$USER/matlab_installer/R2020b
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/home/$USER/matlab_installer/R2020b/bin/glnxa64/install_unix_legacy
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Note that I don&amp;rsquo;t run this as root as I am installing it into my home folder under &lt;code&gt;/home/$USER/MATLAB/R2020b&lt;/code&gt; and will create the symbolic links myself. If you want to install MATLAB into the default directory &lt;code&gt;/usr/local/MATLAB/R2020b&lt;/code&gt; you have to run the installer as root.&lt;/p&gt;
 &lt;p&gt;Unfortunately, there is no &lt;code&gt;matlab-support&lt;/code&gt; package as for Debian-based systems, so I need to do several things by hand using the &lt;a href=&#34;https://wiki.archlinux.org/index.php/MATLAB&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Arch Wiki on MATLAB&lt;/a&gt; as a main reference.&lt;/p&gt;
 &lt;ol start=&#34;0&#34;&gt;
 &lt;li&gt;Make sure you have ownership of the configuration and installation files (probably not necessary)&lt;/li&gt;

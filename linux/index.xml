@@ -266,8 +266,8 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Connect your machine to your Tailscale network and authenticate in your browser:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo tailscale up
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That&amp;rsquo;s it, check your ip:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;tailscale ip -4
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I also chose (in the browser) to disable key expiry to prevent the need to periodically re-authenticate.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;tailscale ip -4
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I also chose (in the browser) to disable key expiry to prevent the need to periodically re-authenticate.&lt;/p&gt;
 &lt;h4 id=&#34;openssh-server&#34;&gt;OpenSSH Server&lt;/h4&gt;
 &lt;p&gt;I sometimes access my linux machine via ssh from other machines, for this I install the OpenSSH server:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install openssh-server
@@ -839,23 +839,23 @@ Select the language, keyboard layout and create a user account. Go through the W
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo nano /etc/timeshift-autosnap-apt.conf
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For example, as we have a dedicated &lt;code&gt;/boot&lt;/code&gt; partition, we should keep &lt;code&gt;snapshotBoot=true&lt;/code&gt; in the &lt;code&gt;timeshift-autosnap-apt-conf&lt;/code&gt; file such that the &lt;code&gt;/boot&lt;/code&gt; directory is rsync&amp;rsquo;ed to &lt;code&gt;/boot.backup&lt;/code&gt;. Note that the EFI partition will be rsynced into &lt;code&gt;/boot.backup/efi&lt;/code&gt;. So if something goes wrong with either the boot or the EFI partition, you always have a backup of it as well inside your snapshots. You can also install &lt;code&gt;grub-btrfs&lt;/code&gt; to be able to boot into the snapshots from GRUB, but I don&amp;rsquo;t really need or do this.&lt;/p&gt;
 &lt;p&gt;Check if everything is working:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo timeshift-autosnap-apt
-# Rsyncing /boot into the filesystem before the call to timeshift.
-# Rsyncing /boot/efi into the filesystem before the call to timeshift.
-# Using system disk as snapshot device for creating snapshots in BTRFS mode
-# 
-# /dev/dm-1 is mounted at: /run/timeshift/backup, options: rw,relatime,compress=zstd:1,ssd,discard=async,space_cache=v2,subvolid=5,subvol=/
-# 
-# Creating new backup...(BTRFS)
-# Saving to device: /dev/dm-1, mounted at path: /run/timeshift/backup
-# Created directory: /run/timeshift/backup/timeshift-btrfs/snapshots/2022-06-16_21-33-16
-# Created subvolume snapshot: /run/timeshift/backup/timeshift-btrfs/snapshots/2022-06-16_21-33-16/@
-# Created subvolume snapshot: /run/timeshift/backup/timeshift-btrfs/snapshots/2022-06-16_21-33-16/@home
-# Created control file: /run/timeshift/backup/timeshift-btrfs/snapshots/2022-06-16_21-33-16/info.json
-# BTRFS Snapshot saved successfully (0s)
-# Tagged snapshot &amp;#39;2022-06-16_21-33-16&amp;#39;: ondemand
-------------------------------------------------------------------------------
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now, if you run &lt;code&gt;sudo apt install|remove|upgrade|dist-upgrade&lt;/code&gt;, &lt;em&gt;timeshift-autosnap-apt&lt;/em&gt; will create a snapshot of your system with &lt;em&gt;timeshift&lt;/em&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo timeshift-autosnap-apt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Rsyncing /boot into the filesystem before the call to timeshift.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Rsyncing /boot/efi into the filesystem before the call to timeshift.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Using system disk as snapshot device for creating snapshots in BTRFS mode
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# /dev/dm-1 is mounted at: /run/timeshift/backup, options: rw,relatime,compress=zstd:1,ssd,discard=async,space_cache=v2,subvolid=5,subvol=/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Creating new backup...(BTRFS)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Saving to device: /dev/dm-1, mounted at path: /run/timeshift/backup
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Created directory: /run/timeshift/backup/timeshift-btrfs/snapshots/2022-06-16_21-33-16
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Created subvolume snapshot: /run/timeshift/backup/timeshift-btrfs/snapshots/2022-06-16_21-33-16/@
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Created subvolume snapshot: /run/timeshift/backup/timeshift-btrfs/snapshots/2022-06-16_21-33-16/@home
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Created control file: /run/timeshift/backup/timeshift-btrfs/snapshots/2022-06-16_21-33-16/info.json
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# BTRFS Snapshot saved successfully (0s)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Tagged snapshot &amp;#39;2022-06-16_21-33-16&amp;#39;: ondemand
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;------------------------------------------------------------------------------
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now, if you run &lt;code&gt;sudo apt install|remove|upgrade|dist-upgrade&lt;/code&gt;, &lt;em&gt;timeshift-autosnap-apt&lt;/em&gt; will create a snapshot of your system with &lt;em&gt;timeshift&lt;/em&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;step-6-practice-recovery-and-system-rollback&#34;&gt;Step 6: Practice recovery and system rollback&lt;/h2&gt;
 &lt;p&gt;Now let&amp;rsquo;s practice what to do in the event of a system disaster. Note that we just created snapshots to which we can always rollback. So as a practice case, let&amp;rsquo;s delete our &lt;code&gt;/etc&lt;/code&gt; folder, which of course you should never do:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rm -rf /etc
@@ -1309,21 +1309,21 @@ In my previous installation guides, I manually prepared the partitions to have f
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo nano /etc/timeshift-autosnap-apt.conf
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For example, as we don&amp;rsquo;t have a dedicated &lt;code&gt;/boot&lt;/code&gt; partition, we can set &lt;code&gt;snapshotBoot=false&lt;/code&gt; in the &lt;code&gt;timeshift-autosnap-apt-conf&lt;/code&gt; file such that the &lt;code&gt;/boot&lt;/code&gt; directory is not rsync&amp;rsquo;ed to &lt;code&gt;/boot.backup&lt;/code&gt;. Note that the EFI partition will be rsynced into &lt;code&gt;/boot.backup/efi&lt;/code&gt;. So if something goes wrong with the EFI partition, you always have a backup of it as well. Moreover, POP!_OS does not use GRUB so we can set &lt;code&gt;updateGrub=false&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Check if everything is working:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo timeshift-autosnap-apt
-# Rsyncing /boot/efi into the filesystem before the call to timeshift.
-# Using system disk as snapshot device for creating snapshots in BTRFS mode
-# 
-# /dev/dm-0 is mounted at: /run/timeshift/backup, options: rw,relatime,compress=zstd:3,ssd,space_cache,commit=120,subvolid=5,subvol=/
-# 
-# Creating new backup...(BTRFS)
-# Saving to device: /dev/dm-0, mounted at path: /run/timeshift/backup
-# Created directory: /run/timeshift/backup/timeshift-btrfs/snapshots/2022-05-24_11-15-25
-# Created subvolume snapshot: /run/timeshift/backup/timeshift-btrfs/snapshots/2022-05-24_11-15-25/@
-# Created subvolume snapshot: /run/timeshift/backup/timeshift-btrfs/snapshots/2022-05-24_11-15-25/@home
-# Created control file: /run/timeshift/backup/timeshift-btrfs/snapshots/2022-05-24_11-15-25/info.json
-# BTRFS Snapshot saved successfully (0s)
-# Tagged snapshot &amp;#39;2022-05-24_11-15-25&amp;#39;: ondemand
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now, if you run &lt;code&gt;sudo apt install|remove|upgrade|dist-upgrade&lt;/code&gt;, &lt;em&gt;timeshift-autosnap-apt&lt;/em&gt; will create a snapshot of your system with &lt;em&gt;timeshift&lt;/em&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo timeshift-autosnap-apt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Rsyncing /boot/efi into the filesystem before the call to timeshift.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Using system disk as snapshot device for creating snapshots in BTRFS mode
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# /dev/dm-0 is mounted at: /run/timeshift/backup, options: rw,relatime,compress=zstd:3,ssd,space_cache,commit=120,subvolid=5,subvol=/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Creating new backup...(BTRFS)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Saving to device: /dev/dm-0, mounted at path: /run/timeshift/backup
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Created directory: /run/timeshift/backup/timeshift-btrfs/snapshots/2022-05-24_11-15-25
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Created subvolume snapshot: /run/timeshift/backup/timeshift-btrfs/snapshots/2022-05-24_11-15-25/@
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Created subvolume snapshot: /run/timeshift/backup/timeshift-btrfs/snapshots/2022-05-24_11-15-25/@home
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Created control file: /run/timeshift/backup/timeshift-btrfs/snapshots/2022-05-24_11-15-25/info.json
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# BTRFS Snapshot saved successfully (0s)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Tagged snapshot &amp;#39;2022-05-24_11-15-25&amp;#39;: ondemand
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now, if you run &lt;code&gt;sudo apt install|remove|upgrade|dist-upgrade&lt;/code&gt;, &lt;em&gt;timeshift-autosnap-apt&lt;/em&gt; will create a snapshot of your system with &lt;em&gt;timeshift&lt;/em&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;step-6-practice-recovery-and-system-rollback&#34;&gt;Step 6: Practice recovery and system rollback&lt;/h2&gt;
 &lt;p&gt;Now let&amp;rsquo;s practice what to do in the event of a system disaster. Note that we just created snapshots to which we can always rollback. So as a practice case, let&amp;rsquo;s delete our &lt;code&gt;/etc&lt;/code&gt; folder, which of course you should never do:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rm -rf /etc
@@ -1822,20 +1822,20 @@ and add bookmarks to these drives for easy access with nautilus.&lt;/li&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hostnamectl set-hostname fedora
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;check-locales&#34;&gt;Check locales&lt;/h3&gt;
 &lt;p&gt;Let&amp;rsquo;s check if the locales and timezone is correctly set:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;localectl status
-# System Locale: LANG=de_DE.UTF-8
-# VC Keymap: de-nodeadkeys
-# X11 Layout: de
-# X11 Variant: nodeadkeys
-timedatectl
-# Local time: Di 2020-11-03 13:58:54 CET
-# Universal time: Di 2020-11-03 12:58:54 UTC
-# RTC time: Di 2020-11-03 12:58:54    
-# Time zone: Europe/Berlin (CET, +0100)
-# System clock synchronized: yes                       
-# NTP service: active                    
-# RTC in local TZ: no
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Looks good, if not see the help file on the two commands or change locales and timezone in Gnome-Settings.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;localectl status
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# System Locale: LANG=de_DE.UTF-8
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# VC Keymap: de-nodeadkeys
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# X11 Layout: de
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# X11 Variant: nodeadkeys
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;timedatectl
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Local time: Di 2020-11-03 13:58:54 CET
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Universal time: Di 2020-11-03 12:58:54 UTC
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# RTC time: Di 2020-11-03 12:58:54    
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Time zone: Europe/Berlin (CET, +0100)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# System clock synchronized: yes                       
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# NTP service: active                    
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# RTC in local TZ: no
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Looks good, if not see the help file on the two commands or change locales and timezone in Gnome-Settings.&lt;/p&gt;
 &lt;h3 id=&#34;btrfs-filesystem-optimizations&#34;&gt;btrfs filesystem optimizations&lt;/h3&gt;
 &lt;p&gt;Fedora has not optimized the mount options for btrfs yet. I have found that there is &lt;em&gt;some&lt;/em&gt; general agreement on the following mount options if you are on a SSD or NVME:&lt;/p&gt;
 &lt;ul&gt;
@@ -2382,9 +2382,9 @@ timedatectl
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;matlab&#34;&gt;MATLAB&lt;/h4&gt;
 &lt;p&gt;I have a license for MATLAB R2020a and R2020b; which I both install. In the following I will focus on the latest, but mention some details for the other version if needed.&lt;/p&gt;
 &lt;p&gt;First download the installation files from &lt;a href=&#34;https://mathworks.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Mathworks&lt;/a&gt;, then unzip the installation files. The normal installer does not work for me as I am getting a &amp;ldquo;terminate called after throwing an instance of &amp;lsquo;std::runtime_error&amp;rsquo;; what():  Unable to launch the MATLAB Window application Aborted&amp;rdquo; error, so I run the legacy installer:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;unzip matlab_R2020b_glnxa64.zip -d /home/$USER/matlab_installer/R2020b
-/home/$USER/matlab_installer/R2020b/bin/glnxa64/install_unix_legacy
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Note that I don&amp;rsquo;t run this as root as I am installing it into my home folder under &lt;code&gt;/home/$USER/MATLAB/R2020b&lt;/code&gt; and will create the symbolic links myself. If you want to install MATLAB into the default directory &lt;code&gt;/usr/local/MATLAB/R2020b&lt;/code&gt; you have to run the installer as root.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;unzip matlab_R2020b_glnxa64.zip -d /home/$USER/matlab_installer/R2020b
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/home/$USER/matlab_installer/R2020b/bin/glnxa64/install_unix_legacy
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Note that I don&amp;rsquo;t run this as root as I am installing it into my home folder under &lt;code&gt;/home/$USER/MATLAB/R2020b&lt;/code&gt; and will create the symbolic links myself. If you want to install MATLAB into the default directory &lt;code&gt;/usr/local/MATLAB/R2020b&lt;/code&gt; you have to run the installer as root.&lt;/p&gt;
 &lt;p&gt;Unfortunately, there is no &lt;code&gt;matlab-support&lt;/code&gt; package as for Debian-based systems, so I need to do several things by hand using the &lt;a href=&#34;https://wiki.archlinux.org/index.php/MATLAB&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Arch Wiki on MATLAB&lt;/a&gt; as a main reference.&lt;/p&gt;
 &lt;ol start=&#34;0&#34;&gt;
 &lt;li&gt;Make sure you have ownership of the configuration and installation files (probably not necessary)&lt;/li&gt;
@@ -3708,49 +3708,49 @@ For instance, you can spin up a virtual machine with 4 cores, 8 GB RAM, and a 64
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chmod &lt;span class=&#34;m&#34;&gt;644&lt;/span&gt; /lib/systemd/system/btrbk.timer
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chmod &lt;span class=&#34;m&#34;&gt;644&lt;/span&gt; /lib/systemd/system/btrbk.service
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and checkout if it works (tip: you can exit the log outputs by writing &lt;code&gt;:q&lt;/code&gt; or hitting &lt;code&gt;CTRL+C&lt;/code&gt;)):&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo systemctl start btrbk.service
-sudo systemctl status btrbk.service
-# ○ btrbk.service - btrbk snapshots and backup
-#      Loaded: loaded (/lib/systemd/system/btrbk.service; static)
-#      Active: inactive (dead)
-#        Docs: man:btrbk(1)
-# 
-# Dec 13 21:24:22 pop-os btrbk[6699]:     ---  deleted subvolume
-# Dec 13 21:24:22 pop-os btrbk[6699]:     ***  received subvolume (non-incremental)
-# Dec 13 21:24:22 pop-os btrbk[6699]:     &amp;gt;&amp;gt;&amp;gt;  received subvolume (incremental)
-# Dec 13 21:24:22 pop-os btrbk[6699]: ---------------------------------------------------------&amp;gt;
-# Dec 13 21:24:22 pop-os btrbk[6699]: /btrfs_pool/@
-# Dec 13 21:24:22 pop-os btrbk[6699]: +++ /btrfs_pool/_btrbk_snap/@.20211213T2124
-# Dec 13 21:24:22 pop-os btrbk[6699]: /btrfs_pool/@home
-# Dec 13 21:24:22 pop-os btrbk[6699]: +++ /btrfs_pool/_btrbk_snap/@home.20211213T2124
-# Dec 13 21:24:22 pop-os systemd[1]: btrfs-btrbk-systemd.service: Deactivated successfully.
-# Dec 13 21:24:22 pop-os systemd[1]: Finished btrbk snapshots and backup.
-
-cat /var/log/btrbk.log
-# 2021-12-13T21:24:22+0100 startup v0.27.1 - - - # btrbk command line client, version 0.27.1
-# 2021-12-13T21:24:22+0100 snapshot starting /btrfs_pool/_btrbk_snap/@.20211213T2124 /btrfs_pool/@ - -
-# 2021-12-13T21:24:22+0100 snapshot success /btrfs_pool/_btrbk_snap/@.20211213T2124 /btrfs_pool/@ - -
-# 2021-12-13T21:24:22+0100 snapshot starting /btrfs_pool/_btrbk_snap/@home.20211213T2124 /btrfs_pool/@home - -
-# 2021-12-13T21:24:22+0100 snapshot success /btrfs_pool/_btrbk_snap/@home.20211213T2124 /btrfs_pool/@home - -
-# 2021-12-13T21:24:22+0100 finished success - - - -
-
-ls /btrfs_pool/_btrbk_snap
-# @.20211213T2110  @home.20211213T2110
-# @.20211213T2124  @home.20211213T2124
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Check if snapshots are created and if any errors occured. If all is well, then enable the timer:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo systemctl enable btrbk.timer
-# Created symlink /etc/systemd/system/timers.target.wants/btrbk.timer → /lib/systemd/system/btrbk.timer.
-sudo systemctl start btrbk.timer
-sudo systemctl daemon-reload
-sudo systemctl list-timers --all
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;You should see the following line (tip: you can exit by inserting &lt;code&gt;:q&lt;/code&gt; or clicking &lt;code&gt;CTRL+C&lt;/code&gt;):&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;NEXT                        LEFT          LAST                        PASSED       UNIT           ACTIVATES                     
-Mon 2021-12-13 22:00:00 CET 33min left    n/a                         n/a          btrbk.timer    btrbk.service
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Recheck the hourly timer after an hour (or 33min in my case) to make sure everything is working:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo systemctl list-timers --all
-cat /var/log/btrbk.log
-ls /btrfs_pool/_btrbk_snap
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Make sure the snapshots are created without errors.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl start btrbk.service
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl status btrbk.service
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# ○ btrbk.service - btrbk snapshots and backup
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#      Loaded: loaded (/lib/systemd/system/btrbk.service; static)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#      Active: inactive (dead)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#        Docs: man:btrbk(1)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Dec 13 21:24:22 pop-os btrbk[6699]:     ---  deleted subvolume
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Dec 13 21:24:22 pop-os btrbk[6699]:     ***  received subvolume (non-incremental)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Dec 13 21:24:22 pop-os btrbk[6699]:     &amp;gt;&amp;gt;&amp;gt;  received subvolume (incremental)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Dec 13 21:24:22 pop-os btrbk[6699]: ---------------------------------------------------------&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Dec 13 21:24:22 pop-os btrbk[6699]: /btrfs_pool/@
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Dec 13 21:24:22 pop-os btrbk[6699]: +++ /btrfs_pool/_btrbk_snap/@.20211213T2124
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Dec 13 21:24:22 pop-os btrbk[6699]: /btrfs_pool/@home
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Dec 13 21:24:22 pop-os btrbk[6699]: +++ /btrfs_pool/_btrbk_snap/@home.20211213T2124
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Dec 13 21:24:22 pop-os systemd[1]: btrfs-btrbk-systemd.service: Deactivated successfully.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Dec 13 21:24:22 pop-os systemd[1]: Finished btrbk snapshots and backup.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cat /var/log/btrbk.log
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 2021-12-13T21:24:22+0100 startup v0.27.1 - - - # btrbk command line client, version 0.27.1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 2021-12-13T21:24:22+0100 snapshot starting /btrfs_pool/_btrbk_snap/@.20211213T2124 /btrfs_pool/@ - -
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 2021-12-13T21:24:22+0100 snapshot success /btrfs_pool/_btrbk_snap/@.20211213T2124 /btrfs_pool/@ - -
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 2021-12-13T21:24:22+0100 snapshot starting /btrfs_pool/_btrbk_snap/@home.20211213T2124 /btrfs_pool/@home - -
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 2021-12-13T21:24:22+0100 snapshot success /btrfs_pool/_btrbk_snap/@home.20211213T2124 /btrfs_pool/@home - -
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 2021-12-13T21:24:22+0100 finished success - - - -
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls /btrfs_pool/_btrbk_snap
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# @.20211213T2110  @home.20211213T2110
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# @.20211213T2124  @home.20211213T2124
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Check if snapshots are created and if any errors occured. If all is well, then enable the timer:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl enable btrbk.timer
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Created symlink /etc/systemd/system/timers.target.wants/btrbk.timer → /lib/systemd/system/btrbk.timer.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl start btrbk.timer
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl daemon-reload
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl list-timers --all
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You should see the following line (tip: you can exit by inserting &lt;code&gt;:q&lt;/code&gt; or clicking &lt;code&gt;CTRL+C&lt;/code&gt;):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;NEXT                        LEFT          LAST                        PASSED       UNIT           ACTIVATES                     
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mon 2021-12-13 22:00:00 CET 33min left    n/a                         n/a          btrbk.timer    btrbk.service
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Recheck the hourly timer after an hour (or 33min in my case) to make sure everything is working:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl list-timers --all
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cat /var/log/btrbk.log
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls /btrfs_pool/_btrbk_snap
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Make sure the snapshots are created without errors.&lt;/p&gt;
 &lt;h3 id=&#34;step-5d-optional-mount-an-encrypted-backup-disk-as-btrfs-sendreceive-target&#34;&gt;Step 5d (optional): Mount an encrypted backup disk as btrfs send/receive target&lt;/h3&gt;
 &lt;p&gt;I use the internal SSD as a backup disk to receive the incremental btrfs snapshots. So let&amp;rsquo;s create a GPT table on it, create an encrypted partition and format it with the btrfs filesystem. I usually use GParted for this (after installing it); however, you can also use command-line tools like &lt;code&gt;parted&lt;/code&gt;, e.g.:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo parted /dev/sda mklabel gpt
@@ -4372,11 +4372,11 @@ For instance, you can spin up a virtual machine with 4 cores, 8 GB RAM, and a 64
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Generation complete.&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo update-locale &lt;span class=&#34;nv&#34;&gt;LANG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;en_US.UTF-8
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Check the timezone:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo dpkg-reconfigure tzdata
-# Current default time zone: &amp;#39;Europe/Berlin&amp;#39;
-# Local time is now:      Mon Jan 11 20:40:36 CET 2021.
-# Universal Time is now:  Mon Jan 11 19:40:36 UTC 2021.
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;and change the keyboard language to &amp;lsquo;de&amp;rsquo;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo dpkg-reconfigure tzdata
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Current default time zone: &amp;#39;Europe/Berlin&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Local time is now:      Mon Jan 11 20:40:36 CET 2021.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Universal Time is now:  Mon Jan 11 19:40:36 UTC 2021.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and change the keyboard language to &amp;lsquo;de&amp;rsquo;:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;L&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;de&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; sudo sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/XKBLAYOUT=\&amp;#34;\w*&amp;#34;/XKBLAYOUT=\&amp;#34;&amp;#39;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$L&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;\&amp;#34;/g&amp;#39;&lt;/span&gt; /etc/default/keyboard
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cat /etc/default/keyboard 
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# XKBMODEL=&amp;#34;pc105&amp;#34;&lt;/span&gt;
@@ -6098,10 +6098,10 @@ In the video, I also show what to do if your RAID1 is broken.&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# exit&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;reboot now
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If all went well you should see a single passphrase prompt (YAY!) from GRUB for both your disks:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Enter the passphrase for hd0,gpt3 (some very long number):
-....
-Enter the passphrase for hd1,gpt3 (some very long number):
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;where you enter the luks passphrase to unlock GRUB, which then either asks you again for your passphrase or uses the key-file to unlock &lt;code&gt;/dev/vda3&lt;/code&gt; and &lt;code&gt;/dev/vdb3&lt;/code&gt; and then map it to &lt;code&gt;/dev/mapper/crypt_vda&lt;/code&gt; and &lt;code&gt;/dev/mapper/crypt_vdb&lt;/code&gt;. If you added a key-file you don&amp;rsquo;t need to type your passwords again. Note that if you mistyped the password for GRUB, you must restart the computer and retry.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Enter the passphrase for hd0,gpt3 (some very long number):
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;....
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Enter the passphrase for hd1,gpt3 (some very long number):
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;where you enter the luks passphrase to unlock GRUB, which then either asks you again for your passphrase or uses the key-file to unlock &lt;code&gt;/dev/vda3&lt;/code&gt; and &lt;code&gt;/dev/vdb3&lt;/code&gt; and then map it to &lt;code&gt;/dev/mapper/crypt_vda&lt;/code&gt; and &lt;code&gt;/dev/mapper/crypt_vdb&lt;/code&gt;. If you added a key-file you don&amp;rsquo;t need to type your passwords again. Note that if you mistyped the password for GRUB, you must restart the computer and retry.&lt;/p&gt;
 &lt;p&gt;Now let&amp;rsquo;s click through the welcome screen and open up a terminal to see whether everything is set up correctly:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo cat /etc/crypttab
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# crypt_vda UUID=d8a7cab6-c875-4e65-b711-3ac2e2763ada /etc/luks/boot_os.keyfile luks&lt;/span&gt;
@@ -6738,8 +6738,8 @@ Note that the SSD is not detected for me here, because I am running this in a Vi
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# exit&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;reboot now
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If all went well you should see a single passphrase prompt (YAY!) from GRUB:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Enter the passphrase for hd0,gpt3 (some very long number):
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;where you enter the luks passphrase to unlock GRUB, which then either asks you again for your passphrase or uses the key-file to unlock &lt;code&gt;/dev/vda3&lt;/code&gt; and map it to &lt;code&gt;/dev/mapper/cryptdata&lt;/code&gt;. If you added a key-file you need to type your password only once. Note that if you mistyped the password for GRUB, you must restart the computer and retry.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Enter the passphrase for hd0,gpt3 (some very long number):
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;where you enter the luks passphrase to unlock GRUB, which then either asks you again for your passphrase or uses the key-file to unlock &lt;code&gt;/dev/vda3&lt;/code&gt; and map it to &lt;code&gt;/dev/mapper/cryptdata&lt;/code&gt;. If you added a key-file you need to type your password only once. Note that if you mistyped the password for GRUB, you must restart the computer and retry.&lt;/p&gt;
 &lt;p&gt;Now let&amp;rsquo;s click through the welcome screen and open up a terminal to see whether everything is set up correctly:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo cat /etc/crypttab
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# cryptdata UUID=8e893c0f-4060-49e3-9d96-db6dce7466dc /etc/luks/boot_os.keyfile luks&lt;/span&gt;
@@ -7204,12 +7204,12 @@ Note that the SSD is not detected for me here, because I am running this in a Vi
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flatpak version of GitKraken works perfectly for me and I do want to avoid using PPAs or DEB packages from vendors homepages. Open GitKraken and set up Accounts and Settings. Note that in case of flatpak, one needs to add the following Custom Terminal Command: &lt;code&gt;flatpak-spawn --host gnome-terminal %d&lt;/code&gt;.&lt;/p&gt;
 &lt;h4 id=&#34;matlab&#34;&gt;MATLAB&lt;/h4&gt;
 &lt;p&gt;I have a license for MATLAB R2020a, unzipping the installation files in the the home folder and running:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo /home/$USER/matlab_R2020a_glnxa64/install
-sudo apt install -y matlab-support
-matlab #activate matlab and close it again
-sudo chown -R $USER:$USER /usr/local/MATLAB
-sudo chown -R $USER:$USER /home/$USER/.matlab
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;sets up MATLAB perfectly. Note that there is still a &lt;a href=&#34;https://de.mathworks.com/matlabcentral/answers/342906-could-not-initialize-shared-resources-for-x11graphicsdevice#answer_425485?s_tid=prof_contriblnk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;shared resources-for-x11-graphics bug&lt;/a&gt;, which can be solved by&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo /home/$USER/matlab_R2020a_glnxa64/install
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y matlab-support
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;matlab #activate matlab and close it again
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chown -R $USER:$USER /usr/local/MATLAB
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chown -R $USER:$USER /home/$USER/.matlab
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;sets up MATLAB perfectly. Note that there is still a &lt;a href=&#34;https://de.mathworks.com/matlabcentral/answers/342906-could-not-initialize-shared-resources-for-x11graphicsdevice#answer_425485?s_tid=prof_contriblnk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;shared resources-for-x11-graphics bug&lt;/a&gt;, which can be solved by&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#this solves the shared resources for x11 graphics bug&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;-Djogl.disable.openglarbcontext=1&amp;#34;&lt;/span&gt; &amp;gt; /usr/local/MATLAB/R2020a/bin/glnxa64/java.opts
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Run matlab and I change some settings to use Windows type shortcuts on the Keyboard, add &lt;code&gt;mod&lt;/code&gt; files as supported extensions, and do not use MATLAB&amp;rsquo;s source control capabilities.&lt;/p&gt;

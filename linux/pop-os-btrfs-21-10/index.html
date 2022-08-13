@@ -8,8 +8,22 @@
   
   
   
-    <meta name="generator" content="Wowchemy 5.4.0 for Hugo" />
+    <meta name="generator" content="Wowchemy 5.6.0 for Hugo" />
   
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
 
   
   
@@ -98,43 +112,12 @@
     
     
     
-      
-    
-    
-      
-      
-        
-          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'" disabled>
-          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'">
-        
-      
-    
-
-    
-    
-    
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
     
 
     
 
     
-    
-      
-      
-
-      
-      
-
-      
-    
-      
-      
-
-      
-      
-
-      
     
       
       
@@ -249,8 +232,23 @@
   
   
   
-  <link rel="stylesheet" href="/css/wowchemy.2ebcf642b345993e759b37882db4a226.css" />
+  
+  <link rel="stylesheet" href="/css/wowchemy.8916ecd0e6b91586be6f7b434c75fb00.css" />
 
+  
+  
+  
+  
+  
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" disabled>
+    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" >
+  
+
+  
   
 
 
@@ -271,11 +269,14 @@
   
 
   
+  
 
+  
   
     <link rel="manifest" href="/manifest.webmanifest" />
   
 
+  
   <link rel="icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_32x32_fill_lanczos_center_3.png" />
   <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_180x180_fill_lanczos_center_3.png" />
 
@@ -324,13 +325,24 @@
 
   
 
+
+  <title>DRAFT: Pop!_OS 21.10: installation guide with btrfs-LVM-luks and auto snapshots with BTRBK | mutschler.dev</title>
+
+  
+  
+  
   
 
 
 
 
 
-  <title>DRAFT: Pop!_OS 21.10: installation guide with btrfs-LVM-luks and auto snapshots with BTRBK | mutschler.dev</title>
+
+
+
+
+
+
 </head>
 
 
@@ -345,7 +357,7 @@
   
   
   
-  <script src="/js/wowchemy-init.min.3736f369769d793f81e88d715147a807.js"></script>
+  <script src="/js/wowchemy-init.min.22ad66a4f96b4e9da14bbb023ea57684.js"></script>
 
   
 
@@ -613,6 +625,7 @@
     <div class="d-flex">
       <span class="d-md-none pl-1 flex-grow-1 text-left overflow-hidden">
         
+        
           Linux
         
       </span>
@@ -750,6 +763,17 @@
     <div class="d-none d-xl-block col-xl-2 docs-toc">
       
 
+
+
+
+
+
+
+
+
+
+
+
       <ul class="nav toc-top">
         <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
       </ul>
@@ -786,6 +810,17 @@
 </nav>
 
       
+
+
+
+
+
+
+
+
+
+
+
     </div>
     
 
@@ -795,10 +830,20 @@
 
         <div class="docs-article-container">
           
+        </div>
 
+        
+        
+
+        <div class="docs-article-container">
+          
           <h1>DRAFT: Pop!_OS 21.10: installation guide with btrfs-LVM-luks and auto snapshots with BTRBK</h1>
 
           <div class="article-style">
+
+            
+            
+
             <p><em><strong>Please feel free to raise any comments or issues on the <a href="https://github.com/wmutschl/mutschler.dev" target="_blank" rel="noopener">website&rsquo;s Github repository</a>. Pull requests are very much appreciated.</strong></em>
 <a href="https://www.buymeacoffee.com/mutschler" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 <details class="toc-inpage d-print-none d-xl-none " open>
@@ -1291,49 +1336,49 @@ For instance, you can spin up a virtual machine with 4 cores, 8 GB RAM, and a 64
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo chmod <span class="m">644</span> /lib/systemd/system/btrbk.timer
 </span></span><span class="line"><span class="cl">sudo chmod <span class="m">644</span> /lib/systemd/system/btrbk.service
 </span></span></code></pre></div><p>and checkout if it works (tip: you can exit the log outputs by writing <code>:q</code> or hitting <code>CTRL+C</code>)):</p>
-<pre tabindex="0"><code>sudo systemctl start btrbk.service
-sudo systemctl status btrbk.service
-# ○ btrbk.service - btrbk snapshots and backup
-#      Loaded: loaded (/lib/systemd/system/btrbk.service; static)
-#      Active: inactive (dead)
-#        Docs: man:btrbk(1)
-# 
-# Dec 13 21:24:22 pop-os btrbk[6699]:     ---  deleted subvolume
-# Dec 13 21:24:22 pop-os btrbk[6699]:     ***  received subvolume (non-incremental)
-# Dec 13 21:24:22 pop-os btrbk[6699]:     &gt;&gt;&gt;  received subvolume (incremental)
-# Dec 13 21:24:22 pop-os btrbk[6699]: ---------------------------------------------------------&gt;
-# Dec 13 21:24:22 pop-os btrbk[6699]: /btrfs_pool/@
-# Dec 13 21:24:22 pop-os btrbk[6699]: +++ /btrfs_pool/_btrbk_snap/@.20211213T2124
-# Dec 13 21:24:22 pop-os btrbk[6699]: /btrfs_pool/@home
-# Dec 13 21:24:22 pop-os btrbk[6699]: +++ /btrfs_pool/_btrbk_snap/@home.20211213T2124
-# Dec 13 21:24:22 pop-os systemd[1]: btrfs-btrbk-systemd.service: Deactivated successfully.
-# Dec 13 21:24:22 pop-os systemd[1]: Finished btrbk snapshots and backup.
-
-cat /var/log/btrbk.log
-# 2021-12-13T21:24:22+0100 startup v0.27.1 - - - # btrbk command line client, version 0.27.1
-# 2021-12-13T21:24:22+0100 snapshot starting /btrfs_pool/_btrbk_snap/@.20211213T2124 /btrfs_pool/@ - -
-# 2021-12-13T21:24:22+0100 snapshot success /btrfs_pool/_btrbk_snap/@.20211213T2124 /btrfs_pool/@ - -
-# 2021-12-13T21:24:22+0100 snapshot starting /btrfs_pool/_btrbk_snap/@home.20211213T2124 /btrfs_pool/@home - -
-# 2021-12-13T21:24:22+0100 snapshot success /btrfs_pool/_btrbk_snap/@home.20211213T2124 /btrfs_pool/@home - -
-# 2021-12-13T21:24:22+0100 finished success - - - -
-
-ls /btrfs_pool/_btrbk_snap
-# @.20211213T2110  @home.20211213T2110
-# @.20211213T2124  @home.20211213T2124
-</code></pre><p>Check if snapshots are created and if any errors occured. If all is well, then enable the timer:</p>
-<pre tabindex="0"><code>sudo systemctl enable btrbk.timer
-# Created symlink /etc/systemd/system/timers.target.wants/btrbk.timer → /lib/systemd/system/btrbk.timer.
-sudo systemctl start btrbk.timer
-sudo systemctl daemon-reload
-sudo systemctl list-timers --all
-</code></pre><p>You should see the following line (tip: you can exit by inserting <code>:q</code> or clicking <code>CTRL+C</code>):</p>
-<pre tabindex="0"><code>NEXT                        LEFT          LAST                        PASSED       UNIT           ACTIVATES                     
-Mon 2021-12-13 22:00:00 CET 33min left    n/a                         n/a          btrbk.timer    btrbk.service
-</code></pre><p>Recheck the hourly timer after an hour (or 33min in my case) to make sure everything is working:</p>
-<pre tabindex="0"><code>sudo systemctl list-timers --all
-cat /var/log/btrbk.log
-ls /btrfs_pool/_btrbk_snap
-</code></pre><p>Make sure the snapshots are created without errors.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo systemctl start btrbk.service
+</span></span><span class="line"><span class="cl">sudo systemctl status btrbk.service
+</span></span><span class="line"><span class="cl"># ○ btrbk.service - btrbk snapshots and backup
+</span></span><span class="line"><span class="cl">#      Loaded: loaded (/lib/systemd/system/btrbk.service; static)
+</span></span><span class="line"><span class="cl">#      Active: inactive (dead)
+</span></span><span class="line"><span class="cl">#        Docs: man:btrbk(1)
+</span></span><span class="line"><span class="cl"># 
+</span></span><span class="line"><span class="cl"># Dec 13 21:24:22 pop-os btrbk[6699]:     ---  deleted subvolume
+</span></span><span class="line"><span class="cl"># Dec 13 21:24:22 pop-os btrbk[6699]:     ***  received subvolume (non-incremental)
+</span></span><span class="line"><span class="cl"># Dec 13 21:24:22 pop-os btrbk[6699]:     &gt;&gt;&gt;  received subvolume (incremental)
+</span></span><span class="line"><span class="cl"># Dec 13 21:24:22 pop-os btrbk[6699]: ---------------------------------------------------------&gt;
+</span></span><span class="line"><span class="cl"># Dec 13 21:24:22 pop-os btrbk[6699]: /btrfs_pool/@
+</span></span><span class="line"><span class="cl"># Dec 13 21:24:22 pop-os btrbk[6699]: +++ /btrfs_pool/_btrbk_snap/@.20211213T2124
+</span></span><span class="line"><span class="cl"># Dec 13 21:24:22 pop-os btrbk[6699]: /btrfs_pool/@home
+</span></span><span class="line"><span class="cl"># Dec 13 21:24:22 pop-os btrbk[6699]: +++ /btrfs_pool/_btrbk_snap/@home.20211213T2124
+</span></span><span class="line"><span class="cl"># Dec 13 21:24:22 pop-os systemd[1]: btrfs-btrbk-systemd.service: Deactivated successfully.
+</span></span><span class="line"><span class="cl"># Dec 13 21:24:22 pop-os systemd[1]: Finished btrbk snapshots and backup.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat /var/log/btrbk.log
+</span></span><span class="line"><span class="cl"># 2021-12-13T21:24:22+0100 startup v0.27.1 - - - # btrbk command line client, version 0.27.1
+</span></span><span class="line"><span class="cl"># 2021-12-13T21:24:22+0100 snapshot starting /btrfs_pool/_btrbk_snap/@.20211213T2124 /btrfs_pool/@ - -
+</span></span><span class="line"><span class="cl"># 2021-12-13T21:24:22+0100 snapshot success /btrfs_pool/_btrbk_snap/@.20211213T2124 /btrfs_pool/@ - -
+</span></span><span class="line"><span class="cl"># 2021-12-13T21:24:22+0100 snapshot starting /btrfs_pool/_btrbk_snap/@home.20211213T2124 /btrfs_pool/@home - -
+</span></span><span class="line"><span class="cl"># 2021-12-13T21:24:22+0100 snapshot success /btrfs_pool/_btrbk_snap/@home.20211213T2124 /btrfs_pool/@home - -
+</span></span><span class="line"><span class="cl"># 2021-12-13T21:24:22+0100 finished success - - - -
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ls /btrfs_pool/_btrbk_snap
+</span></span><span class="line"><span class="cl"># @.20211213T2110  @home.20211213T2110
+</span></span><span class="line"><span class="cl"># @.20211213T2124  @home.20211213T2124
+</span></span></code></pre></div><p>Check if snapshots are created and if any errors occured. If all is well, then enable the timer:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo systemctl enable btrbk.timer
+</span></span><span class="line"><span class="cl"># Created symlink /etc/systemd/system/timers.target.wants/btrbk.timer → /lib/systemd/system/btrbk.timer.
+</span></span><span class="line"><span class="cl">sudo systemctl start btrbk.timer
+</span></span><span class="line"><span class="cl">sudo systemctl daemon-reload
+</span></span><span class="line"><span class="cl">sudo systemctl list-timers --all
+</span></span></code></pre></div><p>You should see the following line (tip: you can exit by inserting <code>:q</code> or clicking <code>CTRL+C</code>):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">NEXT                        LEFT          LAST                        PASSED       UNIT           ACTIVATES                     
+</span></span><span class="line"><span class="cl">Mon 2021-12-13 22:00:00 CET 33min left    n/a                         n/a          btrbk.timer    btrbk.service
+</span></span></code></pre></div><p>Recheck the hourly timer after an hour (or 33min in my case) to make sure everything is working:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo systemctl list-timers --all
+</span></span><span class="line"><span class="cl">cat /var/log/btrbk.log
+</span></span><span class="line"><span class="cl">ls /btrfs_pool/_btrbk_snap
+</span></span></code></pre></div><p>Make sure the snapshots are created without errors.</p>
 <h3 id="step-5d-optional-mount-an-encrypted-backup-disk-as-btrfs-sendreceive-target">Step 5d (optional): Mount an encrypted backup disk as btrfs send/receive target</h3>
 <p>I use the internal SSD as a backup disk to receive the incremental btrfs snapshots. So let&rsquo;s create a GPT table on it, create an encrypted partition and format it with the btrfs filesystem. I usually use GParted for this (after installing it); however, you can also use command-line tools like <code>parted</code>, e.g.:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo parted /dev/sda mklabel gpt
@@ -1463,6 +1508,7 @@ ls /btrfs_pool/_btrbk_snap
 <p><strong>Check out my <a href="../pop-os-post-install">Pop!_OS post-installation steps</a>.</strong></p>
 <p><strong>If you ever need to rollback your system, checkout my <a href="../../timeshift">Recovery and system rollback</a>.</strong></p>
 
+
           </div>
 
           
@@ -1520,6 +1566,7 @@ ls /btrfs_pool/_btrbk_snap
 
 
 
+
           
 
 
@@ -1535,6 +1582,15 @@ ls /btrfs_pool/_btrbk_snap
       <footer class="site-footer">
 
   
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1618,123 +1674,117 @@ ls /btrfs_pool/_btrbk_snap
     
   </div>
 
-      
+  
 
-    
-    <script src="/js/vendor-bundle.min.d26cbef546776b4d6032d1ea3dafadab.js"></script>
 
-    
-    
-    
-      
-      
-        <script src="https://cdn.jsdelivr.net/gh/desandro/imagesloaded@v4.1.4/imagesloaded.pkgd.min.js" integrity="sha512-S5PZ9GxJZO16tT9r3WJp/Safn31eu8uWrzglMahDT4dsmgqWonRY9grk3j+3tfuPr9WJNsfooOR7Gi7HL5W2jw==" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/gh/metafizzy/isotope@v3.0.6/dist/isotope.pkgd.min.js" integrity="sha512-Zq2BOxyhvnRFXu0+WE6ojpZLOU2jdnqbrM1hmVdGzyeCa1DgM3X5Q4A/Is9xA1IkbUeDd7755dNNI/PzSf2Pew==" crossorigin="anonymous"></script>
-      
+<script src="/js/vendor-bundle.min.46271ef31da3f018e9cd1b59300aa265.js"></script>
 
-      
-      
 
-      
 
-      
-        
-        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous"></script>
-        
-        
-        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/r.min.js" crossorigin="anonymous"></script>
-        
-        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/latex.min.js" crossorigin="anonymous"></script>
-        
-        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/matlab.min.js" crossorigin="anonymous"></script>
-        
-      
 
-    
+  
 
-    
-    
-    
-      <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
-    
+  
+  
 
-    
-    
-    <script src="https://cdn.jsdelivr.net/gh/bryanbraun/anchorjs@4.2.2/anchor.min.js" integrity="sha512-I7w3ZdSFzw5j3jU3ZkNikBNeIrl3i+hEuEdwNmqUJvwNcaBUNcijnP2gd9DtGlgVYDplfjGoD8vTNsID+lCjqg==" crossorigin="anonymous"></script>
-    <script>
-      anchors.add();
-    </script>
-    
+  
 
-    
-    
-    
-      
-      <script id="search-hit-fuse-template" type="text/x-template">
-        <div class="search-hit" id="summary-{{key}}">
-          <div class="search-hit-content">
-            <div class="search-hit-name">
-              <a href="{{relpermalink}}">{{title}}</a>
-              <div class="article-metadata search-hit-type">{{type}}</div>
-              <p class="search-hit-description">{{snippet}}</p>
-            </div>
-          </div>
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/gh/bryanbraun/anchorjs@4.2.2/anchor.min.js" integrity="sha512-I7w3ZdSFzw5j3jU3ZkNikBNeIrl3i+hEuEdwNmqUJvwNcaBUNcijnP2gd9DtGlgVYDplfjGoD8vTNsID+lCjqg==" crossorigin="anonymous"></script>
+<script>
+  anchors.add();
+</script>
+
+
+
+
+
+  
+  <script id="search-hit-fuse-template" type="text/x-template">
+    <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
         </div>
-      </script>
-      
-        <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
-      
-    
+      </div>
+    </div>
+  </script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+  
 
-    
-    
 
-    
-    
-    
-    
 
-    
-    
-      
-      
-      
-      
-      
-      
-      
-    
 
-    
 
-    
-    
-    
-    <script id="page-data" type="application/json">{"use_headroom":false}</script>
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-      
-      
-    
-    
-    <script src="/en/js/wowchemy.min.fe369d7ba3ba979cfdb3e0f7e5240185.js"></script>
 
-    
-    
-      <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
-    
-    
-    
-    
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+<script id="page-data" type="application/json">{"use_headroom":false}</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<script src="/en/js/wowchemy.min.a6238d5886fa4a2f7cf92df25709326f.js"></script>
+
+
+
+  <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
