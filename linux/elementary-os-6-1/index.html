@@ -314,7 +314,7 @@
         content="2022-06-15T00:00:00&#43;00:00"
       />
     
-    <meta property="article:modified_time" content="2022-08-14T20:11:21&#43;02:00">
+    <meta property="article:modified_time" content="2022-09-12T13:32:44&#43;02:00">
   
 
   
@@ -1049,8 +1049,9 @@ In my previous installation guides, I manually prepared the partitions to have f
 <p>Now we will first create the subvolume <code>@</code> and move all files and folders from the top-level filesystem into <code>@</code>. Note that as we use the optimized mount options like compression, these will be already applied during the moving process:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">btrfs subvolume create /mnt/@
 </span></span><span class="line"><span class="cl"><span class="c1"># Create subvolume &#39;/mnt/@&#39;</span>
-</span></span><span class="line"><span class="cl">mv /mnt/* /mnt/@/
-</span></span><span class="line"><span class="cl"><span class="c1"># mv: cannot move &#39;/mnt/@&#39; to a subdirectory of itself, &#39;/mnt/@/@&#39; ### ignore this</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /mnt
+</span></span><span class="line"><span class="cl">ls <span class="p">|</span> grep -v @ <span class="p">|</span> xargs mv -t @
+</span></span><span class="line"><span class="cl"><span class="c1"># this moves all files that don&#39;t have &#34;@&#34; in the name to the @/ folder</span>
 </span></span><span class="line"><span class="cl">ls -a /mnt
 </span></span><span class="line"><span class="cl"><span class="c1"># . .. @</span>
 </span></span><span class="line"><span class="cl">ls -a /mnt/@
@@ -1308,7 +1309,7 @@ Select the language, keyboard layout and create a user account. Go through the W
         </div>
 
         <div class="body-footer">
-          <p>Last updated on Aug 14, 2022</p>
+          <p>Last updated on Sep 12, 2022</p>
 
           
 
