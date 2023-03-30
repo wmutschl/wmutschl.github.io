@@ -4,6 +4,18 @@
   
   
   <url>
+    <loc>https://mutschler.dev/tag/apple/</loc><lastmod>2023-03-30T10:27:20+02:00</lastmod><changefreq>weekly</changefreq></url>
+  <url>
+    <loc>https://mutschler.dev/tag/macos/</loc><lastmod>2023-03-30T10:27:20+02:00</lastmod><changefreq>weekly</changefreq></url>
+  <url>
+    <loc>https://mutschler.dev/apple/macos-post-install/</loc><lastmod>2023-03-30T10:27:20+02:00</lastmod><changefreq>weekly</changefreq></url>
+  <url>
+    <loc>https://mutschler.dev/</loc><lastmod>2023-03-30T10:27:20+02:00</lastmod><changefreq>weekly</changefreq></url>
+  <url>
+    <loc>https://mutschler.dev/tag/post-installation/</loc><lastmod>2023-03-30T10:27:20+02:00</lastmod><changefreq>weekly</changefreq></url>
+  <url>
+    <loc>https://mutschler.dev/tags/</loc><lastmod>2023-03-30T10:27:20+02:00</lastmod><changefreq>weekly</changefreq></url>
+  <url>
     <loc>https://mutschler.dev/linux/elementary-os-post-install/</loc><lastmod>2022-06-17T11:41:33+02:00</lastmod><changefreq>weekly</changefreq></url>
   <url>
     <loc>https://mutschler.dev/tag/elementary-os/</loc><lastmod>2022-09-12T13:32:44+02:00</lastmod><changefreq>weekly</changefreq></url>
@@ -12,11 +24,7 @@
   <url>
     <loc>https://mutschler.dev/tag/linux/</loc><lastmod>2022-09-12T13:32:44+02:00</lastmod><changefreq>weekly</changefreq></url>
   <url>
-    <loc>https://mutschler.dev/</loc><lastmod>2022-09-12T13:32:44+02:00</lastmod><changefreq>weekly</changefreq></url>
-  <url>
     <loc>https://mutschler.dev/tag/post-install/</loc><lastmod>2022-06-17T13:47:19+02:00</lastmod><changefreq>weekly</changefreq></url>
-  <url>
-    <loc>https://mutschler.dev/tags/</loc><lastmod>2022-09-12T13:32:44+02:00</lastmod><changefreq>weekly</changefreq></url>
   <url>
     <loc>https://mutschler.dev/tag/btrfs/</loc><lastmod>2022-09-12T13:32:44+02:00</lastmod><changefreq>weekly</changefreq></url>
   <url>
@@ -38,17 +46,11 @@
   <url>
     <loc>https://mutschler.dev/tag/apfs/</loc><lastmod>2022-06-17T13:47:19+02:00</lastmod><changefreq>weekly</changefreq></url>
   <url>
-    <loc>https://mutschler.dev/tag/apple/</loc><lastmod>2022-06-17T13:47:19+02:00</lastmod><changefreq>weekly</changefreq></url>
-  <url>
     <loc>https://mutschler.dev/tag/backup/</loc><lastmod>2022-06-17T13:47:19+02:00</lastmod><changefreq>weekly</changefreq></url>
   <url>
     <loc>https://mutschler.dev/tag/btrbk/</loc><lastmod>2022-06-17T13:47:19+02:00</lastmod><changefreq>weekly</changefreq></url>
   <url>
     <loc>https://mutschler.dev/tag/exfat/</loc><lastmod>2022-06-17T13:47:19+02:00</lastmod><changefreq>weekly</changefreq></url>
-  <url>
-    <loc>https://mutschler.dev/tag/macos/</loc><lastmod>2022-06-17T13:47:19+02:00</lastmod><changefreq>weekly</changefreq></url>
-  <url>
-    <loc>https://mutschler.dev/apple/macos-post-install/</loc><lastmod>2022-06-17T13:47:19+02:00</lastmod><changefreq>weekly</changefreq></url>
   <url>
     <loc>https://mutschler.dev/tag/minio/</loc><lastmod>2022-06-17T13:47:19+02:00</lastmod><changefreq>weekly</changefreq></url>
   <url>
@@ -57,8 +59,6 @@
     <loc>https://mutschler.dev/tag/nextcloud/</loc><lastmod>2022-06-17T13:47:19+02:00</lastmod><changefreq>weekly</changefreq></url>
   <url>
     <loc>https://mutschler.dev/tag/ntfs/</loc><lastmod>2022-06-17T13:47:19+02:00</lastmod><changefreq>weekly</changefreq></url>
-  <url>
-    <loc>https://mutschler.dev/tag/post-installation/</loc><lastmod>2022-06-17T13:47:19+02:00</lastmod><changefreq>weekly</changefreq></url>
   <url>
     <loc>https://mutschler.dev/tag/restic/</loc><lastmod>2022-06-17T13:47:19+02:00</lastmod><changefreq>weekly</changefreq></url>
   <url>
