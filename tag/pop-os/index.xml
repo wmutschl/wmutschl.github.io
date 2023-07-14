@@ -205,6 +205,7 @@ In my previous installation guides, I manually prepared the partitions to have f
 &lt;li&gt;&lt;code&gt;discard=async&lt;/code&gt;: this will become the standard soon, see e.g. &lt;a href=&#34;https://pagure.io/fedora-btrfs/project/issue/6&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;enable discard=async by default&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;We will later also append these mount options to the fstab, but it is good practice to already make use of compression when moving the system files from the top-level btrfs root into the dedicated subvolumes &lt;code&gt;@&lt;/code&gt; and &lt;code&gt;@home&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Sometimes the LVM group is not activated, see &lt;a href=&#34;https://github.com/wmutschl/mutschler.dev/issues/4&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this issue for help&lt;/a&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;create-btrfs-subvolumes--and-home&#34;&gt;Create btrfs subvolumes &lt;code&gt;@&lt;/code&gt; and &lt;code&gt;@home&lt;/code&gt;&lt;/h3&gt;
 &lt;p&gt;Now we will first create the subvolume &lt;code&gt;@&lt;/code&gt; and move all files and folders from the top-level filesystem into &lt;code&gt;@&lt;/code&gt;. Note that as we use the optimized mount options like compression, these will be already applied during the moving process:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;btrfs subvolume create /mnt/@

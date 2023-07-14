@@ -48,11 +48,13 @@
         &lt;li&gt;&lt;a href=&#34;#homebrew-with-alias-for-both-intel-and-arm-versions&#34;&gt;Homebrew with Alias for both Intel and ARM versions&lt;/a&gt;&lt;/li&gt;
         &lt;li&gt;&lt;a href=&#34;#fish-a-friendly-interactive-shell&#34;&gt;Fish (A Friendly Interactive Shell)&lt;/a&gt;&lt;/li&gt;
         &lt;li&gt;&lt;a href=&#34;#localbin-in-path&#34;&gt;.local/bin in $PATH&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#dracula-theme&#34;&gt;Dracula Theme&lt;/a&gt;&lt;/li&gt;
         &lt;li&gt;&lt;a href=&#34;#perl-warning-setting-locale-failed-on-servers&#34;&gt;perl: warning: Setting locale failed on servers&lt;/a&gt;&lt;/li&gt;
       &lt;/ul&gt;
     &lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;#ssh-keys&#34;&gt;SSH keys&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;#private-gpg-key-with-yubikey&#34;&gt;Private GPG key with Yubikey&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#gpg-agent-forwarding&#34;&gt;GPG agent forwarding&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;#apple-apps&#34;&gt;Apple Apps&lt;/a&gt;
       &lt;ul&gt;
         &lt;li&gt;&lt;/li&gt;
@@ -210,7 +212,13 @@ Now let&amp;rsquo;s create two useful alias for both versions:&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;zsh and bash usually pick this up, once the folder is created. You can check this by opening another Terminal.app and running&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;bash -C &lt;span class=&#34;s2&#34;&gt;&amp;#34;echo &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PATH&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;zsh -c &lt;span class=&#34;s2&#34;&gt;&amp;#34;echo &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PATH&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;perl-warning-setting-locale-failed-on-servers&#34;&gt;perl: warning: Setting locale failed on servers&lt;/h3&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;dracula-theme&#34;&gt;Dracula Theme&lt;/h3&gt;
+&lt;p&gt;I like the [Dracula Theme] for the Terminal, which can be easily installed using Homebrew:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;brew tap dracula/install
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;brew install --cask dracula-terminal
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Activating theme: Terminal &amp;gt; Settings Tab, Click &amp;ldquo;Gear&amp;rdquo; icon, Click Import. CMD+G, then enter &lt;code&gt;/opt/homebrew/&lt;/code&gt; and go to &lt;code&gt;Caskroom/dracula-terminal/VERSION/terminal-app-master&lt;/code&gt;.
+Finally, select the Dracula.terminal file and click Default.&lt;/p&gt;
+&lt;h3 id=&#34;perl-warning-setting-locale-failed-on-servers&#34;&gt;perl: warning: Setting locale failed on servers&lt;/h3&gt;
 &lt;p&gt;I sometimes get a warning &amp;ldquo;perl: warning: Setting locale failed.&amp;rdquo; on my servers. A quick fix is the following:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Open Terminal -&amp;gt; Preferences -&amp;gt; Profiles -&amp;gt; Advanced tab -&amp;gt; uncheck &lt;code&gt;Set locale environment variables on startup&lt;/code&gt;&lt;/li&gt;
@@ -301,7 +309,20 @@ Now let&amp;rsquo;s create two useful alias for both versions:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;echo &amp;#34;This is an encrypted message&amp;#34; | gpg --encrypt --armor --recipient $KEYID -o encrypted_MAC.txt
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg --decrypt --armor encrypted_MAC.txt
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This should ask you for the User Pin and you should be able to decrypt the message.&lt;/p&gt;
-&lt;h2 id=&#34;apple-apps&#34;&gt;Apple Apps&lt;/h2&gt;
+&lt;h2 id=&#34;gpg-agent-forwarding&#34;&gt;GPG agent forwarding&lt;/h2&gt;
+&lt;p&gt;Following &lt;a href=&#34;https://gist.github.com/TimJDFletcher/85fafd023c81aabfad57454111c1564d&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this guide&lt;/a&gt; (particularly add &lt;code&gt;StreamLocalBindUnlink yes&lt;/code&gt; to &lt;code&gt;sshd_config&lt;/code&gt; and run &lt;code&gt;gpgconf --create-socketdir&lt;/code&gt; on the remote server).&lt;/p&gt;
+&lt;p&gt;My &lt;code&gt;$HOME/.gnupg/gpg-agent.conf&lt;/code&gt; is:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pinentry-program /opt/homebrew/bin/pinentry-mac
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;extra-socket $HOME/.gnupg/S.gpg-agent.extra
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And I add &lt;code&gt;    RemoteForward /home/&amp;lt;user&amp;gt;/.gnupg/S.gpg-agent /Users/&amp;lt;user&amp;gt;/.gnupg/S.gpg-agent.extra&lt;/code&gt; to the &lt;code&gt;.ssh/config&lt;/code&gt; file.&lt;/p&gt;
+&lt;p&gt;Test it:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;echo &amp;#34;test&amp;#34; | gpg --encrypt -r $MYKEYID &amp;gt; output
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg --decrypt output
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;scp output remote-server:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh remote-server
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg --decrypt output
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;apple-apps&#34;&gt;Apple Apps&lt;/h2&gt;
 &lt;p&gt;Before I install additional apps, I go through all the applications Apple ships by default in order to provide the necessary permissions and change some settings. So I click on all the apps in Launchpad and first delete all the apps that I don&amp;rsquo;t use.
 Then I make changes to some app settings, which I list below.&lt;/p&gt;
 &lt;h4 id=&#34;app-store&#34;&gt;App Store&lt;/h4&gt;
@@ -452,7 +473,11 @@ In older versions, there is a &lt;code&gt;Warning: the font &amp;quot;Times&amp;
 &lt;/ul&gt;
 &lt;h4 id=&#34;dynare-free&#34;&gt;Dynare (free)&lt;/h4&gt;
 &lt;p&gt;As I am a member of the development team, I need to have some tools installed with Homebrew. For this, I&amp;rsquo;ve written a guide on how to &lt;a href=&#34;https://git.dynare.org/Dynare/dynare#macos&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;compile Dynare from source for macOS&lt;/a&gt;, which I simply follow.&lt;/p&gt;
-&lt;h3 id=&#34;communication&#34;&gt;Communication&lt;/h3&gt;
+&lt;h4 id=&#34;r-and-rstudio-free&#34;&gt;R and RStudio (free)&lt;/h4&gt;
+&lt;p&gt;Install with brew:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;brew install --cask r
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;brew install --cask rstudio
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;communication&#34;&gt;Communication&lt;/h3&gt;
 &lt;h4 id=&#34;mattermost-free&#34;&gt;Mattermost (free)&lt;/h4&gt;
 &lt;p&gt;Our Dynare team communication is happening via Mattermost which can be easily &lt;a href=&#34;https://mattermost.com/download/#&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;installed via the Mac App Store&lt;/a&gt;. Connect the server and log in. The preferences are synced from the server, but better safe than sorry, I double check the preferences.&lt;/p&gt;
 &lt;h4 id=&#34;skype-free&#34;&gt;Skype (free)&lt;/h4&gt;
@@ -482,6 +507,8 @@ Download from the &lt;a href=&#34;https://www.buildandshipapps.com&#34; target=&
 &lt;p&gt;Most of the times Apple Photos is sufficient for me to edit my pictures. However, for advanced editing I use Pixelmator Pro which can be installed from the &lt;a href=&#34;https://apps.apple.com/us/app/pixelmator-pro/id1289583905?mt=12&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;App Store&lt;/a&gt;.&lt;/p&gt;
 &lt;h4 id=&#34;aldente-pro-1130-pa&#34;&gt;AlDente Pro (11.30€ p.a.)&lt;/h4&gt;
 &lt;p&gt;It is well known that charging the battery to 100% is not a good idea; so I use &lt;a href=&#34;https://apphousekitchen.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;AlDente Pro&lt;/a&gt; to keep the battery at a healthier 80%. I am particularly using the Pro edition as I like the additional feature set. Install it and go through the settings.&lt;/p&gt;
+&lt;h4 id=&#34;macupdater-30-1499&#34;&gt;MacUpdater 3.0 (14.99€)&lt;/h4&gt;
+&lt;p&gt;The best utility to keep all apps up to date. Highly recommended. Install, follow the onboarding instructions and enjoy updating.&lt;/p&gt;
 &lt;h4 id=&#34;cleanmymac-x-wip&#34;&gt;CleanMyMac X [wip]&lt;/h4&gt;
 &lt;p&gt;I am trying it out and so far I like it. One needs to &lt;code&gt;Grant Full Disk Access&lt;/code&gt; in Privacy Settings. I remove Mail Attachments from the Scans.&lt;/p&gt;
 &lt;h4 id=&#34;controllerforhomekit-2999-pa&#34;&gt;ControllerForHomeKit (29.99€ p.a.)&lt;/h4&gt;
@@ -756,7 +783,7 @@ For me I also enable it, but don&amp;rsquo;t change any settings here.&lt;/p&gt;
 &lt;li&gt;activate for: Calendar, ControllerForHomeKit, Find My, Home, Maps, Reminders, Safari, Siri &amp;amp; Dictation, Wallet, Weather&lt;/li&gt;
 &lt;li&gt;System Services activate for: Location-based alerts, Location-based suggestions, Setting time zone, System customisation, Significant locations, Find My Mac, HomeKit, Networking and wireless&lt;/li&gt;
 &lt;li&gt;System Services deactivate for Mac Analytics&lt;/li&gt;
-&lt;li&gt;Activate Show location icon in Control Centre When System Services request your location&lt;/li&gt;
+&lt;li&gt;Deactivate Show location icon in Control Centre When System Services request your location&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -941,7 +968,7 @@ For me I also enable it, but don&amp;rsquo;t change any settings here.&lt;/p&gt;
 &lt;li&gt;Keyboard navigation: activate&lt;/li&gt;
 &lt;li&gt;Keyboard shortcuts: I typically leave the defaults, except:
 &lt;ul&gt;
-&lt;li&gt;Function Keys: Use F1, F2, etc. keys as standard function keys: deactivate&lt;/li&gt;
+&lt;li&gt;Function Keys: Use F1, F2, etc. keys as standard function keys: activate&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;Input Sources (Edit) - All Input Sources

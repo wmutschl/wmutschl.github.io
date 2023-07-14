@@ -314,7 +314,7 @@
         content="2022-05-24T00:00:00&#43;00:00"
       />
     
-    <meta property="article:modified_time" content="2022-09-11T22:18:40&#43;09:00">
+    <meta property="article:modified_time" content="2023-07-14T22:12:08&#43;02:00">
   
 
   
@@ -1033,6 +1033,7 @@ In my previous installation guides, I manually prepared the partitions to have f
 <li><code>discard=async</code>: this will become the standard soon, see e.g. <a href="https://pagure.io/fedora-btrfs/project/issue/6" target="_blank" rel="noopener">enable discard=async by default</a></li>
 </ul>
 <p>We will later also append these mount options to the fstab, but it is good practice to already make use of compression when moving the system files from the top-level btrfs root into the dedicated subvolumes <code>@</code> and <code>@home</code>.</p>
+<p>Sometimes the LVM group is not activated, see <a href="https://github.com/wmutschl/mutschler.dev/issues/4" target="_blank" rel="noopener">this issue for help</a>.</p>
 <h3 id="create-btrfs-subvolumes--and-home">Create btrfs subvolumes <code>@</code> and <code>@home</code></h3>
 <p>Now we will first create the subvolume <code>@</code> and move all files and folders from the top-level filesystem into <code>@</code>. Note that as we use the optimized mount options like compression, these will be already applied during the moving process:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">btrfs subvolume create /mnt/@
@@ -1376,7 +1377,7 @@ In my previous installation guides, I manually prepared the partitions to have f
         </div>
 
         <div class="body-footer">
-          <p>Last updated on Sep 11, 2022</p>
+          <p>Last updated on Jul 14, 2023</p>
 
           
 
