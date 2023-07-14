@@ -314,7 +314,7 @@
         content="2022-01-01T00:00:00&#43;00:00"
       />
     
-    <meta property="article:modified_time" content="2022-06-17T13:47:19&#43;02:00">
+    <meta property="article:modified_time" content="2022-11-22T08:34:00&#43;00:00">
   
 
   
@@ -988,18 +988,18 @@
 <ul>
 <li><code>ssd</code>: use SSD specific options for optimal use on SSD and NVME</li>
 <li><code>noatime</code>: prevent frequent disk writes by instructing the Linux kernel not to store the last access time of files and folders</li>
-<li><code>space_cache</code>: allows btrfs to store free space cache on the disk to make caching of a block group much quicker</li>
+<li><code>space_cache=v2</code>: allows btrfs to store free space cache on the disk to make caching of a block group much quicker</li>
 <li><code>commit=120</code>: time interval in which data is written to the filesystem (value of 120 is taken from Manjaro’s minimal iso)</li>
 <li><code>compress=zstd</code>: allows to specify the compression algorithm which we want to use. btrfs provides lzo, zstd and zlib compression algorithms. Based on some Phoronix test cases, zstd seems to be the better performing candidate.</li>
 <li><code>discard=async</code>: <a href="https://www.phoronix.com/scan.php?page=news_item&amp;px=Btrfs-Async-Discard" target="_blank" rel="noopener">Btrfs Async Discard Support Looks To Be Ready For Linux 5.6</a></li>
 </ul>
 <p>So add these options to your btrfs subvolume mount points in your fstab:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo nano /etc/fstab
-</span></span><span class="line"><span class="cl"><span class="c1"># UUID=47faf958-b80a-43e1-a36f-ca5a932474f7 /                       btrfs   subvol=root,x-systemd.device-timeout=0,ssd,noatime,space_cache,commit=120,compress=zstd,discard=async 0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=47faf958-b80a-43e1-a36f-ca5a932474f7 /                       btrfs   subvol=root,x-systemd.device-timeout=0,ssd,noatime,space_cache=v2,commit=120,compress=zstd,discard=async 0 0</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># UUID=04ae92cd-717c-4aaf-bb24-58001be8d334 /boot                   ext4    defaults        1 2</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># UUID=C17B-722D                            /boot/efi               vfat    umask=0077,shortname=winnt 0 2</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># UUID=47faf958-b80a-43e1-a36f-ca5a932474f7 /home                   btrfs   subvol=home,x-systemd.device-timeout=0,ssd,noatime,space_cache,commit=120,compress=zstd,discard=async 0 0</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># UUID=47faf958-b80a-43e1-a36f-ca5a932474f7 /btrfs_pool             btrfs   subvolid=5,x-systemd.device-timeout=0,ssd,noatime,space_cache,commit=120,compress=zstd,discard=async 0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=47faf958-b80a-43e1-a36f-ca5a932474f7 /home                   btrfs   subvol=home,x-systemd.device-timeout=0,ssd,noatime,space_cache=v2,commit=120,compress=zstd,discard=async 0 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=47faf958-b80a-43e1-a36f-ca5a932474f7 /btrfs_pool             btrfs   subvolid=5,x-systemd.device-timeout=0,ssd,noatime,space_cache=v2,commit=120,compress=zstd,discard=async 0 0</span>
 </span></span><span class="line"><span class="cl">sudo mkdir -p /btrfs_pool
 </span></span><span class="line"><span class="cl">sudo mount -a
 </span></span></code></pre></div><p>Note that I also add a mountpoint for the btrfs root filesystem (this has always id 5) for easy access of all my subvolumes in <code>/btrfs_pool</code>. You would need to restart to make use of the new options. I usually first run updates and restart prior to restoring my backups, such that my restored files are using the optimized mount options such as compression.</p>
@@ -1809,7 +1809,7 @@ Renaming or excluding some libraries from MATLAB solves a whole bunch of issues 
         </div>
 
         <div class="body-footer">
-          <p>Last updated on Jun 17, 2022</p>
+          <p>Last updated on Nov 22, 2022</p>
 
           
 
