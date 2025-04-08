@@ -70,7 +70,7 @@
   
     
   
-  <meta name="description" content="In the following I will go through my post installation steps on macOS Ventura, i.e. which settings I choose and which apps I install and use." />
+  <meta name="description" content="In the following I will go through my post installation steps on macOS Sequoia, i.e. which settings I choose and which apps I install and use." />
 
   
   <link rel="alternate" hreflang="en-us" href="https://mutschler.dev/apple/macos-post-install/" />
@@ -305,13 +305,13 @@
   <meta property="og:site_name" content="mutschler.dev" />
   <meta property="og:url" content="https://mutschler.dev/apple/macos-post-install/" />
   <meta property="og:title" content="macOS: Things to do after installation (Apps, Settings, and Tweaks) | mutschler.dev" />
-  <meta property="og:description" content="In the following I will go through my post installation steps on macOS Ventura, i.e. which settings I choose and which apps I install and use." /><meta property="og:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" />
+  <meta property="og:description" content="In the following I will go through my post installation steps on macOS Sequoia, i.e. which settings I choose and which apps I install and use." /><meta property="og:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" />
     <meta property="twitter:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
   
     
       <meta
         property="article:published_time"
-        content="2023-03-29T00:00:00&#43;00:00"
+        content="2025-03-14T00:00:00&#43;00:00"
       />
     
     <meta property="article:modified_time" content="2023-03-30T10:27:20&#43;02:00">
@@ -719,56 +719,174 @@
     </li>
     <li><a href="#basic-steps">Basic steps</a>
       <ul>
-        <li><a href="#connect-thunderbolt-docks-and-devices">Connect Thunderbolt docks and devices</a></li>
-        <li><a href="#displaylink-adapter-only-for-m1-macbook-air">DisplayLink adapter (only for M1 MacBook Air)</a></li>
+        <li><a href="#connect-devices">Connect devices</a></li>
         <li><a href="#arrange-displays-and-change-desktop-backgrounds">Arrange displays and change desktop backgrounds</a></li>
-        <li><a href="#install-updates-for-macos">Install Updates for MacOS</a></li>
-        <li><a href="#time-machine-backup-and-restore-files">Time Machine: Backup and restore files</a></li>
-        <li><a href="#browsers-and-extensions">Browsers and extensions</a></li>
+        <li><a href="#install-software-update-for-macos">Install Software Update for macOS</a></li>
+        <li><a href="#restore-files-either-via-time-machine-nextcloud-or-rsync">Restore files either via Time Machine, Nextcloud or rsync</a></li>
         <li><a href="#enable-internet-accounts-for-calendar-contacts-and-mails">Enable internet accounts for calendar, contacts and mails</a></li>
-        <li><a href="#mail">Mail</a></li>
         <li><a href="#finder-preferences">Finder Preferences</a></li>
       </ul>
     </li>
-    <li><a href="#terminalapp">Terminal.app</a>
+    <li><a href="#browsers-and-extensions">Browsers and extensions</a>
       <ul>
-        <li><a href="#xcode-command-line-tools">Xcode Command Line Tools</a></li>
-        <li><a href="#rosetta-2">Rosetta 2</a></li>
-        <li><a href="#homebrew-with-alias-for-both-intel-and-arm-versions">Homebrew with Alias for both Intel and ARM versions</a></li>
+        <li><a href="#safari">Safari</a></li>
+        <li><a href="#chrome">Chrome</a></li>
+        <li><a href="#mail">Mail</a></li>
+      </ul>
+    </li>
+    <li><a href="#xcode-command-line-tools">Xcode Command Line Tools</a></li>
+    <li><a href="#rosetta-2">Rosetta 2</a></li>
+    <li><a href="#terminal">Terminal</a>
+      <ul>
+        <li><a href="#homebrew-with-aliases-for-both-intel-and-arm-versions">Homebrew with aliases for both Intel and ARM versions</a></li>
         <li><a href="#fish-a-friendly-interactive-shell">Fish (A Friendly Interactive Shell)</a></li>
         <li><a href="#localbin-in-path">.local/bin in $PATH</a></li>
-        <li><a href="#dracula-theme">Dracula Theme</a></li>
+        <li><a href="#dracula-theme-for-terminal">Dracula Theme for Terminal</a></li>
         <li><a href="#perl-warning-setting-locale-failed-on-servers">perl: warning: Setting locale failed on servers</a></li>
       </ul>
     </li>
     <li><a href="#ssh-keys">SSH keys</a></li>
-    <li><a href="#private-gpg-key-with-yubikey">Private GPG key with Yubikey</a></li>
-    <li><a href="#gpg-agent-forwarding">GPG agent forwarding</a></li>
+    <li><a href="#private-gpg-key-with-yubikey">Private GPG key with Yubikey</a>
+      <ul>
+        <li><a href="#gpg-agent-configuration">GPG agent configuration</a></li>
+        <li><a href="#gpg-agent-forwarding">GPG agent forwarding</a></li>
+      </ul>
+    </li>
     <li><a href="#apple-apps">Apple Apps</a>
       <ul>
-        <li></li>
+        <li><a href="#app-store">App Store</a></li>
+        <li><a href="#calendar">Calendar</a></li>
+        <li><a href="#contacts">Contacts</a></li>
+        <li><a href="#facetime">FaceTime</a></li>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#keynote-numbers-pages">Keynote, Numbers, Pages</a></li>
+        <li><a href="#messages">Messages</a></li>
+        <li><a href="#music">Music</a></li>
+        <li><a href="#notes">Notes</a></li>
+        <li><a href="#photo-booth">Photo Booth</a></li>
+        <li><a href="#photos">Photos</a></li>
+        <li><a href="#podcasts">Podcasts</a></li>
+        <li><a href="#reminders">Reminders</a></li>
+        <li><a href="#shortcuts">Shortcuts</a></li>
+        <li><a href="#text-edit">Text Edit</a></li>
+        <li><a href="#tv">TV</a></li>
+        <li><a href="#weather">Weather</a></li>
+        <li><a href="#utilites---digital-colour-meter">Utilites - Digital Colour Meter</a></li>
+        <li><a href="#utilities---disk-utility">Utilities - Disk Utility</a></li>
+        <li><a href="#keychain-access">Keychain Access</a></li>
       </ul>
     </li>
-    <li><a href="#apps-apps-apps">Apps, Apps, Apps</a>
+    <li><a href="#productivity-and-utilities-apps">Productivity and Utilities Apps</a>
       <ul>
-        <li><a href="#productivity-and-utilities">Productivity and Utilities</a></li>
-        <li><a href="#networking-and-virtualization">Networking and Virtualization</a></li>
-        <li><a href="#text-processing">Text-processing</a></li>
-        <li><a href="#coding">Coding</a></li>
-        <li><a href="#communication">Communication</a></li>
-        <li><a href="#multimedia">Multimedia</a></li>
+        <li><a href="#amphetamine-free">Amphetamine (free)</a></li>
+        <li><a href="#dockey-free-or-manual-configuration-of-dock">Dockey (free) or manual configuration of Dock</a></li>
+        <li><a href="#logi-options-free">Logi Options+ (free)</a></li>
+        <li><a href="#mission-control-plus-965">Mission Control Plus (9.65€)</a></li>
+        <li><a href="#moom-999">Moom (9.99€)</a></li>
+        <li><a href="#money-money-2999">Money Money (29.99€)</a></li>
+        <li><a href="#nextcloud-free">Nextcloud (free)</a></li>
+        <li><a href="#things-3-4999">Things 3 (49.99€)</a></li>
+        <li><a href="#early-previously-timeular-89">EARLY (previously Timeular) (89€)</a></li>
       </ul>
     </li>
+    <li><a href="#networking-and-virtualization">Networking and Virtualization</a>
+      <ul>
+        <li><a href="#tailscale-free">Tailscale (free)</a></li>
+        <li><a href="#nomachine">NoMachine</a></li>
+        <li><a href="#vmware-fusion-free">VMWare Fusion (free)</a></li>
+        <li><a href="#university-vpn-and-eduroam-free">University VPN and eduroam (free)</a></li>
+      </ul>
+    </li>
+    <li><a href="#text-processing">Text-processing</a>
+      <ul>
+        <li><a href="#chatgpt-plus-subscription-20month">ChatGPT (Plus Subscription 20$/month)</a></li>
+        <li><a href="#iwriter-pro-1499">iWriter Pro (14.99€)</a></li>
+        <li><a href="#latex-related-packages-free">Latex related packages (free)</a></li>
+        <li><a href="#microsoft-excel-and-word-free-via-university-otherwise-69year">Microsoft Excel and Word (free via university, otherwise 69€/year)</a></li>
+        <li><a href="#notability-1199">Notability (11.99€)</a></li>
+        <li><a href="#pdf-expert-6999">PDF Expert (69.99€)</a></li>
+        <li><a href="#zotero-free">Zotero (free)</a></li>
+      </ul>
+    </li>
+    <li><a href="#coding">Coding</a>
+      <ul>
+        <li><a href="#cursor-ai-16month-for-a-yearly-subscription">Cursor AI (16$/month for a yearly subscription)</a></li>
+        <li><a href="#gitkraken-pro-495year">GitKraken Pro (4.95€/year)</a></li>
+        <li><a href="#hugo-an-golang-free">Hugo an Golang (free)</a></li>
+        <li><a href="#matlab-free-via-university-otherwise-very-expensive-so-use-gnu-octave-instead">MATLAB (free via university, otherwise very expensive, so use GNU Octave instead)</a></li>
+        <li><a href="#dynare-free">Dynare (free)</a></li>
+        <li><a href="#r-and-rstudio-free">R and RStudio (free)</a></li>
+      </ul>
+    </li>
+    <li><a href="#communication">Communication</a>
+      <ul>
+        <li><a href="#mattermost-free">Mattermost (free)</a></li>
+        <li><a href="#zoom-free-via-university-otherwise-1499month">Zoom (free via university, otherwise 14.99€/month)</a></li>
+      </ul>
+    </li>
+    <li><a href="#multimedia">Multimedia</a>
+      <ul>
+        <li><a href="#atem-switchers-software-free">Atem Switchers Software (free)</a></li>
+        <li><a href="#elgato-control-center-free">Elgato Control Center (free)</a></li>
+        <li><a href="#fission-42">Fission (42$)</a></li>
+        <li><a href="#hand-mirror-plus-499">Hand Mirror Plus (4.99€)</a></li>
+        <li><a href="#openaudible-1595">OpenAudible (15.95€)</a></li>
+        <li><a href="#pro-apps-bundle-for-education-final-cut-pro-23998">Pro Apps Bundle for Education: Final Cut Pro (239,98€)</a></li>
+        <li><a href="#creators-best-friend-999">Creator&rsquo;s Best Friend (9.99€)</a></li>
+        <li><a href="#pixelmator-pro-1999">Pixelmator Pro (19.99€)</a></li>
+        <li><a href="#aldente-pro-1130-pa">AlDente Pro (11.30€ p.a.)</a></li>
+        <li><a href="#macupdater-30-1499">MacUpdater 3.0 (14.99€)</a></li>
+        <li><a href="#cleanmymac-">CleanMyMac []</a></li>
+        <li><a href="#controllerforhomekit-2999-pa">ControllerForHomeKit (29.99€ p.a.)</a></li>
+        <li><a href="#silicon-info-free">Silicon Info (free)</a></li>
+        <li><a href="#the-unarchiver-free">The Unarchiver (free)</a></li>
+        <li><a href="#tor-browser-free">Tor Browser (free)</a></li>
+        <li><a href="#backup-loupe">Backup Loupe</a></li>
+        <li><a href="#djvu-reader-pro">DjVu Reader Pro</a></li>
+        <li><a href="#epsviewer-pro-2">EPSViewer Pro 2</a></li>
+        <li><a href="#maestralapp">Maestral.app</a></li>
+      </ul>
+    </li>
+    <li><a href="#dock">Dock</a></li>
     <li><a href="#system-settings">System Settings</a>
       <ul>
-        <li></li>
+        <li><a href="#apple-id-my-profile-picture">Apple ID (my profile picture)</a></li>
+        <li><a href="#wi-fi">Wi-Fi</a></li>
+        <li><a href="#bluetooth">Bluetooth</a></li>
+        <li><a href="#network">Network</a></li>
+        <li><a href="#vpn">VPN</a></li>
+        <li><a href="#energy--battery">Energy / Battery</a></li>
+        <li><a href="#general">General</a></li>
+        <li><a href="#accessibility">Accessibility</a></li>
+        <li><a href="#appearance">Appearance</a></li>
+        <li><a href="#apple-intelligence--siri">Apple Intelligence &amp; Siri</a></li>
+        <li><a href="#control-center">Control Center</a></li>
+        <li><a href="#desktop--dock">Desktop &amp; Dock</a></li>
+        <li><a href="#displays">Displays</a></li>
+        <li><a href="#screen-saver">Screen Saver</a></li>
+        <li><a href="#spotlight">Spotlight</a></li>
+        <li><a href="#wallpaper">Wallpaper</a></li>
+        <li><a href="#notifications">Notifications</a></li>
+        <li><a href="#sound">Sound</a></li>
+        <li><a href="#focus">Focus</a></li>
+        <li><a href="#screen-time">Screen Time</a></li>
+        <li><a href="#lock-screen">Lock Screen</a></li>
+        <li><a href="#privacy--security">Privacy &amp; Security</a></li>
+        <li><a href="#login-password-mac-mini">Login Password (Mac Mini)</a></li>
+        <li><a href="#touch-id--password-macbook">Touch ID &amp; Password (MacBook)</a></li>
+        <li><a href="#users--groups">Users &amp; Groups</a></li>
+        <li><a href="#internet-accounts">Internet Accounts</a></li>
+        <li><a href="#game-center">Game Center</a></li>
+        <li><a href="#icloud">iCloud</a></li>
+        <li><a href="#wallet--apple-pay">Wallet &amp; Apple Pay</a></li>
+        <li><a href="#keyboard">Keyboard</a></li>
+        <li><a href="#mouse">Mouse</a></li>
+        <li><a href="#trackpad">Trackpad</a></li>
+        <li><a href="#printers--scanners">Printers &amp; Scanners</a></li>
+        <li><a href="#system-extensions-if-needed-for-kernel-extensions">System extensions (if needed for kernel extensions)</a></li>
       </ul>
     </li>
-    <li><a href="#system-extensions-if-needed-for-kernel-extensions">System extensions (if needed for kernel extensions)</a>
-      <ul>
-        <li><a href="#apps-that-i-keep-in-my-dock">Apps that I keep in my dock</a></li>
-      </ul>
-    </li>
+    <li><a href="#widgets">Widgets</a></li>
   </ul>
 </nav>
 
@@ -820,270 +938,477 @@
     </li>
     <li><a href="#basic-steps">Basic steps</a>
       <ul>
-        <li><a href="#connect-thunderbolt-docks-and-devices">Connect Thunderbolt docks and devices</a></li>
-        <li><a href="#displaylink-adapter-only-for-m1-macbook-air">DisplayLink adapter (only for M1 MacBook Air)</a></li>
+        <li><a href="#connect-devices">Connect devices</a></li>
         <li><a href="#arrange-displays-and-change-desktop-backgrounds">Arrange displays and change desktop backgrounds</a></li>
-        <li><a href="#install-updates-for-macos">Install Updates for MacOS</a></li>
-        <li><a href="#time-machine-backup-and-restore-files">Time Machine: Backup and restore files</a></li>
-        <li><a href="#browsers-and-extensions">Browsers and extensions</a></li>
+        <li><a href="#install-software-update-for-macos">Install Software Update for macOS</a></li>
+        <li><a href="#restore-files-either-via-time-machine-nextcloud-or-rsync">Restore files either via Time Machine, Nextcloud or rsync</a></li>
         <li><a href="#enable-internet-accounts-for-calendar-contacts-and-mails">Enable internet accounts for calendar, contacts and mails</a></li>
-        <li><a href="#mail">Mail</a></li>
         <li><a href="#finder-preferences">Finder Preferences</a></li>
       </ul>
     </li>
-    <li><a href="#terminalapp">Terminal.app</a>
+    <li><a href="#browsers-and-extensions">Browsers and extensions</a>
       <ul>
-        <li><a href="#xcode-command-line-tools">Xcode Command Line Tools</a></li>
-        <li><a href="#rosetta-2">Rosetta 2</a></li>
-        <li><a href="#homebrew-with-alias-for-both-intel-and-arm-versions">Homebrew with Alias for both Intel and ARM versions</a></li>
+        <li><a href="#safari">Safari</a></li>
+        <li><a href="#chrome">Chrome</a></li>
+        <li><a href="#mail">Mail</a></li>
+      </ul>
+    </li>
+    <li><a href="#xcode-command-line-tools">Xcode Command Line Tools</a></li>
+    <li><a href="#rosetta-2">Rosetta 2</a></li>
+    <li><a href="#terminal">Terminal</a>
+      <ul>
+        <li><a href="#homebrew-with-aliases-for-both-intel-and-arm-versions">Homebrew with aliases for both Intel and ARM versions</a></li>
         <li><a href="#fish-a-friendly-interactive-shell">Fish (A Friendly Interactive Shell)</a></li>
         <li><a href="#localbin-in-path">.local/bin in $PATH</a></li>
-        <li><a href="#dracula-theme">Dracula Theme</a></li>
+        <li><a href="#dracula-theme-for-terminal">Dracula Theme for Terminal</a></li>
         <li><a href="#perl-warning-setting-locale-failed-on-servers">perl: warning: Setting locale failed on servers</a></li>
       </ul>
     </li>
     <li><a href="#ssh-keys">SSH keys</a></li>
-    <li><a href="#private-gpg-key-with-yubikey">Private GPG key with Yubikey</a></li>
-    <li><a href="#gpg-agent-forwarding">GPG agent forwarding</a></li>
+    <li><a href="#private-gpg-key-with-yubikey">Private GPG key with Yubikey</a>
+      <ul>
+        <li><a href="#gpg-agent-configuration">GPG agent configuration</a></li>
+        <li><a href="#gpg-agent-forwarding">GPG agent forwarding</a></li>
+      </ul>
+    </li>
     <li><a href="#apple-apps">Apple Apps</a>
       <ul>
-        <li></li>
+        <li><a href="#app-store">App Store</a></li>
+        <li><a href="#calendar">Calendar</a></li>
+        <li><a href="#contacts">Contacts</a></li>
+        <li><a href="#facetime">FaceTime</a></li>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#keynote-numbers-pages">Keynote, Numbers, Pages</a></li>
+        <li><a href="#messages">Messages</a></li>
+        <li><a href="#music">Music</a></li>
+        <li><a href="#notes">Notes</a></li>
+        <li><a href="#photo-booth">Photo Booth</a></li>
+        <li><a href="#photos">Photos</a></li>
+        <li><a href="#podcasts">Podcasts</a></li>
+        <li><a href="#reminders">Reminders</a></li>
+        <li><a href="#shortcuts">Shortcuts</a></li>
+        <li><a href="#text-edit">Text Edit</a></li>
+        <li><a href="#tv">TV</a></li>
+        <li><a href="#weather">Weather</a></li>
+        <li><a href="#utilites---digital-colour-meter">Utilites - Digital Colour Meter</a></li>
+        <li><a href="#utilities---disk-utility">Utilities - Disk Utility</a></li>
+        <li><a href="#keychain-access">Keychain Access</a></li>
       </ul>
     </li>
-    <li><a href="#apps-apps-apps">Apps, Apps, Apps</a>
+    <li><a href="#productivity-and-utilities-apps">Productivity and Utilities Apps</a>
       <ul>
-        <li><a href="#productivity-and-utilities">Productivity and Utilities</a></li>
-        <li><a href="#networking-and-virtualization">Networking and Virtualization</a></li>
-        <li><a href="#text-processing">Text-processing</a></li>
-        <li><a href="#coding">Coding</a></li>
-        <li><a href="#communication">Communication</a></li>
-        <li><a href="#multimedia">Multimedia</a></li>
+        <li><a href="#amphetamine-free">Amphetamine (free)</a></li>
+        <li><a href="#dockey-free-or-manual-configuration-of-dock">Dockey (free) or manual configuration of Dock</a></li>
+        <li><a href="#logi-options-free">Logi Options+ (free)</a></li>
+        <li><a href="#mission-control-plus-965">Mission Control Plus (9.65€)</a></li>
+        <li><a href="#moom-999">Moom (9.99€)</a></li>
+        <li><a href="#money-money-2999">Money Money (29.99€)</a></li>
+        <li><a href="#nextcloud-free">Nextcloud (free)</a></li>
+        <li><a href="#things-3-4999">Things 3 (49.99€)</a></li>
+        <li><a href="#early-previously-timeular-89">EARLY (previously Timeular) (89€)</a></li>
       </ul>
     </li>
+    <li><a href="#networking-and-virtualization">Networking and Virtualization</a>
+      <ul>
+        <li><a href="#tailscale-free">Tailscale (free)</a></li>
+        <li><a href="#nomachine">NoMachine</a></li>
+        <li><a href="#vmware-fusion-free">VMWare Fusion (free)</a></li>
+        <li><a href="#university-vpn-and-eduroam-free">University VPN and eduroam (free)</a></li>
+      </ul>
+    </li>
+    <li><a href="#text-processing">Text-processing</a>
+      <ul>
+        <li><a href="#chatgpt-plus-subscription-20month">ChatGPT (Plus Subscription 20$/month)</a></li>
+        <li><a href="#iwriter-pro-1499">iWriter Pro (14.99€)</a></li>
+        <li><a href="#latex-related-packages-free">Latex related packages (free)</a></li>
+        <li><a href="#microsoft-excel-and-word-free-via-university-otherwise-69year">Microsoft Excel and Word (free via university, otherwise 69€/year)</a></li>
+        <li><a href="#notability-1199">Notability (11.99€)</a></li>
+        <li><a href="#pdf-expert-6999">PDF Expert (69.99€)</a></li>
+        <li><a href="#zotero-free">Zotero (free)</a></li>
+      </ul>
+    </li>
+    <li><a href="#coding">Coding</a>
+      <ul>
+        <li><a href="#cursor-ai-16month-for-a-yearly-subscription">Cursor AI (16$/month for a yearly subscription)</a></li>
+        <li><a href="#gitkraken-pro-495year">GitKraken Pro (4.95€/year)</a></li>
+        <li><a href="#hugo-an-golang-free">Hugo an Golang (free)</a></li>
+        <li><a href="#matlab-free-via-university-otherwise-very-expensive-so-use-gnu-octave-instead">MATLAB (free via university, otherwise very expensive, so use GNU Octave instead)</a></li>
+        <li><a href="#dynare-free">Dynare (free)</a></li>
+        <li><a href="#r-and-rstudio-free">R and RStudio (free)</a></li>
+      </ul>
+    </li>
+    <li><a href="#communication">Communication</a>
+      <ul>
+        <li><a href="#mattermost-free">Mattermost (free)</a></li>
+        <li><a href="#zoom-free-via-university-otherwise-1499month">Zoom (free via university, otherwise 14.99€/month)</a></li>
+      </ul>
+    </li>
+    <li><a href="#multimedia">Multimedia</a>
+      <ul>
+        <li><a href="#atem-switchers-software-free">Atem Switchers Software (free)</a></li>
+        <li><a href="#elgato-control-center-free">Elgato Control Center (free)</a></li>
+        <li><a href="#fission-42">Fission (42$)</a></li>
+        <li><a href="#hand-mirror-plus-499">Hand Mirror Plus (4.99€)</a></li>
+        <li><a href="#openaudible-1595">OpenAudible (15.95€)</a></li>
+        <li><a href="#pro-apps-bundle-for-education-final-cut-pro-23998">Pro Apps Bundle for Education: Final Cut Pro (239,98€)</a></li>
+        <li><a href="#creators-best-friend-999">Creator&rsquo;s Best Friend (9.99€)</a></li>
+        <li><a href="#pixelmator-pro-1999">Pixelmator Pro (19.99€)</a></li>
+        <li><a href="#aldente-pro-1130-pa">AlDente Pro (11.30€ p.a.)</a></li>
+        <li><a href="#macupdater-30-1499">MacUpdater 3.0 (14.99€)</a></li>
+        <li><a href="#cleanmymac-">CleanMyMac []</a></li>
+        <li><a href="#controllerforhomekit-2999-pa">ControllerForHomeKit (29.99€ p.a.)</a></li>
+        <li><a href="#silicon-info-free">Silicon Info (free)</a></li>
+        <li><a href="#the-unarchiver-free">The Unarchiver (free)</a></li>
+        <li><a href="#tor-browser-free">Tor Browser (free)</a></li>
+        <li><a href="#backup-loupe">Backup Loupe</a></li>
+        <li><a href="#djvu-reader-pro">DjVu Reader Pro</a></li>
+        <li><a href="#epsviewer-pro-2">EPSViewer Pro 2</a></li>
+        <li><a href="#maestralapp">Maestral.app</a></li>
+      </ul>
+    </li>
+    <li><a href="#dock">Dock</a></li>
     <li><a href="#system-settings">System Settings</a>
       <ul>
-        <li></li>
+        <li><a href="#apple-id-my-profile-picture">Apple ID (my profile picture)</a></li>
+        <li><a href="#wi-fi">Wi-Fi</a></li>
+        <li><a href="#bluetooth">Bluetooth</a></li>
+        <li><a href="#network">Network</a></li>
+        <li><a href="#vpn">VPN</a></li>
+        <li><a href="#energy--battery">Energy / Battery</a></li>
+        <li><a href="#general">General</a></li>
+        <li><a href="#accessibility">Accessibility</a></li>
+        <li><a href="#appearance">Appearance</a></li>
+        <li><a href="#apple-intelligence--siri">Apple Intelligence &amp; Siri</a></li>
+        <li><a href="#control-center">Control Center</a></li>
+        <li><a href="#desktop--dock">Desktop &amp; Dock</a></li>
+        <li><a href="#displays">Displays</a></li>
+        <li><a href="#screen-saver">Screen Saver</a></li>
+        <li><a href="#spotlight">Spotlight</a></li>
+        <li><a href="#wallpaper">Wallpaper</a></li>
+        <li><a href="#notifications">Notifications</a></li>
+        <li><a href="#sound">Sound</a></li>
+        <li><a href="#focus">Focus</a></li>
+        <li><a href="#screen-time">Screen Time</a></li>
+        <li><a href="#lock-screen">Lock Screen</a></li>
+        <li><a href="#privacy--security">Privacy &amp; Security</a></li>
+        <li><a href="#login-password-mac-mini">Login Password (Mac Mini)</a></li>
+        <li><a href="#touch-id--password-macbook">Touch ID &amp; Password (MacBook)</a></li>
+        <li><a href="#users--groups">Users &amp; Groups</a></li>
+        <li><a href="#internet-accounts">Internet Accounts</a></li>
+        <li><a href="#game-center">Game Center</a></li>
+        <li><a href="#icloud">iCloud</a></li>
+        <li><a href="#wallet--apple-pay">Wallet &amp; Apple Pay</a></li>
+        <li><a href="#keyboard">Keyboard</a></li>
+        <li><a href="#mouse">Mouse</a></li>
+        <li><a href="#trackpad">Trackpad</a></li>
+        <li><a href="#printers--scanners">Printers &amp; Scanners</a></li>
+        <li><a href="#system-extensions-if-needed-for-kernel-extensions">System extensions (if needed for kernel extensions)</a></li>
       </ul>
     </li>
-    <li><a href="#system-extensions-if-needed-for-kernel-extensions">System extensions (if needed for kernel extensions)</a>
-      <ul>
-        <li><a href="#apps-that-i-keep-in-my-dock">Apps that I keep in my dock</a></li>
-      </ul>
-    </li>
+    <li><a href="#widgets">Widgets</a></li>
   </ul>
 </nav>
 </details>
 </p>
-<p>Since January 2021 I&rsquo;ve been using an Apple MacBook Air (M1) as my daily driver and have switched to a MacBook Pro (M2 Max) in March 2023. Even though I have a strong Linux background, I do like macOS quite a lot. Particularly, one of the great things about macOS is the huge amount of useful and well-designed apps, tools and utilities; not only on from the App Store but also by side-loading. Therefore, in the following I will go through my post installation steps, i.e. which apps I install and use and which system preferences I choose. In other words, this guide serves as a reminder of what I set and how I use my MacBook.</p>
+<p>Since January 2021 I&rsquo;ve been using an Apple MacBook Air (M1), then switched to a MacBook Pro M2 Max as my daily driver and a Apple Mac Mini M4 Pro as a runner for my research.
+Even though I have a strong Linux background, I do like macOS quite a lot.
+Particularly, one of the great things about macOS is the huge amount of useful and well-designed apps, tools and utilities; not only from the App Store but also by side-loading.
+Therefore, in the following I will go through my post installation steps, i.e. which apps I install and use and which system preferences I choose.
+In other words, this guide serves as a guide for me how I set up a macOS system.</p>
 <h3 id="beware-of-the-costs">Beware of the costs</h3>
-<p>As we all know, not only Apple hardware but also software comes at a hefty premium. I&rsquo;ve tried to write down how much I&rsquo;ve spent on apps and subscriptions since I started my macOS journey in January 2021, and I&rsquo;ve documented that below for each app. Here is a rough summary for 2021:</p>
-<ul>
-<li>700€ one-time on app purchases</li>
-<li>230€/year on app subscriptions</li>
-<li>240€/year on Apple One Family</li>
-</ul>
-<p>This doesn&rsquo;t include the applications and subscriptions I tested and discarded, so there is probably a significant sunk costs as well. On the other hand, some apps are universal and I have bought them before on my iPhone or iPad. Moreover, some subscriptions are covered by my university.</p>
-<p>Anyways, pay attention to the cost if you decide to use Apple&rsquo;s eco system. My tip (unfortunately not possible anymore): Try to cover the cost by buying gift cards in advance with a 15 or 20 percent bonus credit so that the cost is reduced by that percentage. I usually do this each year to at least cover my Apple One Family and other app subscriptions.</p>
+<p>As we all know, not only Apple hardware but also software for macOScomes at a hefty premium.
+I&rsquo;ve tried to write down how much I&rsquo;ve spent on apps and subscriptions since I started my macOS journey in January 2021, and I&rsquo;ve documented that below for each app.
+This doesn&rsquo;t include the applications and subscriptions I tested and discarded, so there is probably a significant sunk costs as well.
+On the other hand, some apps are universal and I have bought them before on my iPhone or iPad.
+Moreover, some subscriptions are covered by my university.
+Anyways, pay attention to the cost if you decide to use Apple&rsquo;s eco system.</p>
 <h2 id="basic-steps">Basic steps</h2>
-<p>Note that I do the initial macOS setup without any devices connected to the MacBook.</p>
-<h3 id="connect-thunderbolt-docks-and-devices">Connect Thunderbolt docks and devices</h3>
-<p>After doing the initial steps, I use the Thunderbolt ports to connect on the one hand a <a href="https://www.lg.com/de/monitore/lg-35wn75c-b" target="_blank" rel="noopener">LG 35WN75C-B Curved UltraWide monitor</a> (which gives me a couple of additional USB ports) and on the other hand an <a href="https://www.anker.com/de/a8396launch" target="_blank" rel="noopener">Anker PowerExpand Elite 13-in-1 Thunderbolt dock</a>.
-I then connect all my peripherals either to the monitor, docker or directly to the MacBook.</p>
-<h3 id="displaylink-adapter-only-for-m1-macbook-air">DisplayLink adapter (only for M1 MacBook Air)</h3>
-<p>The MacBook Air M1 chip is only able to connect to a single external monitor natively; however, using an external DisplayLink Adapter I am able <a href="%28https://www.macworld.co.uk/how-to/how-connect-two-or-more-external-displays-apple-silicon-m1-mac-3799794/%29">to connect two or more external displays</a>. In particular, I connect a <a href="https://www.fujitsu.com/de/products/computing/peripheral/displays/b24-8-ts-pro/" target="_blank" rel="noopener">FUJITSU Display B24-8 TS Pro</a> in rotated mode. The quality is not great, either because of the adapter or the monitor or both, but as I am mostly using it to read PDFs, it does the job. To make this work, one has to install the <a href="https://www.synaptics.com/products/displaylink-graphics/downloads/macos" target="_blank" rel="noopener">DisplayLink Manager</a> software. After installing it, one needs to activate the app in <code>Screen Recording</code> in the <code>Security &amp; Privacy</code> part of <code>System Preferences</code>.  Note that if you lock your system, there will be a message in the menu bar that <em>Your screen is being observed</em>.Moreover, in <code>Notifications &amp; Focus</code> at the bottom activate <code>When mirroring or sharing the display</code> under <code>Allow notifications</code>. Furthermore, in the Apps settings, I set the rotation to 90° and set the software to launch at startup.</p>
+<p>Do the initial macOS setup and sign in to your Apple ID.
+For me this required inserting my Security Key (Yubikey) which was not accepted directls due to some unknown error.
+So I skipped the step and signed up again via system settings, which worked without any issues.
+You will get several notifications for Apple apps trying to access your data which you need to approve.</p>
+<h3 id="connect-devices">Connect devices</h3>
+<p>After doing the initial steps, I connect my peripherals and check whether they work.</p>
 <h3 id="arrange-displays-and-change-desktop-backgrounds">Arrange displays and change desktop backgrounds</h3>
-<p>Go to <code>Displays</code> in <code>System Preferences</code> and arrange the displays. My MacBook is typically on a pile of books (on the left), the LG monitor is the main monitor and the rotated Dell monitor is on the right. I also choose different backgrounds for each monitor.</p>
-<h3 id="install-updates-for-macos">Install Updates for MacOS</h3>
-<p>Before I proceed, I see whether a new version of MacOS is available. Go to System Settings, General, and Software Update. Reboot.</p>
-<h3 id="time-machine-backup-and-restore-files">Time Machine: Backup and restore files</h3>
-<p>The easiest way to restore everything is to use the migration assistant, but typically I only need to restore some folders and files from my Time Machine backups (or alternatively sync from my Nextcloud server).
-So click on the red exclamation mark and &ldquo;Claim existing backups&rdquo;. I then do a full back and activate both automatic backups as well as displaying it in the menu bar. After the first backup, you can either use Time Machine directly to restore certain folders and files or, alternatively, open the disk in finder, select the most recent snapshot and simply copy the files and folders over.</p>
-<p>I add several folders to the exclude list, note that I do this in Terminal.app, because some of these folders cannot be directly added via the Time Machine app:</p>
+<p>Go to <code>Displays</code> in <code>System Preferences</code> and arrange the displays.
+I also choose different backgrounds for each monitor.</p>
+<h3 id="install-software-update-for-macos">Install Software Update for macOS</h3>
+<p>Before I proceed, I see whether a new version of macOS is available.
+Go to System Settings, General, and Software Update.
+This takes a while and requires a reboot.</p>
+<h3 id="restore-files-either-via-time-machine-nextcloud-or-rsync">Restore files either via Time Machine, Nextcloud or rsync</h3>
+<p>The easiest way to restore everything is to use the migration assistant, but typically I only need to restore some folders and files from my Time Machine backups (or alternatively sync from my Nextcloud server or use `rsync -avuP /Volumes/T5/Documents/ /Users/wmutschl/Documents/).
+For Time Machine, click on the red exclamation mark and &ldquo;Claim existing backups&rdquo;.
+I then do a full backup and activate both automatic backups as well as displaying it in the menu bar.
+After the first backup, you can either use Time Machine directly to restore certain folders and files or, alternatively, open the disk in finder, select the most recent snapshot and simply copy the files and folders over.</p>
+<p>I add several folders to the exclude list, note that I do this in Terminal.app for convenience, but you can also do this via the Time Machine settings:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo tmutil addexclusion -p <span class="nv">$HOME</span>/FinalCutRaw
-</span></span><span class="line"><span class="cl">sudo tmutil addexclusion -p <span class="nv">$HOME</span>/Music
 </span></span><span class="line"><span class="cl">sudo tmutil addexclusion -p <span class="nv">$HOME</span>/Movies
-</span></span><span class="line"><span class="cl">sudo tmutil addexclusion -p <span class="nv">$HOME</span>/Parallels
-</span></span><span class="line"><span class="cl">sudo tmutil addexclusion -p /private/var/db/diagnostics
-</span></span><span class="line"><span class="cl">sudo tmutil addexclusion -p /private/var/db/oah
-</span></span></code></pre></div><p>Note that you need to grant Terminal.app Full Disk Access for this.</p>
-<h3 id="browsers-and-extensions">Browsers and extensions</h3>
-<h4 id="safari">Safari</h4>
-<p>My daily driver for surfing the web is Safari, so I go through the preferences and set it up to my liking. I also activate the <code>Show Favorites Bar</code> under View.
-Lastly, I install the following extensions via the App Store:</p>
+</span></span><span class="line"><span class="cl">sudo tmutil addexclusion -p <span class="nv">$HOME</span>/Music/Music
+</span></span><span class="line"><span class="cl">sudo tmutil addexclusion -p <span class="nv">$HOME</span>/Virtual Machines.localized
+</span></span></code></pre></div><h3 id="enable-internet-accounts-for-calendar-contacts-and-mails">Enable internet accounts for calendar, contacts and mails</h3>
+<p>In <code>Internet Accounts</code> of <code>System Settings</code> I enable and set up my accounts for mails, calendars and contacts:</p>
 <ul>
-<li><a href="https://apps.apple.com/us/app/bitwarden/id1352778147?mt=12" target="_blank" rel="noopener">Bitwarden (10$/year)</a>: This also installs a desktop app, which I start first to enable <code>Unlock with TouchID</code>. Then I set up the extension in Safari to also use Biometrics to unlock in Safari.</li>
-<li><a href="https://apps.apple.com/us/app/1blocker-ad-blocker-privacy/id1365531024" target="_blank" rel="noopener">1Blocker (1.99€/month)</a>: In the extensions panel of the Safari preferences I enable all 1Blocker extensions and then set up the app to my liking.</li>
-</ul>
-<h4 id="chrome">Chrome</h4>
-<p>For YouTube and some websites that do not work under Safari, I also install <a href="https://www.google.com/chrome/" target="_blank" rel="noopener">Google Chrome</a>. I don&rsquo;t make it my default browser, but do sign in to my Google account to sync my settings and extensions. Again I am using <a href="https://chrome.google.com/webstore/detail/bitwarden-free-password-m/nngceckbapebfimnlniiiahkandclblb?hl=en" target="_blank" rel="noopener">Bitwarden</a> to access my passwords and <a href="https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en" target="_blank" rel="noopener">uBlock origin</a> to block ads.</p>
-<h3 id="enable-internet-accounts-for-calendar-contacts-and-mails">Enable internet accounts for calendar, contacts and mails</h3>
-<p>In <code>Internet Accounts</code> of <code>System Preferences</code> I enable and set up my accounts for mails, calendars and contacts:</p>
-<ul>
-<li>mutschler.dev (imap/smtp)</li>
+<li>iCloud</li>
 <li>mutschler.eu (imap/smtp)</li>
+<li>mutschler.dev (imap/smtp)</li>
 <li>dynare.org (imap/smtp)</li>
-<li>Nextcloud (CardDAV and CalDAV)</li>
 <li>University Tübingen (Exchange)</li>
 <li>Microsoft 365 account (Exchange)</li>
-<li>iCloud</li>
 </ul>
-<h3 id="mail">Mail</h3>
-<p>I then open Mail.App to sync my emails. Meanwhile it syncs, I go through the preferences:</p>
-<ul>
-<li>New messages sound: None</li>
-<li>Deactivate &ldquo;Enable message follow-up suggestions&rdquo;</li>
-<li>Composing: Message format: Plain Text</li>
-<li>Privacy: Activate Protect Mail Activity</li>
-</ul>
-<p>I also deactivate &ldquo;Organise by Conversation&rdquo; in View for every Folder in every Mail Account (sic!).
-Lastly, I make sure that my S/MIME certificate is working (if not, <a href="https://support.apple.com/en-gb/guide/mail/mlhlp1179/15.0/mac/13.0" target="_blank" rel="noopener">follow these steps</a>) and also import your private key to the Key Chain.</p>
+<p>What about my profile to sign stuff?</p>
 <h3 id="finder-preferences">Finder Preferences</h3>
-<p>I change some preferences in Finder for my convenience:</p>
+<p>I change some preferences in Finder for my convenience.
+So open a Finder windows and go to <code>Finder</code> -&gt; <code>Preferences</code> and change the following:</p>
 <ul>
-<li>Turn off &ldquo;Show these items on the desktop&rdquo;</li>
-<li>New Finder windows shows <code>wmutschl</code> (my user name)</li>
-<li>Show all items in the sidebar except Recents and AirDrop</li>
-<li>Show all filename extensions</li>
-<li>Don&rsquo;t show warning before changing an extension</li>
-<li>Don&rsquo;t show warning before removing from iCloud Drive</li>
-<li>Remove items from the Bin after 30 days</li>
-<li>Keep folders on top for <code>In windows when sorting by name</code></li>
-<li>Keep folders on top for <code>On Desktop</code></li>
-<li>When performing a search: <code>Search the Current Folder</code></li>
+<li><code>General</code>
+<ul>
+<li>Turn off all things under <em>Show these items on the desktop</em></li>
+<li><em>New Finder windows show</em> <code>wmutschl</code> (my user name)</li>
+<li>Deactivate <em>Sync Desktop &amp; Documents folders</em></li>
+<li>Activate <em>Open folders in tabs instead of windows</em></li>
 </ul>
-<p>Moreover, in the View menu I activate <code>Show Path Bar</code> and <code>Show Status Bar</code>. Lastly, I change the view to list view, <kbd>CMD</kbd>+<kbd>2</kbd>, then I hit <kbd>CMD</kbd>+<kbd>j</kbd> and select the layout I want by default.
-Hit <code>Use As Defaults</code> at the bottom.</p>
-<h2 id="terminalapp">Terminal.app</h2>
-<p>The terminal is a very powerful tool I use daily for my work, so I do the following to create my development environment. So open Terminal.app and run the following commands.</p>
-<h3 id="xcode-command-line-tools">Xcode Command Line Tools</h3>
-<p><code>Command Line Tools for Xcode</code> (like git, rsync, compilers) are important for coding and development, they can be installed by:</p>
+</li>
+<li><code>Tags</code>: nothing to change here</li>
+<li><code>Sidebar</code>
+<ul>
+<li>I like to show the following items under <em>Favorites</em>: Desktop, Documents, Downloads, wmutschl, Applications,iCloud Drive, Shared, Hard disks, External disks, CDs, Cloud Storage, Bonjour computers, Connected servers</li>
+</ul>
+</li>
+<li><code>Advanced</code>
+<ul>
+<li>Activate <em>Show all filename extensions</em></li>
+<li>Deactivate <em>Show warning before changing an extension</em></li>
+<li>Deactivate <em>Show warning before removing from iCloud Drive</em></li>
+<li>Deactivate <em>Show warning before emptying the Trash</em></li>
+<li>Activate <em>Remove items from the Bin after 30 days</em></li>
+<li>Activate <code>Keep folders on top</code> for <em>In windows when sorting by name</em></li>
+<li>Activate <code>Keep folders on top</code> for <em>On Desktop</em></li>
+<li>Change <code>When performing a search:</code> to <em>Search the Current Folder</em></li>
+</ul>
+</li>
+</ul>
+<p>Next got to <code>View</code> and change the following:</p>
+<ul>
+<li>Activate <code>Show Path Bar</code></li>
+</ul>
+<p>Lastly, I change the default view.
+For this go to <code>View</code> - <code>Show View Options</code> and change the following:</p>
+<ul>
+<li>Click <kbd>CMD</kbd>+<kbd>2</kbd> and then select the layout I want by default (e.g. <em>Show Library Folder</em>)</li>
+<li>Hit <code>Use As Defaults</code> at the bottom.</li>
+</ul>
+<h2 id="browsers-and-extensions">Browsers and extensions</h2>
+<h3 id="safari">Safari</h3>
+<p>My daily driver for surfing the web is Safari, so I go through the preferences and set it up to my liking.
+I make the following changes:</p>
+<ul>
+<li><code>General</code>
+<ul>
+<li>Deactivate <em>Open &ldquo;safe&rdquo; files after downloading</em></li>
+</ul>
+</li>
+<li><code>Search</code>
+<ul>
+<li>Deactivate <em>Enable Quick Website Search</em></li>
+<li>Deactivate <em>Preload Top Hit in the background</em></li>
+</ul>
+</li>
+<li><code>Privacy</code>
+<ul>
+<li>Activate <em>Require password to view locked tabs</em></li>
+</ul>
+</li>
+<li><code>Advanced</code>
+<ul>
+<li>Activate <em>Show full website address</em></li>
+</ul>
+</li>
+</ul>
+<p>I also activate the <code>Show Favorites Bar</code> under View.</p>
+<p>Lastly, I install the following extensions via the App Store:</p>
+<ul>
+<li><a href="https://apps.apple.com/us/app/1blocker-ad-blocker-privacy/id1365531024" target="_blank" rel="noopener">1Blocker (1.99€/month)</a>:
+In the extensions panel of the Safari preferences I enable all 1Blocker extensions and then set up the app to my liking.
+Actually, if you have it already installed on another machine, the settings will be synced to the new machine.</li>
+</ul>
+<h3 id="chrome">Chrome</h3>
+<p>For YouTube and some websites that do not work under Safari, I also install <a href="https://www.google.com/chrome/" target="_blank" rel="noopener">Google Chrome</a>.
+I don&rsquo;t make it my default browser, but do sign in to my Google account to sync my settings and extensions.
+I don&rsquo;t use any extensions on Chrome.
+I also deactivate the <em>Show warning before quitting with <kbd>CMD</kbd>+<kbd>Q</kbd></em> option.</p>
+<h3 id="mail">Mail</h3>
+<p>I then open the Mail app to sync my emails.
+While it syncs, I go through the preferences and make the following changes:</p>
+<ul>
+<li><code>General</code>
+<ul>
+<li>New messages sound: <em>None</em></li>
+<li>Deactivate <em>Play sounds for other mail actions</em></li>
+<li>Deactivate <em>Follow Up Suggestions</em></li>
+</ul>
+</li>
+<li><code>Accounts</code>
+<ul>
+<li>Check the folders in <code>Mailbox Behaviors</code> and the <code>Server Settings</code> for each account</li>
+</ul>
+</li>
+<li><code>Composing</code>
+<ul>
+<li>Deactivate <em>Add link previews</em></li>
+</ul>
+</li>
+</ul>
+<p>I also deactivate &ldquo;Organise by Conversation&rdquo; in View for <strong>every Folder</strong> in <strong>every Mail Account</strong> (sic!).
+Lastly, I make sure that my S/MIME certificate is working (if not, <a href="https://support.apple.com/en-gb/guide/mail/mlhlp1179/16.0/mac/15.0" target="_blank" rel="noopener">follow these steps</a>) and also import your private key to the Key Chain.</p>
+<h2 id="xcode-command-line-tools">Xcode Command Line Tools</h2>
+<p><code>Command Line Tools for Xcode</code> (like git, rsync, compilers) are important for coding and development, they can be installed by entering the following command in the terminal:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">xcode-select --install
-</span></span></code></pre></div><h3 id="rosetta-2">Rosetta 2</h3>
+</span></span></code></pre></div><h2 id="rosetta-2">Rosetta 2</h2>
 <p>Unfortunately, some software I use is still (and probably will never) be ported to Apple Silicon (ARM), so I make sure to install the Intel compatibility layer <a href="https://support.apple.com/en-us/HT211861" target="_blank" rel="noopener">Rosetta 2</a>:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">softwareupdate --install-rosetta --agree-to-license
 </span></span></code></pre></div><p>Note that this needs to be done only once and often this is already triggered if you already installed an Intel version of a software.</p>
-<h3 id="homebrew-with-alias-for-both-intel-and-arm-versions">Homebrew with Alias for both Intel and ARM versions</h3>
-<p>Homebrew is the <a href="https://brew.sh" target="_blank" rel="noopener">missing package manager for macOS</a> which allows one to install all sorts of software and tools I need for my work. I need to make sure that I have both the Intel as well as ARM version of homebrew installed. So open terminal.app and install the ARM version of homebrew first:</p>
+<h2 id="terminal">Terminal</h2>
+<h3 id="homebrew-with-aliases-for-both-intel-and-arm-versions">Homebrew with aliases for both Intel and ARM versions</h3>
+<p>Homebrew is the <a href="https://brew.sh" target="_blank" rel="noopener">missing package manager for macOS</a> which allows one to install all sorts of software and tools I need for my work.
+I need to make sure that I have both the Intel as well as ARM version of homebrew installed.
+So open terminal.app and install the ARM version of homebrew first:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">/bin/bash -c <span class="s2">&#34;</span><span class="k">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span class="k">)</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="o">(</span>echo<span class="p">;</span> <span class="nb">echo</span> <span class="s1">&#39;eval &#34;$(/opt/homebrew/bin/brew shellenv)&#34;&#39;</span><span class="o">)</span> &gt;&gt; /Users/wmutschl/.zprofile
 </span></span><span class="line"><span class="cl"><span class="nb">eval</span> <span class="s2">&#34;</span><span class="k">$(</span>/opt/homebrew/bin/brew shellenv<span class="k">)</span><span class="s2">&#34;</span>
-</span></span></code></pre></div><p>This installs Homebrew into <code>/opt/homebrew</code>. Next, I install the Intel version using the <code>arch -x86_64</code> prefix:</p>
+</span></span></code></pre></div><p>This installs Homebrew into <code>/opt/homebrew</code>.
+Next, I install the Intel version using the <code>arch -x86_64</code> prefix:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">arch -x86_64 /bin/bash -c <span class="s2">&#34;</span><span class="k">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span class="k">)</span><span class="s2">&#34;</span>
-</span></span></code></pre></div><p>This install Homebrew into <code>/usr/local/homebrew</code>. Don&rsquo;t run the &ldquo;Next steps&rdquo; as by default the ARM version should be used.
-Now let&rsquo;s create two useful alias for both versions:</p>
+</span></span></code></pre></div><p>This install Homebrew into <code>/usr/local/homebrew</code>.
+Don&rsquo;t run the &ldquo;Next steps&rdquo; as by default the ARM version should be used.
+Now let&rsquo;s create two useful aliases for both versions:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;alias mbrew=&#34;/opt/homebrew/bin/brew&#34;&#39;</span> &gt;&gt; /Users/wmutschl/.zshrc
 </span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;alias ibrew=&#34;arch -x86_64 /usr/local/bin/brew&#34;&#39;</span> &gt;&gt; /Users/wmutschl/.zshrc
 </span></span></code></pre></div><p>Close and re-open your terminal and test these by e.g. running update and upgrade commands:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">mbrew update <span class="o">&amp;&amp;</span> mbrew upgrade
 </span></span><span class="line"><span class="cl">ibrew update <span class="o">&amp;&amp;</span> ibrew upgrade
-</span></span></code></pre></div><p>Note that <code>brew</code> refers to the ARM version, which is the right default for me.</p>
+</span></span><span class="line"><span class="cl">brew update <span class="o">&amp;&amp;</span> brew upgrade
+</span></span></code></pre></div><p>Note that <code>brew</code> command refers to the ARM version, which is the right default for me.</p>
 <h3 id="fish-a-friendly-interactive-shell">Fish (A Friendly Interactive Shell)</h3>
-<p>Instead of Apples default <code>zsh</code> shell, I like to use <a href="https://fishshell.com" target="_blank" rel="noopener">Fish shell</a> as it is much more <a href="https://fedoramagazine.org/fish-a-friendly-interactive-shell/" target="_blank" rel="noopener">interactive and user-friendly</a>. This can be installed easily with (ARM) homebrew:</p>
+<p>Instead of Apples default <code>zsh</code> shell, I like to use <a href="https://fishshell.com" target="_blank" rel="noopener">Fish shell</a> as it is much more <a href="https://fedoramagazine.org/fish-a-friendly-interactive-shell/" target="_blank" rel="noopener">interactive and user-friendly</a>.
+This can be installed easily with (ARM) homebrew:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">brew install fish
 </span></span></code></pre></div><p>To make fish the default shell one needs to first include it into <code>/etc/shells</code>:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;/opt/homebrew/bin/fish&#34;</span> <span class="p">|</span> sudo tee -a /etc/shells
 </span></span><span class="line"><span class="cl">cat /etc/shells
-</span></span><span class="line"><span class="cl"><span class="c1">#/opt/homebrew/bin/fish</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /opt/homebrew/bin/fish</span>
 </span></span></code></pre></div><p>And then change the shell:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chsh -s /opt/homebrew/bin/fish
 </span></span></code></pre></div><p>Close the Terminal.app and re-open another Terminal.app and you should be greeted by Fish.</p>
 <p>Lastly, I make sure that <code>/opt/homebrew/bin</code> is in my <code>fish_user_paths</code>:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">set</span> -U fish_user_paths /opt/homebrew/bin <span class="nv">$fish_user_paths</span>
-</span></span></code></pre></div><p>And I create Alias for ARM Homebrew and Intel Homebrew in Fish as well:</p>
+</span></span></code></pre></div><p>And I create aliases for ARM Homebrew and Intel Homebrew in Fish as well:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">alias</span> mbrew <span class="s2">&#34;/opt/homebrew/bin/brew&#34;</span>
 </span></span><span class="line"><span class="cl">funcsave mbrew
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nb">alias</span> ibrew <span class="s2">&#34;arch -x86_64 /usr/local/bin/brew&#34;</span>
 </span></span><span class="line"><span class="cl">funcsave ibrew
 </span></span></code></pre></div><h3 id="localbin-in-path">.local/bin in $PATH</h3>
-<p>I like to have <code>$HOME/.local/bin</code> in my $PATH. In Fish one can do this using the following command:</p>
+<p>I like to have <code>$HOME/.local/bin</code> in my $PATH.
+In Fish one can do this using the following command:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">mkdir -p <span class="nv">$HOME</span>/.local/bin
 </span></span><span class="line"><span class="cl"><span class="nb">set</span> -Ua fish_user_paths <span class="nv">$HOME</span>/.local/bin
-</span></span></code></pre></div><p>zsh and bash usually pick this up, once the folder is created. You can check this by opening another Terminal.app and running</p>
+</span></span></code></pre></div><p>zsh and bash usually pick this up, once the folder is created.
+You can check this by opening another Terminal.app and running</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">bash -C <span class="s2">&#34;echo </span><span class="nv">$PATH</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl">zsh -c <span class="s2">&#34;echo </span><span class="nv">$PATH</span><span class="s2">&#34;</span>
-</span></span></code></pre></div><h3 id="dracula-theme">Dracula Theme</h3>
+</span></span></code></pre></div><h3 id="dracula-theme-for-terminal">Dracula Theme for Terminal</h3>
 <p>I like the [Dracula Theme] for the Terminal, which can be easily installed using Homebrew:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">brew tap dracula/install
 </span></span><span class="line"><span class="cl">brew install --cask dracula-terminal
-</span></span></code></pre></div><p>Activating theme: Terminal &gt; Settings Tab, Click &ldquo;Gear&rdquo; icon, Click Import. CMD+G, then enter <code>/opt/homebrew/</code> and go to <code>Caskroom/dracula-terminal/VERSION/terminal-app-master</code>.
-Finally, select the Dracula.terminal file and click Default.</p>
+</span></span></code></pre></div><p>To activate the theme go to Settings of Terminal.app, go to profiles, click the Circle with the three dots and <em>Import</em>.
+Then use <kbd>CMD</kbd>+<kbd>Shift</kbd>+<kbd>G</kbd> to input the path <code>/opt/homebrew/</code> and then go to <code>Caskroom/dracula-terminal/VERSION/terminal-app-master</code>.
+Finally, select the Dracula.terminal file and click <em>Default</em>.</p>
 <h3 id="perl-warning-setting-locale-failed-on-servers">perl: warning: Setting locale failed on servers</h3>
-<p>I sometimes get a warning &ldquo;perl: warning: Setting locale failed.&rdquo; on my servers. A quick fix is the following:</p>
+<p>I sometimes get a warning &ldquo;perl: warning: Setting locale failed.&rdquo; when I connect to my servers.
+A quick fix is the following:</p>
 <ul>
-<li>Open Terminal -&gt; Preferences -&gt; Profiles -&gt; Advanced tab -&gt; uncheck <code>Set locale environment variables on startup</code></li>
+<li>Open Terminal -&gt; Preferences -&gt; Profiles -&gt; Advanced tab -&gt; uncheck <code>Set locale environment variables on startup</code>.</li>
 </ul>
 <h2 id="ssh-keys">SSH keys</h2>
 <p>If I want to create a new SSH key, I run in Terminal.app:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ssh-keygen -t ed25519 -C <span class="s2">&#34;MacBook Air&#34;</span>
-</span></span></code></pre></div><p>Usually, however, I restore my <code>.ssh</code> folder from my backup (see above). Either way, afterwards, one needs to add the file containing your key, usually <code>id_rsa</code> or <code>id_ed25519</code>, to the ssh-agent. First start the ssh-agent in the background:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">eval</span> <span class="s2">&#34;</span><span class="k">$(</span>ssh-agent -s<span class="k">)</span><span class="s2">&#34;</span> <span class="c1">#works in bash,zsh</span>
-</span></span><span class="line"><span class="cl"><span class="nb">eval</span> <span class="o">(</span>ssh-agent -c<span class="o">)</span> <span class="c1">#works in fish</span>
-</span></span></code></pre></div><p>Next, we need to modify <code>~/.ssh/config</code> file to automatically load keys into the ssh-agent and store passphrases in the keychain. As I restore from backup, I don&rsquo;t have to do this step. But for completeness, if the file does not exist yet, create and open it:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">touch ~/.ssh/config 
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ssh-keygen -t ed25519 -C <span class="s2">&#34;Mac&#34;</span>
+</span></span></code></pre></div><p>Usually, however, I restore my <code>.ssh</code> folder from my backup (see above).
+Either way, afterwards, one needs to add the file containing your key, usually <code>id_rsa</code> or <code>id_ed25519</code>, to the ssh-agent.
+First start the ssh-agent in the background:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">eval</span> <span class="s2">&#34;</span><span class="k">$(</span>ssh-agent -s<span class="k">)</span><span class="s2">&#34;</span> <span class="c1"># works in bash or zsh</span>
+</span></span><span class="line"><span class="cl"><span class="nb">eval</span> <span class="o">(</span>ssh-agent -c<span class="o">)</span>    <span class="c1"># works in fish</span>
+</span></span></code></pre></div><p>Next, we need to modify <code>~/.ssh/config</code> file to automatically load keys into the ssh-agent and store passphrases in the keychain.
+As I restore from backup, I don&rsquo;t have to do this step.
+But for completeness, if the file does not exist yet, create and open it:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">touch ~/.ssh/config
 </span></span><span class="line"><span class="cl">nano ~/.ssh/config
 </span></span></code></pre></div><p>Make sure that it includes the following lines:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">Host *
 </span></span><span class="line"><span class="cl">  AddKeysToAgent yes
 </span></span><span class="line"><span class="cl">  UseKeychain yes
 </span></span><span class="line"><span class="cl">  IdentityFile ~/.ssh/id_ed25519
-</span></span></code></pre></div><p>If your SSH key file has a different name or path than the example code, modify the filename or path to match your current setup. Note: If you chose not to add a passphrase to your key, you should omit the <em>UseKeychain</em> line. Lastly, let&rsquo;s add our private SSH key to the ssh-agent:</p>
+</span></span></code></pre></div><p>If your SSH key file has a different name or path than the example code, modify the filename or path to match your current setup.
+Note that if you don&rsquo;t have a passphrase to your key, you should omit the <em>UseKeychain</em> line.
+Lastly, let&rsquo;s add our private SSH key to the ssh-agent:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ssh-add -K ~/.ssh/id_ed25519
-</span></span></code></pre></div><p>Don&rsquo;t forget to add your public key to GitHub, Gitlab, Servers, etc.</p>
+</span></span></code></pre></div><p>Don&rsquo;t forget to add your public key to GitHub, Gitlab, servers, etc.</p>
 <h2 id="private-gpg-key-with-yubikey">Private GPG key with Yubikey</h2>
-<p>I store my private GPG key on two Yubikeys (a tutorial on how to put it there is taken from <a href="https://www.heise.de/ratgeber/FIDO2-YubiKey-als-OpenPGP-Smartcard-einsetzen-4590032.html" target="_blank" rel="noopener">Heise</a> or <a href="https://github.com/drduh/YubiKey-Guide" target="_blank" rel="noopener">YubiKey-Guide</a>). For this I need to install several packages via ARM Homebrew first</p>
+<p>I store my private GPG key on two Yubikeys (a tutorial on how to put it there is taken from <a href="https://www.heise.de/ratgeber/FIDO2-YubiKey-als-OpenPGP-Smartcard-einsetzen-4590032.html" target="_blank" rel="noopener">Heise</a> or <a href="https://github.com/drduh/YubiKey-Guide" target="_blank" rel="noopener">YubiKey-Guide</a>).
+For this I need to install several packages via ARM Homebrew first</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">brew install gnupg pinentry-mac yubikey-personalization ykman
-</span></span></code></pre></div><p>Make sure that the .gnupg folder has the correct permissions:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find ~/.gnupg -type f -exec chmod <span class="m">600</span> <span class="o">{}</span> <span class="se">\;</span>
+</span></span></code></pre></div><p>Make sure that the <code>.gnupg</code> folder has the correct permissions:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">mkdir -p ~/.gnupg
+</span></span><span class="line"><span class="cl">chmod <span class="m">700</span> ~/.gnupg
+</span></span><span class="line"><span class="cl">find ~/.gnupg -type f -exec chmod <span class="m">600</span> <span class="o">{}</span> <span class="se">\;</span>
 </span></span><span class="line"><span class="cl">find ~/.gnupg -type d -exec chmod <span class="m">700</span> <span class="o">{}</span> <span class="se">\;</span>
 </span></span></code></pre></div><p>Now insert the first Yubikey and check whether it is recognized:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ykman info <span class="c1"># your key should be recognized</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Device type: YubiKey 5 NFC</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Serial number: </span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Firmware version: 5.1.2</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Form factor: Keychain (USB-A)</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Enabled USB interfaces: OTP+FIDO+CCID</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># NFC interface is enabled.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Device type: YubiKey 5C NFC</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Serial number: 19926994</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Firmware version: 5.4.3</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Form factor: Keychain (USB-C)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Enabled USB interfaces: OTP, FIDO, CCID</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># NFC transport is enabled</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># </span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Applications	USB    	NFC     </span>
-</span></span><span class="line"><span class="cl"><span class="c1"># OTP     	Enabled	Enabled 	</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># FIDO U2F	Enabled	Enabled 	</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># OpenPGP 	Enabled	Enabled 	</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># PIV     	Enabled	Enabled	</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># OATH    	Enabled	Enabled 	</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># FIDO2   	Enabled	Enabled 	</span>
-</span></span></code></pre></div><p>Do the same for the backup Yubikey. Make sure that OpenPGP and PIV are enabled on both Yubikeys as shown above. Next, check whether the GPG card on both Yubikeys is readable by gpg:</p>
+</span></span><span class="line"><span class="cl"><span class="c1"># Applications	USB    	NFC    </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Yubico OTP  	Enabled	Enabled</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># FIDO U2F    	Enabled	Enabled</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># FIDO2       	Enabled	Enabled</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># OATH        	Enabled	Enabled</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># PIV         	Enabled	Enabled</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># OpenPGP     	Enabled	Enabled</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># YubiHSM Auth	Enabled	Enabled</span>
+</span></span></code></pre></div><p>Do the same for the backup Yubikey.
+Make sure that OpenPGP and PIV are enabled on both Yubikeys as shown above.
+Next, check whether the GPG card on both Yubikeys is readable by gpg:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --card-status
+</span></span><span class="line"><span class="cl"><span class="c1"># gpg: keybox &#39;/Users/wmutschl/.gnupg/pubring.kbx&#39; created</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># Reader ...........: Yubico YubiKey OTP FIDO CCID</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Application ID ...: D2760001240100000006096001740000</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Application ID ...: D2760001240100000006199269940000</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># Application type .: OpenPGP</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Version ..........: 0.0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Version ..........: 3.4</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># Manufacturer .....: Yubico</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Serial number ....: 09600174</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Name of cardholder: [not set]</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Language prefs ...: [not set]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Serial number ....: 19926994</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Name of cardholder: Willi Mutschler</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Language prefs ...: en</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># Salutation .......: </span>
-</span></span><span class="line"><span class="cl"><span class="c1"># URL of public key : [not set]</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Login data .......: [not set]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># URL of public key : https://github.com/wmutschl.gpg</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Login data .......: wmutschl</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># Signature PIN ....: not forced</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># Key attributes ...: rsa4096 rsa4096 rsa4096</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># Max. PIN lengths .: 127 127 127</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># PIN retry counter : 3 0 3</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Signature counter : 652</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Signature counter : 884</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># KDF setting ......: off</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># UIF setting ......: Sign=off Decrypt=off Auth=off</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># Signature key ....: C13E 5D55 8A9F 4AFE AE08  6186 91E7 24BF 17A7 3F6D</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#     created ....: 2019-12-09 08:36:41</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># Encryption key....: 5D12 A11E 39A6 1ED2 E0F9  9F23 16B5 237D 5563 8B96</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     created ....: 2019-12-09 08:36:41</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#Authentication key: E1B6 6FC6 852C 0FC1 9917  D825 8CFE 5D68 CC28 71C3</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     created ....: 2019-12-09 08:38:21</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#General key info..: pub  rsa4096/91E724BF17A73F6D 2019-12-09 Willi Mutschler &lt;willi@mutschler.eu&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#sec&gt;  rsa4096/91E724BF17A73F6D  created: 2019-12-09  expires: never     </span>
-</span></span><span class="line"><span class="cl"><span class="c1">#                                card-no: 0006 09600174</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#ssb&gt;  rsa4096/16B5237D55638B96  created: 2019-12-09  expires: never     </span>
-</span></span><span class="line"><span class="cl"><span class="c1">#                                card-no: 0006 09600174</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#ssb&gt;  rsa4096/8CFE5D68CC2871C3  created: 2019-12-09  expires: never     </span>
-</span></span><span class="line"><span class="cl"><span class="c1">#                                card-no: 0006 09600174</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       created ....: 2019-12-09 08:36:41</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Authentication key: E1B6 6FC6 852C 0FC1 9917  D825 8CFE 5D68 CC28 71C3</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       created ....: 2019-12-09 08:38:21</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># General key info..: [none]</span>
 </span></span></code></pre></div><p>My public key is stored in a file <code>$HOME/.gnupg/public.asc</code> which I either copy from backup or download from GitHub:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">curl https://github.com/wmutschl.gpg &gt; $HOME/.gnupg/public.asc
 </span></span></code></pre></div><p>Next I import it and give it trust level 5:</p>
@@ -1099,12 +1424,19 @@ Finally, select the Dracula.terminal file and click Default.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">echo &#34;This is an encrypted message&#34; | gpg --encrypt --armor --recipient $KEYID -o encrypted_MAC.txt
 </span></span><span class="line"><span class="cl">gpg --decrypt --armor encrypted_MAC.txt
 </span></span></code></pre></div><p>This should ask you for the User Pin and you should be able to decrypt the message.</p>
-<h2 id="gpg-agent-forwarding">GPG agent forwarding</h2>
-<p>Following <a href="https://gist.github.com/TimJDFletcher/85fafd023c81aabfad57454111c1564d" target="_blank" rel="noopener">this guide</a> (particularly add <code>StreamLocalBindUnlink yes</code> to <code>sshd_config</code> and run <code>gpgconf --create-socketdir</code> on the remote server).</p>
+<h3 id="gpg-agent-configuration">GPG agent configuration</h3>
+<p>I make the following changes to my GPG agent configuration:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">nano ~/.gnupg/gpg-agent.conf
+</span></span><span class="line"><span class="cl"><span class="c1"># use-standard-socket</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># pinentry-program /opt/homebrew/bin/pinentry-mac</span>
+</span></span></code></pre></div><h3 id="gpg-agent-forwarding">GPG agent forwarding</h3>
+<p>To use my GPG keys on my servers via forwarding the Yubikeys, I follow <a href="https://gist.github.com/TimJDFletcher/85fafd023c81aabfad57454111c1564d" target="_blank" rel="noopener">this guide</a>.
+Particularly, I add <code>StreamLocalBindUnlink yes</code> to <code>sshd_config</code> and run <code>gpgconf --create-socketdir</code> on the remote server.</p>
 <p>My <code>$HOME/.gnupg/gpg-agent.conf</code> is:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pinentry-program /opt/homebrew/bin/pinentry-mac
-</span></span><span class="line"><span class="cl">extra-socket $HOME/.gnupg/S.gpg-agent.extra
-</span></span></code></pre></div><p>And I add <code>    RemoteForward /home/&lt;user&gt;/.gnupg/S.gpg-agent /Users/&lt;user&gt;/.gnupg/S.gpg-agent.extra</code> to the <code>.ssh/config</code> file.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">use-standard-socket
+</span></span><span class="line"><span class="cl">pinentry-program /opt/homebrew/bin/pinentry-mac
+</span></span><span class="line"><span class="cl">#extra-socket $HOME/.gnupg/S.gpg-agent.extra
+</span></span></code></pre></div><p>And I add <code>    RemoteForward /home/&lt;user&gt;/.gnupg/S.gpg-agent /Users/&lt;user&gt;/.gnupg/S.gpg-agent.extra</code> to each entry in my <code>.ssh/config</code> file.</p>
 <p>Test it:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">echo &#34;test&#34; | gpg --encrypt -r $MYKEYID &gt; output
 </span></span><span class="line"><span class="cl">gpg --decrypt output
@@ -1113,141 +1445,243 @@ Finally, select the Dracula.terminal file and click Default.</p>
 </span></span><span class="line"><span class="cl">ssh remote-server
 </span></span><span class="line"><span class="cl">gpg --decrypt output
 </span></span></code></pre></div><h2 id="apple-apps">Apple Apps</h2>
-<p>Before I install additional apps, I go through all the applications Apple ships by default in order to provide the necessary permissions and change some settings. So I click on all the apps in Launchpad and first delete all the apps that I don&rsquo;t use.
+<p>Before I install additional apps, I go through all the applications Apple ships by default in order to provide the necessary permissions and change some settings.
+So I click on all the apps in Launchpad and first delete all the apps that I don&rsquo;t use.
 Then I make changes to some app settings, which I list below.</p>
-<h4 id="app-store">App Store</h4>
-<p>Turn off Video Autoplay and Automatic Updates as I usually do manual updates once a week to not miss new features.</p>
-<h4 id="contacts">Contacts</h4>
-<p>Check whether all contacts are correctly synced and sort by first name. Adjust the Default Account.</p>
-<h4 id="calendar">Calendar</h4>
-<p>Check whether all calendars are correctly synced and set the default calendar and notification times.</p>
-<h4 id="reminders">Reminders</h4>
-<p>Check the Default List.</p>
-<h4 id="notes">Notes</h4>
-<p>Set the Default account; do not Enable the On My Mac account.</p>
-<h4 id="facetime">FaceTime</h4>
-<p>Make sure the Account is enabled and the numbers to be reached by are checked. Deactivate &ldquo;Automatic Camera Selection&rdquo; under Video.</p>
-<h4 id="imessage">iMessage</h4>
-<p>First, sign in to iMessage and then set up <em>Name and Photo</em> or make sure it is in sync.
-Second, turn on <em>Enable Messages in iCloud</em> and <em>Send read receipts</em>. Also make sure that messages are kept forever. Lastly, I sign in to FaceTime and check the settings as well.</p>
-<h4 id="photo-booth">Photo Booth</h4>
-<p>Deactivate &ldquo;Automatic Camera Selection&rdquo; under Camera.</p>
-<h4 id="photos">Photos</h4>
-<p>Make sure they are restored from your backup and in sync. Then go to preferences and check the following:</p>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> Download Originals to this Mac</li>
-<li><input checked="" disabled="" type="checkbox"> Deactivate Autoplay Videos and Live Photos</li>
-<li><input checked="" disabled="" type="checkbox"> Activate Show Holiday Events</li>
-<li><input checked="" disabled="" type="checkbox"> Activate Show Memories Notifications</li>
-<li><input checked="" disabled="" type="checkbox"> Sharing: Include location information</li>
-</ul>
-<h4 id="music">Music</h4>
-<p>Turn on Lossless audio.</p>
-<h4 id="podcasts">Podcasts</h4>
-<p>I don&rsquo;t use this app, so turn Automatic Download Off.</p>
-<h4 id="tv">TV</h4>
-<p>Turn on &ldquo;Automatically delete watched movies and TV shows&rdquo;.</p>
-<h4 id="keynote-numbers-pages">Keynote, Numbers, Pages</h4>
-<p>Deactivate &ldquo;Correct spelling automatically&rdquo; and &ldquo;Capitalise words automatically&rdquo;.</p>
-<h4 id="weather">Weather</h4>
-<p>Enable notifications for &ldquo;Severe Weather&rdquo; and &ldquo;Next-hour Precipitation&rdquo;</p>
-<h4 id="home">Home</h4>
+<h3 id="app-store">App Store</h3>
+<p>Turn off everyhing. As for Updates, I usually do manual updates once a week to not miss new features.</p>
+<h3 id="calendar">Calendar</h3>
+<p>Check whether all calendars are correctly synced and set the default calendar and notification times.
+Turn off <em>Show shared calendar messages in Notification Center</em> under <code>Alerts</code>.
+Turn on <em>Show events in year view</em> under <code>Advanced</code>.</p>
+<h3 id="contacts">Contacts</h3>
+<p>Check whether all contacts are correctly synced and sort by first name.
+Adjust the Default Account.
+Under <code>General</code> I <em>Sort By</em>: <em>First Name</em> and the <em>Addres Format</em> to <em>Germany</em>.</p>
+<h3 id="facetime">FaceTime</h3>
+<p>Make sure the Account is enabled and the numbers to be reached by are checked.
+Deactivate &ldquo;Automatic Camera Selection&rdquo; under Video.</p>
+<h3 id="home">Home</h3>
 <p>Make sure you have access to your Home.</p>
-<h4 id="shortcuts">Shortcuts</h4>
-<p>If one needs it: Activate &ldquo;Allow Running Scripts&rdquo;</p>
-<h4 id="text-edit">Text Edit</h4>
+<h3 id="keynote-numbers-pages">Keynote, Numbers, Pages</h3>
+<p>Deactivate &ldquo;Correct spelling automatically&rdquo; and &ldquo;Capitalise words automatically&rdquo;.</p>
+<h3 id="messages">Messages</h3>
+<p>First, sign in to iMessage and then set up <em>Name and Photo</em> or make sure it is in sync.
+Second, turn on <em>Enable Messages in iCloud</em> and <em>Send read receipts</em>.
+Also make sure that messages are kept forever.</p>
+<h3 id="music">Music</h3>
+<p>Turn on Lossless audio.</p>
+<h3 id="notes">Notes</h3>
+<p>Set the Default account; do not Enable the On My Mac account.</p>
+<h3 id="photo-booth">Photo Booth</h3>
+<p>Deactivate &ldquo;Automatic Camera Selection&rdquo; under Camera.</p>
+<h3 id="photos">Photos</h3>
+<p>Go to preferences and check the following:</p>
+<ul>
+<li><code>General</code>:
+<ul>
+<li>Privacy: activate <em>Use Password</em></li>
+<li>Photos: deactivate <em>Autoplay Videos and Live Photos</em></li>
+<li>Memories: activate all</li>
+<li>Importing: activate <em>Copy items to the Photos library</em></li>
+<li>Sharing: activate *Include location information and set <em>Memories</em> to <em>Landscape</em> and <em>16:9</em></li>
+<li>Search: activate <em>Enhanced Visual Search</em></li>
+</ul>
+</li>
+<li><code>iCloud</code>:
+<ul>
+<li>activate <em>icloud Photos</em> and <em>Download Originals to this Mac</em>. If you don&rsquo;t have the space, set it to <em>Optimize Mac Storage</em>.</li>
+<li>activate <em>Shared Albums</em></li>
+</ul>
+</li>
+<li><code>Shared Library</code>: I currently don&rsquo;t use this feature.</li>
+</ul>
+<h3 id="podcasts">Podcasts</h3>
+<p>I don&rsquo;t use this app, so turn Automatic Download Off.</p>
+<h3 id="reminders">Reminders</h3>
+<p>Check the Default List.</p>
+<h3 id="shortcuts">Shortcuts</h3>
+<p>If you need it: Activate <em>Allow Running Scripts</em> under <code>Advanced</code>.</p>
+<h3 id="text-edit">Text Edit</h3>
 <p>Deactivate &ldquo;Correct spelling automatically&rdquo;</p>
-<h4 id="keychain-access">Keychain Access</h4>
-<p>Make sure my personal certificate is used for the correct emails and the private key is added.</p>
-<h4 id="disk-utility">Disk Utility</h4>
+<h3 id="tv">TV</h3>
+<p>Deactivate <em>Play Next Episode</em> and <em>Play a Recommendation</em> under <code>Auto Play</code>.
+Turn on <em>Automatically delete watched movies and TV shows</em> under <code>Files</code>.</p>
+<h3 id="weather">Weather</h3>
+<p>Enable notifications for &ldquo;Severe Weather&rdquo; and &ldquo;Next-hour Precipitation&rdquo;</p>
+<h3 id="utilites---digital-colour-meter">Utilites - Digital Colour Meter</h3>
+<p>Select <em>Hexadecimal</em> under <code>View - Display Values</code>.</p>
+<h3 id="utilities---disk-utility">Utilities - Disk Utility</h3>
 <p>In the view menu I select to <code>Show all devices</code> and <code>Show APFS Snapshots</code>.</p>
-<h4 id="digital-colour-meter">Digital Colour Meter</h4>
-<p>Select &ldquo;as Hexadecimal&rdquo; under View-Display Values.</p>
-<h4 id="other-apps">Other apps</h4>
-<p>Nothing to do in: Maps, Find My, Preview, Voice Memos, Stocks, Books, Dictionary, Calculator, Freeform, Clock, QuickTime Player, Grapher, Font Book, Chess, Stickies, Image Capture, Voice Over Utility, AirPort Utility, Migration Assistant, Activity Monitor, Console, System Information, Automator, Script Editor, Color Sync Utility, Screenshot,Blueetooth File Exchange, Audio Midi Setup</p>
-<h2 id="apps-apps-apps">Apps, Apps, Apps</h2>
-<p>In the following I list the tools I use, how to install and configure them.</p>
-<h3 id="productivity-and-utilities">Productivity and Utilities</h3>
-<h4 id="amphetamine-and-amphetamine-enhancer-free">Amphetamine and Amphetamine Enhancer (free)</h4>
-<p>A little helper in case my MacBook needs to stay up all night. It can be installed from the App Store. Start the app and follow the instructions on the welcome screen.</p>
-<h4 id="dockey-free">Dockey (free)</h4>
-<p>This neat little app makes the Dock behave as I like. <a href="https://dockey.publicspace.co" target="_blank" rel="noopener">Download</a> it and move it manually to the Applications folder. I choose the following preferences:</p>
+<h3 id="keychain-access">Keychain Access</h3>
+<p>Make sure my personal certificate is used for the correct emails and the private key is added.</p>
+<h2 id="productivity-and-utilities-apps">Productivity and Utilities Apps</h2>
+<h3 id="amphetamine-free">Amphetamine (free)</h3>
+<p>A little helper in case my MacBook needs to stay up all night.
+It can be installed from the App Store.
+Start the app and follow the instructions on the welcome screen.
+I usually activate to <em>Launch Amphetamine at login</em> under <code>General</code> and change the <em>Menu Bar Image</em> to something else than the pill.</p>
+<h3 id="dockey-free-or-manual-configuration-of-dock">Dockey (free) or manual configuration of Dock</h3>
+<p>This neat little app makes the Dock behave as I like.
+<a href="https://dockey.publicspace.co" target="_blank" rel="noopener">Download</a> it and move it manually to the Applications folder.
+I choose the following preferences:</p>
 <ul>
 <li>Auto-Hide Dock: Hide</li>
 <li>Animation Delay: Little</li>
-<li>Animation Speed: Fast</li>
+<li>Animation Speed: Fast
+Alternatively, one can simply use the following terminal commands to achieve the same:</li>
 </ul>
-<h4 id="logi-options-free">Logi Options+ (free)</h4>
-<p>Install the software and follow the onboarding screen to allow some permissions in <code>Security &amp; Privacy</code>, i.e. <code>Accessibility</code>,  <code>Bluetooth</code> and <code>Input Monitoring</code>. I set some general behavior; particularly, I don&rsquo;t use natural scrolling on the scroll wheel and use the inverted direction for the thumb wheel. I then have a look at the global settings of the buttons. I remap the default behavior of the forward and back buttons to copy and paste. I remap the gestures such that clicking the thumb button opens Mission Control, hold+left goes back, hold+right goes forward, hold+up opens a terminal, hold+down opens Safari.</p>
-<h4 id="mission-control-plus-965">Mission Control Plus (9.65€)</h4>
-<p>From Gnome I am used to be able to close the windows from the activity overview, which is called mission control on macOS. So I download <a href="https://www.fadel.io/missioncontrolplus" target="_blank" rel="noopener">Mission Control plus</a> for which I already purchased a license. Unzip it and manually move it to the applications folder. Open the app and follow the instructions. Then enter the license in the menu bar and I choose to hide the menu icon.</p>
-<h4 id="moom-999">Moom (9.99€)</h4>
-<p>There are many options for tiling windows on macOS. I find Moom quite flexible and install it via the <a href="https://apps.apple.com/us/app/moom/id419330170?mt=12" target="_blank" rel="noopener">App Store</a>.  I choose to run it as a menu bar application and open at startup. I also add a keyboard shortcut <kbd>CTRL</kbd>+<kbd>space</kbd> and add layouts I use often to shortcuts. When I have a working configuration I backup the settings by running in terminal.app:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">defaults <span class="nb">export</span> com.manytricks.Moom ~/Moom.plist
-</span></span></code></pre></div><p>So when I re-install Moom I can simply restore my settings by running in terminal.app:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">defaults import com.manytricks.Moom ~/Moom.plist
-</span></span></code></pre></div><h4 id="money-money-2999">Money Money (29.99€)</h4>
-<p>I really like this tool for my banking so I purchased a license. Download the software from the <a href="https://apps.apple.com/de/app/moneymoney/id872698314?mt=12" target="_blank" rel="noopener">App Store</a> and open it. Immediately in the menu bar I select <code>Help</code>-<code>Show database in Finder</code>. Close Money Money completely (<kbd>CMD</kbd>+<kbd>q</kbd>). Then I delete the three folders <code>Database</code>, <code>Extensions</code> and <code>Statements</code> and restore them from my backup. Restart Money Money, enter your database password and license. Then I go through the settings.</p>
-<h4 id="nextcloud-free">Nextcloud (free)</h4>
-<p>I have all my user files synced to my own Nextcloud server, see my <a href="../../linux/backup">backup strategy</a>, so I need the sync client, which can be <a href="https://nextcloud.com/install/#install-clients" target="_blank" rel="noopener">downloaded</a>. Open nextcloud.app and set up the server and a first folder sync. After the first sync, I need to recheck the options and particularly launch the app on System startup, deactivate 500 MB limit and edit the ignored files. Usually, I don&rsquo;t sync hidden files and add <code>.DS_Store</code> and <code>*.photoslibrary</code> to the ignored files list only. Again make sure to adjust settings after the first folder sync, because otherwise the Global Ignore Settings cannot be adjusted.</p>
-<h4 id="reeder-5-999">Reeder 5 (9.99€)</h4>
-<p>This is my go to RSS reader app on my iPhone, iPad and MacBook. I usually use it on my iPhone, but I also want it on my MacBook, so download it from the <a href="https://apps.apple.com/de/app/reeder-5/id1529448980?mt=12" target="_blank" rel="noopener">App Store</a> and enable syncing feeds via iCloud. Activate <code>Don't fetch on this mac</code> as I am fetching the feeds on my iPhone.</p>
-<h4 id="things-3-4999">Things 3 (49.99€)</h4>
-<p>My favorite To-Do app, which I&rsquo;ve bought for all my devices. Download from the <a href="https://apps.apple.com/de/app/things-3/id904280696?mt=12" target="_blank" rel="noopener">App Store</a>, start it and enable Things Cloud. This syncs my to-do&rsquo;s between my devices. I then go through the preferences and adjust to my liking.</p>
-<h4 id="timeular-89">Timeular (89€)</h4>
-<p>I&rsquo;ve purchased a <a href="https://timeular.com/tracker/" target="_blank" rel="noopener">Timeular Tracker</a> in 2021, which came with the <a href="https://timeular.com/pricing/" target="_blank" rel="noopener">Basic plan</a> for free. Now, the tracker is cheaper (69€), but the basic plan is not included anymore and costs 5€/month. So I am quite happy with my deal. Anyways, I install the app from the <a href="https://timeular.com/download/" target="_blank" rel="noopener">website</a>, start it and sign in. This syncs my data and settings.</p>
-<h3 id="networking-and-virtualization">Networking and Virtualization</h3>
-<h4 id="tailscale-free">Tailscale (free)</h4>
-<p>This is an amazing piece of software based on wireguard to connect all my devices no matter where I am at or if there are firewalls between the devices. It creates a Mesh network and I can access securely all my mobile devices, computers and servers without exposing them to the internet. Tailscale can be downloaded from the <a href="https://apps.apple.com/us/app/tailscale/id1475387142?mt=12" target="_blank" rel="noopener">App Store</a>. Open the app and select to auto start on login. The app resides as a tray icon, which you can click to sign in to your account, change some settings and easily access the IP addresses of the different machines.</p>
-<h4 id="nomachine">NoMachine</h4>
-<p>I use <a href="https://www.nomachine.com" target="_blank" rel="noopener">NoMachine</a> on servers that have a desktop environment. So I download the client, install it, open it and change the settings; particularly, deactivating &ldquo;Start the server at system startup&rdquo; and &ldquo;Shut down the Server&rdquo;. Using the <a href="#tailscale-free">Tailscale</a> IPs I can then connect to my servers.</p>
-<h4 id="parallels-3999year">Parallels (39.99€/year)</h4>
-<p>This is a powerful and user-friendly piece of software to run virtual machines (VM). Particularly, I like to try out Linux ARM VM&rsquo;s, Raspberry Pi Images, or MacOS clean installs to test Dynare versions. Parallels can be downloaded from their <a href="https://www.parallels.com/products/desktop/trial/" target="_blank" rel="noopener">website</a> after signing up. I am eligible to use the Education version, which is sufficient for my needs. After installation and activating the software I go through the settings. If I have not done so already, I also create a clean MacOS install for testing. Note that all VMs will be installed into <code>~/Parallels</code>. Obviously, I don&rsquo;t want the virtual machines in my Time Machine backups, so I exclude this folder in my Time Machine preferences.</p>
-<h4 id="screens-4-2999">Screens 4 (29.99€)</h4>
-<p>To access my servers via VNC or my MacBook from remote, I use Screens 4 combined with <a href="#tailscale-free">Tailscale</a>. It can be downloaded from the <a href="https://apps.apple.com/de/app/screens-4/id1224268771?mt=12" target="_blank" rel="noopener">App Store</a> and I set it up to use sync my settings via iCloud. Particularly, I sync my machines and like to share the clipboard.</p>
-<h4 id="university-vpn-and-eduroam-free">University VPN and eduroam (free)</h4>
-<p>To access the VPN of my university and connect to the <a href="https://eduroam.org" target="_blank" rel="noopener">eduroam wifi network</a>, I need to install two profiles. So first download these</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">defaults write com.apple.dock autohide -bool <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">defaults write com.apple.dock autohide-delay -float 0.15
+</span></span><span class="line"><span class="cl">defaults write com.apple.dock autohide-time-modifier -float 0.15
+</span></span><span class="line"><span class="cl">defaults write com.apple.dock largesize -int <span class="m">71</span>
+</span></span><span class="line"><span class="cl">defaults write com.apple.dock magnification -bool <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">defaults write com.apple.dock minimize-to-application -bool <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">defaults write com.apple.dock orientation -string bottom
+</span></span><span class="line"><span class="cl">defaults write com.apple.dock no-bouncing -bool <span class="nb">false</span>
+</span></span><span class="line"><span class="cl">killall Dock
+</span></span></code></pre></div><p>Apps that I keep in my dock:</p>
 <ul>
-<li><a href="https://uni-tuebingen.de/fileadmin/Uni_Tuebingen/Einrichtungen/ZDV/Dokumente/Anleitungen/eduroam/eduroam_2021.mobileconfig" target="_blank" rel="noopener">eduoroam profile</a></li>
-<li><a href="https://uni-tuebingen.de/fileadmin/Uni_Tuebingen/Einrichtungen/ZDV/Dokumente/Anleitungen/VPN/vpn-uni-tuebingen-2021.mobileconfig" target="_blank" rel="noopener">VPN profile</a></li>
+<li>Finder</li>
+<li>Safari</li>
+<li>Messages</li>
+<li>Mail</li>
+<li>Calendar</li>
+<li>Things</li>
+<li>Terminal</li>
+<li>Cursor</li>
+<li>ChatGPT</li>
+<li>GitKraken</li>
+<li>Zotero</li>
+<li>Mattermost</li>
+<li>NoMachine</li>
+<li>Screen Sharing</li>
+<li>MATLAB (previous version)</li>
+<li>MATLAB (newest version)</li>
 </ul>
-<p>Then go to settings and install those profiles. Afterwards one simply follows the <a href="https://zdv-wiki.uni-tuebingen.de/display/CICS/VPN&#43;Configuration&#43;on&#43;macOS" target="_blank" rel="noopener">VPN guide</a> or the <a href="https://uni-tuebingen.de/en/einrichtungen/zentrum-fuer-datenverarbeitung/dienstleistungen/netzdienste/netzzugang/roaming/eduroam-os-x/" target="_blank" rel="noopener">eduroam guide</a> to set it up. Also make sure to test whether it works.</p>
-<h3 id="text-processing">Text-processing</h3>
-<h4 id="deepl-free">DeepL (free)</h4>
-<p>One of the best tools ever to translate chunks of text from one language into another. <a href="https://www.deepl.com/en/app/" target="_blank" rel="noopener">Download</a> and install it. Now every time I hit <kbd>CMD</kbd>+<kbd>c</kbd> twice, my selected text will be sent to DeepL and auto-translated. I often improve my texts by translating the texts back and forth while adjusting the expressions by right-clicking on words and phrases.</p>
-<h4 id="iwriter-pro-1499">iWriter Pro (14.99€)</h4>
-<p>Even though I tried out <a href="https://ia.net/writer" target="_blank" rel="noopener">iA Writer</a>, <a href="https://ulysses.app" target="_blank" rel="noopener">Ulysses</a> and <a href="https://bear.app" target="_blank" rel="noopener">Bear</a>, I found that <a href="https://ia.net/writer" target="_blank" rel="noopener">iA Writer</a> is perfect for me and also does not include a subscription service which is great. It creates standard <code>txt</code> or <code>md</code> files which you can easily move around instead of putting everything in some proprietary database. So overall, a great solution which also works across all my Apple devices. It can be installed from the <a href="https://apps.apple.com/de/app/ia-writer/id775737590?mt=12" target="_blank" rel="noopener">App Store</a>. Start it and enable iCloud sync to get all your files. Also check the preferences, settings and themes. I quite like the default though.</p>
-<h4 id="keynote-free">Keynote (free)</h4>
-<p>Instead of Powerpoint I really like Apples take on presentations. It can be installed via thee <a href="https://www.zotero.org" target="_blank" rel="noopener">App Store</a>. Open it and go through the settings.</p>
-<h4 id="latex-related-packages-free">Latex related packages (free)</h4>
-<p>I simply install <a href="http://www.tug.org/mactex/mactex-download.html" target="_blank" rel="noopener">MacTex</a> and use the <a href="https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop" target="_blank" rel="noopener">LaTex Workshop extension</a> for <a href="#visual-studio-code-free">VScode</a> as my editor.</p>
-<h4 id="liquid-text-live-9599year">Liquid Text LIVE (95.99€/year)</h4>
-<p>I use this app both on my Mac and iPad for research, it can be installed from the <a href="https://apps.apple.com/us/app/liquidtext/id922765270" target="_blank" rel="noopener">App Store</a> and has <a href="https://www.liquidtext.net/pricing-features" target="_blank" rel="noopener">different versions</a>. As I am using it on my iPad as well I chose the LIVE edition. It does need some getting used to, particularly the handling of folders and files, but it is really great to collect thoughts and read papers for research, teaching and other projects. Highly recommended! After installation I need to restore my purchases to re-activate my license and sync my database (or Login to Existing Account).</p>
-<h4 id="microsoft-excel-and-word-free-via-university-otherwise-69year">Microsoft Excel and Word (free via university, otherwise 69€/year)</h4>
-<p>Sometimes I get documents which require <a href="https://apps.apple.com/us/app/microsoft-excel/id462058435?mt=12" target="_blank" rel="noopener">Microsoft Excel</a> and <a href="https://apps.apple.com/us/app/microsoft-word/id462054704?mt=12" target="_blank" rel="noopener">Microsoft Word</a> from the <a href="https://apps.apple.com/de/app-bundle/microsoft-365/id1450038993?mt=12" target="_blank" rel="noopener">App Store</a>. Luckily, I have a license via my university; but honestly, I try to use other tools.</p>
-<h4 id="notability-1199">Notability (11.99€)</h4>
-<p>Notability is the app I love to use for teaching and writing down notes on my iPad. As those notes can be synced via iCloud, I also like to have the app on my MacBook, but honestly, I mostly use it on my iPad. It can be installed via the <a href="https://apps.apple.com/us/app/notability/id360593530" target="_blank" rel="noopener">App Store</a>. They recently changed to a subscription model; however, I purchased it a couple of years ago and don&rsquo;t need the new features yet. Otherwise it would be 11.99€/year. So after opening the app, I restore my purchases and sync using iCloud.</p>
-<h4 id="pdf-expert-6999">PDF Expert (69.99€)</h4>
-<p>I have purchased PDF Expert in 2019 for any advanced PDF editing needs I have. I really don&rsquo;t need any Adobe products for that. It can be installed from the <a href="https://apps.apple.com/de/app/pdf-expert-pdf-bearbeiten/id1055273043?mt=12" target="_blank" rel="noopener">Mac App Store</a>. Open it and go through the settings; make sure that the purchases are restored.</p>
-<h4 id="zotero-free">Zotero (free)</h4>
-<p>Zotero is great to keep track of the literature I use in my research and teaching. Download it from their <a href="https://www.zotero.org" target="_blank" rel="noopener">website</a> and install it. Open zotero, log in to an account, and sync the settings. I need to install one extension called <a href="https://github.com/retorquere/zotero-better-bibtex/releases/" target="_blank" rel="noopener">better-bibtex</a> and also disable the LibreOffice and Word connector extensions.</p>
+<h3 id="logi-options-free">Logi Options+ (free)</h3>
+<p>Install the software and follow the onboarding screen to allow some permissions in <code>Security &amp; Privacy</code>, i.e. <code>Accessibility</code>,  <code>Bluetooth</code> and <code>Input Monitoring</code>.
+For each device I restore my settings from the Online Backup.</p>
+<h3 id="mission-control-plus-965">Mission Control Plus (9.65€)</h3>
+<p>From Gnome I am used to be able to close the windows from the activity overview, which is called mission control on macOS.
+So I download <a href="https://www.fadel.io/missioncontrolplus" target="_blank" rel="noopener">Mission Control plus</a> for which I already purchased a license.
+Unzip it and manually move it to the applications folder.
+Open the app and follow the instructions.
+Then enter the license in the menu bar and I choose to hide the menu icon.</p>
+<h3 id="moom-999">Moom (9.99€)</h3>
+<p>There are many options for tiling windows on macOS.
+I find Moom quite flexible and install it via its <a href="https://manytricks.com/moom/" target="_blank" rel="noopener">website</a>.
+I choose to run it as a menu bar application and open at startup.
+I also add a keyboard shortcut <kbd>CTRL</kbd>+<kbd>space</kbd> and add layouts I use often to shortcuts.
+Once I have a working configuration I backup the settings by running in terminal.app:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">defaults <span class="nb">export</span> com.manytricks.Moom /Users/wmutschl/Library/Mobile<span class="se">\ </span>Documents/com<span class="se">\~</span>apple<span class="se">\~</span>CloudDocs/Moom.plist
+</span></span></code></pre></div><p>So when I re-install Moom I can simply restore my settings by running the following command on the new machine in terminal.app:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">defaults import com.manytricks.Moom /Users/wmutschl/Library/Mobile<span class="se">\ </span>Documents/com<span class="se">\~</span>apple<span class="se">\~</span>CloudDocs/Moom.plist
+</span></span></code></pre></div><p>Note that I have bought the license and keep the license file in Documents, so I can re-use it.</p>
+<h3 id="money-money-2999">Money Money (29.99€)</h3>
+<p>I really like this tool for my banking so I purchased a license.
+Download the software from the <a href="https://apps.apple.com/de/app/moneymoney/id872698314?mt=12" target="_blank" rel="noopener">App Store</a> and open it.
+Immediately in the menu bar I select <code>Help</code>-<code>Show database in Finder</code>.
+Close Money Money completely (<kbd>CMD</kbd>+<kbd>q</kbd>).
+Then I delete the three folders <code>Database</code>, <code>Extensions</code> and <code>Statements</code> and restore them from my backup.
+Restart Money Money, enter your database password and license.
+Then I go through the settings.</p>
+<h3 id="nextcloud-free">Nextcloud (free)</h3>
+<p>I have all my user files synced to my own Nextcloud server, see my <a href="../../linux/backup">backup strategy</a>, so I need the sync client, which can be <a href="https://nextcloud.com/install/#install-clients" target="_blank" rel="noopener">downloaded</a>.
+Open nextcloud.app and set up the server and a first folder sync.
+After the first sync, I need to recheck the options and particularly launch the app on System startup, deactivate the 500 MB limit and edit the ignored files.
+Usually, I don&rsquo;t sync hidden files and add <code>*.photoslibrary</code>, <code>*.fcpbundle</code> and <code>*.musiclibrary</code> to the ignored files list only.
+Again make sure to adjust settings after the first folder sync, because otherwise the Global Ignore Settings cannot be adjusted.</p>
+<h3 id="things-3-4999">Things 3 (49.99€)</h3>
+<p>My favorite To-Do app, which I&rsquo;ve bought for all my devices.
+Download from the <a href="https://apps.apple.com/de/app/things-3/id904280696?mt=12" target="_blank" rel="noopener">App Store</a>, start it and enable Things Cloud.
+This syncs my to-do&rsquo;s between my devices.
+I then go through the preferences and adjust to my liking.</p>
+<h3 id="early-previously-timeular-89">EARLY (previously Timeular) (89€)</h3>
+<p>I&rsquo;ve purchased a <a href="https://timeular.com/tracker/" target="_blank" rel="noopener">Timeular Tracker</a> in 2021, which came with the <a href="https://timeular.com/pricing/" target="_blank" rel="noopener">Basic plan</a> for free.
+Now, the tracker is cheaper (69€), but the basic plan is not included anymore and costs 5€/month.
+So I am quite happy with my deal.
+Anyways, I install the app from the <a href="https://timeular.com/download/" target="_blank" rel="noopener">website</a>, start it and sign in.
+This syncs my data and settings.</p>
+<h2 id="networking-and-virtualization">Networking and Virtualization</h2>
+<h3 id="tailscale-free">Tailscale (free)</h3>
+<p>This is an amazing piece of software based on wireguard to connect all my devices no matter where I am at or if there are firewalls between the devices.
+It creates a Mesh network and I can access securely all my mobile devices, computers and servers without exposing them to the internet.
+Tailscale can be downloaded from the App Store, but comes with some limitations, so it is recommended to download it from <a href="https://tailscale.com/download" target="_blank" rel="noopener">Tailscale.com</a>.
+Open the app and select to auto start on login.
+The app resides as a tray icon, which you can click to sign in to your account, change some settings and easily access the IP addresses of the different machines.</p>
+<h3 id="nomachine">NoMachine</h3>
+<p>I use <a href="https://www.nomachine.com" target="_blank" rel="noopener">NoMachine</a> on servers that have a desktop environment.
+So I download the client, install it, open it and change the settings; particularly, deactivating &ldquo;Start the server at system startup&rdquo; and &ldquo;Shut down the Server&rdquo;.
+Using the <a href="#tailscale-free">Tailscale</a> IPs I can then connect to my servers.</p>
+<h3 id="vmware-fusion-free">VMWare Fusion (free)</h3>
+<p>This is a powerful and user-friendly piece of software to run virtual machines (VM).
+Particularly, I like to try out Linux ARM VM&rsquo;s, Raspberry Pi Images, or macOS clean installs to test Dynare versions.
+VMWare Fusion can be downloaded from their <a href="https://www.vmware.com/products/desktop-hypervisor/workstation-and-fusion" target="_blank" rel="noopener">website</a> after signing up.
+After installation and activating the software I go through the settings.
+If I have not done so already, I also create a clean macOS and Windows install for testing.
+Note that all VMs will be installed into <code>~/Virtual Machines.localized</code>.
+Obviously, I don&rsquo;t want the virtual machines in my Time Machine backups, so I exclude this folder in my Time Machine preferences.</p>
+<h3 id="university-vpn-and-eduroam-free">University VPN and eduroam (free)</h3>
+<p>To access the VPN of my university and connect to the <a href="https://eduroam.org" target="_blank" rel="noopener">eduroam wifi network</a>, I need to install two profiles.
+So first download these two files:</p>
+<ul>
+<li><a href="https://uni-tuebingen.de/fileadmin/Uni_Tuebingen/Einrichtungen/ZDV/Dokumente/Anleitungen/VPN/vpn-uni-tuebingen-2024.mobileconfig" target="_blank" rel="noopener">VPN profile</a></li>
+<li><a href="https://uni-tuebingen.de/fileadmin/Uni_Tuebingen/Einrichtungen/ZDV/Dokumente/Anleitungen/eduroam/eduroam_2021.mobileconfig" target="_blank" rel="noopener">eduroam profile</a></li>
+</ul>
+<p>Then go to settings and install those profiles.
+Afterwards one simply follows the <a href="https://zdv-wiki.uni-tuebingen.de/display/CICS/VPN&#43;Configuration&#43;on&#43;macOS" target="_blank" rel="noopener">VPN guide</a> or the <a href="https://uni-tuebingen.de/en/einrichtungen/zentrum-fuer-datenverarbeitung/dienstleistungen/netzdienste/netzzugang/roaming/eduroam-os-x/" target="_blank" rel="noopener">eduroam guide</a> to set it up.
+Also make sure to test whether it works.</p>
+<h2 id="text-processing">Text-processing</h2>
+<h3 id="chatgpt-plus-subscription-20month">ChatGPT (Plus Subscription 20$/month)</h3>
+<p><a href="https://openai.com/chatgpt/download/" target="_blank" rel="noopener">Download</a> the app and install it.
+Log into your account and check the preferences.</p>
+<h3 id="iwriter-pro-1499">iWriter Pro (14.99€)</h3>
+<p>Even though I tried out <a href="https://ia.net/writer" target="_blank" rel="noopener">iA Writer</a>, <a href="https://ulysses.app" target="_blank" rel="noopener">Ulysses</a> and <a href="https://bear.app" target="_blank" rel="noopener">Bear</a>, I found that <a href="https://ia.net/writer" target="_blank" rel="noopener">iA Writer</a> is perfect for me and also does not include a subscription service which is great.
+It creates standard <code>txt</code> or <code>md</code> files which you can easily move around instead of putting everything in some proprietary database.
+So overall, a great solution which also works across all my Apple devices.
+It can be installed from the <a href="https://itunes.apple.com/app/id893199093" target="_blank" rel="noopener">App Store</a>.
+I quite like its defaults.</p>
+<h3 id="latex-related-packages-free">Latex related packages (free)</h3>
+<p>I simply install <a href="http://www.tug.org/mactex/mactex-download.html" target="_blank" rel="noopener">MacTex</a> and use the <a href="https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop" target="_blank" rel="noopener">LaTex Workshop extension</a> for <a href="#visual-studio-code-free">VScode</a> or <a href="https://www.cursor.com/cursor" target="_blank" rel="noopener">CursorAI</a> as my editor.</p>
+<h3 id="microsoft-excel-and-word-free-via-university-otherwise-69year">Microsoft Excel and Word (free via university, otherwise 69€/year)</h3>
+<p>Sometimes I get documents which require <a href="https://apps.apple.com/us/app/microsoft-excel/id462058435?mt=12" target="_blank" rel="noopener">Microsoft Excel</a> and <a href="https://apps.apple.com/us/app/microsoft-word/id462054704?mt=12" target="_blank" rel="noopener">Microsoft Word</a> from the <a href="https://apps.apple.com/de/app-bundle/microsoft-365/id1450038993?mt=12" target="_blank" rel="noopener">App Store</a>.
+Luckily, I have a license via my university; but honestly, I use other tools.</p>
+<h3 id="notability-1199">Notability (11.99€)</h3>
+<p>Notability is the app I love to use for teaching and writing down notes on my iPad.
+As those notes can be synced via iCloud, I also like to have the app on my MacBook, but honestly, I mostly use it on my iPad.
+It can be installed via the <a href="https://apps.apple.com/us/app/notability/id360593530" target="_blank" rel="noopener">App Store</a>.
+They recently changed to a subscription model; however, I purchased it a couple of years ago and don&rsquo;t need the new features yet.
+Otherwise it would be 11.99€/year.
+So after opening the app, I restore my purchases and sync using iCloud.</p>
+<h3 id="pdf-expert-6999">PDF Expert (69.99€)</h3>
+<p>I have purchased PDF Expert in 2019 for any advanced PDF editing needs I have.
+I really don&rsquo;t need any Adobe products for that.
+It can be installed from the <a href="https://apps.apple.com/de/app/pdf-expert-pdf-bearbeiten/id1055273043?mt=12" target="_blank" rel="noopener">Mac App Store</a>.
+Open it and go through the settings; make sure that the purchases are restored.</p>
+<h3 id="zotero-free">Zotero (free)</h3>
+<p>Zotero is great to keep track of the literature I use in my research and teaching.
+Download it from their <a href="https://www.zotero.org" target="_blank" rel="noopener">website</a> and install it.
+Open zotero, log in to an account, and sync the settings.
+I need to install one extension called <a href="https://github.com/retorquere/zotero-better-bibtex/releases/" target="_blank" rel="noopener">better-bibtex</a> and also disable the LibreOffice and Word connector extensions.</p>
 <p>In better-bibtex I set the following:</p>
 <ul>
 <li>Citation keys: Citation key formula: <code>authors(n=3,etal=EtAl,sep=&quot;.&quot;)+&quot;_&quot;+year+&quot;_&quot;+shorttitle(3,3)</code></li>
 <li>Export: BibTeX Add URLs to BibTeX export: <code>in the 'url' field</code></li>
 <li>Export: Fields: Fields to omit from export (comma-separated): <code>file</code></li>
 </ul>
-<h3 id="coding">Coding</h3>
-<h4 id="gitkraken-495month">GitKraken (4.95€/month)</h4>
-<p>GitKraken is a great tool that simplifies <code>git</code> for me. I use it daily and have a Pro license. So, download the <a href="https://www.gitkraken.com/download" target="_blank" rel="noopener">GitKraken installer</a> and install it. Open GitKraken and set up Accounts and Settings (or restore from Backup).</p>
-<h4 id="hugo-an-golang-free">Hugo an Golang (free)</h4>
-<p>My website uses the <a href="https://github.com/wowchemy/starter-hugo-academic" target="_blank" rel="noopener">Hugo Academic Theme</a> for <a href="https://github.com/gohugoio/hugo" target="_blank" rel="noopener">Hugo</a>, which is based on Go. So I install Go and hugo with ARM Homebrew:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">mbrew install golang hugo
-</span></span></code></pre></div><h4 id="matlab-free-via-university-otherwise-500--250-per-toolbox">MATLAB (free via university, otherwise 500€ + 250€ per toolbox)</h4>
-<p>I use MATLAB for teaching and research; unfortunately, the cost is quite high, but luckily I have a university-wide license. So I install MATLAB using the installation files from <a href="https://mathworks.com/download" target="_blank" rel="noopener">Mathworks</a>. Follow the instructions to install all the toolboxes I need. Then start MATLAB, make sure the license is activated and I sign in. Then I go through the preference section.
-In older versions, there is a <code>Warning: the font &quot;Times&quot; is not available, so &quot;Lucida Bright&quot; has been substituted, but may have unexpected appearance or behavor. Re-enable the &quot;Times&quot; font to remove this warning.</code> So I download a free <a href="https://www.freebestfonts.com/timr45w-font" target="_blank" rel="noopener">times font</a> and install it.</p>
-<h4 id="visual-studio-code-free">Visual Studio Code (free)</h4>
-<p>I do all my non-MATLAB development work and server administration stuff with VSCode. The Apple Silicon installer can be <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener">downloaded and installed</a>. As I use the <em>Settings Sync</em> functionality, I only need to sign in and sync all my settings and extensions cross-plattform. Pretty great! For completeness my extensions:</p>
+<h2 id="coding">Coding</h2>
+<h3 id="cursor-ai-16month-for-a-yearly-subscription">Cursor AI (16$/month for a yearly subscription)</h3>
+<p>I have switched from VSCode to Cursor AI as my main IDE.
+It is a great tool and I like it very much.
+You can download it from <a href="https://www.cursor.com/download" target="_blank" rel="noopener">here</a>, install it and log in with your account.
+Sync your settings and extensions.
+You can use the &ldquo;Export Profile&rdquo; command - which is native to VSCode - to save all extensions/settings to a file; then on a separate machine, &ldquo;Import Profile&rdquo; - in case this helps.</p>
+<p>I do all my non-MATLAB development work and server administration stuff with VSCode.
+The Apple Silicon installer can be <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener">downloaded and installed</a>.
+As I use the <em>Settings Sync</em> functionality, I only need to sign in and sync all my settings and extensions cross-plattform.
+Pretty great!
+For completeness my extensions:</p>
 <ul>
 <li>Code Spell Checker</li>
 <li>German - Code Spell Checker</li>
@@ -1261,71 +1695,113 @@ In older versions, there is a <code>Warning: the font &quot;Times&quot; is not a
 <li>Remote - SSH: Editing Configuration Files</li>
 <li>Remote Explorer</li>
 </ul>
-<h4 id="dynare-free">Dynare (free)</h4>
-<p>As I am a member of the development team, I need to have some tools installed with Homebrew. For this, I&rsquo;ve written a guide on how to <a href="https://git.dynare.org/Dynare/dynare#macos" target="_blank" rel="noopener">compile Dynare from source for macOS</a>, which I simply follow.</p>
-<h4 id="r-and-rstudio-free">R and RStudio (free)</h4>
+<h3 id="gitkraken-pro-495year">GitKraken Pro (4.95€/year)</h3>
+<p>GitKraken is a great tool that simplifies <code>git</code> for me. I use it daily and have a Pro license. So, download the <a href="https://www.gitkraken.com/download" target="_blank" rel="noopener">GitKraken installer</a> and install it. Open GitKraken and set up Accounts and Settings (or restore from Backup).</p>
+<h3 id="hugo-an-golang-free">Hugo an Golang (free)</h3>
+<p>My website uses the <a href="https://github.com/wowchemy/starter-hugo-academic" target="_blank" rel="noopener">Hugo Academic Theme</a> for <a href="https://github.com/gohugoio/hugo" target="_blank" rel="noopener">Hugo</a>, which is based on Go.
+So I install Go and hugo with ARM Homebrew:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">brew install golang hugo
+</span></span></code></pre></div><h3 id="matlab-free-via-university-otherwise-very-expensive-so-use-gnu-octave-instead">MATLAB (free via university, otherwise very expensive, so use GNU Octave instead)</h3>
+<p>I use MATLAB for teaching and research; unfortunately, the cost is quite high, but luckily I have a university-wide license.
+So I install MATLAB using the installation files from <a href="https://mathworks.com/download" target="_blank" rel="noopener">Mathworks</a>.
+Follow the instructions to install all the toolboxes I need.
+Then start MATLAB, make sure the license is activated and I sign in.
+Then I go through the preference section.
+In older versions, there is a <code>Warning: the font &quot;Times&quot; is not available, so &quot;Lucida Bright&quot; has been substituted, but may have unexpected appearance or behavor. Re-enable the &quot;Times&quot; font to remove this warning.</code>
+So I download a free <a href="https://www.freebestfonts.com/timr45w-font" target="_blank" rel="noopener">times font</a> and install it.</p>
+<h3 id="dynare-free">Dynare (free)</h3>
+<p>As I am a member of the development team, I need to have some tools installed with Homebrew.
+For this, I&rsquo;ve written a guide on how to <a href="https://git.dynare.org/Dynare/dynare#macos" target="_blank" rel="noopener">compile Dynare from source for macOS</a>, which I simply follow.</p>
+<h3 id="r-and-rstudio-free">R and RStudio (free)</h3>
 <p>Install with brew:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">brew install --cask r
 </span></span><span class="line"><span class="cl">brew install --cask rstudio
-</span></span></code></pre></div><h3 id="communication">Communication</h3>
-<h4 id="mattermost-free">Mattermost (free)</h4>
-<p>Our Dynare team communication is happening via Mattermost which can be easily <a href="https://mattermost.com/download/#" target="_blank" rel="noopener">installed via the Mac App Store</a>. Connect the server and log in. The preferences are synced from the server, but better safe than sorry, I double check the preferences.</p>
-<h4 id="skype-free">Skype (free)</h4>
-<p>I use Skype to communicate with work colleagues. The Skype Insider Program offers a native Apple Silicon variant of Skype and can be <a href="https://www.skype.com/de/insider/" target="_blank" rel="noopener">downloaded here</a>.
-Open skype, log in and set up audio and video. Start a meeting and try out to share the screen, this will open a prompt to also enable <code>Screen Recording</code> in <code>Security &amp; Privacy</code> settings, which I enable.</p>
-<h4 id="zoom-free-via-university-otherwise-1499month">Zoom (free via university, otherwise 14.99€/month)</h4>
-<p>I use Zoom mostly for work meetings and teaching, but also the occasional private online gathering. Also my <a href="https://schedule.mutschler.eu" target="_blank" rel="noopener">booking appointments system</a> automatically creates Zoom links. The software can be installed from their <a href="https://zoom.us/download" target="_blank" rel="noopener">website</a>. Choose the installer for Apple Silicon/M1. Open zoom, log in and set up audio and video, and any other settings. Start a meeting and try out to share the screen, this will open a prompt to also enable <code>Screen Recording</code> in <code>Security &amp; Privacy</code> settings, which I enable.</p>
-<h3 id="multimedia">Multimedia</h3>
-<h4 id="atem-switchers-software-free">Atem Switchers Software (free)</h4>
-<p>As I use an ATEM Mini to switch video inputs for teaching and presentations, I <a href="https://www.blackmagicdesign.com/support/family/atem-live-production-switchers" target="_blank" rel="noopener">download</a> and install the software to make sure I have the latest firmware. Open Atem Software Control.app and either restore your settings from a backup or set up the ATEM to your liking.</p>
-<h4 id="elgato-control-center-free">Elgato Control Center (free)</h4>
-<p>I have two Elgato Key Lights which I usually control via home.app (connected via <a href="https://github.com/derjayjay/homebridge-keylights#readme" target="_blank" rel="noopener">a homebridge plugin</a>). To make sure I have the latest firmware I also install the <a href="https://www.elgato.com/en/downloads" target="_blank" rel="noopener">Elgato Control Center</a>. Once downloaded move it to the Applications folder and go through its preferences.</p>
-<h4 id="fission-42">Fission (42$)</h4>
-<p>For fast and lossless audio editing I have purchased <a href="https://rogueamoeba.com/fission/" target="_blank" rel="noopener">Fission</a>. After downloading it, move the app to the applications folder, start it and enter your license. I also go through the preferences.</p>
-<h4 id="hand-mirror-plus-499">Hand Mirror Plus (4.99€)</h4>
-<p>A neat little tool to quickly check how you look on your webcam. Install it from the <a href="https://apps.apple.com/us/app/hand-mirror/id1502839586?mt=12" target="_blank" rel="noopener">App Store</a> and start it. I usually increase the window size to max. I also restore my plus subscription.</p>
-<h4 id="narrated-1699">Narrated (16.99€)</h4>
-<p>A neat little software for screen recordings with a personal touch which I like to use for simple screen recordings.
-Download from the <a href="https://www.buildandshipapps.com" target="_blank" rel="noopener">website</a>, open it and allow the required permissions in <code>Security &amp; Privacy</code>. Close the overlay of the app so you can access the menu bar to change some settings and enter the license key.</p>
-<h4 id="openaudible-1595">OpenAudible (15.95€)</h4>
-<p>OpenAudible is an audiobook library manager that helps keep track of and back up my audible purchases. <a href="https://openaudible.org" target="_blank" rel="noopener">Download</a>, install and enter your license. Then I go through the preferences, change the default file format to MP3 and adjust the library folders. Next I connect to Audible and do a full sync of my library.</p>
-<h4 id="pro-apps-bundle-for-education-final-cut-pro-23998">Pro Apps Bundle for Education: Final Cut Pro (239,98€)</h4>
-<p>I purchased the <a href="https://www.apple.com/at-edu/shop/product/BMGE2ZM/A/pro-apps-bundle-f%c3%bcr-bildung" target="_blank" rel="noopener">Pro Apps Bundle for Education</a> including Final Cut Pro, Logic Pro, Motion, Compressor and MainStage. However, so far I have only used Final Cut Pro to edit my YouTube videos. Once you get the code for the education bundle enter it in the App Store and you can download the apps you need. I usually keep my raw video files in a folder <code>~/FinalCutRaw</code> and I don&rsquo;t want this in my Time Machine backups. So I add this folder to the exception list in Time Machine.</p>
-<h4 id="creators-best-friend-999">Creator&rsquo;s Best Friend (9.99€)</h4>
-<p>Creator’s Best Friend converts Chapter Markers from a Final Cut Pro project into Video Chapters for YouTube. It is very easy to use and I like that. Install it from the <a href="https://apps.apple.com/app/id1524172135" target="_blank" rel="noopener">App Store</a>.</p>
-<h4 id="pixelmator-pro-1999">Pixelmator Pro (19.99€)</h4>
-<p>Most of the times Apple Photos is sufficient for me to edit my pictures. However, for advanced editing I use Pixelmator Pro which can be installed from the <a href="https://apps.apple.com/us/app/pixelmator-pro/id1289583905?mt=12" target="_blank" rel="noopener">App Store</a>.</p>
-<h4 id="aldente-pro-1130-pa">AlDente Pro (11.30€ p.a.)</h4>
-<p>It is well known that charging the battery to 100% is not a good idea; so I use <a href="https://apphousekitchen.com" target="_blank" rel="noopener">AlDente Pro</a> to keep the battery at a healthier 80%. I am particularly using the Pro edition as I like the additional feature set. Install it and go through the settings.</p>
-<h4 id="macupdater-30-1499">MacUpdater 3.0 (14.99€)</h4>
-<p>The best utility to keep all apps up to date. Highly recommended. Install, follow the onboarding instructions and enjoy updating.</p>
-<h4 id="cleanmymac-x-wip">CleanMyMac X [wip]</h4>
+</span></span></code></pre></div><h2 id="communication">Communication</h2>
+<h3 id="mattermost-free">Mattermost (free)</h3>
+<p>Our Dynare team communication is happening via Mattermost which can be easily <a href="https://apps.apple.com/app/mattermost-desktop/id1614666244" target="_blank" rel="noopener">installed via the app store</a>.
+Connect the server and log in.
+The preferences are synced from the server, but better safe than sorry, I double check the preferences.</p>
+<h3 id="zoom-free-via-university-otherwise-1499month">Zoom (free via university, otherwise 14.99€/month)</h3>
+<p>I use Zoom mostly for work meetings and teaching, but also the occasional private online gathering.
+Also my <a href="https://schedule.mutschler.eu" target="_blank" rel="noopener">booking appointments system</a> automatically creates Zoom links.
+The software can be installed from their <a href="https://zoom.us/download" target="_blank" rel="noopener">website</a>.
+Choose the installer for Apple Silicon/M1.
+Open zoom, log in and set up audio and video, and any other settings.
+Start a meeting and try out to share the screen, this will open a prompt to also enable <code>Screen Recording</code> in <code>Security &amp; Privacy</code> settings, which I enable.</p>
+<h2 id="multimedia">Multimedia</h2>
+<h3 id="atem-switchers-software-free">Atem Switchers Software (free)</h3>
+<p>As I use an ATEM Mini to switch video inputs for teaching and presentations, I <a href="https://www.blackmagicdesign.com/support/family/atem-live-production-switchers" target="_blank" rel="noopener">download</a> and install the software to make sure I have the latest firmware.
+Open Atem Software Control.app and either restore your settings from a backup or set up the ATEM to your liking.</p>
+<h3 id="elgato-control-center-free">Elgato Control Center (free)</h3>
+<p>I have two Elgato Key Lights which I usually control via Home.app (connected via <a href="https://github.com/derjayjay/homebridge-keylights#readme" target="_blank" rel="noopener">a homebridge plugin</a>).
+To make sure I have the latest firmware I also install the <a href="https://www.elgato.com/en/downloads" target="_blank" rel="noopener">Elgato Control Center</a>.
+Once downloaded move it to the Applications folder and go through its preferences.</p>
+<h3 id="fission-42">Fission (42$)</h3>
+<p>For fast and lossless audio editing I have purchased <a href="https://rogueamoeba.com/fission/" target="_blank" rel="noopener">Fission</a>.
+After downloading it, move the app to the applications folder, start it and enter your license.
+I also go through the preferences.</p>
+<h3 id="hand-mirror-plus-499">Hand Mirror Plus (4.99€)</h3>
+<p>A neat little tool to quickly check how you look on your webcam.
+Install it from the <a href="https://apps.apple.com/us/app/hand-mirror/id1502839586?mt=12" target="_blank" rel="noopener">App Store</a> and start it.
+I usually increase the window size to max.
+I also restore my plus subscription.</p>
+<h3 id="openaudible-1595">OpenAudible (15.95€)</h3>
+<p>OpenAudible is an audiobook library manager that helps keep track of and back up my audible purchases.
+<a href="https://openaudible.org" target="_blank" rel="noopener">Download</a>, install and enter your license.
+Then I go through the preferences, change the default file format to MP3 and adjust the library folders.
+Next I connect to Audible and do a full sync of my library.</p>
+<h3 id="pro-apps-bundle-for-education-final-cut-pro-23998">Pro Apps Bundle for Education: Final Cut Pro (239,98€)</h3>
+<p>I purchased the <a href="https://www.apple.com/at-edu/shop/product/BMGE2ZM/A/pro-apps-bundle-f%c3%bcr-bildung" target="_blank" rel="noopener">Pro Apps Bundle for Education</a> including Final Cut Pro, Logic Pro, Motion, Compressor and MainStage.
+However, so far I have only used Final Cut Pro to edit my YouTube videos.
+Once you get the code for the education bundle enter it in the App Store and you can download the apps you need.
+I usually keep my raw video files in a folder <code>~/FinalCutRaw</code> and I don&rsquo;t want this in my Time Machine backups.
+So I add this folder to the exception list in Time Machine.</p>
+<h3 id="creators-best-friend-999">Creator&rsquo;s Best Friend (9.99€)</h3>
+<p>Creator&rsquo;s Best Friend converts Chapter Markers from a Final Cut Pro project into Video Chapters for YouTube.
+It is very easy to use and I like that.
+Install it from the <a href="https://apps.apple.com/app/id1524172135" target="_blank" rel="noopener">App Store</a>.</p>
+<h3 id="pixelmator-pro-1999">Pixelmator Pro (19.99€)</h3>
+<p>Most of the times Apple Photos is sufficient for me to edit my pictures.
+However, for advanced editing I use Pixelmator Pro which can be installed from the <a href="https://apps.apple.com/us/app/pixelmator-pro/id1289583905?mt=12" target="_blank" rel="noopener">App Store</a>.</p>
+<h3 id="aldente-pro-1130-pa">AlDente Pro (11.30€ p.a.)</h3>
+<p>It is well known that charging the battery to 100% is not a good idea; so I use <a href="https://apphousekitchen.com" target="_blank" rel="noopener">AlDente Pro</a> to keep the battery at a healthier 80%.
+I am particularly using the Pro edition as I like the additional feature set.
+Install it and go through the settings.</p>
+<h3 id="macupdater-30-1499">MacUpdater 3.0 (14.99€)</h3>
+<p>The best utility to keep all apps up to date.
+Highly recommended.
+Install, follow the onboarding instructions and enjoy updating.</p>
+<h3 id="cleanmymac-">CleanMyMac []</h3>
 <p>I am trying it out and so far I like it. One needs to <code>Grant Full Disk Access</code> in Privacy Settings. I remove Mail Attachments from the Scans.</p>
-<h4 id="controllerforhomekit-2999-pa">ControllerForHomeKit (29.99€ p.a.)</h4>
-<p>I really like this app as it offers much more flexibility and hidden options to my Homekit devices. And most importantly, a backup setting!</p>
-<h4 id="silicon-info-free">Silicon Info (free)</h4>
+<h3 id="controllerforhomekit-2999-pa">ControllerForHomeKit (29.99€ p.a.)</h3>
+<p>I really like this app as it offers much more flexibility and hidden options to my Homekit devices.
+And most importantly, a backup setting!</p>
+<h3 id="silicon-info-free">Silicon Info (free)</h3>
 <p>A neat little utility, available in the <a href="https://apps.apple.com/de/app/silicon-info/id1542271266?mt=12" target="_blank" rel="noopener">AppStore</a> to check which apps have not been ported yet to Apple silicon chips.</p>
-<h4 id="the-unarchiver-free">The Unarchiver (free)</h4>
-<p>Sometimes I come across compressed formats that cannot be handled by the native archiver app. This little tool, available in the <a href="https://apps.apple.com/de/app/the-unarchiver/id425424353?mt=12" target="_blank" rel="noopener">App Store</a> is my go to in these cases.</p>
-<h4 id="tor-browser-free">Tor Browser (free)</h4>
-<p>Good to have this around for privacy related surfing. <a href="https://www.torproject.org/download/" target="_blank" rel="noopener">Download</a> and install it.</p>
+<h3 id="the-unarchiver-free">The Unarchiver (free)</h3>
+<p>Sometimes I come across compressed formats that cannot be handled by the native archiver app.
+This little tool, available in the <a href="https://apps.apple.com/de/app/the-unarchiver/id425424353?mt=12" target="_blank" rel="noopener">App Store</a> is my go to in these cases.</p>
+<h3 id="tor-browser-free">Tor Browser (free)</h3>
+<p>Good to have this around for privacy related surfing.
+<a href="https://www.torproject.org/download/" target="_blank" rel="noopener">Download</a> and install it.</p>
+<h3 id="backup-loupe">Backup Loupe</h3>
+<h3 id="djvu-reader-pro">DjVu Reader Pro</h3>
+<h3 id="epsviewer-pro-2">EPSViewer Pro 2</h3>
+<h3 id="maestralapp">Maestral.app</h3>
+<h2 id="dock">Dock</h2>
 <h2 id="system-settings">System Settings</h2>
-<p>I open <code>System Settings</code> and basically go through all the settings to improve my experience on macOS. I try to document this below.</p>
-<h4 id="apple-id">Apple ID</h4>
+<p>I open <code>System Settings.app</code> and basically go through all the settings to improve my experience on macOS.
+I try to document this below.</p>
+<h3 id="apple-id-my-profile-picture">Apple ID (my profile picture)</h3>
 <ul>
-<li>Edit the profile picture</li>
-<li><code>Name, Phone, Email</code>
-<ul>
-<li>deactivate <code>Announcements</code> and <code>Apps, music, TV and more</code></li>
-</ul>
-</li>
-<li><code>Password &amp; Security</code>
+<li>Edit the profile picture if I don&rsquo;t already have done so</li>
+<li>Check Personal Information and click on the info circle to deactivate <code>Announcements</code> and <code>Apps, music, TV and more</code></li>
+<li><code>Sign-In &amp; Security</code>
 <ul>
 <li>Make sure that <code>Two-Factor Authentification</code> is On.</li>
-<li>I also use Security keys and there is at least one <code>Trusted Phone Numbers</code>.</li>
-<li>I also <code>manage</code> the information in <code>Account Recovery</code> and <code>Legacy Contact</code> if there are changes.</li>
-<li><code>Automatic Verification</code> is also on.</li>
-<li>Lastly, it is nice to clean up <code>Apps Using Apple ID</code>.</li>
+<li>I use four security keys and there are two <code>Trusted Phone Numbers</code>.</li>
+<li>I also have one entry in <code>Recovery Contacts</code>, <code>Recovery Key</code> is set to <code>On</code> and I check <code>Legacy Contact</code>.</li>
+<li>I turn on <code>Automatic Verification</code> to bypass CAPTHCAs.</li>
 </ul>
 </li>
 <li><code>Payment &amp; Shipping</code>
@@ -1335,389 +1811,284 @@ Download from the <a href="https://www.buildandshipapps.com" target="_blank" rel
 </li>
 <li><code>iCloud</code>
 <ul>
-<li><code>Account Storage</code>: double check whether anything unusual (old devices) takes too much space</li>
-<li>Deactivate <code>Optimise Mac Storage</code></li>
-<li><code>Apps Using iCloud</code>:
-<ul>
-<li>Turn on all services I use, i.e. everything except <em>Private Relay</em> and <em>Hide My Email</em>. Click on each entry and double check options.</li>
-<li>I activate <code>Advanced Data Protection</code></li>
-<li>Deactivate <code>Access iCloud Data on the Web</code></li>
+<li><code>Manage</code>: There is nothing to do here usually, but I still double check the storage and whether I can remove some old backups.</li>
+<li><code>Saved to iCloud - See All</code>: I typically turn syncing to iCloud <code>On</code> for all apps. But I disable <code>Desktop &amp; Documents Folders</code> and <code>Optimise Mac Storage</code> under <code>iCloud Drive</code>. Also check the Apps that are syncing to iCloud Drive. Make sure that <code>Keep Messages</code> in <code>Messages in iCloud</code> is set to <code>Forever</code>.</li>
+<li>I turn off <code>Private Relay</code> and check the entries in <code>Hide My Email</code></li>
+<li>I have Àdvanced Data Protection` enabled, so I double check the entries there as this is not a thing one should typically do.</li>
 </ul>
 </li>
+<li><code>Family</code>
+<ul>
+<li>Review the members and Parental Controls.</li>
+<li>Click on each member and on myself to see the settings and <code>enable location sharing</code> if needed.</li>
 </ul>
 </li>
 <li><code>Media &amp; Purchases</code>
 <ul>
-<li>Double-check everything under <code>Manage</code> for both my account and my subscriptions. Particularly, I <code>Share New Subscriptions</code> with my family and want to receive <code>Renewal Receipts</code>.</li>
-<li>Enable <code>Use TouchID for purchases</code>.</li>
+<li>Double-check everything under <code>Manage</code> for both my account and my subscriptions.</li>
+<li>Under <code>Subscriptions</code> I enable <code>Share with Family</code> and <code>Renewal Receipt Emails</code>.</li>
+<li>Activate <code>Use TouchID for purchases</code>.</li>
 </ul>
 </li>
-<li><code>Family Sharing</code>
-<ul>
-<li>I check if I share all subscribed apps with my family and also if the roles are correct. Moreover, I go through everything under <code>Shared with your Family</code> and make changes if needed.</li>
-<li>Double check the <code>subscriptions</code></li>
-<li>Enable <code>Purchase Sharing</code></li>
-<li>Enable <code>Location Sharing</code> with familiy</li>
-</ul>
-</li>
+<li><code>Sign in with Apple</code>: double check the Apps and Websites that are using Sign in with Apple.</li>
 <li><code>Devices</code>
 <ul>
 <li>I <code>Remove from account</code> any devices that I don&rsquo;t have anymore.</li>
 </ul>
 </li>
+<li><code>Contact Key Verification</code>
+<ul>
+<li>I turn on <code>Verification in iMessage</code>.</li>
 </ul>
-<h4 id="wi-fi">Wi-Fi</h4>
+</li>
+</ul>
+<h3 id="wi-fi">Wi-Fi</h3>
 <ul>
 <li>Deactivate <code>Ask to join networks</code></li>
 <li>Deactivate <code>Ask to join hotspots</code></li>
-<li><code>Advanced</code>: no changes, remove unnecessary Wi-Fi networks</li>
+<li><code>Advanced</code>: no changes (all administrator authorisation settings are turned off) and I remove unnecessary Wi-Fi networks</li>
 </ul>
-<h4 id="bluetooth">Bluetooth</h4>
+<h3 id="bluetooth">Bluetooth</h3>
 <ul>
-<li>Activate</li>
-<li>For Air Pods: Change <code>Connect to this Mac</code> to <code>When last connected to this Mac</code></li>
+<li>Activate bluetooth for best user experience and to get the <em>it just works</em> feeling with Apple devices.</li>
+<li>For Air Pods: Click on the circle i and change <code>Connect to this Mac</code> to <code>When last connected to this Mac</code>.</li>
 </ul>
-<h4 id="network">Network</h4>
-<p>I add two locations (under the three dots): one for Home and one for Work. I remove unnecessary services, rename them and add IP configurations if there are any. The two locations are then available in the top left Apple menu.</p>
-<h4 id="vpn">VPN</h4>
+<h3 id="network">Network</h3>
+<p>I add two locations (under the three dots): one called <code>Zuhause</code> (my home network) and <code>Tübingen</code> (my work network).
+I remove unnecessary services in the relevant locations, rename them and add IP configurations if there are any.
+The two locations are then available in the top left Apple menu.
+<code>Firewall</code> is <em>inactive</em>.</p>
+<h3 id="vpn">VPN</h3>
 <p>Double check whether Tailscale is activated and whether I can connect to my University VPN.</p>
-<h4 id="notifications">Notifications</h4>
+<h3 id="energy--battery">Energy / Battery</h3>
+<p>Mac Mini</p>
+<ul>
+<li><code>Energy Mode</code>: <em>High Power</em></li>
+<li>Turn off <code>Prevent automatic sleeping on power adapter when the display is off</code></li>
+<li>Turn on <code>Wake for network access</code></li>
+<li>Turn on <code>Start up automatically after a power failure</code></li>
+</ul>
+<p>MacBook Pro</p>
+<ul>
+<li><code>Low Power Mode</code>: <em>Never</em></li>
+<li>Under the circle i in <code>Battery Health</code> I turn off <code>Optimised Battery Charging</code> as I am using AlDente for this.</li>
+<li><code>Options</code>:
+<ul>
+<li>Turn off <code>Slightly dim the display on battery</code></li>
+<li>Turn off <code>Prevent automatic sleeping on power adapter when the display is off</code></li>
+<li><code>Wake for network access</code>: <em>Always</em></li>
+<li>Turn off <code>Optimise video streaming while on battery</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="general">General</h3>
+<ul>
+<li><code>About</code>: Change the name of the computer.</li>
+<li><code>Software Update</code>: Click on the circled i, I turn off <code>Download new updates when available</code> and <code>Install macOS updates</code>, but turn on <code>Install application updates from the App Store</code> and <code>Install Security Responses and system files</code>.</li>
+<li><code>Storage</code>:
+<ul>
+<li>I don&rsquo;t want to store any Desktop, Documents or Photos exclusivey on iCloud, so I don&rsquo;t follow this recommendation.</li>
+<li>Instead I click on each circled i to see what is stored where and whether I can delete some files.</li>
+</ul>
+</li>
+<li><code>Apple Care &amp; Warranty</code>: Nothing to do.</li>
+<li><code>AirDrop &amp; Handoff</code>:
+<ul>
+<li>Turn on <code>Allow Handoff between this Mac and your iCloud devices</code></li>
+<li><code>AirDrop</code>: <em>Contacts</em> only</li>
+<li>Turn on <code>AirPlay Receiver</code></li>
+<li>`Allow AirPlay for: <em>Current User</em></li>
+<li>Turn off <code>Require password</code></li>
+</ul>
+</li>
+<li><code>AutoFill &amp; Passwords</code>
+<ul>
+<li>Turn on <code>AutoFill Passwords and Passkeys</code></li>
+<li>Turn on <code>AutoFill from Passwords</code>.</li>
+<li>Turn on <code>Delete After Use</code> for <em>Verification Codes</em></li>
+<li>Use <em>Passwords</em> app for <code>Set Up Codes In</code></li>
+</ul>
+</li>
+<li><code>Date &amp; Time</code>
+<ul>
+<li>Turn on <code>Set time and date automatically</code></li>
+<li>Keep source to <code>Apple</code></li>
+<li>Turn on <code>24-hour time</code></li>
+<li>Turn on <code>Show 24-hour time on Lock Screen</code></li>
+<li>Turn on <code>Set time zone automatically using your current location</code></li>
+</ul>
+</li>
+<li><code>Language &amp; Region</code>
+<ul>
+<li><code>Preferred Languages</code>: English (Primary), German (Germany)</li>
+<li><code>Region</code>: Germany</li>
+<li><code>Calendar</code>: Gregorian</li>
+<li><code>Temperature</code>: Celcius</li>
+<li><code>Measurement system</code>: Metric</li>
+<li><code>First day of week</code>: Monday</li>
+<li><code>Date format</code>: 19.08.25</li>
+<li><code>Number format</code>: 1,234,567.89</li>
+<li><code>List sort order</code>: universal</li>
+<li><code>Live Text</code>: activate</li>
+<li><code>Customised language settings for the following Applications</code>:
+<ul>
+<li><code>ControllerForHomeKit</code>: Deutsch-German</li>
+<li><code>Home</code>: Deutsch-German</li>
+<li><code>MoneyMoney</code>: Deutsch-German</li>
+<li><code>PDF Expert</code>: Deutsch-German</li>
+<li><code>Safari</code>: Deutsch-German</li>
+</ul>
+</li>
+<li><code>Translation Languages</code>: Download for English (US) and German (Germany), Deactivate <code>On-Device Mode</code></li>
+</ul>
+</li>
+<li><code>Login Items &amp; </code>Extensions`
+<ul>
+<li><code>Open at Login</code>: Check the list of applications that open at login and remove the ones that I don&rsquo;t need.</li>
+<li><code>Allow in the Background</code>: Check the list of applications and deactivate the ones that I don&rsquo;t need.</li>
+<li><code>Extensions</code>: Check the list of extensions and deactivate the ones that I don&rsquo;t need.</li>
+</ul>
+</li>
+<li><code>Sharing</code>: I turn off everything except for the following:
+<ul>
+<li><code>Screen Sharing</code>: Allow access for <code>Only these users</code> <em>Administrators</em></li>
+<li><code>Remote Login</code>: Activate <code>Allow full disk access for remote users</code>, Allow access for <code>Only these users</code> <em>Administrators</em></li>
+</ul>
+</li>
+<li><code>Startup Disk</code>: Nothing to do.</li>
+<li><code>Time Machine</code>: Check the list of disks and the <code>Options</code>.
+<ul>
+<li>I add two external disks, one at the office and one at home, and also a NAS which is on a Dell Thinclient and can be used as a Time Machine target.</li>
+<li>I do snapshots <code>Automatically Every Hour</code> snapshots (they alternate between the local disk and online NAS) and also activate <code>Back up on battery power</code>.</li>
+<li>I am excluding the following folders: <code>~/FinalCutRaw</code>, <code>~/Movies</code>, <code>~/Music/Music</code>, <code>~/Virtual Machines.localized</code></li>
+</ul>
+</li>
+<li><code>Device Management</code>: Nothing to do.</li>
+<li><code>Transfer or Reset</code>: Nothing to do.</li>
+</ul>
+<h3 id="accessibility">Accessibility</h3>
+<p>I keep the defaults, except for the following:</p>
+<ul>
+<li><code>Audio</code>: turn off <code>Spatial audio follows head movements</code></li>
+<li><code>Spoken Content</code>: System Voice <em>Daniel</em></li>
+<li><code>Keyboard</code> - <code>Keyboard Settings</code> - <code>Dictation</code>: add English (US) and German (Germany)</li>
+<li>I have created a <code>Personal Voice</code> with my own voice and activate <code>Share across devices</code> and <code>Allow applications to use your Personal Voice</code>.</li>
+</ul>
+<h3 id="appearance">Appearance</h3>
+<ul>
+<li><code>Appearance</code>: <em>Light</em></li>
+<li><code>Accent Color</code>: <em>Multicolor</em></li>
+<li><code>Highlight Color</code>: <em>Accent Color</em></li>
+<li><code>Sidebar Icon Size</code>: <em>Small</em></li>
+<li><code>Allow wallpaper tinting in windows</code>: <em>On</em></li>
+<li><code>Show scroll bars</code>: <em>Automatically based on mouse or trackpad</em></li>
+<li><code>Click in the scroll bar to</code>: <em>Jump to the next page</em></li>
+</ul>
+<h3 id="apple-intelligence--siri">Apple Intelligence &amp; Siri</h3>
+<ul>
+<li><code>Siri</code>: On</li>
+<li><code>Listen for</code>: Off</li>
+<li><code>Keyboard shortcut</code>: Off (Mac Mini) or Hold Mic (MacBook Pro)</li>
+<li><code>Language</code>: German (Germany)</li>
+<li><code>Voice</code>: German (Voice 2)</li>
+<li><code>Siri Responses</code>: Turn off <code>Voice feedback</code>, <code>Always show Siri captions</code>, <code>Always show speech</code></li>
+</ul>
+<h3 id="control-center">Control Center</h3>
+<ul>
+<li><code>Show in Menu Bar</code>: -</li>
+<li><code>Show When Active</code>: Focus, Screen Mirroring, Sound, Now Playing</li>
+<li><code>Don't Show in Menu Bar</code>: Wi-Fi, Bluetooth, AirDrop, Stage Manager, Display</li>
+<li><code>Other Modules</code>:
+<ul>
+<li><code>Battery</code> (on MacBook): <em>Show in Control Center</em></li>
+<li><code>Energy Mode</code> (on Mac Mini): <em>Show in Menu Bar</em>: Show When Active, Turn on <em>Show in Control Center</em></li>
+</ul>
+</li>
+<li><code>Menu Bar Only</code>:
+<ul>
+<li>Time Machine: Show in Menu Bar</li>
+</ul>
+</li>
+</ul>
+<h3 id="desktop--dock">Desktop &amp; Dock</h3>
+<p>I make the following changes from the defaults:
+<code>Dock</code>:</p>
+<ul>
+<li><code>Double-click a window's title bar to</code>: Fill</li>
+<li><code>Automatically hide and show the Dock</code>: on</li>
+<li><code>Show suggested and recent apps in Dock</code>: off</li>
+<li><code>Desktop &amp; Stage Manager</code>
+<ul>
+<li><code>Click wallpaper to reveal desktop</code>: Only in Stage Manager</li>
+</ul>
+</li>
+<li><code>Widgets</code>
+<ul>
+<li><code>Widget Style</code>: Full-color</li>
+</ul>
+</li>
+<li><code>Windows</code>
+<ul>
+<li><code>Tiled windows have margins</code>: off</li>
+</ul>
+</li>
+<li><code>Hot Corners</code>: remove everything</li>
+</ul>
+<h3 id="displays">Displays</h3>
+<p><code>Advanced</code></p>
+<ul>
+<li>Turn on <code>Show resolutions as list</code></li>
+<li>Turn off <code>Allow your pointer and keyboard to move between any nearby Mac or iPad</code>
+<code>Night Shift</code></li>
+<li><code>Schedule</code>: Sunset to Sunrise</li>
+</ul>
+<h3 id="screen-saver">Screen Saver</h3>
+<ul>
+<li>Turn off <code>Show as wallpaper</code></li>
+</ul>
+<h3 id="spotlight">Spotlight</h3>
+<p>Deactivate <code>Tips</code> and <code>Websites</code></p>
+<h3 id="wallpaper">Wallpaper</h3>
+<p>Pick a nice one, I like <em>The Lake</em> as it is dynamic.</p>
+<h3 id="notifications">Notifications</h3>
 <ul>
 <li>Show previews: <code>When unlocked</code></li>
 <li>Deactivate <code>Allow notifications when the display is sleeping</code></li>
-<li>Deactivate <code>Allow notifications when the screen is locked</code></li>
+<li>Activate <code>Allow notifications when the screen is locked</code></li>
 <li>Deactivate <code>Allow notifications when mirroring or sharing the display</code></li>
-<li><code>Application Notifications</code>: My general approach is to turn everything off and only if I miss notifications, gradually turn them back on selectively. For instance for Calendar, CleanMyMac X, FaceTime, Find My, Home, Kerberos, Messages, Reminders, Things, Timeular</li>
 </ul>
-<h4 id="sound">Sound</h4>
+<p><code>Application Notifications</code>: My general approach is to turn everything off and only if I miss notifications, gradually turn them back on selectively.
+Currently, I have them turned on for:
+Calendar, ControllerForHomeKit, FaceTime, Find My, Home, Kerberos, Messages, Personal Voice, Reminders, Things, Weather</p>
+<h3 id="sound">Sound</h3>
 <ul>
 <li>Turn down the <code>Alert volume</code></li>
 <li>Turn off <code>Play sound on startup</code></li>
 </ul>
-<h4 id="focus">Focus</h4>
+<h3 id="focus">Focus</h3>
 <ul>
 <li>Check the focus modes; I still aim to use this more.</li>
 <li>Activate <code>Share across devices</code></li>
 <li><code>Focus status</code> to <code>On</code> for all focus modes</li>
 </ul>
-<h4 id="screen-time">Screen Time</h4>
+<h3 id="screen-time">Screen Time</h3>
 <p>I manage the screen time of my children, but try to keep it as permissive as possible.
-For me I also enable it, but don&rsquo;t change any settings here.</p>
-<h4 id="general-about">General: About</h4>
+For me I also enable it, but don&rsquo;t change any settings here except I turn on <code>Share across devices</code> and turn on <code>App &amp; Website Activity</code>.</p>
+<h3 id="lock-screen">Lock Screen</h3>
 <ul>
-<li>Change the name of the computer</li>
+<li><code>Start Screen Saver when inactive</code>: For 5 minutes</li>
+<li><code>Turn display off when inactive</code>: For 10 minutes (Mac Mini)</li>
+<li><code>Turn display off on battery when inactive</code>: For 10 minutes (MacBook)</li>
+<li><code>Turn display off on power adapter when inactive</code>: For 10 minutes (MacBook)</li>
+<li><code>Require password after screen saver begins or display is turned off</code>: Immediately</li>
+<li><code>Show large clock</code>: On Screen Saver and Lock Screen</li>
 </ul>
-<h4 id="general-software-update">General: Software Update</h4>
-<ul>
-<li>Automatic Updates: <code>Security Updates Only</code>
-<ul>
-<li>Activate <code>Check for updates</code></li>
-<li>Deactivate <code>Download new updates when available</code></li>
-<li>Deactivate <code>Install macOS updates</code></li>
-<li>Deactivate <code>Install application updates from the App Store</code></li>
-<li>Activate <code>Install Security Responses and system files</code></li>
-</ul>
-</li>
-</ul>
-<h4 id="general-storage">General: Storage</h4>
-<p>I don&rsquo;t use <code>Store in iCloud</code>. Go through the settings hidden under the circled i. Particularly, I remove the Garage Band files.</p>
-<h4 id="general-airdrop--handoff">General: AirDrop &amp; Handoff</h4>
-<ul>
-<li>Activate <code>Allow Handoff between this Mac and your iCloud devices</code></li>
-<li>AirDrop: <code>Contacts Only</code></li>
-<li>Activate <code>AirPlay Receiver</code></li>
-<li>Allow AirPlay for <code>Current User</code></li>
-<li>Deactivate <code>Require password</code></li>
-</ul>
-<h4 id="general-login-items">General: Login Items</h4>
-<p>Double check the <code>Open at Login</code> and <code>Allow in Background</code> lists whether there is something that I don&rsquo;t need. Particularly, <code>Google Updater</code>.</p>
-<h4 id="general-language--region">General: Language &amp; Region</h4>
-<ul>
-<li>Preferred Languages: English (Primary), German (Germany)</li>
-<li>Region: Germany</li>
-<li>Calendar: Gregorian</li>
-<li>Temperature: Celcius</li>
-<li>Measurement system: Metric</li>
-<li>First day of week: Monday</li>
-<li>Date format: 19.08.23</li>
-<li>Number format: 1,234,567.89</li>
-<li>List sort order: universal</li>
-<li>Live Text: activate</li>
-<li>Customised language settings for the following <code>Applications</code>:
-<ul>
-<li>ControllerForHomeKit (Deutsch-German)</li>
-<li>Home (Deutsch-German)</li>
-<li>MoneyMoney (Deutsch-German)</li>
-</ul>
-</li>
-<li>Translation Languages: Download for English (US) and German (Germany)</li>
-</ul>
-<h4 id="general-date--time">General: Date &amp; Time</h4>
-<ul>
-<li>Activate <code>Set time and date automatically</code></li>
-<li>Source: Apple</li>
-<li>24-hour time: activate</li>
-<li>Time zone: Centreal European</li>
-<li>Closest city: Berlin - Germany</li>
-</ul>
-<h4 id="general-sharing">General: Sharing</h4>
-<p>For my Work Location I enable Internet Sharing of the Ethernet connection via Wi-Fi. Click on the circled i to edit the settins, then activate it.</p>
-<h4 id="general-time-machine">General: Time Machine</h4>
-<p>I add two external disks, one at the office and one at home, and also a NAS which is on a Raspberry pi and can be used as a Time Machine target. I do hourly snapshots (they alternate between the local disk and online NAS). My exclude list is given above.</p>
-<h4 id="general-transfer-or-reset">General: Transfer or Reset</h4>
-<p>Nothing to do.</p>
-<h4 id="general-startup-disk">General: Startup Disk</h4>
-<p>Nothing to do.</p>
-<h4 id="appearance">Appearance</h4>
-<ul>
-<li>Appearance: Light</li>
-<li>Accent color: multicolor (first one)</li>
-<li>Highlight color: <code>Accent Color</code></li>
-<li>Sidebar icon size: <code>Small</code></li>
-<li>Activate <code>Allow wallpaper tinting in windows</code></li>
-<li>Show scroll bars: <code>Automatically based on mouse or trackpad</code></li>
-<li>Click in the scroll bar to: <code>Jump to the next page</code></li>
-</ul>
-<h4 id="accessibility">Accessibility</h4>
-<p>Nothing to do.</p>
-<h4 id="control-centre">Control Centre</h4>
-<ul>
-<li>Wi-Fi: Don&rsquo;t Show in Menu Bar</li>
-<li>Bluetooth: Don&rsquo;t Show in Menu Bar</li>
-<li>AirDrop: Don&rsquo;t Show in Menu Bar</li>
-<li>Focus: Show When Active</li>
-<li>Stage Manager: Don&rsquo;t Show in Menu Bar</li>
-<li>Screen Mirroring: Show When Active</li>
-<li>Display: Show When Active</li>
-<li>Sound: Show When Active</li>
-<li>Now Playing: Show When Active</li>
-<li>Accessibility Shortcuts:
-<ul>
-<li>Deactivate Show in Menu Bar</li>
-<li>Deactivate Show in Control Centre</li>
-</ul>
-</li>
-<li>Battery
-<ul>
-<li>Deactivate Show in Menu Bar (as I use AlDente)</li>
-<li>Activate Show in Control Centre</li>
-<li>Activate Show Percentage</li>
-</ul>
-</li>
-<li>Hearing:
-<ul>
-<li>Deactivate Show in Menu Bar</li>
-<li>Deactivate Show in Control Centre</li>
-</ul>
-</li>
-<li>Fast User Switching
-<ul>
-<li>Show in Menu Bar: Don&rsquo;t Show</li>
-<li>Show in Control Centre: Deactivate</li>
-</ul>
-</li>
-<li>Keyboard Brightness:
-<ul>
-<li>Show in Menu Bar: Deactivate</li>
-<li>Show in Control Centre: Deactivate</li>
-</ul>
-</li>
-<li>Menu Bar Only
-<ul>
-<li>Clock: Date
-<ul>
-<li>Show date: When Space Allow</li>
-<li>Show the day of the week: Activate</li>
-</ul>
-</li>
-<li>Clock: Time
-<ul>
-<li>Style: Digital</li>
-<li>Use a 24-hour clock: activate</li>
-<li>Show am/pm: deactivate</li>
-<li>Flash the time separators: deactivate</li>
-<li>Display the time with seconds: deactivate</li>
-<li>Announce the time: deactivate</li>
-<li>Interval: On the hour</li>
-</ul>
-</li>
-<li>Spotlight: Don&rsquo;t Show in Menu Bar</li>
-<li>Siri: Don&rsquo;t Show in Menu Bar</li>
-<li>Time Machine: Show in Menu Bar</li>
-<li>VPN: Don&rsquo;t Show in Menu Bar</li>
-</ul>
-</li>
-</ul>
-<h4 id="siri--spotlight">Siri &amp; Spotlight</h4>
-<ul>
-<li>Ask Siri: Activate</li>
-<li>Listen for &ldquo;Hey Siri&rdquo;: deactivate</li>
-<li>Keyboard shortcut: hold mic</li>
-<li>Language: German (Germany)</li>
-<li>Siri voice: German (Voice 2)</li>
-<li>Siri Suggestions &amp; Privacy: Activate everything</li>
-<li>Siri Responses
-<ul>
-<li>Voice feedback: deactivate</li>
-<li>Always show Siri captions: deactivate</li>
-<li>Always show speech: deactivate</li>
-</ul>
-</li>
-<li>Spotlight: activate everything</li>
-<li>Spotlight Privacy: Add NAS with Time Machine Backup</li>
-</ul>
-<h4 id="privacy--security">Privacy &amp; Security</h4>
-<ul>
-<li>Privacy Location Services
-<ul>
-<li>activate for: Calendar, ControllerForHomeKit, Find My, Home, Maps, Reminders, Safari, Siri &amp; Dictation, Wallet, Weather</li>
-<li>System Services activate for: Location-based alerts, Location-based suggestions, Setting time zone, System customisation, Significant locations, Find My Mac, HomeKit, Networking and wireless</li>
-<li>System Services deactivate for Mac Analytics</li>
-<li>Deactivate Show location icon in Control Centre When System Services request your location</li>
-</ul>
-</li>
-</ul>
-<h4 id="destkop--dock">Destkop &amp; Dock</h4>
-<ul>
-<li>Size: leave at default (about 40%)</li>
-<li>Magnification: Activate and set to about 50%</li>
-<li>Position on screen: Bottom</li>
-<li>Minimize windows using: Genie effect</li>
-<li>Double-Click a window’s title bar: zoom</li>
-<li>Minimize windows into application icon: activate</li>
-<li>Automatically hide and show the Dock: activate</li>
-<li>Animate opening applications: activate</li>
-<li>Show indicators for open applications: activate</li>
-<li>Show recent applications in Dock: activate</li>
-<li>Menu Bar
-<ul>
-<li>Automatically hide and show the menu bar on desktop: in Full Screen Only</li>
-<li>Recent documents, applications and servers: 10</li>
-</ul>
-</li>
-<li>Windows &amp; Apps
-<ul>
-<li>Prefer tabs when opening documents: In Full Screen</li>
-<li>Ask to keep changes when closing documents: deactivate</li>
-<li>Close windows when quitting an application: activate</li>
-</ul>
-</li>
-<li>Stage Manager: deactivate</li>
-<li>Default web browser: Safari.app</li>
-<li>Mission Control
-<ul>
-<li>Automatically rearrange Spaces based on recent use: activate</li>
-<li>When switching to an application, switch to a Space with open windows for the application: deactivate</li>
-<li>Group windows by application: deactivate</li>
-<li>Displays have separate Spaces: activate</li>
-</ul>
-</li>
-<li>Shortcuts:
-<ul>
-<li>Mission Control: Keyboard Shortcut: <kbd>CTRL</kbd>+<kbd>↑</kbd>, Mouse Shortcut: -</li>
-<li>Application windows: Keyboard Shortcut: <kbd>CTRL</kbd>+<kbd>↓</kbd>, Mouse Shortcut: -</li>
-<li>Show Desktop: Keyboard Shortcut: F11, Mouse Shortcut: -</li>
-</ul>
-</li>
-<li>Hot Corners: Deactivate</li>
-</ul>
-<h4 id="displays">Displays</h4>
-<p>Arrange the monitors, then go to</p>
-<ul>
-<li>Advanced:
-<ul>
-<li>Show resolutions as list: activate</li>
-<li>Link to Mac or iPad:
-<ul>
-<li>Allow your pointer and keyboard to move between any nearby Mac or iPad: activate</li>
-<li>Push through the edge of a display to connect a nearby Mac or iPad: activate</li>
-<li>Automatically reconnect to any nearby Mac or iPad: activate</li>
-</ul>
-</li>
-<li>Battery &amp; Energy:
-<ul>
-<li>Slightly dim the display on battery: activate</li>
-<li>Prevent automatic sleeping on power adapter when the display is off: deactivate</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Night Shift
-<ul>
-<li>Schedule: Off</li>
-<li>Turn on until tomorrow: deactivate</li>
-<li>Colour temperature: in the middle</li>
-</ul>
-</li>
-<li>Built-in Display:
-<ul>
-<li>Use as <code>Extended display</code> with 1512x982 (Default)</li>
-<li>Automatically adjust brightness: activate</li>
-<li>True Tone: activate</li>
-<li>Presets:
-<ul>
-<li>Apple XDR Display (P3-1600nits), Refresh rate: ProMotion</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>LG HDR WQHD:
-<ul>
-<li>Use as <code>Main display</code> with 3440x1440 (Default)</li>
-<li>Colour profile: LG HDR WQHD</li>
-<li>Refresh rate: 100 Hertz</li>
-<li>High Dynamic Range: deactivate</li>
-<li>Rotation: Standard</li>
-</ul>
-</li>
-<li>B24-8 TS Pro:
-<ul>
-<li>Use as <code>Extended display</code> with 1080x1920 (Default)</li>
-<li>Colour profile: B24-8 TS Pro</li>
-<li>Refresh rate: 60 Hertz</li>
-<li>Rotation: 90</li>
-</ul>
-</li>
-</ul>
-<h4 id="wallpaper">Wallpaper</h4>
-<p>Desktop: Set background for each display. I like to use the Dynamic Desktops, <code>The Beach</code> for the MacBook Air, <code>The Lake</code> for the LG Monitor, and <code>The Cliffs</code> for the Fujitsu Monitor.</p>
-<h4 id="screen-saver">Screen Saver</h4>
-<ul>
-<li>I like the <code>Hello</code> screensaver and use the default <code>Screen Saver Options</code>.</li>
-<li>Activate Show with clock.</li>
-</ul>
-<h4 id="battery">Battery</h4>
-<ul>
-<li>Low Power Mode: Never</li>
-<li>Battery Health click on i
-<ul>
-<li>Optimised Battery Charging: deactivate</li>
-</ul>
-</li>
-<li>Options
-<ul>
-<li>Wake for network access: Only on Power Adapter</li>
-<li>Optimise video streaming while on battery: deactivate</li>
-</ul>
-</li>
-</ul>
-<h4 id="lock-screen">Lock Screen</h4>
-<ul>
-<li>Start Screen Saver when inactive: For 10 Minutes</li>
-<li>Turn display off on battery when inactive: For 10 Minutes</li>
-<li>Turn display off on power adapter when inactive: For 20 Minutes</li>
-<li>Require password after screen saver begins or display is turned off: Immediately</li>
-<li>Show message when locked: deactivate</li>
-<li>When Switching User:
-<ul>
-<li>Login window shows: List of users</li>
-<li>Show the Sleep, Restart and Shut Down buttons: activate</li>
-<li>Show password hints: deactivate</li>
-</ul>
-</li>
-<li>Accessibility Options: deactivate all</li>
-</ul>
-<h4 id="touch-id--password">Touch ID &amp; Password</h4>
+<h3 id="privacy--security">Privacy &amp; Security</h3>
+<p>Activate for: Calendar, ControllerForHomeKit, Find My, Home, Maps, Messages, Reminders, Safari, Shortcuts, Siri, Voice Memos, Wallet, Weather
+I keep all <code>System Services</code> activated, but turn on <code>Show location icon in Control Center when System Services request your location</code>.</p>
+<h3 id="login-password-mac-mini">Login Password (Mac Mini)</h3>
+<p>I activate to use my Apple Watch <em>to unlock your applications and your Mac</em>.</p>
+<h3 id="touch-id--password-macbook">Touch ID &amp; Password (MacBook)</h3>
 <ul>
 <li>Touch ID: rename finger and add additional ones</li>
 <li>Use Touch ID to unlock your Mac: activate</li>
@@ -1726,36 +2097,36 @@ For me I also enable it, but don&rsquo;t change any settings here.</p>
 <li>Use Touch ID for autofilling passwords: activate</li>
 <li>Use Touch ID for fast user switching: activate</li>
 </ul>
-<h4 id="users--groups">Users &amp; Groups</h4>
-<p>Go through the users and remove unnecessary ones. Turn Guest User off.</p>
-<h4 id="passwords">Passwords</h4>
-<p>I use BitWarden, so nothing to do.</p>
-<h4 id="internet-accounts">Internet Accounts</h4>
-<p>Check your accounts.</p>
-<h4 id="game-center">Game Center</h4>
+<p>I also activate to use my Apple Watch <em>to unlock your applications and your Mac</em>.</p>
+<h3 id="users--groups">Users &amp; Groups</h3>
 <ul>
-<li>Profile Privacy: Only You</li>
-<li>Allow Finding by Friends: deactivate</li>
-<li>Requests from Contacts Only: deactivate</li>
-<li>Nearby Players: deactivate</li>
-<li>Connect with Friends: deactivate</li>
+<li>Go through the users and remove unnecessary ones.</li>
+<li>Turn Guest User off.</li>
+<li>Turn off <code>Allow user to resset password using Apple Account</code>.</li>
 </ul>
-<h4 id="wallet--apple-pay">Wallet &amp; Apple Pay</h4>
+<h3 id="internet-accounts">Internet Accounts</h3>
+<p>Check your accounts, but typically this has all been already configured above.</p>
+<h3 id="game-center">Game Center</h3>
+<p>I don&rsquo;t use it, so I <code>Sign Out</code>.</p>
+<h3 id="icloud">iCloud</h3>
+<p>Redundant, because settings have been already configured above under the profile picture.</p>
+<h3 id="wallet--apple-pay">Wallet &amp; Apple Pay</h3>
 <ul>
 <li>Payment Cards: check or add new ones</li>
 <li>Payment Details: check values</li>
 <li>Compatible Cards: deactivate</li>
 <li>Add Orders to Wallet: activate</li>
 </ul>
-<h4 id="keyboard">Keyboard</h4>
+<h3 id="keyboard">Keyboard</h3>
 <ul>
 <li>Key repeat rate: one before fast</li>
 <li>Delay until repeat: two before short</li>
-<li>Adjust keyboard brightness in low light: activate</li>
-<li>Keyboard brightness: low</li>
-<li>Turn keyboard backlight off after inactivatiy: After 1 Minute</li>
-<li>Press World key to: Show Emoji &amp; Symbols</li>
-<li>Keyboard navigation: activate</li>
+<li>Adjust keyboard brightness in low light: activate [MacBook only]</li>
+<li>Keyboard brightness: low [MacBook only]</li>
+<li>Turn keyboard backlight off after inactivatiy: After 1 Minute [MacBook only]</li>
+<li>Press World key to: Show Emoji &amp; Symbols [MacBook only]</li>
+<li>Press fn key to: Do Nothing [Mac Mini only]</li>
+<li><strong>Keyboard navigation: activate</strong></li>
 <li>Keyboard shortcuts: I typically leave the defaults, except:
 <ul>
 <li>Function Keys: Use F1, F2, etc. keys as standard function keys: activate</li>
@@ -1765,32 +2136,34 @@ For me I also enable it, but don&rsquo;t change any settings here.</p>
 <ul>
 <li>Show Input menu in menu bar: deactivate</li>
 <li>Correct spelling automatically: deactivate</li>
-<li>Capitalise words automatically: deactivate</li>
-<li>Add full stop with double-space: activate</li>
+<li>Capitalize words automatically: deactivate</li>
+<li>Show inline predictive text: activate</li>
+<li>Add period with double-space: deactivate</li>
 <li>Spelling: Automatic by Language</li>
 <li>Use smart quotes and dashes: deactivate</li>
 </ul>
 </li>
-<li>Text Replacements: remove everything</li>
+<li>Text Replacements: I remove everything.</li>
 <li>Dictation
 <ul>
-<li>Use Dictation wherever you can type text: deactivate</li>
-<li>Language: Add Language German</li>
-<li>Microphone Source: MacBook Pro Microphone</li>
-<li>Shortcut: Press Mic</li>
+<li>Use Dictation wherever you can type text: activate</li>
+<li>Language: Add German</li>
+<li>Microphone Source: MacBook Pro Microphone or Automatic</li>
+<li>Shortcut: Press Mic or Press Control Key Twice</li>
 <li>Auto-punctuation: activate</li>
 </ul>
 </li>
 </ul>
-<h4 id="mouse">Mouse</h4>
+<h3 id="mouse">Mouse</h3>
 <ul>
-<li>Tracking speed: 4th tick</li>
+<li>Tracking speed: 7th tick</li>
 <li>Natural scrolling: activate</li>
 <li>Secondary click: Click Right Side</li>
 <li>Double-Click Speed: 9th tick</li>
 <li>Scrolling Speed: 4th tick</li>
+<li>Advanced: Turn on pointer accelaration</li>
 </ul>
-<h4 id="trackpad">Trackpad</h4>
+<h3 id="trackpad">Trackpad</h3>
 <ul>
 <li>Point &amp; Click
 <ul>
@@ -1812,9 +2185,9 @@ For me I also enable it, but don&rsquo;t change any settings here.</p>
 </li>
 <li>More Gestures
 <ul>
-<li>Swipe between pages: Off</li>
-<li>Swipe between full-screen applications: Swipe Left or Right with Three Fingers</li>
-<li>Notification Centre: deactivate</li>
+<li>Swipe between pages: Scroll Left or Right with Two Fingers</li>
+<li>Swipe between full-screen applications: Swipe Left or Right with Three Fingerss</li>
+<li>Notification Centre: activate</li>
 <li>Mission Control: Swipe Up with Three Fingers</li>
 <li>App Exposé: Off</li>
 <li>Launchpad: activate</li>
@@ -1822,35 +2195,22 @@ For me I also enable it, but don&rsquo;t change any settings here.</p>
 </ul>
 </li>
 </ul>
-<h4 id="printers--scanners">Printers &amp; Scanners</h4>
+<h3 id="printers--scanners">Printers &amp; Scanners</h3>
 <ul>
 <li>Default printer: Last Printer used</li>
 <li>Default paper size: A4</li>
 <li>Click on <code>Add</code> and add your printer and set your Default printer and paper size</li>
 </ul>
-<h2 id="system-extensions-if-needed-for-kernel-extensions">System extensions (if needed for kernel extensions)</h2>
+<h3 id="system-extensions-if-needed-for-kernel-extensions">System extensions (if needed for kernel extensions)</h3>
 <p>To enable system extensions, you need to modify your security settings in the Recovery environment.
-To do this, shut down your system, then press and hold the Touch ID or power button to launch Startup Security Utility. In Startup Security Utility, enable kernel extensions from the Security Policy button.</p>
-<h3 id="apps-that-i-keep-in-my-dock">Apps that I keep in my dock</h3>
-<p>I changed the settings for the dock using dockey (see above) and have the following apps in my dock (I remove the other ones by right clicking on the symbol - Options - Remove from Dock; alternatively simply dragging them away from the dock)</p>
+To do this, shut down your system, then press and hold the Touch ID or power button to launch Startup Security Utility. In Startup Security Utility, enable kernel extensions from the Security Policy button.
+I currently have no need for this.</p>
+<h2 id="widgets">Widgets</h2>
+<p>I use the following widgets in the widget center:</p>
 <ul>
-<li>Finder</li>
-<li>Safari</li>
-<li>Messages</li>
-<li>Mail</li>
-<li>Calendar</li>
-<li>Things</li>
-<li>Terminal</li>
-<li>iWriter Pro</li>
-<li>VS Code</li>
-<li>GitKraken</li>
-<li>NoMachine</li>
-<li>Zotero</li>
-<li>LiquidText</li>
-<li>Notability</li>
-<li>MoneyMoney</li>
-<li>Mattermost</li>
-<li>Matlab</li>
+<li>Home (Medium), manual selection</li>
+<li>Calendar (Large)</li>
+<li>Things (List)</li>
 </ul>
 
 
@@ -1953,7 +2313,7 @@ To do this, shut down your system, then press and hold the Touch ID or power but
 
   
   <p class="powered-by copyright-license-text">
-    © 2023 Willi Mutschler. This work is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank">CC BY SA 4.0</a>
+    © 2025 Willi Mutschler. This work is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank">CC BY SA 4.0</a>
   </p>
   
 
@@ -2001,7 +2361,7 @@ To do this, shut down your system, then press and hold the Touch ID or power but
   
 
 
-<script src="/js/vendor-bundle.min.46271ef31da3f018e9cd1b59300aa265.js"></script>
+<script src="/js/vendor-bundle.min.b4708d4364577c16ab7001b265a063a4.js"></script>
 
 
 
@@ -2090,7 +2450,7 @@ To do this, shut down your system, then press and hold the Touch ID or power but
   
 
 
-<script src="/en/js/wowchemy.min.a6238d5886fa4a2f7cf92df25709326f.js"></script>
+<script src="/en/js/wowchemy.min.42010733157c11a71adebfe9bae43355.js"></script>
 
 
 

@@ -1336,48 +1336,48 @@ For instance, you can spin up a virtual machine with 4 cores, 8 GB RAM, and a 64
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo chmod <span class="m">644</span> /lib/systemd/system/btrbk.timer
 </span></span><span class="line"><span class="cl">sudo chmod <span class="m">644</span> /lib/systemd/system/btrbk.service
 </span></span></code></pre></div><p>and checkout if it works (tip: you can exit the log outputs by writing <code>:q</code> or hitting <code>CTRL+C</code>)):</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo systemctl start btrbk.service
-</span></span><span class="line"><span class="cl">sudo systemctl status btrbk.service
-</span></span><span class="line"><span class="cl"># ○ btrbk.service - btrbk snapshots and backup
-</span></span><span class="line"><span class="cl">#      Loaded: loaded (/lib/systemd/system/btrbk.service; static)
-</span></span><span class="line"><span class="cl">#      Active: inactive (dead)
-</span></span><span class="line"><span class="cl">#        Docs: man:btrbk(1)
-</span></span><span class="line"><span class="cl"># 
-</span></span><span class="line"><span class="cl"># Dec 13 21:24:22 pop-os btrbk[6699]:     ---  deleted subvolume
-</span></span><span class="line"><span class="cl"># Dec 13 21:24:22 pop-os btrbk[6699]:     ***  received subvolume (non-incremental)
-</span></span><span class="line"><span class="cl"># Dec 13 21:24:22 pop-os btrbk[6699]:     &gt;&gt;&gt;  received subvolume (incremental)
-</span></span><span class="line"><span class="cl"># Dec 13 21:24:22 pop-os btrbk[6699]: ---------------------------------------------------------&gt;
-</span></span><span class="line"><span class="cl"># Dec 13 21:24:22 pop-os btrbk[6699]: /btrfs_pool/@
-</span></span><span class="line"><span class="cl"># Dec 13 21:24:22 pop-os btrbk[6699]: +++ /btrfs_pool/_btrbk_snap/@.20211213T2124
-</span></span><span class="line"><span class="cl"># Dec 13 21:24:22 pop-os btrbk[6699]: /btrfs_pool/@home
-</span></span><span class="line"><span class="cl"># Dec 13 21:24:22 pop-os btrbk[6699]: +++ /btrfs_pool/_btrbk_snap/@home.20211213T2124
-</span></span><span class="line"><span class="cl"># Dec 13 21:24:22 pop-os systemd[1]: btrfs-btrbk-systemd.service: Deactivated successfully.
-</span></span><span class="line"><span class="cl"># Dec 13 21:24:22 pop-os systemd[1]: Finished btrbk snapshots and backup.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">start</span> <span class="n">btrbk</span><span class="o">.</span><span class="n">service</span>
+</span></span><span class="line"><span class="cl"><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">status</span> <span class="n">btrbk</span><span class="o">.</span><span class="n">service</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ○ btrbk.service - btrbk snapshots and backup</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#      Loaded: loaded (/lib/systemd/system/btrbk.service; static)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#      Active: inactive (dead)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        Docs: man:btrbk(1)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Dec 13 21:24:22 pop-os btrbk[6699]:     ---  deleted subvolume</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Dec 13 21:24:22 pop-os btrbk[6699]:     ***  received subvolume (non-incremental)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Dec 13 21:24:22 pop-os btrbk[6699]:     &gt;&gt;&gt;  received subvolume (incremental)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Dec 13 21:24:22 pop-os btrbk[6699]: ---------------------------------------------------------&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Dec 13 21:24:22 pop-os btrbk[6699]: /btrfs_pool/@</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Dec 13 21:24:22 pop-os btrbk[6699]: +++ /btrfs_pool/_btrbk_snap/@.20211213T2124</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Dec 13 21:24:22 pop-os btrbk[6699]: /btrfs_pool/@home</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Dec 13 21:24:22 pop-os btrbk[6699]: +++ /btrfs_pool/_btrbk_snap/@home.20211213T2124</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Dec 13 21:24:22 pop-os systemd[1]: btrfs-btrbk-systemd.service: Deactivated successfully.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Dec 13 21:24:22 pop-os systemd[1]: Finished btrbk snapshots and backup.</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">cat /var/log/btrbk.log
-</span></span><span class="line"><span class="cl"># 2021-12-13T21:24:22+0100 startup v0.27.1 - - - # btrbk command line client, version 0.27.1
-</span></span><span class="line"><span class="cl"># 2021-12-13T21:24:22+0100 snapshot starting /btrfs_pool/_btrbk_snap/@.20211213T2124 /btrfs_pool/@ - -
-</span></span><span class="line"><span class="cl"># 2021-12-13T21:24:22+0100 snapshot success /btrfs_pool/_btrbk_snap/@.20211213T2124 /btrfs_pool/@ - -
-</span></span><span class="line"><span class="cl"># 2021-12-13T21:24:22+0100 snapshot starting /btrfs_pool/_btrbk_snap/@home.20211213T2124 /btrfs_pool/@home - -
-</span></span><span class="line"><span class="cl"># 2021-12-13T21:24:22+0100 snapshot success /btrfs_pool/_btrbk_snap/@home.20211213T2124 /btrfs_pool/@home - -
-</span></span><span class="line"><span class="cl"># 2021-12-13T21:24:22+0100 finished success - - - -
+</span></span><span class="line"><span class="cl"><span class="n">cat</span> <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="nb">log</span><span class="o">/</span><span class="n">btrbk</span><span class="o">.</span><span class="n">log</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2021-12-13T21:24:22+0100 startup v0.27.1 - - - # btrbk command line client, version 0.27.1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2021-12-13T21:24:22+0100 snapshot starting /btrfs_pool/_btrbk_snap/@.20211213T2124 /btrfs_pool/@ - -</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2021-12-13T21:24:22+0100 snapshot success /btrfs_pool/_btrbk_snap/@.20211213T2124 /btrfs_pool/@ - -</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2021-12-13T21:24:22+0100 snapshot starting /btrfs_pool/_btrbk_snap/@home.20211213T2124 /btrfs_pool/@home - -</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2021-12-13T21:24:22+0100 snapshot success /btrfs_pool/_btrbk_snap/@home.20211213T2124 /btrfs_pool/@home - -</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2021-12-13T21:24:22+0100 finished success - - - -</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">ls /btrfs_pool/_btrbk_snap
-</span></span><span class="line"><span class="cl"># @.20211213T2110  @home.20211213T2110
-</span></span><span class="line"><span class="cl"># @.20211213T2124  @home.20211213T2124
+</span></span><span class="line"><span class="cl"><span class="n">ls</span> <span class="o">/</span><span class="n">btrfs_pool</span><span class="o">/</span><span class="n">_btrbk_snap</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @.20211213T2110  @home.20211213T2110</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @.20211213T2124  @home.20211213T2124</span>
 </span></span></code></pre></div><p>Check if snapshots are created and if any errors occured. If all is well, then enable the timer:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo systemctl enable btrbk.timer
-</span></span><span class="line"><span class="cl"># Created symlink /etc/systemd/system/timers.target.wants/btrbk.timer → /lib/systemd/system/btrbk.timer.
-</span></span><span class="line"><span class="cl">sudo systemctl start btrbk.timer
-</span></span><span class="line"><span class="cl">sudo systemctl daemon-reload
-</span></span><span class="line"><span class="cl">sudo systemctl list-timers --all
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">enable</span> <span class="n">btrbk</span><span class="o">.</span><span class="n">timer</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created symlink /etc/systemd/system/timers.target.wants/btrbk.timer → /lib/systemd/system/btrbk.timer.</span>
+</span></span><span class="line"><span class="cl"><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">start</span> <span class="n">btrbk</span><span class="o">.</span><span class="n">timer</span>
+</span></span><span class="line"><span class="cl"><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">daemon</span><span class="o">-</span><span class="n">reload</span>
+</span></span><span class="line"><span class="cl"><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">list</span><span class="o">-</span><span class="n">timers</span> <span class="o">--</span><span class="n">all</span>
 </span></span></code></pre></div><p>You should see the following line (tip: you can exit by inserting <code>:q</code> or clicking <code>CTRL+C</code>):</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">NEXT                        LEFT          LAST                        PASSED       UNIT           ACTIVATES                     
 </span></span><span class="line"><span class="cl">Mon 2021-12-13 22:00:00 CET 33min left    n/a                         n/a          btrbk.timer    btrbk.service
 </span></span></code></pre></div><p>Recheck the hourly timer after an hour (or 33min in my case) to make sure everything is working:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo systemctl list-timers --all
-</span></span><span class="line"><span class="cl">cat /var/log/btrbk.log
-</span></span><span class="line"><span class="cl">ls /btrfs_pool/_btrbk_snap
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">list</span><span class="o">-</span><span class="n">timers</span> <span class="o">--</span><span class="n">all</span>
+</span></span><span class="line"><span class="cl"><span class="n">cat</span> <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="nb">log</span><span class="o">/</span><span class="n">btrbk</span><span class="o">.</span><span class="n">log</span>
+</span></span><span class="line"><span class="cl"><span class="n">ls</span> <span class="o">/</span><span class="n">btrfs_pool</span><span class="o">/</span><span class="n">_btrbk_snap</span>
 </span></span></code></pre></div><p>Make sure the snapshots are created without errors.</p>
 <h3 id="step-5d-optional-mount-an-encrypted-backup-disk-as-btrfs-sendreceive-target">Step 5d (optional): Mount an encrypted backup disk as btrfs send/receive target</h3>
 <p>I use the internal SSD as a backup disk to receive the incremental btrfs snapshots. So let&rsquo;s create a GPT table on it, create an encrypted partition and format it with the btrfs filesystem. I usually use GParted for this (after installing it); however, you can also use command-line tools like <code>parted</code>, e.g.:</p>
@@ -1629,7 +1629,7 @@ For instance, you can spin up a virtual machine with 4 cores, 8 GB RAM, and a 64
 
   
   <p class="powered-by copyright-license-text">
-    © 2023 Willi Mutschler. This work is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank">CC BY SA 4.0</a>
+    © 2025 Willi Mutschler. This work is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank">CC BY SA 4.0</a>
   </p>
   
 
@@ -1677,7 +1677,7 @@ For instance, you can spin up a virtual machine with 4 cores, 8 GB RAM, and a 64
   
 
 
-<script src="/js/vendor-bundle.min.46271ef31da3f018e9cd1b59300aa265.js"></script>
+<script src="/js/vendor-bundle.min.b4708d4364577c16ab7001b265a063a4.js"></script>
 
 
 
@@ -1766,7 +1766,7 @@ For instance, you can spin up a virtual machine with 4 cores, 8 GB RAM, and a 64
   
 
 
-<script src="/en/js/wowchemy.min.a6238d5886fa4a2f7cf92df25709326f.js"></script>
+<script src="/en/js/wowchemy.min.42010733157c11a71adebfe9bae43355.js"></script>
 
 
 
