@@ -903,9 +903,9 @@
 </li>
 <li>Automatic system snapshots and easy rollback using <a href="https://github.com/linuxmint/timeshift" target="_blank" rel="noopener">Timeshift</a>, which will regularly take (almost instant) snapshots of the system.</li>
 </ul>
-<p>This setup works similarly well on other distributions, for which I also have <a href="../../install-guides">installation guides (with optional RAID1)</a>.</p>
+<p>This setup works similarly well on other distributions, for which I also have <a href="../../linux">installation guides (with optional RAID1)</a>.</p>
 <h2 id="step-0-general-remarks">Step 0: General remarks</h2>
-<p>This tutorial uses Pop!_OS 24.04 from <a href="https://system76.com/pop" target="_blank" rel="noopener">System76</a>, installed via a USB flash device. Other versions of Pop!_OS and distributions using the systemd boot manager might also work but may require additional steps (see my other <a href="../../install-guides">installation guides</a>).</p>
+<p>This tutorial uses Pop!_OS 24.04 from <a href="https://system76.com/pop" target="_blank" rel="noopener">System76</a>, installed via a USB flash device. Other versions of Pop!_OS and distributions using the systemd boot manager might also work but may require additional steps (see my other <a href="../../linux">installation guides</a>).</p>
 <div class="alert alert-warning">
   <div>
     <strong>I strongly advise trying the following installation steps in a virtual machine first before performing them on real hardware!</strong> For instance, you can spin up a virtual machine using the awesome <a href="https://github.com/quickemu-project/quickemu" target="_blank" rel="noopener">quickemu</a> project.
@@ -925,54 +925,54 @@
   </div>
 </div>
 
-<p><strong>If you want to understand the structure of the installation, keep reading. Otherwise, proceed to the next step to perform the second installation.</strong></p>
+<p>If you want to understand the structure of the installation, keep reading. Otherwise, proceed to the next step to perform the second installation.</p>
 <h3 id="optional-understand-the-default-partition-layout-and-installation-structure">[Optional] Understand the default partition layout and installation structure</h3>
 <p>Open a terminal and examine the default partition layout (alternatively, use Gparted):</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo lsblk
-</span></span><span class="line"><span class="cl"><span class="c1"># NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># loop0         7:0    0   2.4G  1 loop /rofs</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># sda           8:0    0   3.6T  0 disk</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># sdb           8:16   0   3.6T  0 disk</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># sdc           8:32   0 119.2G  0 disk</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># ├─sdc1        8:33   0  1022M  0 part</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># ├─sdc2        8:34   0     4G  0 part</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># ├─sdc3        8:35   0 110.2G  0 part</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># └─sdc4        8:36   0     4G  0 part</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># sdd           8:48   1     0B  0 disk</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># sde           8:64   1     0B  0 disk</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># sdf           8:80   1     0B  0 disk</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># sdg           8:96   1     0B  0 disk</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># sdh           8:112  1  29.3G  0 disk</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># ├─sdh1        8:113  1   2.8G  0 part /cdrom</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># ├─sdh2        8:114  1     4M  0 part</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># └─sdh3        8:115  1  26.5G  0 part /var/crash</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#                                       /var/log</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># sdi           8:128  0   1.4T  0 disk</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># sr0          11:0    1  1024M  0 rom</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># sr1          11:1    1  1024M  0 rom</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># sr2          11:2    1  1024M  0 rom</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># sr3          11:3    1  1024M  0 rom</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># zram0       251:0    0    16G  0 disk [SWAP]</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># nvme0n1     259:0    0   1.7T  0 disk</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># ├─nvme0n1p1 259:1    0    16M  0 part</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># ├─nvme0n1p2 259:2    0  99.6G  0 part</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># ├─nvme0n1p3 259:3    0   9.8G  0 part</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># └─nvme0n1p4 259:4    0   1.6T  0 part</span>
-</span></span></code></pre></div><p>I have installed Pop!_OS on the 119.2 GB SSD, recognized as <code>sdc</code> on my machine. Note that I have several other disks connected, so we must identify the correct disk carefully.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">lsblk</span>
+</span></span><span class="line"><span class="cl"><span class="c"># NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+</span></span></span><span class="line"><span class="cl"><span class="c"># loop0         7:0    0   2.4G  1 loop /rofs
+</span></span></span><span class="line"><span class="cl"><span class="c"># sda           8:0    0   3.6T  0 disk
+</span></span></span><span class="line"><span class="cl"><span class="c"># sdb           8:16   0   3.6T  0 disk
+</span></span></span><span class="line"><span class="cl"><span class="c"># sdc           8:32   0 119.2G  0 disk
+</span></span></span><span class="line"><span class="cl"><span class="c"># ├─sdc1        8:33   0  1022M  0 part
+</span></span></span><span class="line"><span class="cl"><span class="c"># ├─sdc2        8:34   0     4G  0 part
+</span></span></span><span class="line"><span class="cl"><span class="c"># ├─sdc3        8:35   0 110.2G  0 part
+</span></span></span><span class="line"><span class="cl"><span class="c"># └─sdc4        8:36   0     4G  0 part
+</span></span></span><span class="line"><span class="cl"><span class="c"># sdd           8:48   1     0B  0 disk
+</span></span></span><span class="line"><span class="cl"><span class="c"># sde           8:64   1     0B  0 disk
+</span></span></span><span class="line"><span class="cl"><span class="c"># sdf           8:80   1     0B  0 disk
+</span></span></span><span class="line"><span class="cl"><span class="c"># sdg           8:96   1     0B  0 disk
+</span></span></span><span class="line"><span class="cl"><span class="c"># sdh           8:112  1  29.3G  0 disk
+</span></span></span><span class="line"><span class="cl"><span class="c"># ├─sdh1        8:113  1   2.8G  0 part /cdrom
+</span></span></span><span class="line"><span class="cl"><span class="c"># ├─sdh2        8:114  1     4M  0 part
+</span></span></span><span class="line"><span class="cl"><span class="c"># └─sdh3        8:115  1  26.5G  0 part /var/crash
+</span></span></span><span class="line"><span class="cl"><span class="c">#                                       /var/log
+</span></span></span><span class="line"><span class="cl"><span class="c"># sdi           8:128  0   1.4T  0 disk
+</span></span></span><span class="line"><span class="cl"><span class="c"># sr0          11:0    1  1024M  0 rom
+</span></span></span><span class="line"><span class="cl"><span class="c"># sr1          11:1    1  1024M  0 rom
+</span></span></span><span class="line"><span class="cl"><span class="c"># sr2          11:2    1  1024M  0 rom
+</span></span></span><span class="line"><span class="cl"><span class="c"># sr3          11:3    1  1024M  0 rom
+</span></span></span><span class="line"><span class="cl"><span class="c"># zram0       251:0    0    16G  0 disk [SWAP]
+</span></span></span><span class="line"><span class="cl"><span class="c"># nvme0n1     259:0    0   1.7T  0 disk
+</span></span></span><span class="line"><span class="cl"><span class="c"># ├─nvme0n1p1 259:1    0    16M  0 part
+</span></span></span><span class="line"><span class="cl"><span class="c"># ├─nvme0n1p2 259:2    0  99.6G  0 part
+</span></span></span><span class="line"><span class="cl"><span class="c"># ├─nvme0n1p3 259:3    0   9.8G  0 part
+</span></span></span><span class="line"><span class="cl"><span class="c"># └─nvme0n1p4 259:4    0   1.6T  0 part
+</span></span></span></code></pre></div><p>I have installed Pop!_OS on the 119.2 GB SSD, recognized as <code>sdc</code> on my machine. Note that I have several other disks connected, so we must identify the correct disk carefully.</p>
 <p>Let&rsquo;s look closer at the partition layout of <code>sdc</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo parted /dev/sdc unit MiB print
-</span></span><span class="line"><span class="cl"><span class="c1"># Model: ATA ThinkSystem M.2 (scsi)</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Disk /dev/sdc: 122040MiB</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Sector size (logical/physical): 512B/512B</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Partition Table: gpt</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Disk Flags:</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Number  Start      End        Size       File system     Name      Flags</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#  1      2.00MiB    1024MiB    1022MiB    fat32                     boot, esp</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#  2      1024MiB    5120MiB    4096MiB    fat32           recovery  msftdata</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#  3      5120MiB    117942MiB  112822MiB</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#  4      117942MiB  122038MiB  4096MiB    linux-swap(v1)            swap</span>
-</span></span></code></pre></div><p>We have the following 4 partitions:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">parted</span> /dev/sdc unit MiB print
+</span></span><span class="line"><span class="cl"><span class="c"># Model: ATA ThinkSystem M.2 (scsi)
+</span></span></span><span class="line"><span class="cl"><span class="c"># Disk /dev/sdc: 122040MiB
+</span></span></span><span class="line"><span class="cl"><span class="c"># Sector size (logical/physical): 512B/512B
+</span></span></span><span class="line"><span class="cl"><span class="c"># Partition Table: gpt
+</span></span></span><span class="line"><span class="cl"><span class="c"># Disk Flags:
+</span></span></span><span class="line"><span class="cl"><span class="c">#
+</span></span></span><span class="line"><span class="cl"><span class="c"># Number  Start      End        Size       File system     Name      Flags
+</span></span></span><span class="line"><span class="cl"><span class="c">#  1      2.00MiB    1024MiB    1022MiB    fat32                     boot, esp
+</span></span></span><span class="line"><span class="cl"><span class="c">#  2      1024MiB    5120MiB    4096MiB    fat32           recovery  msftdata
+</span></span></span><span class="line"><span class="cl"><span class="c">#  3      5120MiB    117942MiB  112822MiB
+</span></span></span><span class="line"><span class="cl"><span class="c">#  4      117942MiB  122038MiB  4096MiB    linux-swap(v1)            swap
+</span></span></span></code></pre></div><p>We have the following 4 partitions:</p>
 <ol>
 <li>A 1022 MiB FAT32 EFI partition for the systemd bootloader (note the <code>boot, esp</code> flag).</li>
 <li>A 4096 MiB FAT32 partition for the Pop!_OS recovery system (note the name <code>recovery</code>).</li>
@@ -980,48 +980,48 @@
 <li>A 4096 MiB swap partition for (encrypted) swap use (note the <code>swap</code> flag).</li>
 </ol>
 <p>Let&rsquo;s examine the encrypted <code>sdc3</code> partition:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo cryptsetup luksDump /dev/sdc3
-</span></span><span class="line"><span class="cl"><span class="c1"># LUKS header information</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Version:        2</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Epoch:          3</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Metadata area:  16384 [bytes]</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Keyslots area:  16744448 [bytes]</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># UUID:           0be45abc-4d9f-4682-9a51-17432c068ef2</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Label:          (no label)</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Subsystem:      (no subsystem)</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Flags:          (no flags)</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Data segments:</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#   0: crypt</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#       offset: 16777216 [bytes]</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#       length: (whole device)</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#       cipher: aes-xts-plain64</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#       sector: 512 [bytes]</span>
-</span></span></code></pre></div><p>This confirms the partition is encrypted with LUKS using default options. Now, let&rsquo;s see what is inside the encrypted partition:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo cryptsetup luksOpen /dev/sdc3 cryptdata
-</span></span><span class="line"><span class="cl"><span class="c1"># Enter passphrase for /dev/sdc3:</span>
-</span></span><span class="line"><span class="cl">ls /dev/mapper
-</span></span><span class="line"><span class="cl"><span class="c1"># control  cryptdata  data-root</span>
-</span></span><span class="line"><span class="cl">sudo pvs
-</span></span><span class="line"><span class="cl"><span class="c1">#  PV                    VG   Fmt  Attr PSize   PFree</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#  /dev/mapper/cryptdata data lvm2 a--  110.16g    0</span>
-</span></span><span class="line"><span class="cl">sudo vgs
-</span></span><span class="line"><span class="cl"><span class="c1">#  VG   #PV #LV #SN Attr   VSize   VFree</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#  data   1   1   0 wz--n- 110.16g    0</span>
-</span></span><span class="line"><span class="cl">sudo lvs
-</span></span><span class="line"><span class="cl"><span class="c1">#  LV   VG   Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#  root data -wi-a----- 110.16g</span>
-</span></span><span class="line"><span class="cl">sudo lsblk /dev/mapper/data-root -f
-</span></span><span class="line"><span class="cl"><span class="c1"># NAME      FSTYPE FSVER LABEL UUID                                 FSAVAIL FSUSE% MOUNTPOINTS</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># data-root ext4   1.0         2e9d6dac-1ee4-419c-b21c-8212262fdb93</span>
-</span></span></code></pre></div><p>By default, when installing with encryption, Pop!_OS uses <a href="https://askubuntu.com/questions/3596/what-is-lvm-and-what-is-it-used-for" target="_blank" rel="noopener">Logical Volume Management (LVM)</a>. The encrypted partition (<code>cryptdata</code>) is a physical volume containing a volume group called <code>data</code>. Inside this volume group, there is a logical volume called <code>root</code> containing our system files, formatted with ext4.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">cryptsetup</span> luksDump /dev/sdc3
+</span></span><span class="line"><span class="cl"><span class="c"># LUKS header information
+</span></span></span><span class="line"><span class="cl"><span class="c"># Version:        2
+</span></span></span><span class="line"><span class="cl"><span class="c"># Epoch:          3
+</span></span></span><span class="line"><span class="cl"><span class="c"># Metadata area:  16384 [bytes]
+</span></span></span><span class="line"><span class="cl"><span class="c"># Keyslots area:  16744448 [bytes]
+</span></span></span><span class="line"><span class="cl"><span class="c"># UUID:           0be45abc-4d9f-4682-9a51-17432c068ef2
+</span></span></span><span class="line"><span class="cl"><span class="c"># Label:          (no label)
+</span></span></span><span class="line"><span class="cl"><span class="c"># Subsystem:      (no subsystem)
+</span></span></span><span class="line"><span class="cl"><span class="c"># Flags:          (no flags)
+</span></span></span><span class="line"><span class="cl"><span class="c">#
+</span></span></span><span class="line"><span class="cl"><span class="c"># Data segments:
+</span></span></span><span class="line"><span class="cl"><span class="c">#   0: crypt
+</span></span></span><span class="line"><span class="cl"><span class="c">#       offset: 16777216 [bytes]
+</span></span></span><span class="line"><span class="cl"><span class="c">#       length: (whole device)
+</span></span></span><span class="line"><span class="cl"><span class="c">#       cipher: aes-xts-plain64
+</span></span></span><span class="line"><span class="cl"><span class="c">#       sector: 512 [bytes]
+</span></span></span></code></pre></div><p>This confirms the partition is encrypted with LUKS using default options. Now, let&rsquo;s see what is inside the encrypted partition:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">cryptsetup</span> luksOpen /dev/sdc3 cryptdata
+</span></span><span class="line"><span class="cl"><span class="c"># Enter passphrase for /dev/sdc3:
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">ls</span> /dev/mapper
+</span></span><span class="line"><span class="cl"><span class="c"># control  cryptdata  data-root
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">sudo</span> <span class="nf">pvs</span>
+</span></span><span class="line"><span class="cl"><span class="c">#  PV                    VG   Fmt  Attr PSize   PFree
+</span></span></span><span class="line"><span class="cl"><span class="c">#  /dev/mapper/cryptdata data lvm2 a--  110.16g    0
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">sudo</span> <span class="nf">vgs</span>
+</span></span><span class="line"><span class="cl"><span class="c">#  VG   #PV #LV #SN Attr   VSize   VFree
+</span></span></span><span class="line"><span class="cl"><span class="c">#  data   1   1   0 wz--n- 110.16g    0
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">sudo</span> <span class="nf">lvs</span>
+</span></span><span class="line"><span class="cl"><span class="c">#  LV   VG   Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+</span></span></span><span class="line"><span class="cl"><span class="c">#  root data -wi-a----- 110.16g
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">sudo</span> <span class="nf">lsblk</span> /dev/mapper/data-root <span class="na">-f</span>
+</span></span><span class="line"><span class="cl"><span class="c"># NAME      FSTYPE FSVER LABEL UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+</span></span></span><span class="line"><span class="cl"><span class="c"># data-root ext4   1.0         2e9d6dac-1ee4-419c-b21c-8212262fdb93
+</span></span></span></code></pre></div><p>By default, when installing with encryption, Pop!_OS uses <a href="https://askubuntu.com/questions/3596/what-is-lvm-and-what-is-it-used-for" target="_blank" rel="noopener">Logical Volume Management (LVM)</a>. The encrypted partition (<code>cryptdata</code>) is a physical volume containing a volume group called <code>data</code>. Inside this volume group, there is a logical volume called <code>root</code> containing our system files, formatted with ext4.</p>
 <p>While I don&rsquo;t use LVM features extensively, the installer requires LVM for encryption, and there is practically no performance downside.</p>
 <p>Now that we know the partition layout, let&rsquo;s close everything:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo cryptsetup luksClose /dev/mapper/data-root
-</span></span><span class="line"><span class="cl">sudo cryptsetup luksClose /dev/mapper/cryptdata
-</span></span><span class="line"><span class="cl">ls /dev/mapper
-</span></span><span class="line"><span class="cl"><span class="c1"># control</span>
-</span></span></code></pre></div><p>We are ready to proceed with the second install, which follows the same steps but uses BTRFS as the underlying filesystem.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">cryptsetup</span> luksClose /dev/mapper/data-root
+</span></span><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">cryptsetup</span> luksClose /dev/mapper/cryptdata
+</span></span><span class="line"><span class="cl"><span class="nf">ls</span> /dev/mapper
+</span></span><span class="line"><span class="cl"><span class="c"># control
+</span></span></span></code></pre></div><p>We are ready to proceed with the second install, which follows the same steps but uses BTRFS as the underlying filesystem.</p>
 <h2 id="step-2-install-pop_os-using-the-custom-advanced-option">Step 2: Install Pop!_OS using the <code>Custom (Advanced)</code> option</h2>
 <p>Open <code>Install Pop!_OS</code> from <code>Applications</code> again, and select the region, language, and keyboard layout. Then choose <code>Custom (Advanced)</code>.</p>
 <p>You will see your partitioned hard disk (for me, <code>/dev/sdc</code>) as shown in the previous step:</p>
@@ -1034,16 +1034,21 @@
 <p><em>If you have other partitions, check their types and usage. Ensure you deactivate using or changing any other EFI partitions.</em></p>
 <p>Recheck everything (ensure the correct use of partitions that have a black checkmark) and hit <code>Erase and Install</code>.
 Follow the steps to create a user account and write changes to the disk.</p>
-<p><strong>Once the installer finishes, do <strong>NOT</strong> select <strong>Restart Device</strong>, but keep the window open.</strong></p>
+<div class="alert alert-warning">
+  <div>
+    Once the installer finishes, do <strong>NOT</strong> select <code>Restart Device</code>, but keep the window open.
+  </div>
+</div>
+
 <h2 id="step-3-configure-btrfs-subvolumes-and-mount-options">Step 3: Configure BTRFS subvolumes and mount options</h2>
 <p>Open a terminal and switch to an interactive root session:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo -i
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="na">-i</span>
 </span></span></code></pre></div><p>Maximizing the terminal window helps when working with the command line.</p>
 <h3 id="mount-the-btrfs-top-level-root-filesystem-with-zstd-compression">Mount the BTRFS top-level root filesystem with zstd compression</h3>
 <p>Mount the root partition (the top-level BTRFS volume always has id 5) with compression enabled to optimize performance and durability:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cryptsetup luksOpen /dev/sdc3 cryptdata
-</span></span><span class="line"><span class="cl"><span class="c1"># Enter passphrase for /dev/sdc3</span>
-</span></span><span class="line"><span class="cl">mount -o <span class="nv">subvolid</span><span class="o">=</span>5,defaults,compress<span class="o">=</span>zstd:1 /dev/mapper/data-root /mnt
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">cryptsetup</span> luksOpen /dev/sdc3 cryptdata
+</span></span><span class="line"><span class="cl"><span class="c"># Enter passphrase for /dev/sdc3
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">mount</span> <span class="na">-o</span> <span class="nv">subvolid</span><span class="o">=</span><span class="m">5</span>,defaults,<span class="nv">compress</span><span class="o">=</span>zstd:<span class="m">1</span> /dev/mapper/data-root /mnt
 </span></span></code></pre></div><p>By default, Pop!_OS 24.04 uses standard BTRFS mount options. SSDs are automatically detected (<code>ssd</code> mount option), and <code>space_cache=v2</code> is used (also the <a href="https://pagure.io/fedora-btrfs/project/issue/24" target="_blank" rel="noopener">default in Fedora</a>).
 There is some debate about using <a href="https://pagure.io/fedora-btrfs/project/issue/9" target="_blank" rel="noopener"><code>noatime</code> instead of <code>relatime</code></a>. I haven&rsquo;t seen a significant difference, so I use the default <code>relatime</code>.
 However, I recommend using <code>compress=zstd:1</code> (specifically level 1) for SSDs, as recommended by the <a href="https://fedoraproject.org/wiki/Changes/BtrfsTransparentCompression#Simple_Analysis_of_btrfs_zstd_compression_level" target="_blank" rel="noopener">Fedora team for workstations</a>.</p>
@@ -1062,27 +1067,27 @@ However, I recommend using <code>compress=zstd:1</code> (specifically level 1) f
 
 <h3 id="create-btrfs-subvolumes--and-home">Create BTRFS subvolumes <code>@</code> and <code>@home</code></h3>
 <p>First, create the subvolume <code>@</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">btrfs subvolume create /mnt/@
-</span></span><span class="line"><span class="cl"><span class="c1"># Create subvolume &#39;/mnt/@&#39;</span>
-</span></span></code></pre></div><p>Next, move all files and folders from the top-level filesystem into <code>@</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /mnt
-</span></span><span class="line"><span class="cl">ls <span class="p">|</span> grep -v @ <span class="p">|</span> xargs mv -t @
-</span></span><span class="line"><span class="cl">ls -a /mnt
-</span></span><span class="line"><span class="cl"><span class="c1"># . .. @</span>
-</span></span></code></pre></div><p>Since we mounted the drive with compression enabled, the data is automatically compressed as it is moved.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">btrfs</span> subvolume create /mnt/@
+</span></span><span class="line"><span class="cl"><span class="c"># Create subvolume &#39;/mnt/@&#39;
+</span></span></span></code></pre></div><p>Next, move all files and folders from the top-level filesystem into <code>@</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="k">cd</span> /mnt
+</span></span><span class="line"><span class="cl"><span class="nf">ls</span> <span class="o">|</span> <span class="nf">grep</span> <span class="na">-v</span> @ <span class="o">|</span> <span class="nf">xargs</span> mv <span class="na">-t</span> @
+</span></span><span class="line"><span class="cl"><span class="nf">ls</span> <span class="na">-a</span> /mnt
+</span></span><span class="line"><span class="cl"><span class="c"># . .. @
+</span></span></span></code></pre></div><p>Since we mounted the drive with compression enabled, the data is automatically compressed as it is moved.</p>
 <p>Now, create the <code>@home</code> subvolume and move the user folder from <code>/mnt/@/home/</code> into it:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">btrfs subvolume create /mnt/@home
-</span></span><span class="line"><span class="cl"><span class="c1"># Create subvolume &#39;/mnt/@home&#39;</span>
-</span></span><span class="line"><span class="cl">mv /mnt/@/home/* /mnt/@home/
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">btrfs</span> subvolume create /mnt/@home
+</span></span><span class="line"><span class="cl"><span class="c"># Create subvolume &#39;/mnt/@home&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">mv</span> /mnt/@/home/* /mnt/@home/
 </span></span></code></pre></div><p>Verify that everything has been moved correctly:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ls -a /mnt/@/home
-</span></span><span class="line"><span class="cl"><span class="c1"># . ..</span>
-</span></span><span class="line"><span class="cl">ls -a /mnt/@home
-</span></span><span class="line"><span class="cl"><span class="c1"># . .. wmutschl</span>
-</span></span><span class="line"><span class="cl">btrfs subvolume list /mnt
-</span></span><span class="line"><span class="cl"><span class="c1"># ID 256 gen 17 top level 5 path @</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># ID 257 gen 17 top level 5 path @home</span>
-</span></span></code></pre></div><h3 id="changes-to-fstab">Changes to fstab</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">ls</span> <span class="na">-a</span> /mnt/@/home
+</span></span><span class="line"><span class="cl"><span class="c"># . ..
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">ls</span> <span class="na">-a</span> /mnt/@home
+</span></span><span class="line"><span class="cl"><span class="c"># . .. wmutschl
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">btrfs</span> subvolume list /mnt
+</span></span><span class="line"><span class="cl"><span class="c"># ID 256 gen 17 top level 5 path @
+</span></span></span><span class="line"><span class="cl"><span class="c"># ID 257 gen 17 top level 5 path @home
+</span></span></span></code></pre></div><h3 id="changes-to-fstab">Changes to fstab</h3>
 <p>We need to update <code>/etc/fstab</code> to:</p>
 <ul>
 <li>Mount <code>/</code> to the <code>@</code> subvolume.</li>
@@ -1090,134 +1095,134 @@ However, I recommend using <code>compress=zstd:1</code> (specifically level 1) f
 <li>Enable compression.</li>
 </ul>
 <p>Open <code>fstab</code> with a text editor (e.g., <code>nano /mnt/@/etc/fstab</code>) or use these <code>sed</code> commands:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/btrfs  defaults  0  1/btrfs  defaults,compress=zstd:1,subvol=@  0  0/&#39;</span> /mnt/@/etc/fstab
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;UUID=</span><span class="k">$(</span>blkid -s UUID -o value /dev/mapper/data-root<span class="k">)</span><span class="s2">  /home  btrfs  defaults,compress=zstd:1,subvol=@home   0 0&#34;</span> &gt;&gt; /mnt/@/etc/fstab
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sed</span> <span class="na">-i</span> <span class="s1">&#39;s/btrfs  defaults  0  1/btrfs  defaults,compress=zstd:1,subvol=@  0  0/&#39;</span> /mnt/@/etc/fstab
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;UUID=</span><span class="nv">$(</span><span class="s2">blkid -s UUID -o value /dev/mapper/data-root)  /home  btrfs  defaults,compress=zstd:1,subvol=@home   0 0&#34;</span> <span class="o">&gt;&gt;</span> /mnt/@/etc/fstab
 </span></span></code></pre></div><p>Your <code>fstab</code> should look like this:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /mnt/@/etc/fstab
-</span></span><span class="line"><span class="cl"><span class="c1"># PARTUUID=2a345427-756a-454d-943b-6028c9e5cf55  /boot/efi  vfat  umask=0077  0  0</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># PARTUUID=526a5925-7e0f-44ff-9a69-da10eb0f1c5c  /recovery  vfat  umask=0077  0  0</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/cryptswap  none  swap  defaults  0  0</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># UUID=f4190602-7a0b-4d6c-aed5-624a17afaf8f  /  btrfs  defaults,compress=zstd:1,subvol=@  0  0</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># UUID=f4190602-7a0b-4d6c-aed5-624a17afaf8f  /home  btrfs  defaults,compress=zstd:1,subvol=@home   0 0</span>
-</span></span></code></pre></div><p>Note that your UUIDs will be different. The last two lines are the important ones.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">cat</span> /mnt/@/etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c"># PARTUUID=2a345427-756a-454d-943b-6028c9e5cf55  /boot/efi  vfat  umask=0077  0  0
+</span></span></span><span class="line"><span class="cl"><span class="c"># PARTUUID=526a5925-7e0f-44ff-9a69-da10eb0f1c5c  /recovery  vfat  umask=0077  0  0
+</span></span></span><span class="line"><span class="cl"><span class="c"># /dev/mapper/cryptswap  none  swap  defaults  0  0
+</span></span></span><span class="line"><span class="cl"><span class="c"># UUID=f4190602-7a0b-4d6c-aed5-624a17afaf8f  /  btrfs  defaults,compress=zstd:1,subvol=@  0  0
+</span></span></span><span class="line"><span class="cl"><span class="c"># UUID=f4190602-7a0b-4d6c-aed5-624a17afaf8f  /home  btrfs  defaults,compress=zstd:1,subvol=@home   0 0
+</span></span></span></code></pre></div><p>Note that your UUIDs will be different. The last two lines are the important ones.</p>
 <div class="alert alert-note">
   <div>
-    <strong>Note on <code>discard</code> in crypttab:</strong> You may notice that Pop!_OS does not add a <code>discard</code> option to <code>/etc/crypttab</code> for the LUKS-encrypted partition. This is intentional for security reasons: enabling discard on encrypted devices can expose patterns about which blocks are unused, potentially leaking metadata about the encrypted content. Pop!_OS prioritizes security over the marginal performance benefit. If you prefer to enable TRIM passthrough for performance reasons and accept this trade-off, you can manually add <code>discard</code> to the crypttab entry for <code>cryptdata</code>.
+    <strong>Note on <code>discard</code> in crypttab:</strong> You may notice that Pop!_OS does not add a <code>discard</code> option to <code>/etc/crypttab</code> for the LUKS-encrypted partition. This is intentional for security reasons: enabling discard on encrypted devices can expose patterns about which blocks are unused, potentially leaking metadata about the encrypted content. Pop!_OS prioritizes security over the marginal performance benefit. If you prefer to enable TRIM passthrough for performance reasons and accept this trade-off, you can manually add <code>discard</code> to the crypttab entry for <code>cryptdata</code>, see my <a href="../../linux/pop-os-btrfs-22-04#changes-to-crypttab">guide for POP!_OS 22.04</a>.
   </div>
 </div>
 
 <h3 id="adjust-configuration-of-kernelstub">Adjust configuration of kernelstub</h3>
 <p>We need to adjust settings for the systemd boot manager and ensure they persist after kernel updates. Add <code>rootflags=subvol=@</code> to the <code>&quot;user&quot;</code> kernel options in the kernelstub configuration file:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nano /mnt/@/etc/kernelstub/configuration
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">nano</span> /mnt/@/etc/kernelstub/configuration
 </span></span></code></pre></div><p>Your configuration file should look like this (add the <code>rootflags=subvol=@</code> line to the <code>user</code> section):</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /mnt/@/etc/kernelstub/configuration
-</span></span><span class="line"><span class="cl"><span class="c1"># {</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#   &#34;default&#34;: {</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;kernel_options&#34;: [</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#       &#34;quiet&#34;,</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#       &#34;splash&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     ],</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;esp_path&#34;: &#34;/boot/efi&#34;,</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;setup_loader&#34;: false,</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;manage_mode&#34;: false,</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;force_update&#34;: false,</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;live_mode&#34;: false,</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;config_rev&#34;: 3</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#   },</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#   &#34;user&#34;: {</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;kernel_options&#34;: [</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#       &#34;quiet&#34;,</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#       &#34;loglevel=0&#34;,</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#       &#34;systemd.show_status=false&#34;,</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#       &#34;splash&#34;,</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#       &#34;rootflags=subvol=@&#34;,</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#       &#34;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     ],</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;esp_path&#34;: &#34;/boot/efi&#34;,</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;setup_loader&#34;: true,</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;manage_mode&#34;: true,</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;force_update&#34;: false,</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;live_mode&#34;: false,</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;config_rev&#34;: 3</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#   }</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># }</span>
-</span></span></code></pre></div><div class="alert alert-warning">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">cat</span> /mnt/@/etc/kernelstub/configuration
+</span></span><span class="line"><span class="cl"><span class="c"># {
+</span></span></span><span class="line"><span class="cl"><span class="c">#   &#34;default&#34;: {
+</span></span></span><span class="line"><span class="cl"><span class="c">#     &#34;kernel_options&#34;: [
+</span></span></span><span class="line"><span class="cl"><span class="c">#       &#34;quiet&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="c">#       &#34;splash&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c">#     ],
+</span></span></span><span class="line"><span class="cl"><span class="c">#     &#34;esp_path&#34;: &#34;/boot/efi&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="c">#     &#34;setup_loader&#34;: false,
+</span></span></span><span class="line"><span class="cl"><span class="c">#     &#34;manage_mode&#34;: false,
+</span></span></span><span class="line"><span class="cl"><span class="c">#     &#34;force_update&#34;: false,
+</span></span></span><span class="line"><span class="cl"><span class="c">#     &#34;live_mode&#34;: false,
+</span></span></span><span class="line"><span class="cl"><span class="c">#     &#34;config_rev&#34;: 3
+</span></span></span><span class="line"><span class="cl"><span class="c">#   },
+</span></span></span><span class="line"><span class="cl"><span class="c">#   &#34;user&#34;: {
+</span></span></span><span class="line"><span class="cl"><span class="c">#     &#34;kernel_options&#34;: [
+</span></span></span><span class="line"><span class="cl"><span class="c">#       &#34;quiet&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="c">#       &#34;loglevel=0&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="c">#       &#34;systemd.show_status=false&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="c">#       &#34;splash&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="c">#       &#34;rootflags=subvol=@&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="c">#       &#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c">#     ],
+</span></span></span><span class="line"><span class="cl"><span class="c">#     &#34;esp_path&#34;: &#34;/boot/efi&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="c">#     &#34;setup_loader&#34;: true,
+</span></span></span><span class="line"><span class="cl"><span class="c">#     &#34;manage_mode&#34;: true,
+</span></span></span><span class="line"><span class="cl"><span class="c">#     &#34;force_update&#34;: false,
+</span></span></span><span class="line"><span class="cl"><span class="c">#     &#34;live_mode&#34;: false,
+</span></span></span><span class="line"><span class="cl"><span class="c">#     &#34;config_rev&#34;: 3
+</span></span></span><span class="line"><span class="cl"><span class="c">#   }
+</span></span></span><span class="line"><span class="cl"><span class="c"># }
+</span></span></span></code></pre></div><div class="alert alert-warning">
   <div>
-    <strong>VERY IMPORTANT: Don&rsquo;t forget the comma at the end of the line, otherwise <code>update-initramfs</code> will fail later!</strong>
+    VERY IMPORTANT: Don&rsquo;t forget the comma at the end of the line, otherwise <code>update-initramfs</code> will fail later!
   </div>
 </div>
 
 <p>Alternatively, you can use this <code>sed</code> command to apply the change:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed -i <span class="s1">&#39;/\&#34;user\&#34;/,/}/{ s/\(\&#34;splash\&#34;,\)/\1\n      \&#34;rootflags=subvol=@\&#34;,/ }&#39;</span> /mnt/@/etc/kernelstub/configuration
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sed</span> <span class="na">-i</span> <span class="s1">&#39;/\&#34;user\&#34;/,/}/{ s/\(\&#34;splash\&#34;,\)/\1\n      \&#34;rootflags=subvol=@\&#34;,/ }&#39;</span> /mnt/@/etc/kernelstub/configuration
 </span></span></code></pre></div><h3 id="adjust-configuration-of-systemd-bootloader">Adjust configuration of systemd bootloader</h3>
 <p>Mount the EFI partition to adjust systemd boot settings:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mount /dev/sdc1 /mnt/@/boot/efi
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">mount</span> /dev/sdc1 /mnt/@/boot/efi
 </span></span></code></pre></div><p>Add <code>rootflags=subvol=@</code> to the last line of <code>Pop_OS_current.conf</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/splash/splash rootflags=subvol=@/&#39;</span> /mnt/@/boot/efi/loader/entries/Pop_OS-current.conf
-</span></span><span class="line"><span class="cl">cat /mnt/@/boot/efi/loader/entries/Pop_OS-current.conf
-</span></span><span class="line"><span class="cl"><span class="c1"># title Pop!_OS</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># linux /EFI/Pop_OS-f4190602-7a0b-4d6c-aed5-624a17afaf8f/vmlinuz.efi</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># initrd /EFI/Pop_OS-f4190602-7a0b-4d6c-aed5-624a17afaf8f/initrd.img</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># options root=UUID=f4190602-7a0b-4d6c-aed5-624a17afaf8f ro quiet loglevel=0 systemd.show_status=false splash rootflags=subvol=@</span>
-</span></span></code></pre></div><p>Optionally, add a timeout to the systemd boot menu to easily access the recovery partition:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;timeout 3&#34;</span> &gt;&gt; /mnt/@/boot/efi/loader/loader.conf
-</span></span><span class="line"><span class="cl">cat /mnt/@/boot/efi/loader/loader.conf
-</span></span><span class="line"><span class="cl"><span class="c1"># default Pop_OS-current</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># timeout 3</span>
-</span></span></code></pre></div><h3 id="create-a-chroot-environment-and-update-initramfs">Create a chroot environment and update initramfs</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sed</span> <span class="na">-i</span> <span class="s1">&#39;s/splash/splash rootflags=subvol=@/&#39;</span> /mnt/@/boot/efi/loader/entries/Pop_OS-current.conf
+</span></span><span class="line"><span class="cl"><span class="nf">cat</span> /mnt/@/boot/efi/loader/entries/Pop_OS-current.conf
+</span></span><span class="line"><span class="cl"><span class="c"># title Pop!_OS
+</span></span></span><span class="line"><span class="cl"><span class="c"># linux /EFI/Pop_OS-f4190602-7a0b-4d6c-aed5-624a17afaf8f/vmlinuz.efi
+</span></span></span><span class="line"><span class="cl"><span class="c"># initrd /EFI/Pop_OS-f4190602-7a0b-4d6c-aed5-624a17afaf8f/initrd.img
+</span></span></span><span class="line"><span class="cl"><span class="c"># options root=UUID=f4190602-7a0b-4d6c-aed5-624a17afaf8f ro quiet loglevel=0 systemd.show_status=false splash rootflags=subvol=@
+</span></span></span></code></pre></div><p>Optionally, add a timeout to the systemd boot menu to easily access the recovery partition:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;timeout 3&#34;</span> <span class="o">&gt;&gt;</span> /mnt/@/boot/efi/loader/loader.conf
+</span></span><span class="line"><span class="cl"><span class="nf">cat</span> /mnt/@/boot/efi/loader/loader.conf
+</span></span><span class="line"><span class="cl"><span class="c"># default Pop_OS-current
+</span></span></span><span class="line"><span class="cl"><span class="c"># timeout 3
+</span></span></span></code></pre></div><h3 id="create-a-chroot-environment-and-update-initramfs">Create a chroot environment and update initramfs</h3>
 <p>To work inside the newly installed OS without booting into it, create a chroot environment.
 Unmount the top-level root filesystem (id 5) and remount the subvolume <code>@</code> to <code>/mnt</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /
-</span></span><span class="line"><span class="cl">umount -l /mnt
-</span></span><span class="line"><span class="cl">mount -o <span class="nv">subvol</span><span class="o">=</span>@,defaults,compress<span class="o">=</span>zstd:1 /dev/mapper/data-root /mnt
-</span></span><span class="line"><span class="cl">ls /mnt
-</span></span><span class="line"><span class="cl"><span class="c1"># bin  bin.usr-is-merged  boot  dev  etc  home  lib  lib.usr-is-merged  lib64  media  mnt  opt  proc  recovery  root  run  sbin  sbin.usr-is-merged  srv  sys  tmp  usr  var</span>
-</span></span></code></pre></div><p>Mount the necessary system directories and enter chroot (commands from System76&rsquo;s <a href="https://support.system76.com/articles/bootloader/#systemd-boot" target="_blank" rel="noopener">Repair the Bootloader</a> guide):</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">for</span> i in /dev /dev/pts /proc /sys /run<span class="p">;</span> <span class="k">do</span> mount -B <span class="nv">$i</span> /mnt<span class="nv">$i</span><span class="p">;</span> <span class="k">done</span>
-</span></span><span class="line"><span class="cl">chroot /mnt
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="k">cd</span> /
+</span></span><span class="line"><span class="cl"><span class="nf">umount</span> <span class="na">-l</span> /mnt
+</span></span><span class="line"><span class="cl"><span class="nf">mount</span> <span class="na">-o</span> <span class="nv">subvol</span><span class="o">=</span>@,defaults,<span class="nv">compress</span><span class="o">=</span>zstd:<span class="m">1</span> /dev/mapper/data-root /mnt
+</span></span><span class="line"><span class="cl"><span class="nf">ls</span> /mnt
+</span></span><span class="line"><span class="cl"><span class="c"># bin  bin.usr-is-merged  boot  dev  etc  home  lib  lib.usr-is-merged  lib64  media  mnt  opt  proc  recovery  root  run  sbin  sbin.usr-is-merged  srv  sys  tmp  usr  var
+</span></span></span></code></pre></div><p>Mount the necessary system directories and enter chroot (commands from System76&rsquo;s <a href="https://support.system76.com/articles/bootloader/#systemd-boot" target="_blank" rel="noopener">Repair the Bootloader</a> guide):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="k">for</span> <span class="nv">i</span> <span class="k">in</span> /dev /dev/pts /proc /sys /run<span class="p">;</span> <span class="nf">do</span> mount <span class="na">-B</span> <span class="nv">$i</span> /mnt<span class="nv">$i</span><span class="p">;</span> <span class="nf">done</span>
+</span></span><span class="line"><span class="cl"><span class="nf">chroot</span> /mnt
 </span></span></code></pre></div><p>Now inside the new system, verify the <code>fstab</code> mounts:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mount -av
-</span></span><span class="line"><span class="cl"><span class="c1"># mount: (hint) your fstab has been modified, but systemd still uses</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#        the old version; use &#39;systemctl daemon-reload&#39; to reload.</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># /boot/efi                : successfully mounted</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># /recovery                : successfully mounted</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># none                     : ignored</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># /                        : ignored</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># /home                    : successfully mounted</span>
-</span></span></code></pre></div><p>Update the initramfs to include the kernelstub changes:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">update-initramfs -c -k all
-</span></span><span class="line"><span class="cl"><span class="c1"># update-initramfs: Generating /boot/initrd.img-6.16.3-76061603-generic</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># W: /sbin/fsck.btrfs doesn&#39;t exist, can&#39;t install to initramfs</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># mount: (hint) your fstab has been modified, but systemd still uses</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#        the old version; use &#39;systemctl daemon-reload&#39; to reload.</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Updating kernel version 6.16.3-76061603-generic in systemd-boot...</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># kernelstub.Config    : INFO     Looking for configuration...</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># kernelstub           : INFO     System information:</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     OS:..................Pop!_OS 24.04</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     Root partition:....../dev/dm-1</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     Root FS UUID:........f4190602-7a0b-4d6c-aed5-624a17afaf8f</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     ESP Path:............/boot/efi</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     ESP Partition:......./dev/sdc1</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     ESP Partition #:.....1</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     NVRAM entry #:.......-1</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     Boot Variable #:.....0000</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     Kernel Boot Options:.quiet loglevel=0 systemd.show_status=false splash rootflags=subvol=@</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     Kernel Image Path:.../boot/vmlinuz-6.16.3-76061603-generic</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     Initrd Image Path:.../boot/initrd.img-6.16.3-76061603-generic</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     Force-overwrite:.....False</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># kernelstub.Installer : INFO     Copying Kernel into ESP</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># kernelstub.Installer : INFO     Copying initrd.img into ESP</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># kernelstub.Installer : INFO     Setting up loader.conf configuration</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># kernelstub.Installer : INFO     Making entry file for Pop!_OS</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># kernelstub.Installer : INFO     Backing up old kernel</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># kernelstub.Installer : INFO     No old kernel found, skipping</span>
-</span></span></code></pre></div><p>If you see errors, check that you added the comma in the <code>/etc/kernelstub/configuration</code> file.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">mount</span> <span class="na">-av</span>
+</span></span><span class="line"><span class="cl"><span class="c"># mount: (hint) your fstab has been modified, but systemd still uses
+</span></span></span><span class="line"><span class="cl"><span class="c">#        the old version; use &#39;systemctl daemon-reload&#39; to reload.
+</span></span></span><span class="line"><span class="cl"><span class="c"># /boot/efi                : successfully mounted
+</span></span></span><span class="line"><span class="cl"><span class="c"># /recovery                : successfully mounted
+</span></span></span><span class="line"><span class="cl"><span class="c"># none                     : ignored
+</span></span></span><span class="line"><span class="cl"><span class="c"># /                        : ignored
+</span></span></span><span class="line"><span class="cl"><span class="c"># /home                    : successfully mounted
+</span></span></span></code></pre></div><p>Update the initramfs to include the kernelstub changes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">update-initramfs</span> <span class="na">-c</span> <span class="na">-k</span> all
+</span></span><span class="line"><span class="cl"><span class="c"># update-initramfs: Generating /boot/initrd.img-6.16.3-76061603-generic
+</span></span></span><span class="line"><span class="cl"><span class="c"># W: /sbin/fsck.btrfs doesn&#39;t exist, can&#39;t install to initramfs
+</span></span></span><span class="line"><span class="cl"><span class="c"># mount: (hint) your fstab has been modified, but systemd still uses
+</span></span></span><span class="line"><span class="cl"><span class="c">#        the old version; use &#39;systemctl daemon-reload&#39; to reload.
+</span></span></span><span class="line"><span class="cl"><span class="c"># Updating kernel version 6.16.3-76061603-generic in systemd-boot...
+</span></span></span><span class="line"><span class="cl"><span class="c"># kernelstub.Config    : INFO     Looking for configuration...
+</span></span></span><span class="line"><span class="cl"><span class="c"># kernelstub           : INFO     System information:
+</span></span></span><span class="line"><span class="cl"><span class="c">#
+</span></span></span><span class="line"><span class="cl"><span class="c">#     OS:..................Pop!_OS 24.04
+</span></span></span><span class="line"><span class="cl"><span class="c">#     Root partition:....../dev/dm-1
+</span></span></span><span class="line"><span class="cl"><span class="c">#     Root FS UUID:........f4190602-7a0b-4d6c-aed5-624a17afaf8f
+</span></span></span><span class="line"><span class="cl"><span class="c">#     ESP Path:............/boot/efi
+</span></span></span><span class="line"><span class="cl"><span class="c">#     ESP Partition:......./dev/sdc1
+</span></span></span><span class="line"><span class="cl"><span class="c">#     ESP Partition #:.....1
+</span></span></span><span class="line"><span class="cl"><span class="c">#     NVRAM entry #:.......-1
+</span></span></span><span class="line"><span class="cl"><span class="c">#     Boot Variable #:.....0000
+</span></span></span><span class="line"><span class="cl"><span class="c">#     Kernel Boot Options:.quiet loglevel=0 systemd.show_status=false splash rootflags=subvol=@
+</span></span></span><span class="line"><span class="cl"><span class="c">#     Kernel Image Path:.../boot/vmlinuz-6.16.3-76061603-generic
+</span></span></span><span class="line"><span class="cl"><span class="c">#     Initrd Image Path:.../boot/initrd.img-6.16.3-76061603-generic
+</span></span></span><span class="line"><span class="cl"><span class="c">#     Force-overwrite:.....False
+</span></span></span><span class="line"><span class="cl"><span class="c">#
+</span></span></span><span class="line"><span class="cl"><span class="c"># kernelstub.Installer : INFO     Copying Kernel into ESP
+</span></span></span><span class="line"><span class="cl"><span class="c"># kernelstub.Installer : INFO     Copying initrd.img into ESP
+</span></span></span><span class="line"><span class="cl"><span class="c"># kernelstub.Installer : INFO     Setting up loader.conf configuration
+</span></span></span><span class="line"><span class="cl"><span class="c"># kernelstub.Installer : INFO     Making entry file for Pop!_OS
+</span></span></span><span class="line"><span class="cl"><span class="c"># kernelstub.Installer : INFO     Backing up old kernel
+</span></span></span><span class="line"><span class="cl"><span class="c"># kernelstub.Installer : INFO     No old kernel found, skipping
+</span></span></span></code></pre></div><p>If you see errors, check that you added the comma in the <code>/etc/kernelstub/configuration</code> file.</p>
 <p>Note the warning about <code>/sbin/fsck.btrfs</code>, so let&rsquo;s install <code>btrfs-progs</code> to be able to manage BTRFS subvolumes and fix the issue (this triggers another <code>update-initramfs</code>):</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install -y btrfs-progs
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">apt</span> install <span class="na">-y</span> btrfs-progs
 </span></span></code></pre></div><p>Exit the chroot:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">exit</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="k">exit</span>
 </span></span></code></pre></div><h2 id="step-4-reboot-some-checks-and-system-updates">Step 4: Reboot, some checks, and system updates</h2>
 <p>Close the terminal and click <code>Reboot Device</code> on the installer app.
 Crossing fingers!
@@ -1228,23 +1233,23 @@ If all goes well, you will see a passphrase prompt. Enter your LUKS passphrase, 
 <li><strong>Power &amp; Battery</strong>: Use <code>High performance</code> in <code>Power Mode</code> and check <code>Power Saving Options</code> (on a server I deactivate them, on a notebook I keep them).</li>
 </ul>
 <p>Next, we verify the setup in a terminal:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mount -av
-</span></span><span class="line"><span class="cl"><span class="c1"># /boot/efi                : already mounted</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># /recovery                : already mounted</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># none                     : ignored</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># /                        : ignored</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># /home                    : already mounted</span>
-</span></span></code></pre></div><p>Check that the optimized mount options are active (note that you cannot have different mount options on the same partition):</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mount -v <span class="p">|</span> grep /dev/mapper
-</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/data-root on / type btrfs (rw,relatime,compress=zstd:1,space_cache=v2,subvolid=256,subvol=/@)</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/data-root on /home type btrfs (rw,relatime,compress=zstd:1,space_cache=v2,subvolid=257,subvol=/@home)</span>
-</span></span></code></pre></div><p>Verify swap is working:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">mount</span> <span class="na">-av</span>
+</span></span><span class="line"><span class="cl"><span class="c"># /boot/efi                : already mounted
+</span></span></span><span class="line"><span class="cl"><span class="c"># /recovery                : already mounted
+</span></span></span><span class="line"><span class="cl"><span class="c"># none                     : ignored
+</span></span></span><span class="line"><span class="cl"><span class="c"># /                        : ignored
+</span></span></span><span class="line"><span class="cl"><span class="c"># /home                    : already mounted
+</span></span></span></code></pre></div><p>Check that the optimized mount options are active (note that you cannot have different mount options on the same partition):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">mount</span> <span class="na">-v</span> <span class="o">|</span> <span class="nf">grep</span> /dev/mapper
+</span></span><span class="line"><span class="cl"><span class="c"># /dev/mapper/data-root on / type btrfs (rw,relatime,compress=zstd:1,space_cache=v2,subvolid=256,subvol=/@)
+</span></span></span><span class="line"><span class="cl"><span class="c"># /dev/mapper/data-root on /home type btrfs (rw,relatime,compress=zstd:1,space_cache=v2,subvolid=257,subvol=/@home)
+</span></span></span></code></pre></div><p>Verify swap is working:</p>
 <p>Run <code>sudo swapon</code> to check if both the swap partition and the zram device are active:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo swapon
-</span></span><span class="line"><span class="cl"><span class="c1"># NAME       TYPE      SIZE USED PRIO</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># /dev/dm-2  partition   4G   0B   -2</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># /dev/zram0 partition  16G   0B 1000</span>
-</span></span></code></pre></div><p>Pop!_OS uses <strong>two swap mechanisms</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">swapon</span>
+</span></span><span class="line"><span class="cl"><span class="c"># NAME       TYPE      SIZE USED PRIO
+</span></span></span><span class="line"><span class="cl"><span class="c"># /dev/dm-2  partition   4G   0B   -2
+</span></span></span><span class="line"><span class="cl"><span class="c"># /dev/zram0 partition  16G   0B 1000
+</span></span></span></code></pre></div><p>Pop!_OS uses <strong>two swap mechanisms</strong>:</p>
 <ol>
 <li><strong>zram</strong> (compressed RAM swap): A high-priority swap device that compresses data in RAM. This is used first due to its higher priority (1000) and provides fast swap performance for everyday use.</li>
 <li><strong>Swap partition</strong> (encrypted): A lower-priority disk-based swap partition used when zram is full.</li>
@@ -1264,37 +1269,38 @@ If all goes well, you will see a passphrase prompt. Enter your LUKS passphrase, 
 </div>
 
 <p>Inspect BTRFS subvolumes:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo btrfs filesystem show /
-</span></span><span class="line"><span class="cl"><span class="c1"># Label: none  uuid: f4190602-7a0b-4d6c-aed5-624a17afaf8f</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#         Total devices 1 FS bytes used 7.91GiB</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#         devid    1 size 110.16GiB used 12.02GiB path /dev/mapper/data-root</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">sudo btrfs subvolume list /
-</span></span><span class="line"><span class="cl"><span class="c1"># ID 256 gen 96 top level 5 path @</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># ID 257 gen 96 top level 5 path @home</span>
-</span></span></code></pre></div><p>If using an SSD or NVMe, enable <code>fstrim.timer</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> fstrim.timer
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">btrfs</span> filesystem show /
+</span></span><span class="line"><span class="cl"><span class="c"># Label: none  uuid: f4190602-7a0b-4d6c-aed5-624a17afaf8f
+</span></span></span><span class="line"><span class="cl"><span class="c">#         Total devices 1 FS bytes used 7.91GiB
+</span></span></span><span class="line"><span class="cl"><span class="c">#         devid    1 size 110.16GiB used 12.02GiB path /dev/mapper/data-root
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>
+</span></span><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">btrfs</span> subvolume list /
+</span></span><span class="line"><span class="cl"><span class="c"># ID 256 gen 96 top level 5 path @
+</span></span></span><span class="line"><span class="cl"><span class="c"># ID 257 gen 96 top level 5 path @home
+</span></span></span></code></pre></div><p>If using an SSD or NVMe, enable <code>fstrim.timer</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">systemctl</span> enable fstrim.timer
 </span></span></code></pre></div><p>Make sure <code>issue_discards=1</code> is set in <code>/etc/lvm/lvm.conf</code> (usually default):</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /etc/lvm/lvm.conf <span class="p">|</span> grep issue_discards
-</span></span><span class="line"><span class="cl"><span class="c1"># 	# Configuration option devices/issue_discards.</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 	issue_discards = 1</span>
-</span></span></code></pre></div><p>Finally, update the system including the recovery partition and flatpak applications:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt update
-</span></span><span class="line"><span class="cl">sudo apt upgrade
-</span></span><span class="line"><span class="cl">sudo apt dist-upgrade
-</span></span><span class="line"><span class="cl">sudo apt autoremove --purge
-</span></span><span class="line"><span class="cl">sudo apt autoclean
-</span></span><span class="line"><span class="cl">pop-upgrade recovery upgrade from-release
-</span></span><span class="line"><span class="cl">flatpak -vv update
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">cat</span> /etc/lvm/lvm.conf <span class="o">|</span> <span class="nf">grep</span> issue_discards
+</span></span><span class="line"><span class="cl"><span class="c"># 	# Configuration option devices/issue_discards.
+</span></span></span><span class="line"><span class="cl"><span class="c"># 	issue_discards = 1
+</span></span></span></code></pre></div><p>Finally, update the system including the recovery partition and flatpak applications:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">apt</span> update
+</span></span><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">apt</span> upgrade
+</span></span><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">apt</span> dist-upgrade
+</span></span><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">apt</span> autoremove <span class="na">--purge</span>
+</span></span><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">apt</span> autoclean
+</span></span><span class="line"><span class="cl"><span class="nf">pop-upgrade</span> recovery upgrade from-release
+</span></span><span class="line"><span class="cl"><span class="nf">flatpak</span> <span class="na">-vv</span> update
 </span></span></code></pre></div><p>I also recommend updating firmware:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo fwupdmgr get-devices
-</span></span><span class="line"><span class="cl">sudo fwupdmgr get-updates
-</span></span><span class="line"><span class="cl">sudo fwupdmgr update
-</span></span></code></pre></div><p>Reboot once more.</p>
-<h2 id="step-5-install-timeshift-for-btrfs-snapshots">Step 5: Install Timeshift for BTRFS snapshots</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">fwupdmgr</span> get-devices
+</span></span><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">fwupdmgr</span> get-updates
+</span></span><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">fwupdmgr</span> update
+</span></span></code></pre></div><p>Reboot once more:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">reboot</span> now
+</span></span></code></pre></div><h2 id="step-5-install-timeshift-for-btrfs-snapshots">Step 5: Install Timeshift for BTRFS snapshots</h2>
 <p>Install <a href="https://github.com/linuxmint/timeshift" target="_blank" rel="noopener">Timeshift</a> and configure it via the GUI:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt update
-</span></span><span class="line"><span class="cl">sudo apt install -y timeshift
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">apt</span> update
+</span></span><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">apt</span> install <span class="na">-y</span> timeshift
 </span></span></code></pre></div><p>Go to <code>Applications</code> and search for <code>Timeshift</code>.</p>
 <ul>
 <li>Select <strong>BTRFS</strong> as the <strong>Snapshot Type</strong>; click <strong>Next</strong>.</li>
@@ -1315,23 +1321,23 @@ If all goes well, you will see a passphrase prompt. Enter your LUKS passphrase, 
 <li>Create a manual snapshot named &ldquo;Clean Install&rdquo; and exit Timeshift.</li>
 </ul>
 <p>Timeshift will now manage snapshots automatically. Note that they are stored in subvolumes at the top-level root:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo btrfs subvolume list /
-</span></span><span class="line"><span class="cl"><span class="c1"># ID 256 gen 160 top level 5 path @</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># ID 257 gen 157 top level 5 path @home</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># ID 258 gen 153 top level 5 path timeshift-btrfs/snapshots/2025-12-09_10-37-12/@</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># ID 259 gen 153 top level 5 path timeshift-btrfs/snapshots/2025-12-09_10-37-12/@home</span>
-</span></span></code></pre></div><h2 id="step-6-practice-recovery-and-system-rollback">Step 6: Practice recovery and system rollback</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">btrfs</span> subvolume list /
+</span></span><span class="line"><span class="cl"><span class="c"># ID 256 gen 160 top level 5 path @
+</span></span></span><span class="line"><span class="cl"><span class="c"># ID 257 gen 157 top level 5 path @home
+</span></span></span><span class="line"><span class="cl"><span class="c"># ID 258 gen 153 top level 5 path timeshift-btrfs/snapshots/2025-12-09_10-37-12/@
+</span></span></span><span class="line"><span class="cl"><span class="c"># ID 259 gen 153 top level 5 path timeshift-btrfs/snapshots/2025-12-09_10-37-12/@home
+</span></span></span></code></pre></div><h2 id="step-6-practice-recovery-and-system-rollback">Step 6: Practice recovery and system rollback</h2>
 <p>Let&rsquo;s simulate a system failure to practice recovery. Note: We have snapshots to rollback to (in the subvolumes at the top-level root).</p>
 <p><strong>Delete the <code>/etc</code> folder (simulating disaster):</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo rm -rf /etc
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">rm</span> <span class="na">-rf</span> /etc
 </span></span></code></pre></div><p>If you try to reboot, the system will fail. So instead, boot into the <code>Pop!_OS Recovery System</code> selected from the systemd bootloader (this is why I set the timeout to 3 seconds).</p>
 <p>I will show you two ways to rollback: with Timeshift and manually.
 For both, first open the File Manager, go to <strong>Other Locations</strong>, select your encrypted disk, and enter the passphrase. This mounts the top-level root and you can now access the snapshots.</p>
 <h3 id="rollback-with-timeshift">Rollback with Timeshift</h3>
 <ol>
 <li>Install Timeshift in the live environment via the terminal:
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt update
-</span></span><span class="line"><span class="cl">sudo apt install timeshift
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">apt</span> update
+</span></span><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">apt</span> install timeshift
 </span></span></code></pre></div></li>
 <li>Go to <code>Applications</code> and open Timeshift.</li>
 <li>Select <strong>BTRFS</strong>, and choose your disk.</li>
@@ -1341,25 +1347,25 @@ For both, first open the File Manager, go to <strong>Other Locations</strong>, s
 <h3 id="rollback-manually">Rollback manually</h3>
 <ol>
 <li>Open a terminal and navigate to the mounted volume (e.g., <code>/media/recovery/&lt;YOUR-UUID&gt;</code>):
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo -i
-</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /media/recovery/&lt;YOUR-UUID&gt;
-</span></span><span class="line"><span class="cl">ls
-</span></span><span class="line"><span class="cl"><span class="c1"># @ @home timeshift-btrfs</span>
-</span></span></code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="na">-i</span>
+</span></span><span class="line"><span class="cl"><span class="k">cd</span> /media/recovery/<span class="o">&lt;</span>YOUR-UUID<span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nf">ls</span>
+</span></span><span class="line"><span class="cl"><span class="c"># @ @home timeshift-btrfs
+</span></span></span></code></pre></div></li>
 <li>Move the broken subvolume:
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mv @ @.broken
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">mv</span> @ @.broken
 </span></span></code></pre></div></li>
 <li>Find a valid snapshot in <code>timeshift-btrfs/snapshots/</code>:
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ls timeshift-btrfs/snapshots
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">ls</span> timeshift-btrfs/snapshots
 </span></span></code></pre></div></li>
 <li>Create a snapshot of the good subvolume as the new <code>@</code> (this will also make the read-only subvolume writable):
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo btrfs subvolume snapshot timeshift-btrfs/snapshots/2025-12-09_09-59-43/@ @
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">btrfs</span> subvolume snapshot timeshift-btrfs/snapshots/<span class="m">2025</span>-<span class="m">12</span>-09_09-<span class="m">59</span>-<span class="m">43</span>/@ @
 </span></span></code></pre></div></li>
 <li>Reboot.</li>
 </ol>
 <p>Once back in your system, delete the broken subvolume to save space:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo btrfs subvolume list /
-</span></span><span class="line"><span class="cl">sudo btrfs subvolume delete @.broken
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">btrfs</span> subvolume list /
+</span></span><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="nf">btrfs</span> subvolume delete @.broken
 </span></span></code></pre></div><p><strong>FINISHED! CONGRATULATIONS!</strong></p>
 <p><strong>Check out my <a href="../pop-os-post-install">Pop!_OS post-installation steps</a>.</strong></p>
 <div class="footnotes" role="doc-endnotes">
