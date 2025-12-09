@@ -1,0 +1,1649 @@
+<!DOCTYPE html><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.6.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Willi Mutschler" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="In this guide, I will walk you through the installation procedure to set up a Pop!_OS 24.04 system with a LUKS-encrypted partition. This partition will contain an LVM with a logical volume for the root filesystem formatted with BTRFS, including subvolumes `@` for `/` and `@home` for `/home`. I will show you how to optimize BTRFS mount options to support compression and set up an encrypted swap partition. Additionally, the Pop!_OS recovery system will be installed and accessible via the systemd bootloader. Finally, we will configure Timeshift to automatically take system snapshots." />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://mutschler.dev/linux/pop-os-btrfs-24-04/" />
+
+  
+  
+  
+    <meta name="theme-color" content="#bbdefb" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.c7b8d9abd591ba2253ea42747e3ac3f5.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css" integrity="sha512-W0xM4mr6dEP9nREo7Z9z+9X70wytKvMGeDsj7ps2+xg5QPrEBXC8tAW1IFnzjR6eoJ90JmCnFzerQJTLzIEHjA==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.8916ecd0e6b91586be6f7b434c75fb00.css" />
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" disabled>
+    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" >
+  
+
+  
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+  
+
+  
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  
+  <link rel="icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://mutschler.dev/linux/pop-os-btrfs-24-04/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary" />
+  
+  <meta property="og:site_name" content="mutschler.dev" />
+  <meta property="og:url" content="https://mutschler.dev/linux/pop-os-btrfs-24-04/" />
+  <meta property="og:title" content="Pop!_OS 24.04: installation guide with BTRFS, LUKS encryption and auto snapshots with Timeshift | mutschler.dev" />
+  <meta property="og:description" content="In this guide, I will walk you through the installation procedure to set up a Pop!_OS 24.04 system with a LUKS-encrypted partition. This partition will contain an LVM with a logical volume for the root filesystem formatted with BTRFS, including subvolumes `@` for `/` and `@home` for `/home`. I will show you how to optimize BTRFS mount options to support compression and set up an encrypted swap partition. Additionally, the Pop!_OS recovery system will be installed and accessible via the systemd bootloader. Finally, we will configure Timeshift to automatically take system snapshots." /><meta property="og:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" />
+    <meta property="twitter:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2024-12-08T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2024-12-08T00:00:00&#43;00:00">
+  
+
+  
+
+
+
+  
+
+  
+
+
+  <title>Pop!_OS 24.04: installation guide with BTRFS, LUKS encryption and auto snapshots with Timeshift | mutschler.dev</title>
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper  dark " data-wc-page-id="3cb5c4a56106e29fb465189e26a05165" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.22ad66a4f96b4e9da14bbb023ea57684.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="header--fixed">
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/apple/"><span>Apple</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link  active" href="/linux/"><span>Linux</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/stuff/"><span>Stuff</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://buymeacoffee.com/mutschler" data-toggle="tooltip" data-placement="bottom" title="Buy me a coffee" target="_blank" rel="noopener" aria-label="Buy me a coffee">
+                <i class="fas fa-coffee" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="mailto:willi@mutschler.dev" data-toggle="tooltip" data-placement="bottom" title="Write me an email"  aria-label="Write me an email">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://github.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on GitHub" target="_blank" rel="noopener" aria-label="Follow me on GitHub">
+                <i class="fab fa-github" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://gitlab.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on Gitlab" target="_blank" rel="noopener" aria-label="Follow me on Gitlab">
+                <i class="fab fa-gitlab" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://www.youtube.com/c/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on YouTube" target="_blank" rel="noopener" aria-label="Follow me on YouTube">
+                <i class="fab fa-youtube" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        
+
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    
+
+
+
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      <form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-md-3 w-100" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <div class="d-flex">
+      <span class="d-md-none pl-1 flex-grow-1 text-left overflow-hidden">
+        
+        
+          Linux
+        
+      </span>
+      <span><i class="fas fa-chevron-down"></i></span>
+    </div>
+  </button>
+
+  
+  <button class="form-control sidebar-search js-search d-none d-md-flex">
+    <i class="fas fa-search pr-2"></i>
+    <span class="sidebar-search-text">Search...</span>
+    <span class="sidebar-search-shortcut">/</span>
+  </button>
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+  
+  
+  
+  
+  
+
+  
+  
+    
+
+    
+      
+
+      
+
+
+  
+    
+    
+    
+    
+      
+    
+    
+
+    
+      <ul class="nav docs-sidenav">
+        <li class=""><a href="/linux/">Linux</a></li>
+    
+      
+
+
+  <li class="active"><a href="/linux/pop-os-btrfs-24-04/">Pop!_OS 24.04: installation guide with BTRFS, LUKS encryption and auto snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/elementary-os-post-install/">elementary OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/elementary-os-6-1/">elementary OS 6.1 Jólnir: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-22-04/">Pop!_OS 22.04: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-post-install/">Pop!_OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-post-install/">Fedora Workstation: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-btrfs-35/">Fedora Workstation 35 with automatic btrfs snapshots and backups using BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-10/">DRAFT: Pop!_OS 21.10: installation guide with btrfs-LVM-luks and auto snapshots with BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-04/">Pop!_OS 21.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/raspi-post-install/">Ubuntu Server Raspberry Pi: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/raspi-btrfs/">Ubuntu Server 20.10 on Raspberry Pi 4: installation guide with USB Boot (no SD card) and full disk encryption (excluding /boot) using btrfs-inside-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-btrfs-33/">Fedora Workstation 33: installation guide with btrfs-luks full disk encryption (optionally including /boot) and auto snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/btrfs/">Why I (still) like btrfs</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-btrfs-raid1-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks-RAID1 full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-btrfs-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-post-install/">Ubuntu Desktop: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-raid1-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks-RAID1 and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/timeshift/">Timeshift</a></li>
+
+      
+    
+
+    
+      </ul>
+    
+
+  
+</nav>
+
+    </div>
+
+    
+    
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+      </ul>
+
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#step-0-general-remarks">Step 0: General remarks</a></li>
+    <li><a href="#step-1-prepare-partitions-by-performing-a-clean-install-first">Step 1: Prepare partitions by performing a Clean Install first</a>
+      <ul>
+        <li><a href="#optional-understand-the-default-partition-layout-and-installation-structure">[Optional] Understand the default partition layout and installation structure</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-2-install-pop_os-using-the-custom-advanced-option">Step 2: Install Pop!_OS using the <code>Custom (Advanced)</code> option</a></li>
+    <li><a href="#step-3-configure-btrfs-subvolumes-and-mount-options">Step 3: Configure BTRFS subvolumes and mount options</a>
+      <ul>
+        <li><a href="#mount-the-btrfs-top-level-root-filesystem-with-zstd-compression">Mount the BTRFS top-level root filesystem with zstd compression</a></li>
+        <li><a href="#create-btrfs-subvolumes--and-home">Create BTRFS subvolumes <code>@</code> and <code>@home</code></a></li>
+        <li><a href="#changes-to-fstab">Changes to fstab</a></li>
+        <li><a href="#adjust-configuration-of-kernelstub">Adjust configuration of kernelstub</a></li>
+        <li><a href="#adjust-configuration-of-systemd-bootloader">Adjust configuration of systemd bootloader</a></li>
+        <li><a href="#create-a-chroot-environment-and-update-initramfs">Create a chroot environment and update initramfs</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-4-reboot-some-checks-and-system-updates">Step 4: Reboot, some checks, and system updates</a></li>
+    <li><a href="#step-5-install-timeshift-for-btrfs-snapshots">Step 5: Install Timeshift for BTRFS snapshots</a></li>
+    <li><a href="#step-6-practice-recovery-and-system-rollback">Step 6: Practice recovery and system rollback</a>
+      <ul>
+        <li><a href="#rollback-with-timeshift">Rollback with Timeshift</a></li>
+        <li><a href="#rollback-manually">Rollback manually</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <article class="article">
+
+        <div class="docs-article-container">
+          
+        </div>
+
+        
+        
+
+        <div class="docs-article-container">
+          
+          <h1>Pop!_OS 24.04: installation guide with BTRFS, LUKS encryption and auto snapshots with Timeshift</h1>
+
+          <div class="article-style">
+
+            
+            
+
+            <p><em><strong>Please feel free to raise any comments or issues on the <a href="https://github.com/wmutschl/mutschler.dev" target="_blank" rel="noopener">website&rsquo;s Github repository</a>. Pull requests are very much appreciated.</strong></em>
+<a href="https://www.buymeacoffee.com/mutschler" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a></p>
+<p>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+<em>Note that this written guide is an updated version of the video and contains much more information.</em>
+<details class="toc-inpage d-print-none d-xl-none " open>
+  <summary class="font-weight-bold">Table of Contents</summary>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#step-0-general-remarks">Step 0: General remarks</a></li>
+    <li><a href="#step-1-prepare-partitions-by-performing-a-clean-install-first">Step 1: Prepare partitions by performing a Clean Install first</a>
+      <ul>
+        <li><a href="#optional-understand-the-default-partition-layout-and-installation-structure">[Optional] Understand the default partition layout and installation structure</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-2-install-pop_os-using-the-custom-advanced-option">Step 2: Install Pop!_OS using the <code>Custom (Advanced)</code> option</a></li>
+    <li><a href="#step-3-configure-btrfs-subvolumes-and-mount-options">Step 3: Configure BTRFS subvolumes and mount options</a>
+      <ul>
+        <li><a href="#mount-the-btrfs-top-level-root-filesystem-with-zstd-compression">Mount the BTRFS top-level root filesystem with zstd compression</a></li>
+        <li><a href="#create-btrfs-subvolumes--and-home">Create BTRFS subvolumes <code>@</code> and <code>@home</code></a></li>
+        <li><a href="#changes-to-fstab">Changes to fstab</a></li>
+        <li><a href="#adjust-configuration-of-kernelstub">Adjust configuration of kernelstub</a></li>
+        <li><a href="#adjust-configuration-of-systemd-bootloader">Adjust configuration of systemd bootloader</a></li>
+        <li><a href="#create-a-chroot-environment-and-update-initramfs">Create a chroot environment and update initramfs</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-4-reboot-some-checks-and-system-updates">Step 4: Reboot, some checks, and system updates</a></li>
+    <li><a href="#step-5-install-timeshift-for-btrfs-snapshots">Step 5: Install Timeshift for BTRFS snapshots</a></li>
+    <li><a href="#step-6-practice-recovery-and-system-rollback">Step 6: Practice recovery and system rollback</a>
+      <ul>
+        <li><a href="#rollback-with-timeshift">Rollback with Timeshift</a></li>
+        <li><a href="#rollback-manually">Rollback manually</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</details>
+</p>
+<h2 id="overview">Overview</h2>
+<p>In this guide, I will show you how to install Pop!_OS 24.04 with the following structure:</p>
+<ul>
+<li>An unencrypted EFI partition for the systemd bootloader.</li>
+<li>An unencrypted partition for the Pop!_OS recovery system.</li>
+<li>An encrypted swap partition (note: hibernation is <a href="https://support.system76.com/articles/enable-hibernation/" target="_blank" rel="noopener">not supported by default</a>).</li>
+<li>An encrypted BTRFS partition (with LVM) for the root filesystem.
+<ul>
+<li>The BTRFS logical volume contains a subvolume <code>@</code> for <code>/</code> and a subvolume <code>@home</code> for <code>/home</code>.</li>
+</ul>
+</li>
+<li>Automatic system snapshots and easy rollback using <a href="https://github.com/linuxmint/timeshift" target="_blank" rel="noopener">Timeshift</a>, which will regularly take (almost instant) snapshots of the system.</li>
+</ul>
+<p>This setup works similarly well on other distributions, for which I also have <a href="../../install-guides">installation guides (with optional RAID1)</a>.</p>
+<h2 id="step-0-general-remarks">Step 0: General remarks</h2>
+<p>This tutorial uses Pop!_OS 24.04 from <a href="https://system76.com/pop" target="_blank" rel="noopener">System76</a>, installed via a USB flash device. Other versions of Pop!_OS and distributions using the systemd boot manager might also work but may require additional steps (see my other <a href="../../install-guides">installation guides</a>).</p>
+<div class="alert alert-warning">
+  <div>
+    <strong>I strongly advise trying the following installation steps in a virtual machine first before performing them on real hardware!</strong> For instance, you can spin up a virtual machine using the awesome <a href="https://github.com/quickemu-project/quickemu" target="_blank" rel="noopener">quickemu</a> project.
+  </div>
+</div>
+
+<h2 id="step-1-prepare-partitions-by-performing-a-clean-install-first">Step 1: Prepare partitions by performing a Clean Install first</h2>
+<p>To maintain the default partition layout of Pop!_OS,<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> the easiest and quickest approach is to perform the installation twice:</p>
+<ol>
+<li>Run the automatic <code>Clean Install</code> with encryption. This creates the LUKS-encrypted LVM volume group with a logical volume called <code>root</code> containing the actual system files formatted with ext4.</li>
+<li>Perform a second installation using the <code>Custom (Advanced)</code> option. This allows us to select and format the partitions as needed. While we can customize the partitions, I prefer to keep them close to the defaults and only change the filesystem to BTRFS.</li>
+</ol>
+<p>First, run the automatic <code>Clean Install</code> with encryption.</p>
+<div class="alert alert-warning">
+  <div>
+    When the installation finishes, do <strong>NOT</strong> select <code>Restart Device</code>. Instead, right-click the <code>Install Pop!_OS</code> app in the dock and select <code>Quit</code>.
+  </div>
+</div>
+
+<p><strong>If you want to understand the structure of the installation, keep reading. Otherwise, proceed to the next step to perform the second installation.</strong></p>
+<h3 id="optional-understand-the-default-partition-layout-and-installation-structure">[Optional] Understand the default partition layout and installation structure</h3>
+<p>Open a terminal and examine the default partition layout (alternatively, use Gparted):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo lsblk
+</span></span><span class="line"><span class="cl"><span class="c1"># NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># loop0         7:0    0   2.4G  1 loop /rofs</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sda           8:0    0   3.6T  0 disk</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sdb           8:16   0   3.6T  0 disk</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sdc           8:32   0 119.2G  0 disk</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ├─sdc1        8:33   0  1022M  0 part</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ├─sdc2        8:34   0     4G  0 part</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ├─sdc3        8:35   0 110.2G  0 part</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># └─sdc4        8:36   0     4G  0 part</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sdd           8:48   1     0B  0 disk</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sde           8:64   1     0B  0 disk</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sdf           8:80   1     0B  0 disk</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sdg           8:96   1     0B  0 disk</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sdh           8:112  1  29.3G  0 disk</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ├─sdh1        8:113  1   2.8G  0 part /cdrom</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ├─sdh2        8:114  1     4M  0 part</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># └─sdh3        8:115  1  26.5G  0 part /var/crash</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#                                       /var/log</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sdi           8:128  0   1.4T  0 disk</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sr0          11:0    1  1024M  0 rom</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sr1          11:1    1  1024M  0 rom</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sr2          11:2    1  1024M  0 rom</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sr3          11:3    1  1024M  0 rom</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># zram0       251:0    0    16G  0 disk [SWAP]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># nvme0n1     259:0    0   1.7T  0 disk</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ├─nvme0n1p1 259:1    0    16M  0 part</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ├─nvme0n1p2 259:2    0  99.6G  0 part</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ├─nvme0n1p3 259:3    0   9.8G  0 part</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># └─nvme0n1p4 259:4    0   1.6T  0 part</span>
+</span></span></code></pre></div><p>I have installed Pop!_OS on the 119.2 GB SSD, recognized as <code>sdc</code> on my machine. Note that I have several other disks connected, so we must identify the correct disk carefully.</p>
+<p>Let&rsquo;s look closer at the partition layout of <code>sdc</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo parted /dev/sdc unit MiB print
+</span></span><span class="line"><span class="cl"><span class="c1"># Model: ATA ThinkSystem M.2 (scsi)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Disk /dev/sdc: 122040MiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Sector size (logical/physical): 512B/512B</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Partition Table: gpt</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Disk Flags:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Number  Start      End        Size       File system     Name      Flags</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  1      2.00MiB    1024MiB    1022MiB    fat32                     boot, esp</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  2      1024MiB    5120MiB    4096MiB    fat32           recovery  msftdata</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  3      5120MiB    117942MiB  112822MiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  4      117942MiB  122038MiB  4096MiB    linux-swap(v1)            swap</span>
+</span></span></code></pre></div><p>We have the following 4 partitions:</p>
+<ol>
+<li>A 1022 MiB FAT32 EFI partition for the systemd bootloader (note the <code>boot, esp</code> flag).</li>
+<li>A 4096 MiB FAT32 partition for the Pop!_OS recovery system (note the name <code>recovery</code>).</li>
+<li>A 112822 MiB partition containing the actual system files.</li>
+<li>A 4096 MiB swap partition for (encrypted) swap use (note the <code>swap</code> flag).</li>
+</ol>
+<p>Let&rsquo;s examine the encrypted <code>sdc3</code> partition:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo cryptsetup luksDump /dev/sdc3
+</span></span><span class="line"><span class="cl"><span class="c1"># LUKS header information</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Version:        2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Epoch:          3</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Metadata area:  16384 [bytes]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Keyslots area:  16744448 [bytes]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID:           0be45abc-4d9f-4682-9a51-17432c068ef2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Label:          (no label)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Subsystem:      (no subsystem)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Flags:          (no flags)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Data segments:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   0: crypt</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       offset: 16777216 [bytes]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       length: (whole device)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       cipher: aes-xts-plain64</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       sector: 512 [bytes]</span>
+</span></span></code></pre></div><p>This confirms the partition is encrypted with LUKS using default options. Now, let&rsquo;s see what is inside the encrypted partition:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo cryptsetup luksOpen /dev/sdc3 cryptdata
+</span></span><span class="line"><span class="cl"><span class="c1"># Enter passphrase for /dev/sdc3:</span>
+</span></span><span class="line"><span class="cl">ls /dev/mapper
+</span></span><span class="line"><span class="cl"><span class="c1"># control  cryptdata  data-root</span>
+</span></span><span class="line"><span class="cl">sudo pvs
+</span></span><span class="line"><span class="cl"><span class="c1">#  PV                    VG   Fmt  Attr PSize   PFree</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  /dev/mapper/cryptdata data lvm2 a--  110.16g    0</span>
+</span></span><span class="line"><span class="cl">sudo vgs
+</span></span><span class="line"><span class="cl"><span class="c1">#  VG   #PV #LV #SN Attr   VSize   VFree</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  data   1   1   0 wz--n- 110.16g    0</span>
+</span></span><span class="line"><span class="cl">sudo lvs
+</span></span><span class="line"><span class="cl"><span class="c1">#  LV   VG   Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  root data -wi-a----- 110.16g</span>
+</span></span><span class="line"><span class="cl">sudo lsblk /dev/mapper/data-root -f
+</span></span><span class="line"><span class="cl"><span class="c1"># NAME      FSTYPE FSVER LABEL UUID                                 FSAVAIL FSUSE% MOUNTPOINTS</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># data-root ext4   1.0         2e9d6dac-1ee4-419c-b21c-8212262fdb93</span>
+</span></span></code></pre></div><p>By default, when installing with encryption, Pop!_OS uses <a href="https://askubuntu.com/questions/3596/what-is-lvm-and-what-is-it-used-for" target="_blank" rel="noopener">Logical Volume Management (LVM)</a>. The encrypted partition (<code>cryptdata</code>) is a physical volume containing a volume group called <code>data</code>. Inside this volume group, there is a logical volume called <code>root</code> containing our system files, formatted with ext4.</p>
+<p>While I don&rsquo;t use LVM features extensively, the installer requires LVM for encryption, and there is practically no performance downside.</p>
+<p>Now that we know the partition layout, let&rsquo;s close everything:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo cryptsetup luksClose /dev/mapper/data-root
+</span></span><span class="line"><span class="cl">sudo cryptsetup luksClose /dev/mapper/cryptdata
+</span></span><span class="line"><span class="cl">ls /dev/mapper
+</span></span><span class="line"><span class="cl"><span class="c1"># control</span>
+</span></span></code></pre></div><p>We are ready to proceed with the second install, which follows the same steps but uses BTRFS as the underlying filesystem.</p>
+<h2 id="step-2-install-pop_os-using-the-custom-advanced-option">Step 2: Install Pop!_OS using the <code>Custom (Advanced)</code> option</h2>
+<p>Open <code>Install Pop!_OS</code> from <code>Applications</code> again, and select the region, language, and keyboard layout. Then choose <code>Custom (Advanced)</code>.</p>
+<p>You will see your partitioned hard disk (for me, <code>/dev/sdc</code>) as shown in the previous step:</p>
+<ul>
+<li><strong>First partition:</strong> Click it, activate <code>Use partition</code>, activate <code>Format</code>, set <strong>Use as</strong> to <code>Boot /boot/efi</code>, and <strong>Filesystem</strong> to <code>fat32</code>.</li>
+<li><strong>Second partition:</strong> Click it, activate <code>Use partition</code>, activate <code>Format</code>, set <strong>Use as</strong> to <code>Custom</code> and enter <code>/recovery</code>, set <strong>Filesystem</strong> to <code>fat32</code>.</li>
+<li><strong>Fourth partition:</strong> Click it, activate <code>Use partition</code>, set <strong>Use as</strong> to <code>Swap</code>.</li>
+<li><strong>Third (largest) partition:</strong> Click it. A <code>Decrypt This Partition</code> dialog opens; enter your LUKS password and hit <code>Decrypt</code>. A new device called <code>LVM data</code> will appear at the bottom of the screen (you might need to scroll down). Click on this partition, activate <code>Use partition</code>, activate <code>Format</code>, set <strong>Use as</strong> to <code>Root (/)</code>, and <strong>Filesystem</strong> to <code>btrfs</code>.</li>
+</ul>
+<p><em>If you have other partitions, check their types and usage. Ensure you deactivate using or changing any other EFI partitions.</em></p>
+<p>Recheck everything (ensure the correct use of partitions that have a black checkmark) and hit <code>Erase and Install</code>.
+Follow the steps to create a user account and write changes to the disk.</p>
+<p><strong>Once the installer finishes, do <strong>NOT</strong> select <strong>Restart Device</strong>, but keep the window open.</strong></p>
+<h2 id="step-3-configure-btrfs-subvolumes-and-mount-options">Step 3: Configure BTRFS subvolumes and mount options</h2>
+<p>Open a terminal and switch to an interactive root session:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo -i
+</span></span></code></pre></div><p>Maximizing the terminal window helps when working with the command line.</p>
+<h3 id="mount-the-btrfs-top-level-root-filesystem-with-zstd-compression">Mount the BTRFS top-level root filesystem with zstd compression</h3>
+<p>Mount the root partition (the top-level BTRFS volume always has id 5) with compression enabled to optimize performance and durability:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cryptsetup luksOpen /dev/sdc3 cryptdata
+</span></span><span class="line"><span class="cl"><span class="c1"># Enter passphrase for /dev/sdc3</span>
+</span></span><span class="line"><span class="cl">mount -o <span class="nv">subvolid</span><span class="o">=</span>5,defaults,compress<span class="o">=</span>zstd:1 /dev/mapper/data-root /mnt
+</span></span></code></pre></div><p>By default, Pop!_OS 24.04 uses standard BTRFS mount options. SSDs are automatically detected (<code>ssd</code> mount option), and <code>space_cache=v2</code> is used (also the <a href="https://pagure.io/fedora-btrfs/project/issue/24" target="_blank" rel="noopener">default in Fedora</a>).
+There is some debate about using <a href="https://pagure.io/fedora-btrfs/project/issue/9" target="_blank" rel="noopener"><code>noatime</code> instead of <code>relatime</code></a>. I haven&rsquo;t seen a significant difference, so I use the default <code>relatime</code>.
+However, I recommend using <code>compress=zstd:1</code> (specifically level 1) for SSDs, as recommended by the <a href="https://fedoraproject.org/wiki/Changes/BtrfsTransparentCompression#Simple_Analysis_of_btrfs_zstd_compression_level" target="_blank" rel="noopener">Fedora team for workstations</a>.</p>
+<div class="alert alert-note">
+  <div>
+    <strong>Note on <code>discard=async</code>:</strong> Since Linux kernel 6.2, BTRFS <a href="https://btrfs.readthedocs.io/en/latest/ch-mount-options.html" target="_blank" rel="noopener">enables <code>discard=async</code> by default</a> on devices that support TRIM operations. Pop!_OS 24.04 ships with a 6.x kernel, so there is no need to explicitly add <code>discard=async</code> to the mount options—it is automatically applied. If you need to disable it for some reason, use the <code>nodiscard</code> option.
+  </div>
+</div>
+
+<p>We will add these mount options to <code>fstab</code> later, but it&rsquo;s good practice to use compression now when moving system files into the subvolumes.</p>
+<div class="alert alert-note">
+  <div>
+    If the LVM group is not activated, see <a href="https://github.com/wmutschl/mutschler.dev/issues/4" target="_blank" rel="noopener">this issue for help</a>.
+  </div>
+</div>
+
+<h3 id="create-btrfs-subvolumes--and-home">Create BTRFS subvolumes <code>@</code> and <code>@home</code></h3>
+<p>First, create the subvolume <code>@</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">btrfs subvolume create /mnt/@
+</span></span><span class="line"><span class="cl"><span class="c1"># Create subvolume &#39;/mnt/@&#39;</span>
+</span></span></code></pre></div><p>Next, move all files and folders from the top-level filesystem into <code>@</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /mnt
+</span></span><span class="line"><span class="cl">ls <span class="p">|</span> grep -v @ <span class="p">|</span> xargs mv -t @
+</span></span><span class="line"><span class="cl">ls -a /mnt
+</span></span><span class="line"><span class="cl"><span class="c1"># . .. @</span>
+</span></span></code></pre></div><p>Since we mounted the drive with compression enabled, the data is automatically compressed as it is moved.</p>
+<p>Now, create the <code>@home</code> subvolume and move the user folder from <code>/mnt/@/home/</code> into it:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">btrfs subvolume create /mnt/@home
+</span></span><span class="line"><span class="cl"><span class="c1"># Create subvolume &#39;/mnt/@home&#39;</span>
+</span></span><span class="line"><span class="cl">mv /mnt/@/home/* /mnt/@home/
+</span></span></code></pre></div><p>Verify that everything has been moved correctly:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ls -a /mnt/@/home
+</span></span><span class="line"><span class="cl"><span class="c1"># . ..</span>
+</span></span><span class="line"><span class="cl">ls -a /mnt/@home
+</span></span><span class="line"><span class="cl"><span class="c1"># . .. wmutschl</span>
+</span></span><span class="line"><span class="cl">btrfs subvolume list /mnt
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 256 gen 17 top level 5 path @</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 257 gen 17 top level 5 path @home</span>
+</span></span></code></pre></div><h3 id="changes-to-fstab">Changes to fstab</h3>
+<p>We need to update <code>/etc/fstab</code> to:</p>
+<ul>
+<li>Mount <code>/</code> to the <code>@</code> subvolume.</li>
+<li>Mount <code>/home</code> to the <code>@home</code> subvolume.</li>
+<li>Enable compression.</li>
+</ul>
+<p>Open <code>fstab</code> with a text editor (e.g., <code>nano /mnt/@/etc/fstab</code>) or use these <code>sed</code> commands:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/btrfs  defaults  0  1/btrfs  defaults,compress=zstd:1,subvol=@  0  0/&#39;</span> /mnt/@/etc/fstab
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;UUID=</span><span class="k">$(</span>blkid -s UUID -o value /dev/mapper/data-root<span class="k">)</span><span class="s2">  /home  btrfs  defaults,compress=zstd:1,subvol=@home   0 0&#34;</span> &gt;&gt; /mnt/@/etc/fstab
+</span></span></code></pre></div><p>Your <code>fstab</code> should look like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /mnt/@/etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c1"># PARTUUID=2a345427-756a-454d-943b-6028c9e5cf55  /boot/efi  vfat  umask=0077  0  0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># PARTUUID=526a5925-7e0f-44ff-9a69-da10eb0f1c5c  /recovery  vfat  umask=0077  0  0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/cryptswap  none  swap  defaults  0  0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=f4190602-7a0b-4d6c-aed5-624a17afaf8f  /  btrfs  defaults,compress=zstd:1,subvol=@  0  0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=f4190602-7a0b-4d6c-aed5-624a17afaf8f  /home  btrfs  defaults,compress=zstd:1,subvol=@home   0 0</span>
+</span></span></code></pre></div><p>Note that your UUIDs will be different. The last two lines are the important ones.</p>
+<div class="alert alert-note">
+  <div>
+    <strong>Note on <code>discard</code> in crypttab:</strong> You may notice that Pop!_OS does not add a <code>discard</code> option to <code>/etc/crypttab</code> for the LUKS-encrypted partition. This is intentional for security reasons: enabling discard on encrypted devices can expose patterns about which blocks are unused, potentially leaking metadata about the encrypted content. Pop!_OS prioritizes security over the marginal performance benefit. If you prefer to enable TRIM passthrough for performance reasons and accept this trade-off, you can manually add <code>discard</code> to the crypttab entry for <code>cryptdata</code>.
+  </div>
+</div>
+
+<h3 id="adjust-configuration-of-kernelstub">Adjust configuration of kernelstub</h3>
+<p>We need to adjust settings for the systemd boot manager and ensure they persist after kernel updates. Add <code>rootflags=subvol=@</code> to the <code>&quot;user&quot;</code> kernel options in the kernelstub configuration file:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nano /mnt/@/etc/kernelstub/configuration
+</span></span></code></pre></div><p>Your configuration file should look like this (add the <code>rootflags=subvol=@</code> line to the <code>user</code> section):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /mnt/@/etc/kernelstub/configuration
+</span></span><span class="line"><span class="cl"><span class="c1"># {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   &#34;default&#34;: {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;kernel_options&#34;: [</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       &#34;quiet&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       &#34;splash&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     ],</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;esp_path&#34;: &#34;/boot/efi&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;setup_loader&#34;: false,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;manage_mode&#34;: false,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;force_update&#34;: false,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;live_mode&#34;: false,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;config_rev&#34;: 3</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   },</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   &#34;user&#34;: {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;kernel_options&#34;: [</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       &#34;quiet&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       &#34;loglevel=0&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       &#34;systemd.show_status=false&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       &#34;splash&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       &#34;rootflags=subvol=@&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       &#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     ],</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;esp_path&#34;: &#34;/boot/efi&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;setup_loader&#34;: true,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;manage_mode&#34;: true,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;force_update&#34;: false,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;live_mode&#34;: false,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;config_rev&#34;: 3</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   }</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># }</span>
+</span></span></code></pre></div><div class="alert alert-warning">
+  <div>
+    <strong>VERY IMPORTANT: Don&rsquo;t forget the comma at the end of the line, otherwise <code>update-initramfs</code> will fail later!</strong>
+  </div>
+</div>
+
+<p>Alternatively, you can use this <code>sed</code> command to apply the change:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed -i <span class="s1">&#39;/\&#34;user\&#34;/,/}/{ s/\(\&#34;splash\&#34;,\)/\1\n      \&#34;rootflags=subvol=@\&#34;,/ }&#39;</span> /mnt/@/etc/kernelstub/configuration
+</span></span></code></pre></div><h3 id="adjust-configuration-of-systemd-bootloader">Adjust configuration of systemd bootloader</h3>
+<p>Mount the EFI partition to adjust systemd boot settings:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mount /dev/sdc1 /mnt/@/boot/efi
+</span></span></code></pre></div><p>Add <code>rootflags=subvol=@</code> to the last line of <code>Pop_OS_current.conf</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/splash/splash rootflags=subvol=@/&#39;</span> /mnt/@/boot/efi/loader/entries/Pop_OS-current.conf
+</span></span><span class="line"><span class="cl">cat /mnt/@/boot/efi/loader/entries/Pop_OS-current.conf
+</span></span><span class="line"><span class="cl"><span class="c1"># title Pop!_OS</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># linux /EFI/Pop_OS-f4190602-7a0b-4d6c-aed5-624a17afaf8f/vmlinuz.efi</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># initrd /EFI/Pop_OS-f4190602-7a0b-4d6c-aed5-624a17afaf8f/initrd.img</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># options root=UUID=f4190602-7a0b-4d6c-aed5-624a17afaf8f ro quiet loglevel=0 systemd.show_status=false splash rootflags=subvol=@</span>
+</span></span></code></pre></div><p>Optionally, add a timeout to the systemd boot menu to easily access the recovery partition:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;timeout 3&#34;</span> &gt;&gt; /mnt/@/boot/efi/loader/loader.conf
+</span></span><span class="line"><span class="cl">cat /mnt/@/boot/efi/loader/loader.conf
+</span></span><span class="line"><span class="cl"><span class="c1"># default Pop_OS-current</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># timeout 3</span>
+</span></span></code></pre></div><h3 id="create-a-chroot-environment-and-update-initramfs">Create a chroot environment and update initramfs</h3>
+<p>To work inside the newly installed OS without booting into it, create a chroot environment.
+Unmount the top-level root filesystem (id 5) and remount the subvolume <code>@</code> to <code>/mnt</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /
+</span></span><span class="line"><span class="cl">umount -l /mnt
+</span></span><span class="line"><span class="cl">mount -o <span class="nv">subvol</span><span class="o">=</span>@,defaults,compress<span class="o">=</span>zstd:1 /dev/mapper/data-root /mnt
+</span></span><span class="line"><span class="cl">ls /mnt
+</span></span><span class="line"><span class="cl"><span class="c1"># bin  bin.usr-is-merged  boot  dev  etc  home  lib  lib.usr-is-merged  lib64  media  mnt  opt  proc  recovery  root  run  sbin  sbin.usr-is-merged  srv  sys  tmp  usr  var</span>
+</span></span></code></pre></div><p>Mount the necessary system directories and enter chroot (commands from System76&rsquo;s <a href="https://support.system76.com/articles/bootloader/#systemd-boot" target="_blank" rel="noopener">Repair the Bootloader</a> guide):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">for</span> i in /dev /dev/pts /proc /sys /run<span class="p">;</span> <span class="k">do</span> mount -B <span class="nv">$i</span> /mnt<span class="nv">$i</span><span class="p">;</span> <span class="k">done</span>
+</span></span><span class="line"><span class="cl">chroot /mnt
+</span></span></code></pre></div><p>Now inside the new system, verify the <code>fstab</code> mounts:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mount -av
+</span></span><span class="line"><span class="cl"><span class="c1"># mount: (hint) your fstab has been modified, but systemd still uses</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        the old version; use &#39;systemctl daemon-reload&#39; to reload.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /boot/efi                : successfully mounted</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /recovery                : successfully mounted</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># none                     : ignored</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /                        : ignored</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /home                    : successfully mounted</span>
+</span></span></code></pre></div><p>Update the initramfs to include the kernelstub changes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">update-initramfs -c -k all
+</span></span><span class="line"><span class="cl"><span class="c1"># update-initramfs: Generating /boot/initrd.img-6.16.3-76061603-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># W: /sbin/fsck.btrfs doesn&#39;t exist, can&#39;t install to initramfs</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># mount: (hint) your fstab has been modified, but systemd still uses</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        the old version; use &#39;systemctl daemon-reload&#39; to reload.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Updating kernel version 6.16.3-76061603-generic in systemd-boot...</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kernelstub.Config    : INFO     Looking for configuration...</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kernelstub           : INFO     System information:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     OS:..................Pop!_OS 24.04</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Root partition:....../dev/dm-1</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Root FS UUID:........f4190602-7a0b-4d6c-aed5-624a17afaf8f</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     ESP Path:............/boot/efi</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     ESP Partition:......./dev/sdc1</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     ESP Partition #:.....1</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     NVRAM entry #:.......-1</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Boot Variable #:.....0000</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Kernel Boot Options:.quiet loglevel=0 systemd.show_status=false splash rootflags=subvol=@</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Kernel Image Path:.../boot/vmlinuz-6.16.3-76061603-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Initrd Image Path:.../boot/initrd.img-6.16.3-76061603-generic</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     Force-overwrite:.....False</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kernelstub.Installer : INFO     Copying Kernel into ESP</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kernelstub.Installer : INFO     Copying initrd.img into ESP</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kernelstub.Installer : INFO     Setting up loader.conf configuration</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kernelstub.Installer : INFO     Making entry file for Pop!_OS</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kernelstub.Installer : INFO     Backing up old kernel</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kernelstub.Installer : INFO     No old kernel found, skipping</span>
+</span></span></code></pre></div><p>If you see errors, check that you added the comma in the <code>/etc/kernelstub/configuration</code> file.</p>
+<p>Note the warning about <code>/sbin/fsck.btrfs</code>, so let&rsquo;s install <code>btrfs-progs</code> to be able to manage BTRFS subvolumes and fix the issue (this triggers another <code>update-initramfs</code>):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install -y btrfs-progs
+</span></span></code></pre></div><p>Exit the chroot:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">exit</span>
+</span></span></code></pre></div><h2 id="step-4-reboot-some-checks-and-system-updates">Step 4: Reboot, some checks, and system updates</h2>
+<p>Close the terminal and click <code>Reboot Device</code> on the installer app.
+Crossing fingers!
+If all goes well, you will see a passphrase prompt. Enter your LUKS passphrase, and your system should boot.</p>
+<p>After the welcome screen, we go to settings and:</p>
+<ul>
+<li><strong>Network &amp; Wireless</strong>: check your connection, for example deactivate unused interfaces and add IP configuration to used interface or add Wifi password.</li>
+<li><strong>Power &amp; Battery</strong>: Use <code>High performance</code> in <code>Power Mode</code> and check <code>Power Saving Options</code> (on a server I deactivate them, on a notebook I keep them).</li>
+</ul>
+<p>Next, we verify the setup in a terminal:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mount -av
+</span></span><span class="line"><span class="cl"><span class="c1"># /boot/efi                : already mounted</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /recovery                : already mounted</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># none                     : ignored</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /                        : ignored</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /home                    : already mounted</span>
+</span></span></code></pre></div><p>Check that the optimized mount options are active (note that you cannot have different mount options on the same partition):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mount -v <span class="p">|</span> grep /dev/mapper
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/data-root on / type btrfs (rw,relatime,compress=zstd:1,space_cache=v2,subvolid=256,subvol=/@)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/mapper/data-root on /home type btrfs (rw,relatime,compress=zstd:1,space_cache=v2,subvolid=257,subvol=/@home)</span>
+</span></span></code></pre></div><p>Verify swap is working:</p>
+<p>Run <code>sudo swapon</code> to check if both the swap partition and the zram device are active:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo swapon
+</span></span><span class="line"><span class="cl"><span class="c1"># NAME       TYPE      SIZE USED PRIO</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/dm-2  partition   4G   0B   -2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /dev/zram0 partition  16G   0B 1000</span>
+</span></span></code></pre></div><p>Pop!_OS uses <strong>two swap mechanisms</strong>:</p>
+<ol>
+<li><strong>zram</strong> (compressed RAM swap): A high-priority swap device that compresses data in RAM. This is used first due to its higher priority (1000) and provides fast swap performance for everyday use.</li>
+<li><strong>Swap partition</strong> (encrypted): A lower-priority disk-based swap partition used when zram is full.</li>
+</ol>
+<div class="alert alert-warning">
+  <div>
+    <p><strong>About Hibernation:</strong> Hibernation (suspend-to-disk) is <strong>not officially supported</strong> on Pop!_OS. According to <a href="https://support.system76.com/articles/enable-hibernation/" target="_blank" rel="noopener">System76&rsquo;s documentation</a>, there are several reasons why hibernation is not enabled by default:</p>
+<ul>
+<li><strong>Non-persistent swap encryption key:</strong> The swap partition is encrypted with a random key generated at each boot (see the <code>cryptswap</code> entry in <code>/etc/crypttab</code>). This means any data written to swap—including hibernation data—cannot be read after a reboot, making hibernation impossible without reconfiguration.</li>
+<li><strong>Zram incompatibility:</strong> Zram exists only in volatile RAM and cannot persist hibernation data across power cycles.</li>
+<li><strong>Default partition layout:</strong> The default 4GB swap partition may be insufficient for systems with more RAM (hibernation requires swap ≥ RAM size).</li>
+<li><strong>SSD wear:</strong> Hibernation adds significant write traffic to SSDs (equal to total RAM each time), potentially shortening drive lifespan.</li>
+</ul>
+<p>If you need hibernation, System76 provides a <a href="https://support.system76.com/articles/enable-hibernation/" target="_blank" rel="noopener">guide to enable it</a>, which involves removing the default swap partition, creating a persistent encrypted swap volume inside LVM, and configuring the kernel resume parameter. This is beyond the scope of this guide.</p>
+
+  </div>
+</div>
+
+<p>Inspect BTRFS subvolumes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo btrfs filesystem show /
+</span></span><span class="line"><span class="cl"><span class="c1"># Label: none  uuid: f4190602-7a0b-4d6c-aed5-624a17afaf8f</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#         Total devices 1 FS bytes used 7.91GiB</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#         devid    1 size 110.16GiB used 12.02GiB path /dev/mapper/data-root</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo btrfs subvolume list /
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 256 gen 96 top level 5 path @</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 257 gen 96 top level 5 path @home</span>
+</span></span></code></pre></div><p>If using an SSD or NVMe, enable <code>fstrim.timer</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> fstrim.timer
+</span></span></code></pre></div><p>Make sure <code>issue_discards=1</code> is set in <code>/etc/lvm/lvm.conf</code> (usually default):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /etc/lvm/lvm.conf <span class="p">|</span> grep issue_discards
+</span></span><span class="line"><span class="cl"><span class="c1"># 	# Configuration option devices/issue_discards.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 	issue_discards = 1</span>
+</span></span></code></pre></div><p>Finally, update the system including the recovery partition and flatpak applications:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt upgrade
+</span></span><span class="line"><span class="cl">sudo apt dist-upgrade
+</span></span><span class="line"><span class="cl">sudo apt autoremove --purge
+</span></span><span class="line"><span class="cl">sudo apt autoclean
+</span></span><span class="line"><span class="cl">pop-upgrade recovery upgrade from-release
+</span></span><span class="line"><span class="cl">flatpak -vv update
+</span></span></code></pre></div><p>I also recommend updating firmware:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo fwupdmgr get-devices
+</span></span><span class="line"><span class="cl">sudo fwupdmgr get-updates
+</span></span><span class="line"><span class="cl">sudo fwupdmgr update
+</span></span></code></pre></div><p>Reboot once more.</p>
+<h2 id="step-5-install-timeshift-for-btrfs-snapshots">Step 5: Install Timeshift for BTRFS snapshots</h2>
+<p>Install <a href="https://github.com/linuxmint/timeshift" target="_blank" rel="noopener">Timeshift</a> and configure it via the GUI:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt install -y timeshift
+</span></span></code></pre></div><p>Go to <code>Applications</code> and search for <code>Timeshift</code>.</p>
+<ul>
+<li>Select <strong>BTRFS</strong> as the <strong>Snapshot Type</strong>; click <strong>Next</strong>.</li>
+<li>Select your BTRFS system partition as the <strong>Snapshot Location</strong>; click <strong>Next</strong>.</li>
+<li><strong>Select Snapshot Levels</strong> (my recommendations):
+<ul>
+<li>Activate <strong>Monthly</strong> and set to 2.</li>
+<li>Activate <strong>Weekly</strong> and set to 3.</li>
+<li>Activate <strong>Daily</strong> and set to 5.</li>
+<li>Deactivate <strong>Hourly</strong>.</li>
+<li>Activate <strong>Boot</strong> and set to 5.</li>
+<li>Activate <strong>Stop cron emails for scheduled tasks</strong>.</li>
+<li>Click <strong>Next</strong>.</li>
+</ul>
+</li>
+<li><strong>User Home Directories</strong>: Include the <code>@home</code> subvolume (not selected by default). While you usually restore only <code>@</code>, having home backups is convenient.</li>
+<li>Click <strong>Finish</strong>.</li>
+<li>Create a manual snapshot named &ldquo;Clean Install&rdquo; and exit Timeshift.</li>
+</ul>
+<p>Timeshift will now manage snapshots automatically. Note that they are stored in subvolumes at the top-level root:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo btrfs subvolume list /
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 256 gen 160 top level 5 path @</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 257 gen 157 top level 5 path @home</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 258 gen 153 top level 5 path timeshift-btrfs/snapshots/2025-12-09_10-37-12/@</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ID 259 gen 153 top level 5 path timeshift-btrfs/snapshots/2025-12-09_10-37-12/@home</span>
+</span></span></code></pre></div><h2 id="step-6-practice-recovery-and-system-rollback">Step 6: Practice recovery and system rollback</h2>
+<p>Let&rsquo;s simulate a system failure to practice recovery. Note: We have snapshots to rollback to (in the subvolumes at the top-level root).</p>
+<p><strong>Delete the <code>/etc</code> folder (simulating disaster):</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo rm -rf /etc
+</span></span></code></pre></div><p>If you try to reboot, the system will fail. So instead, boot into the <code>Pop!_OS Recovery System</code> selected from the systemd bootloader (this is why I set the timeout to 3 seconds).</p>
+<p>I will show you two ways to rollback: with Timeshift and manually.
+For both, first open the File Manager, go to <strong>Other Locations</strong>, select your encrypted disk, and enter the passphrase. This mounts the top-level root and you can now access the snapshots.</p>
+<h3 id="rollback-with-timeshift">Rollback with Timeshift</h3>
+<ol>
+<li>Install Timeshift in the live environment via the terminal:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt install timeshift
+</span></span></code></pre></div></li>
+<li>Go to <code>Applications</code> and open Timeshift.</li>
+<li>Select <strong>BTRFS</strong>, and choose your disk.</li>
+<li>Select a snapshot and click <strong>Restore</strong>.</li>
+<li>Timeshift will restore the system subvolume. Reboot, and your system should be back to normal.</li>
+</ol>
+<h3 id="rollback-manually">Rollback manually</h3>
+<ol>
+<li>Open a terminal and navigate to the mounted volume (e.g., <code>/media/recovery/&lt;YOUR-UUID&gt;</code>):
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo -i
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /media/recovery/&lt;YOUR-UUID&gt;
+</span></span><span class="line"><span class="cl">ls
+</span></span><span class="line"><span class="cl"><span class="c1"># @ @home timeshift-btrfs</span>
+</span></span></code></pre></div></li>
+<li>Move the broken subvolume:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mv @ @.broken
+</span></span></code></pre></div></li>
+<li>Find a valid snapshot in <code>timeshift-btrfs/snapshots/</code>:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ls timeshift-btrfs/snapshots
+</span></span></code></pre></div></li>
+<li>Create a snapshot of the good subvolume as the new <code>@</code> (this will also make the read-only subvolume writable):
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo btrfs subvolume snapshot timeshift-btrfs/snapshots/2025-12-09_09-59-43/@ @
+</span></span></code></pre></div></li>
+<li>Reboot.</li>
+</ol>
+<p>Once back in your system, delete the broken subvolume to save space:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo btrfs subvolume list /
+</span></span><span class="line"><span class="cl">sudo btrfs subvolume delete @.broken
+</span></span></code></pre></div><p><strong>FINISHED! CONGRATULATIONS!</strong></p>
+<p><strong>Check out my <a href="../pop-os-post-install">Pop!_OS post-installation steps</a>.</strong></p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>If you already have (a previous version of) Pop!_OS installed, you can safely skip this step as you already have a partition layout that works with the installer.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+
+          </div>
+
+          
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/linux/">linux</a>
+  
+  <a class="badge badge-light" href="/tag/pop-os/">pop-os</a>
+  
+  <a class="badge badge-light" href="/tag/install-guide/">install guide</a>
+  
+  <a class="badge badge-light" href="/tag/btrfs/">btrfs</a>
+  
+  <a class="badge badge-light" href="/tag/luks/">luks</a>
+  
+  <a class="badge badge-light" href="/tag/timeshift/">timeshift</a>
+  
+</div>
+
+
+
+          
+          
+          <div class="article-widget">
+            
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/linux/elementary-os-post-install/" rel="prev">elementary OS: Things to do after installation (Apps, Settings, and Tweaks)</a>
+  </div>
+  
+</div>
+
+          </div>
+          
+        </div>
+
+        <div class="body-footer">
+          <p>Last updated on Dec 8, 2024</p>
+
+          
+
+
+
+
+          
+
+
+
+
+          
+
+
+        </div>
+
+      </article>
+
+      <footer class="site-footer">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+  </p>
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2025 Willi Mutschler. This work is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank">CC BY SA 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-sa fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+
+    </main>
+  </div>
+</div>
+
+  </div>
+
+  <div class="page-footer">
+    
+    
+  </div>
+
+  
+
+
+<script src="/js/vendor-bundle.min.b4708d4364577c16ab7001b265a063a4.js"></script>
+
+
+
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/gh/bryanbraun/anchorjs@4.2.2/anchor.min.js" integrity="sha512-I7w3ZdSFzw5j3jU3ZkNikBNeIrl3i+hEuEdwNmqUJvwNcaBUNcijnP2gd9DtGlgVYDplfjGoD8vTNsID+lCjqg==" crossorigin="anonymous"></script>
+<script>
+  anchors.add();
+</script>
+
+
+
+
+
+  
+  <script id="search-hit-fuse-template" type="text/x-template">
+    <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+    </div>
+  </script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+<script id="page-data" type="application/json">{"use_headroom":false}</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<script src="/en/js/wowchemy.min.42010733157c11a71adebfe9bae43355.js"></script>
+
+
+
+  <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

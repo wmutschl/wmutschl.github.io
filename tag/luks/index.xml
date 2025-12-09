@@ -5,12 +5,542 @@
     <link>https://mutschler.dev/tag/luks/</link>
       <atom:link href="https://mutschler.dev/tag/luks/index.xml" rel="self" type="application/rss+xml" />
     <description>luks</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 15 Jun 2022 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 08 Dec 2024 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png</url>
       <title>luks</title>
       <link>https://mutschler.dev/tag/luks/</link>
     </image>
+    
+    <item>
+      <title>Pop!_OS 24.04: installation guide with BTRFS, LUKS encryption and auto snapshots with Timeshift</title>
+      <link>https://mutschler.dev/linux/pop-os-btrfs-24-04/</link>
+      <pubDate>Sun, 08 Dec 2024 00:00:00 +0000</pubDate>
+      <guid>https://mutschler.dev/linux/pop-os-btrfs-24-04/</guid>
+      <description>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Please feel free to raise any comments or issues on the &lt;a href=&#34;https://github.com/wmutschl/mutschler.dev&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;website&amp;rsquo;s Github repository&lt;/a&gt;. Pull requests are very much appreciated.&lt;/strong&gt;&lt;/em&gt;
+&lt;a href=&#34;https://www.buymeacoffee.com/mutschler&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://cdn.buymeacoffee.com/buttons/v2/default-red.png&#34; alt=&#34;Buy Me A Coffee&#34; style=&#34;height: 60px !important;width: 217px !important;&#34; &gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
+  &lt;iframe src=&#34;https://www.youtube.com/embed/&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; allowfullscreen title=&#34;YouTube Video&#34;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;em&gt;Note that this written guide is an updated version of the video and contains much more information.&lt;/em&gt;
+&lt;details class=&#34;toc-inpage d-print-none d-xl-none &#34; open&gt;
+  &lt;summary class=&#34;font-weight-bold&#34;&gt;Table of Contents&lt;/summary&gt;
+  &lt;nav id=&#34;TableOfContents&#34;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&#34;#overview&#34;&gt;Overview&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-0-general-remarks&#34;&gt;Step 0: General remarks&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-1-prepare-partitions-by-performing-a-clean-install-first&#34;&gt;Step 1: Prepare partitions by performing a Clean Install first&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#optional-understand-the-default-partition-layout-and-installation-structure&#34;&gt;[Optional] Understand the default partition layout and installation structure&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-2-install-pop_os-using-the-custom-advanced-option&#34;&gt;Step 2: Install Pop!_OS using the &lt;code&gt;Custom (Advanced)&lt;/code&gt; option&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-3-configure-btrfs-subvolumes-and-mount-options&#34;&gt;Step 3: Configure BTRFS subvolumes and mount options&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#mount-the-btrfs-top-level-root-filesystem-with-zstd-compression&#34;&gt;Mount the BTRFS top-level root filesystem with zstd compression&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#create-btrfs-subvolumes--and-home&#34;&gt;Create BTRFS subvolumes &lt;code&gt;@&lt;/code&gt; and &lt;code&gt;@home&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#changes-to-fstab&#34;&gt;Changes to fstab&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#adjust-configuration-of-kernelstub&#34;&gt;Adjust configuration of kernelstub&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#adjust-configuration-of-systemd-bootloader&#34;&gt;Adjust configuration of systemd bootloader&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#create-a-chroot-environment-and-update-initramfs&#34;&gt;Create a chroot environment and update initramfs&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-4-reboot-some-checks-and-system-updates&#34;&gt;Step 4: Reboot, some checks, and system updates&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-5-install-timeshift-for-btrfs-snapshots&#34;&gt;Step 5: Install Timeshift for BTRFS snapshots&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-6-practice-recovery-and-system-rollback&#34;&gt;Step 6: Practice recovery and system rollback&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#rollback-with-timeshift&#34;&gt;Rollback with Timeshift&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#rollback-manually&#34;&gt;Rollback manually&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+&lt;/details&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;In this guide, I will show you how to install Pop!_OS 24.04 with the following structure:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;An unencrypted EFI partition for the systemd bootloader.&lt;/li&gt;
+&lt;li&gt;An unencrypted partition for the Pop!_OS recovery system.&lt;/li&gt;
+&lt;li&gt;An encrypted swap partition (note: hibernation is &lt;a href=&#34;https://support.system76.com/articles/enable-hibernation/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;not supported by default&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;An encrypted BTRFS partition (with LVM) for the root filesystem.
+&lt;ul&gt;
+&lt;li&gt;The BTRFS logical volume contains a subvolume &lt;code&gt;@&lt;/code&gt; for &lt;code&gt;/&lt;/code&gt; and a subvolume &lt;code&gt;@home&lt;/code&gt; for &lt;code&gt;/home&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Automatic system snapshots and easy rollback using &lt;a href=&#34;https://github.com/linuxmint/timeshift&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Timeshift&lt;/a&gt;, which will regularly take (almost instant) snapshots of the system.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This setup works similarly well on other distributions, for which I also have &lt;a href=&#34;../../install-guides&#34;&gt;installation guides (with optional RAID1)&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;step-0-general-remarks&#34;&gt;Step 0: General remarks&lt;/h2&gt;
+&lt;p&gt;This tutorial uses Pop!_OS 24.04 from &lt;a href=&#34;https://system76.com/pop&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;System76&lt;/a&gt;, installed via a USB flash device. Other versions of Pop!_OS and distributions using the systemd boot manager might also work but may require additional steps (see my other &lt;a href=&#34;../../install-guides&#34;&gt;installation guides&lt;/a&gt;).&lt;/p&gt;
+&lt;div class=&#34;alert alert-warning&#34;&gt;
+  &lt;div&gt;
+    &lt;strong&gt;I strongly advise trying the following installation steps in a virtual machine first before performing them on real hardware!&lt;/strong&gt; For instance, you can spin up a virtual machine using the awesome &lt;a href=&#34;https://github.com/quickemu-project/quickemu&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;quickemu&lt;/a&gt; project.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;step-1-prepare-partitions-by-performing-a-clean-install-first&#34;&gt;Step 1: Prepare partitions by performing a Clean Install first&lt;/h2&gt;
+&lt;p&gt;To maintain the default partition layout of Pop!_OS,&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; the easiest and quickest approach is to perform the installation twice:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Run the automatic &lt;code&gt;Clean Install&lt;/code&gt; with encryption. This creates the LUKS-encrypted LVM volume group with a logical volume called &lt;code&gt;root&lt;/code&gt; containing the actual system files formatted with ext4.&lt;/li&gt;
+&lt;li&gt;Perform a second installation using the &lt;code&gt;Custom (Advanced)&lt;/code&gt; option. This allows us to select and format the partitions as needed. While we can customize the partitions, I prefer to keep them close to the defaults and only change the filesystem to BTRFS.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;First, run the automatic &lt;code&gt;Clean Install&lt;/code&gt; with encryption.&lt;/p&gt;
+&lt;div class=&#34;alert alert-warning&#34;&gt;
+  &lt;div&gt;
+    When the installation finishes, do &lt;strong&gt;NOT&lt;/strong&gt; select &lt;code&gt;Restart Device&lt;/code&gt;. Instead, right-click the &lt;code&gt;Install Pop!_OS&lt;/code&gt; app in the dock and select &lt;code&gt;Quit&lt;/code&gt;.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;If you want to understand the structure of the installation, keep reading. Otherwise, proceed to the next step to perform the second installation.&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;optional-understand-the-default-partition-layout-and-installation-structure&#34;&gt;[Optional] Understand the default partition layout and installation structure&lt;/h3&gt;
+&lt;p&gt;Open a terminal and examine the default partition layout (alternatively, use Gparted):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo lsblk
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# loop0         7:0    0   2.4G  1 loop /rofs&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# sda           8:0    0   3.6T  0 disk&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# sdb           8:16   0   3.6T  0 disk&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# sdc           8:32   0 119.2G  0 disk&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ├─sdc1        8:33   0  1022M  0 part&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ├─sdc2        8:34   0     4G  0 part&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ├─sdc3        8:35   0 110.2G  0 part&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# └─sdc4        8:36   0     4G  0 part&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# sdd           8:48   1     0B  0 disk&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# sde           8:64   1     0B  0 disk&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# sdf           8:80   1     0B  0 disk&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# sdg           8:96   1     0B  0 disk&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# sdh           8:112  1  29.3G  0 disk&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ├─sdh1        8:113  1   2.8G  0 part /cdrom&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ├─sdh2        8:114  1     4M  0 part&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# └─sdh3        8:115  1  26.5G  0 part /var/crash&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#                                       /var/log&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# sdi           8:128  0   1.4T  0 disk&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# sr0          11:0    1  1024M  0 rom&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# sr1          11:1    1  1024M  0 rom&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# sr2          11:2    1  1024M  0 rom&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# sr3          11:3    1  1024M  0 rom&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# zram0       251:0    0    16G  0 disk [SWAP]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# nvme0n1     259:0    0   1.7T  0 disk&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ├─nvme0n1p1 259:1    0    16M  0 part&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ├─nvme0n1p2 259:2    0  99.6G  0 part&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ├─nvme0n1p3 259:3    0   9.8G  0 part&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# └─nvme0n1p4 259:4    0   1.6T  0 part&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I have installed Pop!_OS on the 119.2 GB SSD, recognized as &lt;code&gt;sdc&lt;/code&gt; on my machine. Note that I have several other disks connected, so we must identify the correct disk carefully.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s look closer at the partition layout of &lt;code&gt;sdc&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo parted /dev/sdc unit MiB print
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Model: ATA ThinkSystem M.2 (scsi)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Disk /dev/sdc: 122040MiB&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Sector size (logical/physical): 512B/512B&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Partition Table: gpt&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Disk Flags:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Number  Start      End        Size       File system     Name      Flags&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#  1      2.00MiB    1024MiB    1022MiB    fat32                     boot, esp&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#  2      1024MiB    5120MiB    4096MiB    fat32           recovery  msftdata&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#  3      5120MiB    117942MiB  112822MiB&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#  4      117942MiB  122038MiB  4096MiB    linux-swap(v1)            swap&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We have the following 4 partitions:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;A 1022 MiB FAT32 EFI partition for the systemd bootloader (note the &lt;code&gt;boot, esp&lt;/code&gt; flag).&lt;/li&gt;
+&lt;li&gt;A 4096 MiB FAT32 partition for the Pop!_OS recovery system (note the name &lt;code&gt;recovery&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;A 112822 MiB partition containing the actual system files.&lt;/li&gt;
+&lt;li&gt;A 4096 MiB swap partition for (encrypted) swap use (note the &lt;code&gt;swap&lt;/code&gt; flag).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Let&amp;rsquo;s examine the encrypted &lt;code&gt;sdc3&lt;/code&gt; partition:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo cryptsetup luksDump /dev/sdc3
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# LUKS header information&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Version:        2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Epoch:          3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Metadata area:  16384 [bytes]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Keyslots area:  16744448 [bytes]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# UUID:           0be45abc-4d9f-4682-9a51-17432c068ef2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Label:          (no label)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Subsystem:      (no subsystem)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Flags:          (no flags)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Data segments:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   0: crypt&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#       offset: 16777216 [bytes]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#       length: (whole device)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#       cipher: aes-xts-plain64&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#       sector: 512 [bytes]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This confirms the partition is encrypted with LUKS using default options. Now, let&amp;rsquo;s see what is inside the encrypted partition:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo cryptsetup luksOpen /dev/sdc3 cryptdata
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Enter passphrase for /dev/sdc3:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls /dev/mapper
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# control  cryptdata  data-root&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo pvs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#  PV                    VG   Fmt  Attr PSize   PFree&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#  /dev/mapper/cryptdata data lvm2 a--  110.16g    0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo vgs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#  VG   #PV #LV #SN Attr   VSize   VFree&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#  data   1   1   0 wz--n- 110.16g    0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo lvs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#  LV   VG   Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#  root data -wi-a----- 110.16g&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo lsblk /dev/mapper/data-root -f
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# NAME      FSTYPE FSVER LABEL UUID                                 FSAVAIL FSUSE% MOUNTPOINTS&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# data-root ext4   1.0         2e9d6dac-1ee4-419c-b21c-8212262fdb93&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;By default, when installing with encryption, Pop!_OS uses &lt;a href=&#34;https://askubuntu.com/questions/3596/what-is-lvm-and-what-is-it-used-for&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Logical Volume Management (LVM)&lt;/a&gt;. The encrypted partition (&lt;code&gt;cryptdata&lt;/code&gt;) is a physical volume containing a volume group called &lt;code&gt;data&lt;/code&gt;. Inside this volume group, there is a logical volume called &lt;code&gt;root&lt;/code&gt; containing our system files, formatted with ext4.&lt;/p&gt;
+&lt;p&gt;While I don&amp;rsquo;t use LVM features extensively, the installer requires LVM for encryption, and there is practically no performance downside.&lt;/p&gt;
+&lt;p&gt;Now that we know the partition layout, let&amp;rsquo;s close everything:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo cryptsetup luksClose /dev/mapper/data-root
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo cryptsetup luksClose /dev/mapper/cryptdata
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls /dev/mapper
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# control&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We are ready to proceed with the second install, which follows the same steps but uses BTRFS as the underlying filesystem.&lt;/p&gt;
+&lt;h2 id=&#34;step-2-install-pop_os-using-the-custom-advanced-option&#34;&gt;Step 2: Install Pop!_OS using the &lt;code&gt;Custom (Advanced)&lt;/code&gt; option&lt;/h2&gt;
+&lt;p&gt;Open &lt;code&gt;Install Pop!_OS&lt;/code&gt; from &lt;code&gt;Applications&lt;/code&gt; again, and select the region, language, and keyboard layout. Then choose &lt;code&gt;Custom (Advanced)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;You will see your partitioned hard disk (for me, &lt;code&gt;/dev/sdc&lt;/code&gt;) as shown in the previous step:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;First partition:&lt;/strong&gt; Click it, activate &lt;code&gt;Use partition&lt;/code&gt;, activate &lt;code&gt;Format&lt;/code&gt;, set &lt;strong&gt;Use as&lt;/strong&gt; to &lt;code&gt;Boot /boot/efi&lt;/code&gt;, and &lt;strong&gt;Filesystem&lt;/strong&gt; to &lt;code&gt;fat32&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Second partition:&lt;/strong&gt; Click it, activate &lt;code&gt;Use partition&lt;/code&gt;, activate &lt;code&gt;Format&lt;/code&gt;, set &lt;strong&gt;Use as&lt;/strong&gt; to &lt;code&gt;Custom&lt;/code&gt; and enter &lt;code&gt;/recovery&lt;/code&gt;, set &lt;strong&gt;Filesystem&lt;/strong&gt; to &lt;code&gt;fat32&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Fourth partition:&lt;/strong&gt; Click it, activate &lt;code&gt;Use partition&lt;/code&gt;, set &lt;strong&gt;Use as&lt;/strong&gt; to &lt;code&gt;Swap&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Third (largest) partition:&lt;/strong&gt; Click it. A &lt;code&gt;Decrypt This Partition&lt;/code&gt; dialog opens; enter your LUKS password and hit &lt;code&gt;Decrypt&lt;/code&gt;. A new device called &lt;code&gt;LVM data&lt;/code&gt; will appear at the bottom of the screen (you might need to scroll down). Click on this partition, activate &lt;code&gt;Use partition&lt;/code&gt;, activate &lt;code&gt;Format&lt;/code&gt;, set &lt;strong&gt;Use as&lt;/strong&gt; to &lt;code&gt;Root (/)&lt;/code&gt;, and &lt;strong&gt;Filesystem&lt;/strong&gt; to &lt;code&gt;btrfs&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;If you have other partitions, check their types and usage. Ensure you deactivate using or changing any other EFI partitions.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Recheck everything (ensure the correct use of partitions that have a black checkmark) and hit &lt;code&gt;Erase and Install&lt;/code&gt;.
+Follow the steps to create a user account and write changes to the disk.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Once the installer finishes, do &lt;strong&gt;NOT&lt;/strong&gt; select &lt;strong&gt;Restart Device&lt;/strong&gt;, but keep the window open.&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;step-3-configure-btrfs-subvolumes-and-mount-options&#34;&gt;Step 3: Configure BTRFS subvolumes and mount options&lt;/h2&gt;
+&lt;p&gt;Open a terminal and switch to an interactive root session:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo -i
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Maximizing the terminal window helps when working with the command line.&lt;/p&gt;
+&lt;h3 id=&#34;mount-the-btrfs-top-level-root-filesystem-with-zstd-compression&#34;&gt;Mount the BTRFS top-level root filesystem with zstd compression&lt;/h3&gt;
+&lt;p&gt;Mount the root partition (the top-level BTRFS volume always has id 5) with compression enabled to optimize performance and durability:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cryptsetup luksOpen /dev/sdc3 cryptdata
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Enter passphrase for /dev/sdc3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mount -o &lt;span class=&#34;nv&#34;&gt;subvolid&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;5,defaults,compress&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;zstd:1 /dev/mapper/data-root /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;By default, Pop!_OS 24.04 uses standard BTRFS mount options. SSDs are automatically detected (&lt;code&gt;ssd&lt;/code&gt; mount option), and &lt;code&gt;space_cache=v2&lt;/code&gt; is used (also the &lt;a href=&#34;https://pagure.io/fedora-btrfs/project/issue/24&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;default in Fedora&lt;/a&gt;).
+There is some debate about using &lt;a href=&#34;https://pagure.io/fedora-btrfs/project/issue/9&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;noatime&lt;/code&gt; instead of &lt;code&gt;relatime&lt;/code&gt;&lt;/a&gt;. I haven&amp;rsquo;t seen a significant difference, so I use the default &lt;code&gt;relatime&lt;/code&gt;.
+However, I recommend using &lt;code&gt;compress=zstd:1&lt;/code&gt; (specifically level 1) for SSDs, as recommended by the &lt;a href=&#34;https://fedoraproject.org/wiki/Changes/BtrfsTransparentCompression#Simple_Analysis_of_btrfs_zstd_compression_level&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Fedora team for workstations&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;strong&gt;Note on &lt;code&gt;discard=async&lt;/code&gt;:&lt;/strong&gt; Since Linux kernel 6.2, BTRFS &lt;a href=&#34;https://btrfs.readthedocs.io/en/latest/ch-mount-options.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;enables &lt;code&gt;discard=async&lt;/code&gt; by default&lt;/a&gt; on devices that support TRIM operations. Pop!_OS 24.04 ships with a 6.x kernel, so there is no need to explicitly add &lt;code&gt;discard=async&lt;/code&gt; to the mount options—it is automatically applied. If you need to disable it for some reason, use the &lt;code&gt;nodiscard&lt;/code&gt; option.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We will add these mount options to &lt;code&gt;fstab&lt;/code&gt; later, but it&amp;rsquo;s good practice to use compression now when moving system files into the subvolumes.&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    If the LVM group is not activated, see &lt;a href=&#34;https://github.com/wmutschl/mutschler.dev/issues/4&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this issue for help&lt;/a&gt;.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;create-btrfs-subvolumes--and-home&#34;&gt;Create BTRFS subvolumes &lt;code&gt;@&lt;/code&gt; and &lt;code&gt;@home&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;First, create the subvolume &lt;code&gt;@&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;btrfs subvolume create /mnt/@
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Create subvolume &amp;#39;/mnt/@&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Next, move all files and folders from the top-level filesystem into &lt;code&gt;@&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep -v @ &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; xargs mv -t @
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls -a /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# . .. @&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Since we mounted the drive with compression enabled, the data is automatically compressed as it is moved.&lt;/p&gt;
+&lt;p&gt;Now, create the &lt;code&gt;@home&lt;/code&gt; subvolume and move the user folder from &lt;code&gt;/mnt/@/home/&lt;/code&gt; into it:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;btrfs subvolume create /mnt/@home
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Create subvolume &amp;#39;/mnt/@home&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mv /mnt/@/home/* /mnt/@home/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Verify that everything has been moved correctly:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls -a /mnt/@/home
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# . ..&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls -a /mnt/@home
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# . .. wmutschl&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;btrfs subvolume list /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ID 256 gen 17 top level 5 path @&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ID 257 gen 17 top level 5 path @home&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;changes-to-fstab&#34;&gt;Changes to fstab&lt;/h3&gt;
+&lt;p&gt;We need to update &lt;code&gt;/etc/fstab&lt;/code&gt; to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Mount &lt;code&gt;/&lt;/code&gt; to the &lt;code&gt;@&lt;/code&gt; subvolume.&lt;/li&gt;
+&lt;li&gt;Mount &lt;code&gt;/home&lt;/code&gt; to the &lt;code&gt;@home&lt;/code&gt; subvolume.&lt;/li&gt;
+&lt;li&gt;Enable compression.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Open &lt;code&gt;fstab&lt;/code&gt; with a text editor (e.g., &lt;code&gt;nano /mnt/@/etc/fstab&lt;/code&gt;) or use these &lt;code&gt;sed&lt;/code&gt; commands:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/btrfs  defaults  0  1/btrfs  defaults,compress=zstd:1,subvol=@  0  0/&amp;#39;&lt;/span&gt; /mnt/@/etc/fstab
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;UUID=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;blkid -s UUID -o value /dev/mapper/data-root&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;  /home  btrfs  defaults,compress=zstd:1,subvol=@home   0 0&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; /mnt/@/etc/fstab
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Your &lt;code&gt;fstab&lt;/code&gt; should look like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cat /mnt/@/etc/fstab
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# PARTUUID=2a345427-756a-454d-943b-6028c9e5cf55  /boot/efi  vfat  umask=0077  0  0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# PARTUUID=526a5925-7e0f-44ff-9a69-da10eb0f1c5c  /recovery  vfat  umask=0077  0  0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /dev/mapper/cryptswap  none  swap  defaults  0  0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# UUID=f4190602-7a0b-4d6c-aed5-624a17afaf8f  /  btrfs  defaults,compress=zstd:1,subvol=@  0  0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# UUID=f4190602-7a0b-4d6c-aed5-624a17afaf8f  /home  btrfs  defaults,compress=zstd:1,subvol=@home   0 0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Note that your UUIDs will be different. The last two lines are the important ones.&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;strong&gt;Note on &lt;code&gt;discard&lt;/code&gt; in crypttab:&lt;/strong&gt; You may notice that Pop!_OS does not add a &lt;code&gt;discard&lt;/code&gt; option to &lt;code&gt;/etc/crypttab&lt;/code&gt; for the LUKS-encrypted partition. This is intentional for security reasons: enabling discard on encrypted devices can expose patterns about which blocks are unused, potentially leaking metadata about the encrypted content. Pop!_OS prioritizes security over the marginal performance benefit. If you prefer to enable TRIM passthrough for performance reasons and accept this trade-off, you can manually add &lt;code&gt;discard&lt;/code&gt; to the crypttab entry for &lt;code&gt;cryptdata&lt;/code&gt;.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;adjust-configuration-of-kernelstub&#34;&gt;Adjust configuration of kernelstub&lt;/h3&gt;
+&lt;p&gt;We need to adjust settings for the systemd boot manager and ensure they persist after kernel updates. Add &lt;code&gt;rootflags=subvol=@&lt;/code&gt; to the &lt;code&gt;&amp;quot;user&amp;quot;&lt;/code&gt; kernel options in the kernelstub configuration file:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nano /mnt/@/etc/kernelstub/configuration
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Your configuration file should look like this (add the &lt;code&gt;rootflags=subvol=@&lt;/code&gt; line to the &lt;code&gt;user&lt;/code&gt; section):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cat /mnt/@/etc/kernelstub/configuration
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# {&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   &amp;#34;default&amp;#34;: {&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     &amp;#34;kernel_options&amp;#34;: [&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#       &amp;#34;quiet&amp;#34;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#       &amp;#34;splash&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     ],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     &amp;#34;esp_path&amp;#34;: &amp;#34;/boot/efi&amp;#34;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     &amp;#34;setup_loader&amp;#34;: false,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     &amp;#34;manage_mode&amp;#34;: false,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     &amp;#34;force_update&amp;#34;: false,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     &amp;#34;live_mode&amp;#34;: false,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     &amp;#34;config_rev&amp;#34;: 3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   },&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   &amp;#34;user&amp;#34;: {&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     &amp;#34;kernel_options&amp;#34;: [&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#       &amp;#34;quiet&amp;#34;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#       &amp;#34;loglevel=0&amp;#34;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#       &amp;#34;systemd.show_status=false&amp;#34;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#       &amp;#34;splash&amp;#34;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#       &amp;#34;rootflags=subvol=@&amp;#34;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#       &amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     ],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     &amp;#34;esp_path&amp;#34;: &amp;#34;/boot/efi&amp;#34;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     &amp;#34;setup_loader&amp;#34;: true,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     &amp;#34;manage_mode&amp;#34;: true,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     &amp;#34;force_update&amp;#34;: false,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     &amp;#34;live_mode&amp;#34;: false,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     &amp;#34;config_rev&amp;#34;: 3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   }&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# }&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;alert alert-warning&#34;&gt;
+  &lt;div&gt;
+    &lt;strong&gt;VERY IMPORTANT: Don&amp;rsquo;t forget the comma at the end of the line, otherwise &lt;code&gt;update-initramfs&lt;/code&gt; will fail later!&lt;/strong&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Alternatively, you can use this &lt;code&gt;sed&lt;/code&gt; command to apply the change:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;/\&amp;#34;user\&amp;#34;/,/}/{ s/\(\&amp;#34;splash\&amp;#34;,\)/\1\n      \&amp;#34;rootflags=subvol=@\&amp;#34;,/ }&amp;#39;&lt;/span&gt; /mnt/@/etc/kernelstub/configuration
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;adjust-configuration-of-systemd-bootloader&#34;&gt;Adjust configuration of systemd bootloader&lt;/h3&gt;
+&lt;p&gt;Mount the EFI partition to adjust systemd boot settings:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mount /dev/sdc1 /mnt/@/boot/efi
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Add &lt;code&gt;rootflags=subvol=@&lt;/code&gt; to the last line of &lt;code&gt;Pop_OS_current.conf&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/splash/splash rootflags=subvol=@/&amp;#39;&lt;/span&gt; /mnt/@/boot/efi/loader/entries/Pop_OS-current.conf
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cat /mnt/@/boot/efi/loader/entries/Pop_OS-current.conf
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# title Pop!_OS&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# linux /EFI/Pop_OS-f4190602-7a0b-4d6c-aed5-624a17afaf8f/vmlinuz.efi&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# initrd /EFI/Pop_OS-f4190602-7a0b-4d6c-aed5-624a17afaf8f/initrd.img&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# options root=UUID=f4190602-7a0b-4d6c-aed5-624a17afaf8f ro quiet loglevel=0 systemd.show_status=false splash rootflags=subvol=@&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Optionally, add a timeout to the systemd boot menu to easily access the recovery partition:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;timeout 3&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; /mnt/@/boot/efi/loader/loader.conf
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cat /mnt/@/boot/efi/loader/loader.conf
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# default Pop_OS-current&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# timeout 3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;create-a-chroot-environment-and-update-initramfs&#34;&gt;Create a chroot environment and update initramfs&lt;/h3&gt;
+&lt;p&gt;To work inside the newly installed OS without booting into it, create a chroot environment.
+Unmount the top-level root filesystem (id 5) and remount the subvolume &lt;code&gt;@&lt;/code&gt; to &lt;code&gt;/mnt&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;umount -l /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mount -o &lt;span class=&#34;nv&#34;&gt;subvol&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;@,defaults,compress&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;zstd:1 /dev/mapper/data-root /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# bin  bin.usr-is-merged  boot  dev  etc  home  lib  lib.usr-is-merged  lib64  media  mnt  opt  proc  recovery  root  run  sbin  sbin.usr-is-merged  srv  sys  tmp  usr  var&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Mount the necessary system directories and enter chroot (commands from System76&amp;rsquo;s &lt;a href=&#34;https://support.system76.com/articles/bootloader/#systemd-boot&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Repair the Bootloader&lt;/a&gt; guide):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; i in /dev /dev/pts /proc /sys /run&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; mount -B &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt; /mnt&lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;chroot /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now inside the new system, verify the &lt;code&gt;fstab&lt;/code&gt; mounts:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mount -av
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# mount: (hint) your fstab has been modified, but systemd still uses&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#        the old version; use &amp;#39;systemctl daemon-reload&amp;#39; to reload.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /boot/efi                : successfully mounted&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /recovery                : successfully mounted&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# none                     : ignored&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /                        : ignored&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /home                    : successfully mounted&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Update the initramfs to include the kernelstub changes:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;update-initramfs -c -k all
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# update-initramfs: Generating /boot/initrd.img-6.16.3-76061603-generic&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# W: /sbin/fsck.btrfs doesn&amp;#39;t exist, can&amp;#39;t install to initramfs&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# mount: (hint) your fstab has been modified, but systemd still uses&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#        the old version; use &amp;#39;systemctl daemon-reload&amp;#39; to reload.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Updating kernel version 6.16.3-76061603-generic in systemd-boot...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# kernelstub.Config    : INFO     Looking for configuration...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# kernelstub           : INFO     System information:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     OS:..................Pop!_OS 24.04&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     Root partition:....../dev/dm-1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     Root FS UUID:........f4190602-7a0b-4d6c-aed5-624a17afaf8f&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     ESP Path:............/boot/efi&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     ESP Partition:......./dev/sdc1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     ESP Partition #:.....1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     NVRAM entry #:.......-1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     Boot Variable #:.....0000&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     Kernel Boot Options:.quiet loglevel=0 systemd.show_status=false splash rootflags=subvol=@&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     Kernel Image Path:.../boot/vmlinuz-6.16.3-76061603-generic&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     Initrd Image Path:.../boot/initrd.img-6.16.3-76061603-generic&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     Force-overwrite:.....False&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# kernelstub.Installer : INFO     Copying Kernel into ESP&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# kernelstub.Installer : INFO     Copying initrd.img into ESP&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# kernelstub.Installer : INFO     Setting up loader.conf configuration&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# kernelstub.Installer : INFO     Making entry file for Pop!_OS&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# kernelstub.Installer : INFO     Backing up old kernel&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# kernelstub.Installer : INFO     No old kernel found, skipping&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you see errors, check that you added the comma in the &lt;code&gt;/etc/kernelstub/configuration&lt;/code&gt; file.&lt;/p&gt;
+&lt;p&gt;Note the warning about &lt;code&gt;/sbin/fsck.btrfs&lt;/code&gt;, so let&amp;rsquo;s install &lt;code&gt;btrfs-progs&lt;/code&gt; to be able to manage BTRFS subvolumes and fix the issue (this triggers another &lt;code&gt;update-initramfs&lt;/code&gt;):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y btrfs-progs
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Exit the chroot:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;step-4-reboot-some-checks-and-system-updates&#34;&gt;Step 4: Reboot, some checks, and system updates&lt;/h2&gt;
+&lt;p&gt;Close the terminal and click &lt;code&gt;Reboot Device&lt;/code&gt; on the installer app.
+Crossing fingers!
+If all goes well, you will see a passphrase prompt. Enter your LUKS passphrase, and your system should boot.&lt;/p&gt;
+&lt;p&gt;After the welcome screen, we go to settings and:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Network &amp;amp; Wireless&lt;/strong&gt;: check your connection, for example deactivate unused interfaces and add IP configuration to used interface or add Wifi password.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Power &amp;amp; Battery&lt;/strong&gt;: Use &lt;code&gt;High performance&lt;/code&gt; in &lt;code&gt;Power Mode&lt;/code&gt; and check &lt;code&gt;Power Saving Options&lt;/code&gt; (on a server I deactivate them, on a notebook I keep them).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Next, we verify the setup in a terminal:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo mount -av
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /boot/efi                : already mounted&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /recovery                : already mounted&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# none                     : ignored&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /                        : ignored&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /home                    : already mounted&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Check that the optimized mount options are active (note that you cannot have different mount options on the same partition):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo mount -v &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep /dev/mapper
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /dev/mapper/data-root on / type btrfs (rw,relatime,compress=zstd:1,space_cache=v2,subvolid=256,subvol=/@)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /dev/mapper/data-root on /home type btrfs (rw,relatime,compress=zstd:1,space_cache=v2,subvolid=257,subvol=/@home)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Verify swap is working:&lt;/p&gt;
+&lt;p&gt;Run &lt;code&gt;sudo swapon&lt;/code&gt; to check if both the swap partition and the zram device are active:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo swapon
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# NAME       TYPE      SIZE USED PRIO&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /dev/dm-2  partition   4G   0B   -2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /dev/zram0 partition  16G   0B 1000&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Pop!_OS uses &lt;strong&gt;two swap mechanisms&lt;/strong&gt;:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;zram&lt;/strong&gt; (compressed RAM swap): A high-priority swap device that compresses data in RAM. This is used first due to its higher priority (1000) and provides fast swap performance for everyday use.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Swap partition&lt;/strong&gt; (encrypted): A lower-priority disk-based swap partition used when zram is full.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;alert alert-warning&#34;&gt;
+  &lt;div&gt;
+    &lt;p&gt;&lt;strong&gt;About Hibernation:&lt;/strong&gt; Hibernation (suspend-to-disk) is &lt;strong&gt;not officially supported&lt;/strong&gt; on Pop!_OS. According to &lt;a href=&#34;https://support.system76.com/articles/enable-hibernation/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;System76&amp;rsquo;s documentation&lt;/a&gt;, there are several reasons why hibernation is not enabled by default:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Non-persistent swap encryption key:&lt;/strong&gt; The swap partition is encrypted with a random key generated at each boot (see the &lt;code&gt;cryptswap&lt;/code&gt; entry in &lt;code&gt;/etc/crypttab&lt;/code&gt;). This means any data written to swap—including hibernation data—cannot be read after a reboot, making hibernation impossible without reconfiguration.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Zram incompatibility:&lt;/strong&gt; Zram exists only in volatile RAM and cannot persist hibernation data across power cycles.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Default partition layout:&lt;/strong&gt; The default 4GB swap partition may be insufficient for systems with more RAM (hibernation requires swap ≥ RAM size).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SSD wear:&lt;/strong&gt; Hibernation adds significant write traffic to SSDs (equal to total RAM each time), potentially shortening drive lifespan.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you need hibernation, System76 provides a &lt;a href=&#34;https://support.system76.com/articles/enable-hibernation/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;guide to enable it&lt;/a&gt;, which involves removing the default swap partition, creating a persistent encrypted swap volume inside LVM, and configuring the kernel resume parameter. This is beyond the scope of this guide.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Inspect BTRFS subvolumes:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo btrfs filesystem show /
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Label: none  uuid: f4190602-7a0b-4d6c-aed5-624a17afaf8f&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#         Total devices 1 FS bytes used 7.91GiB&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#         devid    1 size 110.16GiB used 12.02GiB path /dev/mapper/data-root&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo btrfs subvolume list /
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ID 256 gen 96 top level 5 path @&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ID 257 gen 96 top level 5 path @home&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If using an SSD or NVMe, enable &lt;code&gt;fstrim.timer&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl &lt;span class=&#34;nb&#34;&gt;enable&lt;/span&gt; fstrim.timer
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Make sure &lt;code&gt;issue_discards=1&lt;/code&gt; is set in &lt;code&gt;/etc/lvm/lvm.conf&lt;/code&gt; (usually default):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cat /etc/lvm/lvm.conf &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep issue_discards
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 	# Configuration option devices/issue_discards.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 	issue_discards = 1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Finally, update the system including the recovery partition and flatpak applications:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt upgrade
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt dist-upgrade
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt autoremove --purge
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt autoclean
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pop-upgrade recovery upgrade from-release
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;flatpak -vv update
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I also recommend updating firmware:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo fwupdmgr get-devices
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo fwupdmgr get-updates
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo fwupdmgr update
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Reboot once more.&lt;/p&gt;
+&lt;h2 id=&#34;step-5-install-timeshift-for-btrfs-snapshots&#34;&gt;Step 5: Install Timeshift for BTRFS snapshots&lt;/h2&gt;
+&lt;p&gt;Install &lt;a href=&#34;https://github.com/linuxmint/timeshift&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Timeshift&lt;/a&gt; and configure it via the GUI:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y timeshift
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Go to &lt;code&gt;Applications&lt;/code&gt; and search for &lt;code&gt;Timeshift&lt;/code&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Select &lt;strong&gt;BTRFS&lt;/strong&gt; as the &lt;strong&gt;Snapshot Type&lt;/strong&gt;; click &lt;strong&gt;Next&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Select your BTRFS system partition as the &lt;strong&gt;Snapshot Location&lt;/strong&gt;; click &lt;strong&gt;Next&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Select Snapshot Levels&lt;/strong&gt; (my recommendations):
+&lt;ul&gt;
+&lt;li&gt;Activate &lt;strong&gt;Monthly&lt;/strong&gt; and set to 2.&lt;/li&gt;
+&lt;li&gt;Activate &lt;strong&gt;Weekly&lt;/strong&gt; and set to 3.&lt;/li&gt;
+&lt;li&gt;Activate &lt;strong&gt;Daily&lt;/strong&gt; and set to 5.&lt;/li&gt;
+&lt;li&gt;Deactivate &lt;strong&gt;Hourly&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Activate &lt;strong&gt;Boot&lt;/strong&gt; and set to 5.&lt;/li&gt;
+&lt;li&gt;Activate &lt;strong&gt;Stop cron emails for scheduled tasks&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Next&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;User Home Directories&lt;/strong&gt;: Include the &lt;code&gt;@home&lt;/code&gt; subvolume (not selected by default). While you usually restore only &lt;code&gt;@&lt;/code&gt;, having home backups is convenient.&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Finish&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Create a manual snapshot named &amp;ldquo;Clean Install&amp;rdquo; and exit Timeshift.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Timeshift will now manage snapshots automatically. Note that they are stored in subvolumes at the top-level root:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo btrfs subvolume list /
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ID 256 gen 160 top level 5 path @&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ID 257 gen 157 top level 5 path @home&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ID 258 gen 153 top level 5 path timeshift-btrfs/snapshots/2025-12-09_10-37-12/@&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ID 259 gen 153 top level 5 path timeshift-btrfs/snapshots/2025-12-09_10-37-12/@home&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;step-6-practice-recovery-and-system-rollback&#34;&gt;Step 6: Practice recovery and system rollback&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s simulate a system failure to practice recovery. Note: We have snapshots to rollback to (in the subvolumes at the top-level root).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Delete the &lt;code&gt;/etc&lt;/code&gt; folder (simulating disaster):&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rm -rf /etc
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you try to reboot, the system will fail. So instead, boot into the &lt;code&gt;Pop!_OS Recovery System&lt;/code&gt; selected from the systemd bootloader (this is why I set the timeout to 3 seconds).&lt;/p&gt;
+&lt;p&gt;I will show you two ways to rollback: with Timeshift and manually.
+For both, first open the File Manager, go to &lt;strong&gt;Other Locations&lt;/strong&gt;, select your encrypted disk, and enter the passphrase. This mounts the top-level root and you can now access the snapshots.&lt;/p&gt;
+&lt;h3 id=&#34;rollback-with-timeshift&#34;&gt;Rollback with Timeshift&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Install Timeshift in the live environment via the terminal:
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install timeshift
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;Go to &lt;code&gt;Applications&lt;/code&gt; and open Timeshift.&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;BTRFS&lt;/strong&gt;, and choose your disk.&lt;/li&gt;
+&lt;li&gt;Select a snapshot and click &lt;strong&gt;Restore&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Timeshift will restore the system subvolume. Reboot, and your system should be back to normal.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;rollback-manually&#34;&gt;Rollback manually&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Open a terminal and navigate to the mounted volume (e.g., &lt;code&gt;/media/recovery/&amp;lt;YOUR-UUID&amp;gt;&lt;/code&gt;):
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo -i
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /media/recovery/&amp;lt;YOUR-UUID&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# @ @home timeshift-btrfs&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;Move the broken subvolume:
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo mv @ @.broken
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;Find a valid snapshot in &lt;code&gt;timeshift-btrfs/snapshots/&lt;/code&gt;:
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls timeshift-btrfs/snapshots
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;Create a snapshot of the good subvolume as the new &lt;code&gt;@&lt;/code&gt; (this will also make the read-only subvolume writable):
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo btrfs subvolume snapshot timeshift-btrfs/snapshots/2025-12-09_09-59-43/@ @
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;Reboot.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Once back in your system, delete the broken subvolume to save space:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo btrfs subvolume list /
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo btrfs subvolume delete @.broken
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;FINISHED! CONGRATULATIONS!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Check out my &lt;a href=&#34;../pop-os-post-install&#34;&gt;Pop!_OS post-installation steps&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;If you already have (a previous version of) Pop!_OS installed, you can safely skip this step as you already have a partition layout that works with the installer.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>elementary OS 6.1 Jólnir: installation guide with btrfs, luks encryption and auto snapshots with timeshift</title>

@@ -311,7 +311,7 @@
     <meta property="twitter:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
   
     
-      <meta property="og:updated_time" content="2022-06-16T00:00:00&#43;00:00" />
+      <meta property="og:updated_time" content="2024-12-08T00:00:00&#43;00:00" />
     
   
 
@@ -642,6 +642,88 @@
   
 
   
+  
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<div class="media stream-item view-compact">
+  <div class="media-body">
+
+    <div class="section-subheading article-title mb-0 mt-0">
+      <a href="/linux/pop-os-btrfs-24-04/" >Pop!_OS 24.04: installation guide with BTRFS, LUKS encryption and auto snapshots with Timeshift</a>
+    </div>
+
+    
+    <a href="/linux/pop-os-btrfs-24-04/"  class="summary-link">
+      <div class="article-style">
+        In this guide, I will walk you through the installation procedure to set up a Pop!_OS 24.04 system with a LUKS-encrypted partition. This partition will contain an LVM with a logical volume for the root filesystem formatted with BTRFS, including subvolumes <code>@</code> for <code>/</code> and <code>@home</code> for <code>/home</code>. I will show you how to optimize BTRFS mount options to support compression and set up an encrypted swap partition. Additionally, the Pop!_OS recovery system will be installed and accessible via the systemd bootloader. Finally, we will configure Timeshift to automatically take system snapshots.
+      </div>
+    </a>
+    
+
+    <div class="stream-meta article-metadata">
+
+      
+
+      
+        
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Dec 8, 2024
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+  
+
+  
+  
+
+</div>
+
+      
+    </div>
+
+    
+
+  </div>
+  <div class="ml-3">
+    
+    
+  </div>
+</div>
+
   
     
 
@@ -1343,90 +1425,6 @@
     <a href="/linux/raspi-post-install/"  class="summary-link">
       <div class="article-style">
         In the following I will go through my post installation steps, i.e. which settings I choose and which apps and containers I install and use on my Raspberry Pi 4 (4 GB)
-      </div>
-    </a>
-    
-
-    <div class="stream-meta article-metadata">
-
-      
-
-      
-        
-
-
-<div class="article-metadata">
-
-  
-  
-
-  
-  <span class="article-date">
-    
-    
-      
-          Last updated on
-      
-    
-    Jun 17, 2022
-  </span>
-  
-
-  
-
-  
-
-  
-  
-  
-  
-
-  
-  
-
-</div>
-
-      
-    </div>
-
-    
-
-  </div>
-  <div class="ml-3">
-    
-    
-  </div>
-</div>
-
-  
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<div class="media stream-item view-compact">
-  <div class="media-body">
-
-    <div class="section-subheading article-title mb-0 mt-0">
-      <a href="/linux/raspi-btrfs/" >Ubuntu Server 20.10 on Raspberry Pi 4: installation guide with USB Boot (no SD card) and full disk encryption (excluding /boot) using btrfs-inside-luks and auto-apt snapshots with Timeshift</a>
-    </div>
-
-    
-    <a href="/linux/raspi-btrfs/"  class="summary-link">
-      <div class="article-style">
-        In this guide I will walk you through the installation procedure to get an Ubuntu 20.10 system with a luks-encrypted partition for the root filesystem (excluding /boot) formatted with btrfs that contains a subvolume @ for / and a subvolume @home for /home running on a Raspberry Pi 4. The system is installed to an external bootable USB drive so no SD card is required. I will show how to optimize the btrfs mount options and how to get a headless server, i.e. remotely unlock the luks partition using Dropbear which enables one to use SSH to decrypt the luks-encrypted partitions after a reboot. This layout enables one to use Timeshift and timeshift-autosnap-apt which will regularly take snapshots of the system and particularly on any apt operation.
       </div>
     </a>
     
