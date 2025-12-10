@@ -5,7 +5,7 @@
     <link>https://mutschler.dev/tag/pop-os/</link>
       <atom:link href="https://mutschler.dev/tag/pop-os/index.xml" rel="self" type="application/rss+xml" />
     <description>pop-os</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 08 Dec 2024 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 10 Dec 2025 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png</url>
       <title>pop-os</title>
@@ -15,7 +15,7 @@
     <item>
       <title>Pop!_OS 24.04: installation guide with BTRFS, LUKS encryption and auto snapshots with Timeshift</title>
       <link>https://mutschler.dev/linux/pop-os-btrfs-24-04/</link>
-      <pubDate>Sun, 08 Dec 2024 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 10 Dec 2025 00:00:00 +0000</pubDate>
       <guid>https://mutschler.dev/linux/pop-os-btrfs-24-04/</guid>
       <description>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Please feel free to raise any comments or issues on the &lt;a href=&#34;https://github.com/wmutschl/mutschler.dev&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;website&amp;rsquo;s Github repository&lt;/a&gt;. Pull requests are very much appreciated.&lt;/strong&gt;&lt;/em&gt;
 &lt;a href=&#34;https://www.buymeacoffee.com/mutschler&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://cdn.buymeacoffee.com/buttons/v2/default-red.png&#34; alt=&#34;Buy Me A Coffee&#34; style=&#34;height: 60px !important;width: 217px !important;&#34; &gt;&lt;/a&gt;&lt;/p&gt;
@@ -48,7 +48,12 @@
       &lt;/ul&gt;
     &lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;#step-4-reboot-some-checks-and-system-updates&#34;&gt;Step 4: Reboot, some checks, and system updates&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;#step-5-install-timeshift-for-btrfs-snapshots&#34;&gt;Step 5: Install Timeshift for BTRFS snapshots&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-5-snapshot-tools&#34;&gt;Step 5: Snapshot tools&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#install-and-configure-timeshift&#34;&gt;Install and configure Timeshift&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#verify-snapshots&#34;&gt;Verify snapshots&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;#step-6-practice-recovery-and-system-rollback&#34;&gt;Step 6: Practice recovery and system rollback&lt;/a&gt;
       &lt;ul&gt;
         &lt;li&gt;&lt;a href=&#34;#rollback-with-timeshift&#34;&gt;Rollback with Timeshift&lt;/a&gt;&lt;/li&gt;
@@ -466,14 +471,23 @@ If all goes well, you will see a passphrase prompt. Enter your LUKS passphrase, 
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;fwupdmgr&lt;/span&gt; update
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Reboot once more:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;reboot&lt;/span&gt; now
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;step-5-install-timeshift-for-btrfs-snapshots&#34;&gt;Step 5: Install Timeshift for BTRFS snapshots&lt;/h2&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;step-5-snapshot-tools&#34;&gt;Step 5: Snapshot tools&lt;/h2&gt;
+&lt;p&gt;With BTRFS set up with &lt;code&gt;@&lt;/code&gt; and &lt;code&gt;@home&lt;/code&gt; subvolumes, you can now use various snapshot and backup tools:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/linuxmint/timeshift&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Timeshift&lt;/a&gt;:&lt;/strong&gt; A popular GUI tool for system snapshots. Note that Timeshift &lt;strong&gt;requires&lt;/strong&gt; the &lt;code&gt;@&lt;/code&gt; and &lt;code&gt;@home&lt;/code&gt; subvolume naming convention we set up in this guide.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/Antynea/grub-btrfs&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;grub-btrfs&lt;/a&gt;:&lt;/strong&gt; Automatically adds GRUB menu entries for your snapshots, allowing you to boot directly into any snapshot.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/digint/btrbk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Btrbk&lt;/a&gt;:&lt;/strong&gt; A powerful tool for snapshot management and backup with support for incremental send/receive to remote locations. Personally, I prefer Btrbk for its flexibility and send/receive capabilities.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/openSUSE/snapper&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Snapper&lt;/a&gt;:&lt;/strong&gt; Another snapshot management tool, popular in openSUSE.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We will now focus only on Timeshift as it is (in my opinion) the most user-friendly one.&lt;/p&gt;
+&lt;h3 id=&#34;install-and-configure-timeshift&#34;&gt;Install and configure Timeshift&lt;/h3&gt;
 &lt;p&gt;Install &lt;a href=&#34;https://github.com/linuxmint/timeshift&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Timeshift&lt;/a&gt; and configure it via the GUI:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;apt&lt;/span&gt; update
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;apt&lt;/span&gt; install &lt;span class=&#34;na&#34;&gt;-y&lt;/span&gt; timeshift
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Go to &lt;code&gt;Applications&lt;/code&gt; and search for &lt;code&gt;Timeshift&lt;/code&gt;.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Select &lt;strong&gt;BTRFS&lt;/strong&gt; as the &lt;strong&gt;Snapshot Type&lt;/strong&gt;; click &lt;strong&gt;Next&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;Select your BTRFS system partition as the &lt;strong&gt;Snapshot Location&lt;/strong&gt;; click &lt;strong&gt;Next&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Select your BTRFS system partition as the &lt;strong&gt;Snapshot Location&lt;/strong&gt;; click &lt;strong&gt;Next&lt;/strong&gt;. Ignore the warning &amp;ldquo;Selected device does not have BTRFS partition&amp;rdquo;-this is a bug with encrypted devices.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Select Snapshot Levels&lt;/strong&gt; (my recommendations):
 &lt;ul&gt;
 &lt;li&gt;Activate &lt;strong&gt;Monthly&lt;/strong&gt; and set to 2.&lt;/li&gt;
@@ -489,7 +503,9 @@ If all goes well, you will see a passphrase prompt. Enter your LUKS passphrase, 
 &lt;li&gt;Click &lt;strong&gt;Finish&lt;/strong&gt;.&lt;/li&gt;
 &lt;li&gt;Create a manual snapshot named &amp;ldquo;Clean Install&amp;rdquo; and exit Timeshift.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Timeshift will now manage snapshots automatically. Note that they are stored in subvolumes at the top-level root:&lt;/p&gt;
+&lt;p&gt;Timeshift will now manage snapshots automatically.&lt;/p&gt;
+&lt;h3 id=&#34;verify-snapshots&#34;&gt;Verify snapshots&lt;/h3&gt;
+&lt;p&gt;In a terminal, you can verify the snapshots:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;btrfs&lt;/span&gt; subvolume list /
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# ID 256 gen 160 top level 5 path @
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# ID 257 gen 157 top level 5 path @home
@@ -509,7 +525,7 @@ For both, first open the File Manager, go to &lt;strong&gt;Other Locations&lt;/s
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;apt&lt;/span&gt; install timeshift
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;Go to &lt;code&gt;Applications&lt;/code&gt; and open Timeshift.&lt;/li&gt;
-&lt;li&gt;Select &lt;strong&gt;BTRFS&lt;/strong&gt;, and choose your disk.&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;BTRFS&lt;/strong&gt;, and choose your disk. Ignore the warning &amp;ldquo;Selected device does not have BTRFS partition&amp;rdquo;-this is a bug with encrypted devices.&lt;/li&gt;
 &lt;li&gt;Select a snapshot and click &lt;strong&gt;Restore&lt;/strong&gt;.&lt;/li&gt;
 &lt;li&gt;Timeshift will restore the system subvolume. Reboot, and your system should be back to normal.&lt;/li&gt;
 &lt;/ol&gt;

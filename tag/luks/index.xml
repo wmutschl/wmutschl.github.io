@@ -5,7 +5,7 @@
     <link>https://mutschler.dev/tag/luks/</link>
       <atom:link href="https://mutschler.dev/tag/luks/index.xml" rel="self" type="application/rss+xml" />
     <description>luks</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 08 Dec 2024 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 10 Dec 2025 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png</url>
       <title>luks</title>
@@ -15,7 +15,7 @@
     <item>
       <title>Pop!_OS 24.04: installation guide with BTRFS, LUKS encryption and auto snapshots with Timeshift</title>
       <link>https://mutschler.dev/linux/pop-os-btrfs-24-04/</link>
-      <pubDate>Sun, 08 Dec 2024 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 10 Dec 2025 00:00:00 +0000</pubDate>
       <guid>https://mutschler.dev/linux/pop-os-btrfs-24-04/</guid>
       <description>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Please feel free to raise any comments or issues on the &lt;a href=&#34;https://github.com/wmutschl/mutschler.dev&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;website&amp;rsquo;s Github repository&lt;/a&gt;. Pull requests are very much appreciated.&lt;/strong&gt;&lt;/em&gt;
 &lt;a href=&#34;https://www.buymeacoffee.com/mutschler&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://cdn.buymeacoffee.com/buttons/v2/default-red.png&#34; alt=&#34;Buy Me A Coffee&#34; style=&#34;height: 60px !important;width: 217px !important;&#34; &gt;&lt;/a&gt;&lt;/p&gt;
@@ -48,7 +48,12 @@
       &lt;/ul&gt;
     &lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;#step-4-reboot-some-checks-and-system-updates&#34;&gt;Step 4: Reboot, some checks, and system updates&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;#step-5-install-timeshift-for-btrfs-snapshots&#34;&gt;Step 5: Install Timeshift for BTRFS snapshots&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-5-snapshot-tools&#34;&gt;Step 5: Snapshot tools&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#install-and-configure-timeshift&#34;&gt;Install and configure Timeshift&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#verify-snapshots&#34;&gt;Verify snapshots&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;#step-6-practice-recovery-and-system-rollback&#34;&gt;Step 6: Practice recovery and system rollback&lt;/a&gt;
       &lt;ul&gt;
         &lt;li&gt;&lt;a href=&#34;#rollback-with-timeshift&#34;&gt;Rollback with Timeshift&lt;/a&gt;&lt;/li&gt;
@@ -466,14 +471,23 @@ If all goes well, you will see a passphrase prompt. Enter your LUKS passphrase, 
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;fwupdmgr&lt;/span&gt; update
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Reboot once more:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;reboot&lt;/span&gt; now
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;step-5-install-timeshift-for-btrfs-snapshots&#34;&gt;Step 5: Install Timeshift for BTRFS snapshots&lt;/h2&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;step-5-snapshot-tools&#34;&gt;Step 5: Snapshot tools&lt;/h2&gt;
+&lt;p&gt;With BTRFS set up with &lt;code&gt;@&lt;/code&gt; and &lt;code&gt;@home&lt;/code&gt; subvolumes, you can now use various snapshot and backup tools:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/linuxmint/timeshift&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Timeshift&lt;/a&gt;:&lt;/strong&gt; A popular GUI tool for system snapshots. Note that Timeshift &lt;strong&gt;requires&lt;/strong&gt; the &lt;code&gt;@&lt;/code&gt; and &lt;code&gt;@home&lt;/code&gt; subvolume naming convention we set up in this guide.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/Antynea/grub-btrfs&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;grub-btrfs&lt;/a&gt;:&lt;/strong&gt; Automatically adds GRUB menu entries for your snapshots, allowing you to boot directly into any snapshot.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/digint/btrbk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Btrbk&lt;/a&gt;:&lt;/strong&gt; A powerful tool for snapshot management and backup with support for incremental send/receive to remote locations. Personally, I prefer Btrbk for its flexibility and send/receive capabilities.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/openSUSE/snapper&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Snapper&lt;/a&gt;:&lt;/strong&gt; Another snapshot management tool, popular in openSUSE.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We will now focus only on Timeshift as it is (in my opinion) the most user-friendly one.&lt;/p&gt;
+&lt;h3 id=&#34;install-and-configure-timeshift&#34;&gt;Install and configure Timeshift&lt;/h3&gt;
 &lt;p&gt;Install &lt;a href=&#34;https://github.com/linuxmint/timeshift&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Timeshift&lt;/a&gt; and configure it via the GUI:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;apt&lt;/span&gt; update
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;apt&lt;/span&gt; install &lt;span class=&#34;na&#34;&gt;-y&lt;/span&gt; timeshift
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Go to &lt;code&gt;Applications&lt;/code&gt; and search for &lt;code&gt;Timeshift&lt;/code&gt;.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Select &lt;strong&gt;BTRFS&lt;/strong&gt; as the &lt;strong&gt;Snapshot Type&lt;/strong&gt;; click &lt;strong&gt;Next&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;Select your BTRFS system partition as the &lt;strong&gt;Snapshot Location&lt;/strong&gt;; click &lt;strong&gt;Next&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Select your BTRFS system partition as the &lt;strong&gt;Snapshot Location&lt;/strong&gt;; click &lt;strong&gt;Next&lt;/strong&gt;. Ignore the warning &amp;ldquo;Selected device does not have BTRFS partition&amp;rdquo;-this is a bug with encrypted devices.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Select Snapshot Levels&lt;/strong&gt; (my recommendations):
 &lt;ul&gt;
 &lt;li&gt;Activate &lt;strong&gt;Monthly&lt;/strong&gt; and set to 2.&lt;/li&gt;
@@ -489,7 +503,9 @@ If all goes well, you will see a passphrase prompt. Enter your LUKS passphrase, 
 &lt;li&gt;Click &lt;strong&gt;Finish&lt;/strong&gt;.&lt;/li&gt;
 &lt;li&gt;Create a manual snapshot named &amp;ldquo;Clean Install&amp;rdquo; and exit Timeshift.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Timeshift will now manage snapshots automatically. Note that they are stored in subvolumes at the top-level root:&lt;/p&gt;
+&lt;p&gt;Timeshift will now manage snapshots automatically.&lt;/p&gt;
+&lt;h3 id=&#34;verify-snapshots&#34;&gt;Verify snapshots&lt;/h3&gt;
+&lt;p&gt;In a terminal, you can verify the snapshots:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;btrfs&lt;/span&gt; subvolume list /
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# ID 256 gen 160 top level 5 path @
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# ID 257 gen 157 top level 5 path @home
@@ -509,7 +525,7 @@ For both, first open the File Manager, go to &lt;strong&gt;Other Locations&lt;/s
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;apt&lt;/span&gt; install timeshift
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;Go to &lt;code&gt;Applications&lt;/code&gt; and open Timeshift.&lt;/li&gt;
-&lt;li&gt;Select &lt;strong&gt;BTRFS&lt;/strong&gt;, and choose your disk.&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;BTRFS&lt;/strong&gt;, and choose your disk. Ignore the warning &amp;ldquo;Selected device does not have BTRFS partition&amp;rdquo;-this is a bug with encrypted devices.&lt;/li&gt;
 &lt;li&gt;Select a snapshot and click &lt;strong&gt;Restore&lt;/strong&gt;.&lt;/li&gt;
 &lt;li&gt;Timeshift will restore the system subvolume. Reboot, and your system should be back to normal.&lt;/li&gt;
 &lt;/ol&gt;
@@ -545,6 +561,340 @@ For both, first open the File Manager, go to &lt;strong&gt;Other Locations&lt;/s
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Debian Trixie (13): installation guide with BTRFS, LUKS encryption and auto snapshots with Timeshift</title>
+      <link>https://mutschler.dev/linux/debian-btrfs-trixie/</link>
+      <pubDate>Mon, 08 Dec 2025 00:00:00 +0000</pubDate>
+      <guid>https://mutschler.dev/linux/debian-btrfs-trixie/</guid>
+      <description>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Please feel free to raise any comments or issues on the &lt;a href=&#34;https://github.com/wmutschl/mutschler.dev&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;website&amp;rsquo;s Github repository&lt;/a&gt;. Pull requests are very much appreciated.&lt;/strong&gt;&lt;/em&gt;
+&lt;a href=&#34;https://www.buymeacoffee.com/mutschler&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://cdn.buymeacoffee.com/buttons/v2/default-red.png&#34; alt=&#34;Buy Me A Coffee&#34; style=&#34;height: 60px !important;width: 217px !important;&#34; &gt;&lt;/a&gt;&lt;/p&gt;
+&lt;details class=&#34;toc-inpage d-print-none d-xl-none &#34; open&gt;
+  &lt;summary class=&#34;font-weight-bold&#34;&gt;Table of Contents&lt;/summary&gt;
+  &lt;nav id=&#34;TableOfContents&#34;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&#34;#overview&#34;&gt;Overview&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-0-general-remarks&#34;&gt;Step 0: General remarks&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-1-install-debian-with-the-default-installer-using-btrfs&#34;&gt;Step 1: Install Debian with the default installer using BTRFS&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-2-prepare-btrfs-subvolumes&#34;&gt;Step 2: Prepare BTRFS subvolumes&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#examine-the-current-setup&#34;&gt;Examine the current setup&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#mount-the-top-level-btrfs-root&#34;&gt;Mount the top-level BTRFS root&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#create-the--subvolume&#34;&gt;Create the &lt;code&gt;@&lt;/code&gt; subvolume&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#create-the-home-subvolume&#34;&gt;Create the &lt;code&gt;@home&lt;/code&gt; subvolume&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-3-update-fstab&#34;&gt;Step 3: Update fstab&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-4-chroot-and-update-initramfs-and-grub&#34;&gt;Step 4: Chroot and update initramfs and GRUB&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-5-reboot-and-verify&#34;&gt;Step 5: Reboot and verify&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-6-snapshot-tools&#34;&gt;Step 6: Snapshot tools&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#install-and-configure-timeshift&#34;&gt;Install and configure Timeshift&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#create-a-manual-snapshot&#34;&gt;Create a manual snapshot&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#verify-snapshots&#34;&gt;Verify snapshots&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#step-7-practice-recovery-and-system-rollback&#34;&gt;Step 7: Practice recovery and system rollback&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#rollback-with-timeshift-from-live-environment&#34;&gt;Rollback with Timeshift from live environment&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#rollback-manually&#34;&gt;Rollback manually&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+&lt;/details&gt;
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;In this guide, I will show you how to install Debian Trixie (13.2) with the following structure:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;An unencrypted EFI partition for the GRUB bootloader.&lt;/li&gt;
+&lt;li&gt;A LUKS-encrypted LVM partition containing the BTRFS root filesystem.
+&lt;ul&gt;
+&lt;li&gt;The BTRFS logical volume contains a subvolume &lt;code&gt;@&lt;/code&gt; for &lt;code&gt;/&lt;/code&gt; and a subvolume &lt;code&gt;@home&lt;/code&gt; for &lt;code&gt;/home&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;An encrypted swap partition.&lt;/li&gt;
+&lt;li&gt;Automatic system snapshots and easy rollback using:
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/linuxmint/timeshift&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Timeshift&lt;/a&gt; which will regularly take (almost instant) snapshots of the system.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This setup works similarly well on other distributions, for which I also have &lt;a href=&#34;../../linux&#34;&gt;installation guides (with optional RAID1)&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;step-0-general-remarks&#34;&gt;Step 0: General remarks&lt;/h2&gt;
+&lt;p&gt;This tutorial uses Debian Trixie (13.2) from the &lt;a href=&#34;https://www.debian.org/releases/trixie/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;official Debian website&lt;/a&gt;, installed via a USB flash device. Other versions of Debian might also work but may require additional steps (see my other &lt;a href=&#34;../../linux&#34;&gt;installation guides&lt;/a&gt;).&lt;/p&gt;
+&lt;div class=&#34;alert alert-warning&#34;&gt;
+  &lt;div&gt;
+    I strongly advise trying the following installation steps in a virtual machine first before performing them on real hardware! For instance, you can spin up a virtual machine using the awesome &lt;a href=&#34;https://github.com/quickemu-project/quickemu&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;quickemu&lt;/a&gt; project.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;step-1-install-debian-with-the-default-installer-using-btrfs&#34;&gt;Step 1: Install Debian with the default installer using BTRFS&lt;/h2&gt;
+&lt;p&gt;Boot from the Debian installation media and run the installer (graphical or text-based). Proceed through the standard steps:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Select language, location, and keyboard layout.&lt;/li&gt;
+&lt;li&gt;Configure network, hostname and domain name.&lt;/li&gt;
+&lt;li&gt;Set up users and passwords including a root password.&lt;/li&gt;
+&lt;li&gt;When you reach &lt;code&gt;Partition disks&lt;/code&gt;, select &lt;code&gt;Guided - use entire disk and set up encrypted LVM&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Select your target disk.&lt;/li&gt;
+&lt;li&gt;Choose the partitioning scheme: &lt;code&gt;All files in one partition&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Since we chose encryption, the installer then overwrites the disk &amp;ldquo;with random data to prevent meta-inform&amp;rdquo;. This might take a few minutes.&lt;/li&gt;
+&lt;li&gt;Enter your encryption passphrase and adjust the &lt;code&gt;Amount of volume group to use for guided partitioning&lt;/code&gt; to e.g. &lt;code&gt;max&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Important:&lt;/strong&gt; Before continuing with the the partitioning process, double click the root partition (&lt;code&gt;LVM VG debian-vg, LV root&lt;/code&gt;, look for &lt;code&gt;/&lt;/code&gt; in the right column); then double click &lt;code&gt;Use as&lt;/code&gt; and change the filesystem from &lt;code&gt;Ext4 journaling file system&lt;/code&gt; to &lt;code&gt;btrfs journaling file system&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Double click &lt;code&gt;Mount options&lt;/code&gt; and select &lt;code&gt;relatime&lt;/code&gt;, &lt;code&gt;compress&lt;/code&gt;, &lt;code&gt;ssd&lt;/code&gt;, and &lt;code&gt;discard&lt;/code&gt; (actually these should be the default options anyways, except for &lt;code&gt;compress&lt;/code&gt;)
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;ul&gt;
+&lt;li&gt;There is some debate about using &lt;a href=&#34;https://pagure.io/fedora-btrfs/project/issue/9&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;noatime&lt;/strong&gt; instead of &lt;strong&gt;relatime&lt;/strong&gt;&lt;/a&gt;. I haven&amp;rsquo;t seen a significant difference, so I use the default &lt;strong&gt;relatime&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Since Linux kernel 6.2, BTRFS &lt;a href=&#34;https://btrfs.readthedocs.io/en/latest/ch-mount-options.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;enables &lt;strong&gt;discard=async&lt;/strong&gt; by default&lt;/a&gt; on devices that support TRIM operations.&lt;/li&gt;
+&lt;li&gt;The &lt;strong&gt;compress&lt;/strong&gt; option will be set to &lt;strong&gt;zlib:3&lt;/strong&gt; by the installer. We will later change it to &lt;strong&gt;zstd:1&lt;/strong&gt; for SSDs or &lt;strong&gt;zstd:3&lt;/strong&gt; for HDDs.&lt;/li&gt;
+&lt;/ul&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;Select &lt;code&gt;Done setting up the partition&lt;/code&gt; and then &lt;code&gt;Finish partitioning and write changes to disk&lt;/code&gt;. Write the changes to disk and wait for the installation to finish.&lt;/li&gt;
+&lt;li&gt;Finish the installation (package selection, GRUB installation, etc.).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;p&gt;The Debian installer automatically creates a BTRFS subvolume called &lt;strong&gt;@rootfs&lt;/strong&gt; when you select BTRFS as the filesystem for &lt;strong&gt;/&lt;/strong&gt;. After installation, we will (1) use &lt;strong&gt;@&lt;/strong&gt; for &lt;strong&gt;/&lt;/strong&gt; instead, and (2) add a separate &lt;strong&gt;@home&lt;/strong&gt; subvolume for &lt;strong&gt;/&lt;/strong&gt;. This &lt;strong&gt;@&lt;/strong&gt; and &lt;strong&gt;@home&lt;/strong&gt; naming convention (sometimes called &lt;em&gt;Ubuntu-style&lt;/em&gt;) is required by tools like &lt;a href=&#34;https://github.com/linuxmint/timeshift&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Timeshift&lt;/a&gt;. Other distributions use different conventions (e.g., Fedora uses &lt;strong&gt;root&lt;/strong&gt; and &lt;strong&gt;home&lt;/strong&gt; without the &lt;strong&gt;@&lt;/strong&gt; prefix).&lt;/p&gt;
+&lt;p&gt;Having separate subvolumes for &lt;code&gt;/&lt;/code&gt; and &lt;code&gt;/home&lt;/code&gt; enables easier system rollback—you can restore system files without affecting user data. Additionally, keeping both subvolumes on a single BTRFS partition avoids the common problem of running out of space on a fixed-size root partition while the home partition has plenty of free space. These features are some of the &lt;a href=&#34;https://fedoraproject.org/wiki/Changes/BtrfsByDefault&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;reasons Fedora adopted BTRFS as the default filesystem&lt;/a&gt;.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;When the installation finishes, reboot into your new system.&lt;/p&gt;
+&lt;h2 id=&#34;step-2-prepare-btrfs-subvolumes&#34;&gt;Step 2: Prepare BTRFS subvolumes&lt;/h2&gt;
+&lt;p&gt;After booting into your new Debian system, open a terminal and become root:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;su&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;-
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;examine-the-current-setup&#34;&gt;Examine the current setup&lt;/h3&gt;
+&lt;p&gt;First, let&amp;rsquo;s see the current partition layout:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;lsblk&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# NAME                    MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINTS
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# sr0                      11:0    1   3.8G  0 rom
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# sr1                      11:1    1  1024M  0 rom
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# vda                     254:0    0    16G  0 disk
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# ├─vda1                  254:1    0   869M  0 part  /boot/efi
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# ├─vda2                  254:2    0   870M  0 part  /boot
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# └─vda3                  254:3    0  14.3G  0 part
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;#   └─vda3_crypt          252:0    0  14.3G  0 crypt
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;#     ├─debian--vg-root   252:1    0  13.5G  0 lvm   /
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;#     └─debian--vg-swap_1 252:2    0   804M  0 lvm   [SWAP]
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Check the current BTRFS subvolumes:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;btrfs&lt;/span&gt; subvolume list /
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# ID 256 gen 63 top level 5 path @rootfs
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The installer created a subvolume called &lt;code&gt;@rootfs&lt;/code&gt;. We&amp;rsquo;ll create &lt;code&gt;@&lt;/code&gt; as a snapshot of this and add &lt;code&gt;@home&lt;/code&gt; for &lt;code&gt;/home&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;mount-the-top-level-btrfs-root&#34;&gt;Mount the top-level BTRFS root&lt;/h3&gt;
+&lt;p&gt;Mount the top-level BTRFS volume (subvolid=5) to &lt;code&gt;/mnt&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;mount&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;-o&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;subvolid&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; /dev/mapper/debian--vg-root /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;ls&lt;/span&gt; /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# @rootfs
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;strong&gt;debian&amp;ndash;vg-root:&lt;/strong&gt; Sometimes (e.g. in VMs) you might see the volume group name as &lt;strong&gt;debian&amp;ndash;13&amp;ndash;vg-root&lt;/strong&gt; instead of &lt;strong&gt;debian&amp;ndash;vg-root&lt;/strong&gt;. Please adjust the commands below accordingly!
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;create-the--subvolume&#34;&gt;Create the &lt;code&gt;@&lt;/code&gt; subvolume&lt;/h3&gt;
+&lt;p&gt;Create a snapshot of &lt;code&gt;@rootfs&lt;/code&gt; called &lt;code&gt;@&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;btrfs&lt;/span&gt; subvolume snapshot /mnt/@rootfs /mnt/@
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# Create a snapshot of &amp;#39;/mnt/@rootfs&amp;#39; in &amp;#39;/mnt/@&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;create-the-home-subvolume&#34;&gt;Create the &lt;code&gt;@home&lt;/code&gt; subvolume&lt;/h3&gt;
+&lt;p&gt;Create the &lt;code&gt;@home&lt;/code&gt; subvolume and move the home directory contents from the &lt;code&gt;@&lt;/code&gt; subvolume (&lt;strong&gt;not&lt;/strong&gt; the &lt;code&gt;@rootfs&lt;/code&gt;):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;btrfs&lt;/span&gt; subvolume create /mnt/@home
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# Create subvolume &amp;#39;/mnt/@home&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;mv&lt;/span&gt; /mnt/@/home/* /mnt/@home/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Verify the subvolumes:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;ls&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;-a&lt;/span&gt; /mnt/@/home
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# . ..
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;ls&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;-a&lt;/span&gt; /mnt/@home
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# . .. wmutschl
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;btrfs&lt;/span&gt; subvolume list /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# ID 256 gen 68 top level 5 path @rootfs
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# ID 257 gen 68 top level 5 path @
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# ID 258 gen 68 top level 5 path @home
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;step-3-update-fstab&#34;&gt;Step 3: Update fstab&lt;/h2&gt;
+&lt;p&gt;Edit the fstab in the new &lt;code&gt;@&lt;/code&gt; subvolume to mount the correct subvolumes:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;nano&lt;/span&gt; /mnt/@/etc/fstab
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Find the line that mounts &lt;code&gt;/&lt;/code&gt; and change it:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Before:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/dev/mapper/debian--vg-root /               btrfs   relatime,compress,ssd,discard,subvol=@rootfs 0       0
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;After:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/dev/mapper/debian--vg-root /               btrfs   relatime,compress,ssd,discard,subvol=@ 0       0
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Add a new line for &lt;code&gt;/home&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/dev/mapper/debian--vg-root /home           btrfs   relatime,compress,ssd,discard,subvol=@home 0       0
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Your fstab should look similar to this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;cat&lt;/span&gt; /mnt/@/etc/fstab
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# /dev/mapper/debian--vg-root /               btrfs   relatime,compress,ssd,discard,subvol=@ 0       0
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# /dev/mapper/debian--vg-root /home           btrfs   relatime,compress,ssd,discard,subvol=@home 0       0
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# # /boot was on /dev/vda2 during installation
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# UUID=2647b326-dd45-4f11-8823-2724d7a02cb8 /boot           ext4    defaults        0       2
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# # /boot/efi was on /dev/vda1 during installation
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# UUID=A03F-21A1  /boot/efi       vfat    umask=0077      0       1
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# /dev/mapper/debian--vg-swap_1 none            swap    sw              0       0
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# /dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# /dev/sr1        /media/cdrom1   udf,iso9660 user,noauto     0       0
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;p&gt;&lt;strong&gt;Compression:&lt;/strong&gt; Optionally, change the &lt;code&gt;compress&lt;/code&gt; option to &lt;code&gt;zstd:1&lt;/code&gt; for SSDs or &lt;code&gt;zstd:3&lt;/code&gt; for HDDs, it is set to &lt;code&gt;zlib:3&lt;/code&gt; if not otherwise specified.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sed -i &amp;#39;s/compress/compress=zstd:1/&amp;#39; /mnt/@/etc/fstab
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;step-4-chroot-and-update-initramfs-and-grub&#34;&gt;Step 4: Chroot and update initramfs and GRUB&lt;/h2&gt;
+&lt;p&gt;Unmount &lt;code&gt;/mnt&lt;/code&gt; and remount the &lt;code&gt;@&lt;/code&gt; subvolume:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;umount&lt;/span&gt; /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;mount&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;-o&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;subvol&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;@ /dev/mapper/debian--vg-root /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Create a chroot environment:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt; /dev /dev/pts /proc /sys /run&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;do&lt;/span&gt; mount &lt;span class=&#34;na&#34;&gt;-B&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt; /mnt&lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;chroot&lt;/span&gt; /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Mount all filesystems and verify:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;mount&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;-av&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# /                        : ignored
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# /home                    : successfully mounted
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# /boot                    : successfully mounted
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# /boot/efi                : successfully mounted
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# none                     : ignored
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# /media/cdrom0            : ignored
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# /media/cdrom1            : ignored
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Update the initramfs and GRUB to apply the changes:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;update-initramfs&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;-c&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;-k&lt;/span&gt; all
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;update-grub&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    &lt;strong&gt;Note on GRUB:&lt;/strong&gt; There is nothing to change in &lt;code&gt;/etc/default/grub&lt;/code&gt;. Debian either relies on &lt;code&gt;/etc/fstab&lt;/code&gt; for the subvolume setting or uses prober code to figure out the subvolume. Since we are in the chroot, it works without any changes.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Exit the chroot:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;exit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;step-5-reboot-and-verify&#34;&gt;Step 5: Reboot and verify&lt;/h2&gt;
+&lt;p&gt;Reboot your system:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;reboot&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After logging in, become root and verify the setup:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;su&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;-
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;mount&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;-av&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# /                        : ignored
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# /home                    : already mounted
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# /boot                    : already mounted
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# /boot/efi                : already mounted
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# none                     : ignored
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# /media/cdrom0            : ignored
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# /media/cdrom1            : ignored
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Verify the BTRFS mount options:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;mount&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;-v&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;grep&lt;/span&gt; btrfs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# /dev/mapper/debian--vg-root on / type btrfs (rw,relatime,compress=zstd:1,ssd,discard,space_cache=v2,subvolid=257,subvol=/@)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# /dev/mapper/debian--vg-root on /home type btrfs (rw,relatime,compress=zstd:1,ssd,discard,space_cache=v2,subvolid=258,subvol=/@home)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;btrfs&lt;/span&gt; subvolume list /
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# ID 256 gen 96 top level 5 path @rootfs
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# ID 257 gen 101 top level 5 path @
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# ID 258 gen 101 top level 5 path @home
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Enable &lt;code&gt;fstrim.timer&lt;/code&gt; for SSD/NVMe:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;systemctl&lt;/span&gt; enable fstrim.timer
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Update the system:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;apt&lt;/span&gt; update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;apt&lt;/span&gt; upgrade
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;apt&lt;/span&gt; dist-upgrade
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;apt&lt;/span&gt; autoremove &lt;span class=&#34;na&#34;&gt;--purge&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;apt&lt;/span&gt; autoclean
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Optionally, delete the old &lt;code&gt;@rootfs&lt;/code&gt; subvolume (after confirming everything works):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;mount&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;-o&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;subvolid&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; /dev/mapper/debian--vg-root /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;btrfs&lt;/span&gt; subvolume delete /mnt/@rootfs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# Delete subvolume 256 (no-commit): &amp;#39;/mnt/@rootfs&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;umount&lt;/span&gt; /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;btrfs&lt;/span&gt; subvolume list /
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# ID 257 gen 101 top level 5 path @
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# ID 258 gen 101 top level 5 path @home
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;step-6-snapshot-tools&#34;&gt;Step 6: Snapshot tools&lt;/h2&gt;
+&lt;p&gt;With BTRFS set up with &lt;code&gt;@&lt;/code&gt; and &lt;code&gt;@home&lt;/code&gt; subvolumes, you can now use various snapshot and backup tools:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/linuxmint/timeshift&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Timeshift&lt;/a&gt;:&lt;/strong&gt; A popular GUI tool for system snapshots. Note that Timeshift &lt;strong&gt;requires&lt;/strong&gt; the &lt;code&gt;@&lt;/code&gt; and &lt;code&gt;@home&lt;/code&gt; subvolume naming convention we set up in this guide.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/Antynea/grub-btrfs&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;grub-btrfs&lt;/a&gt;:&lt;/strong&gt; Automatically adds GRUB menu entries for your snapshots, allowing you to boot directly into any snapshot.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/digint/btrbk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Btrbk&lt;/a&gt;:&lt;/strong&gt; A powerful tool for snapshot management and backup with support for incremental send/receive to remote locations. Personally, I prefer Btrbk for its flexibility and send/receive capabilities.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/openSUSE/snapper&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Snapper&lt;/a&gt;:&lt;/strong&gt; Another snapshot management tool, popular in openSUSE.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We will now focus only on Timeshift as it is (in my opinion) the most user-friendly one.&lt;/p&gt;
+&lt;h3 id=&#34;install-and-configure-timeshift&#34;&gt;Install and configure Timeshift&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;apt&lt;/span&gt; install &lt;span class=&#34;na&#34;&gt;-y&lt;/span&gt; timeshift
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Open Timeshift from Applications menu and configure it:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Select &lt;strong&gt;BTRFS&lt;/strong&gt; as the &lt;strong&gt;Snapshot Type&lt;/strong&gt;; click &lt;strong&gt;Next&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Select your BTRFS system partition as the &lt;strong&gt;Snapshot Location&lt;/strong&gt;; click &lt;strong&gt;Next&lt;/strong&gt;. Ignore the warning &amp;ldquo;Selected device does not have BTRFS partition&amp;rdquo;-this is a bug with encrypted devices.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Select Snapshot Levels&lt;/strong&gt; (my recommendations):
+&lt;ul&gt;
+&lt;li&gt;Activate &lt;strong&gt;Monthly&lt;/strong&gt; and set to 2.&lt;/li&gt;
+&lt;li&gt;Activate &lt;strong&gt;Weekly&lt;/strong&gt; and set to 3.&lt;/li&gt;
+&lt;li&gt;Activate &lt;strong&gt;Daily&lt;/strong&gt; and set to 5.&lt;/li&gt;
+&lt;li&gt;Deactivate &lt;strong&gt;Hourly&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Activate &lt;strong&gt;Boot&lt;/strong&gt; and set to 5.&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Next&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Include the &lt;code&gt;@home&lt;/code&gt; subvolume.&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;Finish&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;create-a-manual-snapshot&#34;&gt;Create a manual snapshot&lt;/h3&gt;
+&lt;p&gt;Simply click the &amp;ldquo;Create&amp;rdquo; button and name the label to &amp;ldquo;Clean Install&amp;rdquo; (or whatever you want).&lt;/p&gt;
+&lt;h3 id=&#34;verify-snapshots&#34;&gt;Verify snapshots&lt;/h3&gt;
+&lt;p&gt;In a terminal with root privileges, you can verify the snapshots:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;btrfs&lt;/span&gt; subvolume list /
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# ID 257 gen 300 top level 5 path @
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# ID 258 gen 300 top level 5 path @home
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# ID 259 gen 295 top level 5 path timeshift-btrfs/snapshots/2025-12-10_10-00-00/@
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# ID 260 gen 295 top level 5 path timeshift-btrfs/snapshots/2025-12-10_10-00-00/@home
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;step-7-practice-recovery-and-system-rollback&#34;&gt;Step 7: Practice recovery and system rollback&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s simulate a system failure to practice recovery.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Delete the &lt;code&gt;/etc&lt;/code&gt; folder and reboot (simulating disaster):&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;rm&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;-rf&lt;/span&gt; /etc
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;reboot&lt;/span&gt; now
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you try to reboot, the system will fail.&lt;/p&gt;
+&lt;h3 id=&#34;rollback-with-timeshift-from-live-environment&#34;&gt;Rollback with Timeshift from live environment&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Boot from the Debian live installer.&lt;/li&gt;
+&lt;li&gt;Open &lt;code&gt;Files&lt;/code&gt; and click on the encrypted partition. Enter your passphrase which will mount the partition even though there might be an error message.&lt;/li&gt;
+&lt;li&gt;Open a terminal and check whether the partition is unlocked:
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;-i&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;ls&lt;/span&gt; /dev/mapper/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# control   debian--vg-root   debian--vg-swap_1   luks-[UUID-OF-ENCRYPTED-PARTITION]
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;Install Timeshift:
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;apt&lt;/span&gt; update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;apt&lt;/span&gt; install &lt;span class=&#34;na&#34;&gt;-y&lt;/span&gt; timeshift
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;Open Timeshift from Applications menu and select &lt;strong&gt;BTRFS&lt;/strong&gt;, and choose your disk. Ignore the warning &amp;ldquo;Selected device does not have BTRFS partition&amp;rdquo;-this is a bug with encrypted devices.&lt;/li&gt;
+&lt;li&gt;Select a snapshot and click &lt;strong&gt;Restore&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Reboot.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;rollback-manually&#34;&gt;Rollback manually&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Boot from the Debian live USB, unlock, and activate LVM in the terminal:
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;-i&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;cryptsetup&lt;/span&gt; luksOpen /dev/vda3 vda3_crypt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;mount&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;-o&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;subvolid&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; /dev/mapper/debian--vg-root /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;ls&lt;/span&gt; /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# @ @home timeshift-btrfs
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;Move the broken subvolume:
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;mv&lt;/span&gt; /mnt/@ /mnt/@.broken
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;Find a valid snapshot:
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;ls&lt;/span&gt; /mnt/timeshift-btrfs/snapshots
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;Create a snapshot of the good subvolume as the new &lt;code&gt;@&lt;/code&gt;:
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;btrfs&lt;/span&gt; subvolume snapshot /mnt/timeshift-btrfs/snapshots/&lt;span class=&#34;m&#34;&gt;2025&lt;/span&gt;-&lt;span class=&#34;m&#34;&gt;12&lt;/span&gt;-10_10-&lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;-&lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;/@ /mnt/@
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;Reboot.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Once back in your system, delete the broken subvolume:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fish&#34; data-lang=&#34;fish&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;mount&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;-o&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;subvolid&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; /dev/mapper/debian--vg-root /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;btrfs&lt;/span&gt; subvolume delete /mnt/@.broken
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;umount&lt;/span&gt; /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;FINISHED! CONGRATULATIONS!&lt;/strong&gt;&lt;/p&gt;
 </description>
     </item>
     

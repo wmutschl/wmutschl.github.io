@@ -1,0 +1,1469 @@
+<!DOCTYPE html><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.6.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Willi Mutschler" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="In this guide, I will walk you through the installation procedure to set up a Debian Trixie (13.2) system with a LUKS-encrypted LVM partition formatted with BTRFS, containing subvolumes `@` for `/` and `@home` for `/home`. I will show you how to optimize BTRFS mount options, and configure Timeshift to automatically take system snapshots." />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://mutschler.dev/linux/debian-btrfs-trixie/" />
+
+  
+  
+  
+    <meta name="theme-color" content="#bbdefb" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.c7b8d9abd591ba2253ea42747e3ac3f5.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css" integrity="sha512-W0xM4mr6dEP9nREo7Z9z+9X70wytKvMGeDsj7ps2+xg5QPrEBXC8tAW1IFnzjR6eoJ90JmCnFzerQJTLzIEHjA==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.8916ecd0e6b91586be6f7b434c75fb00.css" />
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" disabled>
+    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" >
+  
+
+  
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+  
+
+  
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  
+  <link rel="icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://mutschler.dev/linux/debian-btrfs-trixie/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary" />
+  
+  <meta property="og:site_name" content="mutschler.dev" />
+  <meta property="og:url" content="https://mutschler.dev/linux/debian-btrfs-trixie/" />
+  <meta property="og:title" content="Debian Trixie (13): installation guide with BTRFS, LUKS encryption and auto snapshots with Timeshift | mutschler.dev" />
+  <meta property="og:description" content="In this guide, I will walk you through the installation procedure to set up a Debian Trixie (13.2) system with a LUKS-encrypted LVM partition formatted with BTRFS, containing subvolumes `@` for `/` and `@home` for `/home`. I will show you how to optimize BTRFS mount options, and configure Timeshift to automatically take system snapshots." /><meta property="og:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" />
+    <meta property="twitter:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2025-12-08T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2025-12-10T21:15:41&#43;01:00">
+  
+
+  
+
+
+
+  
+
+  
+
+
+  <title>Debian Trixie (13): installation guide with BTRFS, LUKS encryption and auto snapshots with Timeshift | mutschler.dev</title>
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper  dark " data-wc-page-id="7662b753bb98fabf83506e2f329e3527" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.22ad66a4f96b4e9da14bbb023ea57684.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="header--fixed">
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/apple/"><span>Apple</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link  active" href="/linux/"><span>Linux</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/stuff/"><span>Stuff</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://buymeacoffee.com/mutschler" data-toggle="tooltip" data-placement="bottom" title="Buy me a coffee" target="_blank" rel="noopener" aria-label="Buy me a coffee">
+                <i class="fas fa-coffee" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="mailto:willi@mutschler.dev" data-toggle="tooltip" data-placement="bottom" title="Write me an email"  aria-label="Write me an email">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://github.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on GitHub" target="_blank" rel="noopener" aria-label="Follow me on GitHub">
+                <i class="fab fa-github" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://gitlab.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on Gitlab" target="_blank" rel="noopener" aria-label="Follow me on Gitlab">
+                <i class="fab fa-gitlab" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://www.youtube.com/c/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on YouTube" target="_blank" rel="noopener" aria-label="Follow me on YouTube">
+                <i class="fab fa-youtube" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        
+
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    
+
+
+
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      <form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-md-3 w-100" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <div class="d-flex">
+      <span class="d-md-none pl-1 flex-grow-1 text-left overflow-hidden">
+        
+        
+          Linux
+        
+      </span>
+      <span><i class="fas fa-chevron-down"></i></span>
+    </div>
+  </button>
+
+  
+  <button class="form-control sidebar-search js-search d-none d-md-flex">
+    <i class="fas fa-search pr-2"></i>
+    <span class="sidebar-search-text">Search...</span>
+    <span class="sidebar-search-shortcut">/</span>
+  </button>
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+  
+  
+  
+  
+  
+
+  
+  
+    
+
+    
+      
+
+      
+
+
+  
+    
+    
+    
+    
+      
+    
+    
+
+    
+      <ul class="nav docs-sidenav">
+        <li class=""><a href="/linux/">Linux</a></li>
+    
+      
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-24-04/">Pop!_OS 24.04: installation guide with BTRFS, LUKS encryption and auto snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/debian-post-install/">Debian Trixie (13): Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class="active"><a href="/linux/debian-btrfs-trixie/">Debian Trixie (13): installation guide with BTRFS, LUKS encryption and auto snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/elementary-os-post-install/">elementary OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/elementary-os-6-1/">elementary OS 6.1 Jólnir: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-22-04/">Pop!_OS 22.04: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-post-install/">Pop!_OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-post-install/">Fedora Workstation: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-btrfs-35/">Fedora Workstation 35 with automatic btrfs snapshots and backups using BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-10/">DRAFT: Pop!_OS 21.10: installation guide with btrfs-LVM-luks and auto snapshots with BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-04/">Pop!_OS 21.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/raspi-post-install/">Ubuntu Server Raspberry Pi: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/raspi-btrfs/">Ubuntu Server 20.10 on Raspberry Pi 4: installation guide with USB Boot (no SD card) and full disk encryption (excluding /boot) using btrfs-inside-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-btrfs-33/">Fedora Workstation 33: installation guide with btrfs-luks full disk encryption (optionally including /boot) and auto snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/btrfs/">Why I (still) like btrfs</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-btrfs-raid1-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks-RAID1 full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-btrfs-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-post-install/">Ubuntu Desktop: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-raid1-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks-RAID1 and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/timeshift/">Timeshift</a></li>
+
+      
+    
+
+    
+      </ul>
+    
+
+  
+</nav>
+
+    </div>
+
+    
+    
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+      </ul>
+
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#step-0-general-remarks">Step 0: General remarks</a></li>
+    <li><a href="#step-1-install-debian-with-the-default-installer-using-btrfs">Step 1: Install Debian with the default installer using BTRFS</a></li>
+    <li><a href="#step-2-prepare-btrfs-subvolumes">Step 2: Prepare BTRFS subvolumes</a>
+      <ul>
+        <li><a href="#examine-the-current-setup">Examine the current setup</a></li>
+        <li><a href="#mount-the-top-level-btrfs-root">Mount the top-level BTRFS root</a></li>
+        <li><a href="#create-the--subvolume">Create the <code>@</code> subvolume</a></li>
+        <li><a href="#create-the-home-subvolume">Create the <code>@home</code> subvolume</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-3-update-fstab">Step 3: Update fstab</a></li>
+    <li><a href="#step-4-chroot-and-update-initramfs-and-grub">Step 4: Chroot and update initramfs and GRUB</a></li>
+    <li><a href="#step-5-reboot-and-verify">Step 5: Reboot and verify</a></li>
+    <li><a href="#step-6-snapshot-tools">Step 6: Snapshot tools</a>
+      <ul>
+        <li><a href="#install-and-configure-timeshift">Install and configure Timeshift</a></li>
+        <li><a href="#create-a-manual-snapshot">Create a manual snapshot</a></li>
+        <li><a href="#verify-snapshots">Verify snapshots</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-7-practice-recovery-and-system-rollback">Step 7: Practice recovery and system rollback</a>
+      <ul>
+        <li><a href="#rollback-with-timeshift-from-live-environment">Rollback with Timeshift from live environment</a></li>
+        <li><a href="#rollback-manually">Rollback manually</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <article class="article">
+
+        <div class="docs-article-container">
+          
+        </div>
+
+        
+        
+
+        <div class="docs-article-container">
+          
+          <h1>Debian Trixie (13): installation guide with BTRFS, LUKS encryption and auto snapshots with Timeshift</h1>
+
+          <div class="article-style">
+
+            
+            
+
+            <p><em><strong>Please feel free to raise any comments or issues on the <a href="https://github.com/wmutschl/mutschler.dev" target="_blank" rel="noopener">website&rsquo;s Github repository</a>. Pull requests are very much appreciated.</strong></em>
+<a href="https://www.buymeacoffee.com/mutschler" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a></p>
+<details class="toc-inpage d-print-none d-xl-none " open>
+  <summary class="font-weight-bold">Table of Contents</summary>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#step-0-general-remarks">Step 0: General remarks</a></li>
+    <li><a href="#step-1-install-debian-with-the-default-installer-using-btrfs">Step 1: Install Debian with the default installer using BTRFS</a></li>
+    <li><a href="#step-2-prepare-btrfs-subvolumes">Step 2: Prepare BTRFS subvolumes</a>
+      <ul>
+        <li><a href="#examine-the-current-setup">Examine the current setup</a></li>
+        <li><a href="#mount-the-top-level-btrfs-root">Mount the top-level BTRFS root</a></li>
+        <li><a href="#create-the--subvolume">Create the <code>@</code> subvolume</a></li>
+        <li><a href="#create-the-home-subvolume">Create the <code>@home</code> subvolume</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-3-update-fstab">Step 3: Update fstab</a></li>
+    <li><a href="#step-4-chroot-and-update-initramfs-and-grub">Step 4: Chroot and update initramfs and GRUB</a></li>
+    <li><a href="#step-5-reboot-and-verify">Step 5: Reboot and verify</a></li>
+    <li><a href="#step-6-snapshot-tools">Step 6: Snapshot tools</a>
+      <ul>
+        <li><a href="#install-and-configure-timeshift">Install and configure Timeshift</a></li>
+        <li><a href="#create-a-manual-snapshot">Create a manual snapshot</a></li>
+        <li><a href="#verify-snapshots">Verify snapshots</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-7-practice-recovery-and-system-rollback">Step 7: Practice recovery and system rollback</a>
+      <ul>
+        <li><a href="#rollback-with-timeshift-from-live-environment">Rollback with Timeshift from live environment</a></li>
+        <li><a href="#rollback-manually">Rollback manually</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</details>
+
+<h2 id="overview">Overview</h2>
+<p>In this guide, I will show you how to install Debian Trixie (13.2) with the following structure:</p>
+<ul>
+<li>An unencrypted EFI partition for the GRUB bootloader.</li>
+<li>A LUKS-encrypted LVM partition containing the BTRFS root filesystem.
+<ul>
+<li>The BTRFS logical volume contains a subvolume <code>@</code> for <code>/</code> and a subvolume <code>@home</code> for <code>/home</code>.</li>
+</ul>
+</li>
+<li>An encrypted swap partition.</li>
+<li>Automatic system snapshots and easy rollback using:
+<ul>
+<li><a href="https://github.com/linuxmint/timeshift" target="_blank" rel="noopener">Timeshift</a> which will regularly take (almost instant) snapshots of the system.</li>
+</ul>
+</li>
+</ul>
+<p>This setup works similarly well on other distributions, for which I also have <a href="../../linux">installation guides (with optional RAID1)</a>.</p>
+<h2 id="step-0-general-remarks">Step 0: General remarks</h2>
+<p>This tutorial uses Debian Trixie (13.2) from the <a href="https://www.debian.org/releases/trixie/" target="_blank" rel="noopener">official Debian website</a>, installed via a USB flash device. Other versions of Debian might also work but may require additional steps (see my other <a href="../../linux">installation guides</a>).</p>
+<div class="alert alert-warning">
+  <div>
+    I strongly advise trying the following installation steps in a virtual machine first before performing them on real hardware! For instance, you can spin up a virtual machine using the awesome <a href="https://github.com/quickemu-project/quickemu" target="_blank" rel="noopener">quickemu</a> project.
+  </div>
+</div>
+
+<h2 id="step-1-install-debian-with-the-default-installer-using-btrfs">Step 1: Install Debian with the default installer using BTRFS</h2>
+<p>Boot from the Debian installation media and run the installer (graphical or text-based). Proceed through the standard steps:</p>
+<ol>
+<li>Select language, location, and keyboard layout.</li>
+<li>Configure network, hostname and domain name.</li>
+<li>Set up users and passwords including a root password.</li>
+<li>When you reach <code>Partition disks</code>, select <code>Guided - use entire disk and set up encrypted LVM</code>.</li>
+<li>Select your target disk.</li>
+<li>Choose the partitioning scheme: <code>All files in one partition</code>.</li>
+<li>Since we chose encryption, the installer then overwrites the disk &ldquo;with random data to prevent meta-inform&rdquo;. This might take a few minutes.</li>
+<li>Enter your encryption passphrase and adjust the <code>Amount of volume group to use for guided partitioning</code> to e.g. <code>max</code>.</li>
+<li><strong>Important:</strong> Before continuing with the the partitioning process, double click the root partition (<code>LVM VG debian-vg, LV root</code>, look for <code>/</code> in the right column); then double click <code>Use as</code> and change the filesystem from <code>Ext4 journaling file system</code> to <code>btrfs journaling file system</code>.</li>
+<li>Double click <code>Mount options</code> and select <code>relatime</code>, <code>compress</code>, <code>ssd</code>, and <code>discard</code> (actually these should be the default options anyways, except for <code>compress</code>)
+<div class="alert alert-note">
+  <div>
+    <ul>
+<li>There is some debate about using <a href="https://pagure.io/fedora-btrfs/project/issue/9" target="_blank" rel="noopener"><strong>noatime</strong> instead of <strong>relatime</strong></a>. I haven&rsquo;t seen a significant difference, so I use the default <strong>relatime</strong>.</li>
+<li>Since Linux kernel 6.2, BTRFS <a href="https://btrfs.readthedocs.io/en/latest/ch-mount-options.html" target="_blank" rel="noopener">enables <strong>discard=async</strong> by default</a> on devices that support TRIM operations.</li>
+<li>The <strong>compress</strong> option will be set to <strong>zlib:3</strong> by the installer. We will later change it to <strong>zstd:1</strong> for SSDs or <strong>zstd:3</strong> for HDDs.</li>
+</ul>
+
+  </div>
+</div>
+</li>
+<li>Select <code>Done setting up the partition</code> and then <code>Finish partitioning and write changes to disk</code>. Write the changes to disk and wait for the installation to finish.</li>
+<li>Finish the installation (package selection, GRUB installation, etc.).</li>
+</ol>
+<div class="alert alert-note">
+  <div>
+    <p>The Debian installer automatically creates a BTRFS subvolume called <strong>@rootfs</strong> when you select BTRFS as the filesystem for <strong>/</strong>. After installation, we will (1) use <strong>@</strong> for <strong>/</strong> instead, and (2) add a separate <strong>@home</strong> subvolume for <strong>/</strong>. This <strong>@</strong> and <strong>@home</strong> naming convention (sometimes called <em>Ubuntu-style</em>) is required by tools like <a href="https://github.com/linuxmint/timeshift" target="_blank" rel="noopener">Timeshift</a>. Other distributions use different conventions (e.g., Fedora uses <strong>root</strong> and <strong>home</strong> without the <strong>@</strong> prefix).</p>
+<p>Having separate subvolumes for <code>/</code> and <code>/home</code> enables easier system rollback—you can restore system files without affecting user data. Additionally, keeping both subvolumes on a single BTRFS partition avoids the common problem of running out of space on a fixed-size root partition while the home partition has plenty of free space. These features are some of the <a href="https://fedoraproject.org/wiki/Changes/BtrfsByDefault" target="_blank" rel="noopener">reasons Fedora adopted BTRFS as the default filesystem</a>.</p>
+
+  </div>
+</div>
+
+<p>When the installation finishes, reboot into your new system.</p>
+<h2 id="step-2-prepare-btrfs-subvolumes">Step 2: Prepare BTRFS subvolumes</h2>
+<p>After booting into your new Debian system, open a terminal and become root:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">su</span> <span class="na">-
+</span></span></span></code></pre></div><h3 id="examine-the-current-setup">Examine the current setup</h3>
+<p>First, let&rsquo;s see the current partition layout:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">lsblk</span>
+</span></span><span class="line"><span class="cl"><span class="c"># NAME                    MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINTS
+</span></span></span><span class="line"><span class="cl"><span class="c"># sr0                      11:0    1   3.8G  0 rom
+</span></span></span><span class="line"><span class="cl"><span class="c"># sr1                      11:1    1  1024M  0 rom
+</span></span></span><span class="line"><span class="cl"><span class="c"># vda                     254:0    0    16G  0 disk
+</span></span></span><span class="line"><span class="cl"><span class="c"># ├─vda1                  254:1    0   869M  0 part  /boot/efi
+</span></span></span><span class="line"><span class="cl"><span class="c"># ├─vda2                  254:2    0   870M  0 part  /boot
+</span></span></span><span class="line"><span class="cl"><span class="c"># └─vda3                  254:3    0  14.3G  0 part
+</span></span></span><span class="line"><span class="cl"><span class="c">#   └─vda3_crypt          252:0    0  14.3G  0 crypt
+</span></span></span><span class="line"><span class="cl"><span class="c">#     ├─debian--vg-root   252:1    0  13.5G  0 lvm   /
+</span></span></span><span class="line"><span class="cl"><span class="c">#     └─debian--vg-swap_1 252:2    0   804M  0 lvm   [SWAP]
+</span></span></span></code></pre></div><p>Check the current BTRFS subvolumes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">btrfs</span> subvolume list /
+</span></span><span class="line"><span class="cl"><span class="c"># ID 256 gen 63 top level 5 path @rootfs
+</span></span></span></code></pre></div><p>The installer created a subvolume called <code>@rootfs</code>. We&rsquo;ll create <code>@</code> as a snapshot of this and add <code>@home</code> for <code>/home</code>.</p>
+<h3 id="mount-the-top-level-btrfs-root">Mount the top-level BTRFS root</h3>
+<p>Mount the top-level BTRFS volume (subvolid=5) to <code>/mnt</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">mount</span> <span class="na">-o</span> <span class="nv">subvolid</span><span class="o">=</span><span class="m">5</span> /dev/mapper/debian--vg-root /mnt
+</span></span><span class="line"><span class="cl"><span class="nf">ls</span> /mnt
+</span></span><span class="line"><span class="cl"><span class="c"># @rootfs
+</span></span></span></code></pre></div><div class="alert alert-note">
+  <div>
+    <strong>debian&ndash;vg-root:</strong> Sometimes (e.g. in VMs) you might see the volume group name as <strong>debian&ndash;13&ndash;vg-root</strong> instead of <strong>debian&ndash;vg-root</strong>. Please adjust the commands below accordingly!
+  </div>
+</div>
+
+<h3 id="create-the--subvolume">Create the <code>@</code> subvolume</h3>
+<p>Create a snapshot of <code>@rootfs</code> called <code>@</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">btrfs</span> subvolume snapshot /mnt/@rootfs /mnt/@
+</span></span><span class="line"><span class="cl"><span class="c"># Create a snapshot of &#39;/mnt/@rootfs&#39; in &#39;/mnt/@&#39;
+</span></span></span></code></pre></div><h3 id="create-the-home-subvolume">Create the <code>@home</code> subvolume</h3>
+<p>Create the <code>@home</code> subvolume and move the home directory contents from the <code>@</code> subvolume (<strong>not</strong> the <code>@rootfs</code>):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">btrfs</span> subvolume create /mnt/@home
+</span></span><span class="line"><span class="cl"><span class="c"># Create subvolume &#39;/mnt/@home&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">mv</span> /mnt/@/home/* /mnt/@home/
+</span></span></code></pre></div><p>Verify the subvolumes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">ls</span> <span class="na">-a</span> /mnt/@/home
+</span></span><span class="line"><span class="cl"><span class="c"># . ..
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">ls</span> <span class="na">-a</span> /mnt/@home
+</span></span><span class="line"><span class="cl"><span class="c"># . .. wmutschl
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">btrfs</span> subvolume list /mnt
+</span></span><span class="line"><span class="cl"><span class="c"># ID 256 gen 68 top level 5 path @rootfs
+</span></span></span><span class="line"><span class="cl"><span class="c"># ID 257 gen 68 top level 5 path @
+</span></span></span><span class="line"><span class="cl"><span class="c"># ID 258 gen 68 top level 5 path @home
+</span></span></span></code></pre></div><h2 id="step-3-update-fstab">Step 3: Update fstab</h2>
+<p>Edit the fstab in the new <code>@</code> subvolume to mount the correct subvolumes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">nano</span> /mnt/@/etc/fstab
+</span></span></code></pre></div><p>Find the line that mounts <code>/</code> and change it:</p>
+<p><strong>Before:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/dev/mapper/debian--vg-root /               btrfs   relatime,compress,ssd,discard,subvol=@rootfs 0       0
+</span></span></code></pre></div><p><strong>After:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/dev/mapper/debian--vg-root /               btrfs   relatime,compress,ssd,discard,subvol=@ 0       0
+</span></span></code></pre></div><p>Add a new line for <code>/home</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/dev/mapper/debian--vg-root /home           btrfs   relatime,compress,ssd,discard,subvol=@home 0       0
+</span></span></code></pre></div><p>Your fstab should look similar to this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">cat</span> /mnt/@/etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c"># /dev/mapper/debian--vg-root /               btrfs   relatime,compress,ssd,discard,subvol=@ 0       0
+</span></span></span><span class="line"><span class="cl"><span class="c"># /dev/mapper/debian--vg-root /home           btrfs   relatime,compress,ssd,discard,subvol=@home 0       0
+</span></span></span><span class="line"><span class="cl"><span class="c"># # /boot was on /dev/vda2 during installation
+</span></span></span><span class="line"><span class="cl"><span class="c"># UUID=2647b326-dd45-4f11-8823-2724d7a02cb8 /boot           ext4    defaults        0       2
+</span></span></span><span class="line"><span class="cl"><span class="c"># # /boot/efi was on /dev/vda1 during installation
+</span></span></span><span class="line"><span class="cl"><span class="c"># UUID=A03F-21A1  /boot/efi       vfat    umask=0077      0       1
+</span></span></span><span class="line"><span class="cl"><span class="c"># /dev/mapper/debian--vg-swap_1 none            swap    sw              0       0
+</span></span></span><span class="line"><span class="cl"><span class="c"># /dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0
+</span></span></span><span class="line"><span class="cl"><span class="c"># /dev/sr1        /media/cdrom1   udf,iso9660 user,noauto     0       0
+</span></span></span></code></pre></div><div class="alert alert-note">
+  <div>
+    <p><strong>Compression:</strong> Optionally, change the <code>compress</code> option to <code>zstd:1</code> for SSDs or <code>zstd:3</code> for HDDs, it is set to <code>zlib:3</code> if not otherwise specified.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sed -i &#39;s/compress/compress=zstd:1/&#39; /mnt/@/etc/fstab
+</span></span></code></pre></div>
+  </div>
+</div>
+
+<h2 id="step-4-chroot-and-update-initramfs-and-grub">Step 4: Chroot and update initramfs and GRUB</h2>
+<p>Unmount <code>/mnt</code> and remount the <code>@</code> subvolume:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">umount</span> /mnt
+</span></span><span class="line"><span class="cl"><span class="nf">mount</span> <span class="na">-o</span> <span class="nv">subvol</span><span class="o">=</span>@ /dev/mapper/debian--vg-root /mnt
+</span></span></code></pre></div><p>Create a chroot environment:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="k">for</span> <span class="nv">i</span> <span class="k">in</span> /dev /dev/pts /proc /sys /run<span class="p">;</span> <span class="nf">do</span> mount <span class="na">-B</span> <span class="nv">$i</span> /mnt<span class="nv">$i</span><span class="p">;</span> <span class="nf">done</span>
+</span></span><span class="line"><span class="cl"><span class="nf">chroot</span> /mnt
+</span></span></code></pre></div><p>Mount all filesystems and verify:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">mount</span> <span class="na">-av</span>
+</span></span><span class="line"><span class="cl"><span class="c"># /                        : ignored
+</span></span></span><span class="line"><span class="cl"><span class="c"># /home                    : successfully mounted
+</span></span></span><span class="line"><span class="cl"><span class="c"># /boot                    : successfully mounted
+</span></span></span><span class="line"><span class="cl"><span class="c"># /boot/efi                : successfully mounted
+</span></span></span><span class="line"><span class="cl"><span class="c"># none                     : ignored
+</span></span></span><span class="line"><span class="cl"><span class="c"># /media/cdrom0            : ignored
+</span></span></span><span class="line"><span class="cl"><span class="c"># /media/cdrom1            : ignored
+</span></span></span></code></pre></div><p>Update the initramfs and GRUB to apply the changes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">update-initramfs</span> <span class="na">-c</span> <span class="na">-k</span> all
+</span></span><span class="line"><span class="cl"><span class="nf">update-grub</span>
+</span></span></code></pre></div><div class="alert alert-note">
+  <div>
+    <strong>Note on GRUB:</strong> There is nothing to change in <code>/etc/default/grub</code>. Debian either relies on <code>/etc/fstab</code> for the subvolume setting or uses prober code to figure out the subvolume. Since we are in the chroot, it works without any changes.
+  </div>
+</div>
+
+<p>Exit the chroot:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="k">exit</span>
+</span></span></code></pre></div><h2 id="step-5-reboot-and-verify">Step 5: Reboot and verify</h2>
+<p>Reboot your system:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">reboot</span>
+</span></span></code></pre></div><p>After logging in, become root and verify the setup:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">su</span> <span class="na">-
+</span></span></span><span class="line"><span class="cl"><span class="na">mount</span> <span class="na">-av</span>
+</span></span><span class="line"><span class="cl"><span class="c"># /                        : ignored
+</span></span></span><span class="line"><span class="cl"><span class="c"># /home                    : already mounted
+</span></span></span><span class="line"><span class="cl"><span class="c"># /boot                    : already mounted
+</span></span></span><span class="line"><span class="cl"><span class="c"># /boot/efi                : already mounted
+</span></span></span><span class="line"><span class="cl"><span class="c"># none                     : ignored
+</span></span></span><span class="line"><span class="cl"><span class="c"># /media/cdrom0            : ignored
+</span></span></span><span class="line"><span class="cl"><span class="c"># /media/cdrom1            : ignored
+</span></span></span></code></pre></div><p>Verify the BTRFS mount options:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">mount</span> <span class="na">-v</span> <span class="o">|</span> <span class="nf">grep</span> btrfs
+</span></span><span class="line"><span class="cl"><span class="c"># /dev/mapper/debian--vg-root on / type btrfs (rw,relatime,compress=zstd:1,ssd,discard,space_cache=v2,subvolid=257,subvol=/@)
+</span></span></span><span class="line"><span class="cl"><span class="c"># /dev/mapper/debian--vg-root on /home type btrfs (rw,relatime,compress=zstd:1,ssd,discard,space_cache=v2,subvolid=258,subvol=/@home)
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>
+</span></span><span class="line"><span class="cl"><span class="nf">btrfs</span> subvolume list /
+</span></span><span class="line"><span class="cl"><span class="c"># ID 256 gen 96 top level 5 path @rootfs
+</span></span></span><span class="line"><span class="cl"><span class="c"># ID 257 gen 101 top level 5 path @
+</span></span></span><span class="line"><span class="cl"><span class="c"># ID 258 gen 101 top level 5 path @home
+</span></span></span></code></pre></div><p>Enable <code>fstrim.timer</code> for SSD/NVMe:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">systemctl</span> enable fstrim.timer
+</span></span></code></pre></div><p>Update the system:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">apt</span> update
+</span></span><span class="line"><span class="cl"><span class="nf">apt</span> upgrade
+</span></span><span class="line"><span class="cl"><span class="nf">apt</span> dist-upgrade
+</span></span><span class="line"><span class="cl"><span class="nf">apt</span> autoremove <span class="na">--purge</span>
+</span></span><span class="line"><span class="cl"><span class="nf">apt</span> autoclean
+</span></span></code></pre></div><p>Optionally, delete the old <code>@rootfs</code> subvolume (after confirming everything works):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">mount</span> <span class="na">-o</span> <span class="nv">subvolid</span><span class="o">=</span><span class="m">5</span> /dev/mapper/debian--vg-root /mnt
+</span></span><span class="line"><span class="cl"><span class="nf">btrfs</span> subvolume delete /mnt/@rootfs
+</span></span><span class="line"><span class="cl"><span class="c"># Delete subvolume 256 (no-commit): &#39;/mnt/@rootfs&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">umount</span> /mnt
+</span></span><span class="line"><span class="cl"><span class="nf">btrfs</span> subvolume list /
+</span></span><span class="line"><span class="cl"><span class="c"># ID 257 gen 101 top level 5 path @
+</span></span></span><span class="line"><span class="cl"><span class="c"># ID 258 gen 101 top level 5 path @home
+</span></span></span></code></pre></div><h2 id="step-6-snapshot-tools">Step 6: Snapshot tools</h2>
+<p>With BTRFS set up with <code>@</code> and <code>@home</code> subvolumes, you can now use various snapshot and backup tools:</p>
+<ul>
+<li><strong><a href="https://github.com/linuxmint/timeshift" target="_blank" rel="noopener">Timeshift</a>:</strong> A popular GUI tool for system snapshots. Note that Timeshift <strong>requires</strong> the <code>@</code> and <code>@home</code> subvolume naming convention we set up in this guide.</li>
+<li><strong><a href="https://github.com/Antynea/grub-btrfs" target="_blank" rel="noopener">grub-btrfs</a>:</strong> Automatically adds GRUB menu entries for your snapshots, allowing you to boot directly into any snapshot.</li>
+<li><strong><a href="https://github.com/digint/btrbk" target="_blank" rel="noopener">Btrbk</a>:</strong> A powerful tool for snapshot management and backup with support for incremental send/receive to remote locations. Personally, I prefer Btrbk for its flexibility and send/receive capabilities.</li>
+<li><strong><a href="https://github.com/openSUSE/snapper" target="_blank" rel="noopener">Snapper</a>:</strong> Another snapshot management tool, popular in openSUSE.</li>
+</ul>
+<p>We will now focus only on Timeshift as it is (in my opinion) the most user-friendly one.</p>
+<h3 id="install-and-configure-timeshift">Install and configure Timeshift</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">apt</span> install <span class="na">-y</span> timeshift
+</span></span></code></pre></div><p>Open Timeshift from Applications menu and configure it:</p>
+<ul>
+<li>Select <strong>BTRFS</strong> as the <strong>Snapshot Type</strong>; click <strong>Next</strong>.</li>
+<li>Select your BTRFS system partition as the <strong>Snapshot Location</strong>; click <strong>Next</strong>. Ignore the warning &ldquo;Selected device does not have BTRFS partition&rdquo;-this is a bug with encrypted devices.</li>
+<li><strong>Select Snapshot Levels</strong> (my recommendations):
+<ul>
+<li>Activate <strong>Monthly</strong> and set to 2.</li>
+<li>Activate <strong>Weekly</strong> and set to 3.</li>
+<li>Activate <strong>Daily</strong> and set to 5.</li>
+<li>Deactivate <strong>Hourly</strong>.</li>
+<li>Activate <strong>Boot</strong> and set to 5.</li>
+<li>Click <strong>Next</strong>.</li>
+</ul>
+</li>
+<li>Include the <code>@home</code> subvolume.</li>
+<li>Click <strong>Finish</strong>.</li>
+</ul>
+<h3 id="create-a-manual-snapshot">Create a manual snapshot</h3>
+<p>Simply click the &ldquo;Create&rdquo; button and name the label to &ldquo;Clean Install&rdquo; (or whatever you want).</p>
+<h3 id="verify-snapshots">Verify snapshots</h3>
+<p>In a terminal with root privileges, you can verify the snapshots:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">btrfs</span> subvolume list /
+</span></span><span class="line"><span class="cl"><span class="c"># ID 257 gen 300 top level 5 path @
+</span></span></span><span class="line"><span class="cl"><span class="c"># ID 258 gen 300 top level 5 path @home
+</span></span></span><span class="line"><span class="cl"><span class="c"># ID 259 gen 295 top level 5 path timeshift-btrfs/snapshots/2025-12-10_10-00-00/@
+</span></span></span><span class="line"><span class="cl"><span class="c"># ID 260 gen 295 top level 5 path timeshift-btrfs/snapshots/2025-12-10_10-00-00/@home
+</span></span></span></code></pre></div><h2 id="step-7-practice-recovery-and-system-rollback">Step 7: Practice recovery and system rollback</h2>
+<p>Let&rsquo;s simulate a system failure to practice recovery.</p>
+<p><strong>Delete the <code>/etc</code> folder and reboot (simulating disaster):</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">rm</span> <span class="na">-rf</span> /etc
+</span></span><span class="line"><span class="cl"><span class="nf">reboot</span> now
+</span></span></code></pre></div><p>If you try to reboot, the system will fail.</p>
+<h3 id="rollback-with-timeshift-from-live-environment">Rollback with Timeshift from live environment</h3>
+<ol>
+<li>Boot from the Debian live installer.</li>
+<li>Open <code>Files</code> and click on the encrypted partition. Enter your passphrase which will mount the partition even though there might be an error message.</li>
+<li>Open a terminal and check whether the partition is unlocked:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="na">-i</span>
+</span></span><span class="line"><span class="cl"><span class="nf">ls</span> /dev/mapper/
+</span></span><span class="line"><span class="cl"><span class="c"># control   debian--vg-root   debian--vg-swap_1   luks-[UUID-OF-ENCRYPTED-PARTITION]
+</span></span></span></code></pre></div></li>
+<li>Install Timeshift:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">apt</span> update
+</span></span><span class="line"><span class="cl"><span class="nf">apt</span> install <span class="na">-y</span> timeshift
+</span></span></code></pre></div></li>
+<li>Open Timeshift from Applications menu and select <strong>BTRFS</strong>, and choose your disk. Ignore the warning &ldquo;Selected device does not have BTRFS partition&rdquo;-this is a bug with encrypted devices.</li>
+<li>Select a snapshot and click <strong>Restore</strong>.</li>
+<li>Reboot.</li>
+</ol>
+<h3 id="rollback-manually">Rollback manually</h3>
+<ol>
+<li>Boot from the Debian live USB, unlock, and activate LVM in the terminal:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">sudo</span> <span class="na">-i</span>
+</span></span><span class="line"><span class="cl"><span class="nf">cryptsetup</span> luksOpen /dev/vda3 vda3_crypt
+</span></span><span class="line"><span class="cl"><span class="nf">mount</span> <span class="na">-o</span> <span class="nv">subvolid</span><span class="o">=</span><span class="m">5</span> /dev/mapper/debian--vg-root /mnt
+</span></span><span class="line"><span class="cl"><span class="nf">ls</span> /mnt
+</span></span><span class="line"><span class="cl"><span class="c"># @ @home timeshift-btrfs
+</span></span></span></code></pre></div></li>
+<li>Move the broken subvolume:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">mv</span> /mnt/@ /mnt/@.broken
+</span></span></code></pre></div></li>
+<li>Find a valid snapshot:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">ls</span> /mnt/timeshift-btrfs/snapshots
+</span></span></code></pre></div></li>
+<li>Create a snapshot of the good subvolume as the new <code>@</code>:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">btrfs</span> subvolume snapshot /mnt/timeshift-btrfs/snapshots/<span class="m">2025</span>-<span class="m">12</span>-10_10-<span class="m">00</span>-<span class="m">00</span>/@ /mnt/@
+</span></span></code></pre></div></li>
+<li>Reboot.</li>
+</ol>
+<p>Once back in your system, delete the broken subvolume:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">mount</span> <span class="na">-o</span> <span class="nv">subvolid</span><span class="o">=</span><span class="m">5</span> /dev/mapper/debian--vg-root /mnt
+</span></span><span class="line"><span class="cl"><span class="nf">btrfs</span> subvolume delete /mnt/@.broken
+</span></span><span class="line"><span class="cl"><span class="nf">umount</span> /mnt
+</span></span></code></pre></div><p><strong>FINISHED! CONGRATULATIONS!</strong></p>
+
+
+          </div>
+
+          
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/linux/">linux</a>
+  
+  <a class="badge badge-light" href="/tag/debian/">debian</a>
+  
+  <a class="badge badge-light" href="/tag/install-guide/">install guide</a>
+  
+  <a class="badge badge-light" href="/tag/btrfs/">btrfs</a>
+  
+  <a class="badge badge-light" href="/tag/luks/">luks</a>
+  
+  <a class="badge badge-light" href="/tag/timeshift/">timeshift</a>
+  
+</div>
+
+
+
+          
+          
+          <div class="article-widget">
+            
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/linux/debian-post-install/" rel="next">Debian Trixie (13): Things to do after installation (Apps, Settings, and Tweaks)</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/linux/elementary-os-post-install/" rel="prev">elementary OS: Things to do after installation (Apps, Settings, and Tweaks)</a>
+  </div>
+  
+</div>
+
+          </div>
+          
+        </div>
+
+        <div class="body-footer">
+          <p>Last updated on Dec 10, 2025</p>
+
+          
+
+
+
+
+          
+
+
+
+
+          
+
+
+        </div>
+
+      </article>
+
+      <footer class="site-footer">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+  </p>
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2025 Willi Mutschler. This work is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank">CC BY SA 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-sa fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+
+    </main>
+  </div>
+</div>
+
+  </div>
+
+  <div class="page-footer">
+    
+    
+  </div>
+
+  
+
+
+<script src="/js/vendor-bundle.min.b4708d4364577c16ab7001b265a063a4.js"></script>
+
+
+
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/gh/bryanbraun/anchorjs@4.2.2/anchor.min.js" integrity="sha512-I7w3ZdSFzw5j3jU3ZkNikBNeIrl3i+hEuEdwNmqUJvwNcaBUNcijnP2gd9DtGlgVYDplfjGoD8vTNsID+lCjqg==" crossorigin="anonymous"></script>
+<script>
+  anchors.add();
+</script>
+
+
+
+
+
+  
+  <script id="search-hit-fuse-template" type="text/x-template">
+    <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+    </div>
+  </script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+<script id="page-data" type="application/json">{"use_headroom":false}</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<script src="/en/js/wowchemy.min.42010733157c11a71adebfe9bae43355.js"></script>
+
+
+
+  <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

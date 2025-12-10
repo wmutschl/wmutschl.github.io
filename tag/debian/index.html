@@ -73,7 +73,7 @@
   <meta name="description" content="Tech blog of Willi Mutschler" />
 
   
-  <link rel="alternate" hreflang="en-us" href="https://mutschler.dev/tag/timeshift/" />
+  <link rel="alternate" hreflang="en-us" href="https://mutschler.dev/tag/debian/" />
 
   
   
@@ -270,7 +270,7 @@
 
   
   
-    <link rel="alternate" href="/tag/timeshift/index.xml" type="application/rss+xml" title="mutschler.dev" />
+    <link rel="alternate" href="/tag/debian/index.xml" type="application/rss+xml" title="mutschler.dev" />
   
 
   
@@ -282,7 +282,7 @@
   <link rel="icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_32x32_fill_lanczos_center_3.png" />
   <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_180x180_fill_lanczos_center_3.png" />
 
-  <link rel="canonical" href="https://mutschler.dev/tag/timeshift/" />
+  <link rel="canonical" href="https://mutschler.dev/tag/debian/" />
 
   
   
@@ -305,13 +305,13 @@
   <meta property="twitter:card" content="summary" />
   
   <meta property="og:site_name" content="mutschler.dev" />
-  <meta property="og:url" content="https://mutschler.dev/tag/timeshift/" />
-  <meta property="og:title" content="timeshift | mutschler.dev" />
+  <meta property="og:url" content="https://mutschler.dev/tag/debian/" />
+  <meta property="og:title" content="debian | mutschler.dev" />
   <meta property="og:description" content="Tech blog of Willi Mutschler" /><meta property="og:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" />
     <meta property="twitter:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
   
     
-      <meta property="og:updated_time" content="2025-12-10T00:00:00&#43;00:00" />
+      <meta property="og:updated_time" content="2025-12-09T00:00:00&#43;00:00" />
     
   
 
@@ -322,7 +322,7 @@
   
 
 
-  <title>timeshift | mutschler.dev</title>
+  <title>debian | mutschler.dev</title>
 
   
   
@@ -629,7 +629,7 @@
     
   
 <div class="universal-wrapper pt-3">
-  <h1>timeshift</h1>
+  <h1>debian</h1>
 
   
 
@@ -664,13 +664,13 @@
   <div class="media-body">
 
     <div class="section-subheading article-title mb-0 mt-0">
-      <a href="/linux/pop-os-btrfs-24-04/" >Pop!_OS 24.04: installation guide with BTRFS, LUKS encryption and auto snapshots with Timeshift</a>
+      <a href="/linux/debian-post-install/" >Debian Trixie (13): Things to do after installation (Apps, Settings, and Tweaks)</a>
     </div>
 
     
-    <a href="/linux/pop-os-btrfs-24-04/"  class="summary-link">
+    <a href="/linux/debian-post-install/"  class="summary-link">
       <div class="article-style">
-        In this guide, I will walk you through the installation procedure to set up a Pop!_OS 24.04 system with a LUKS-encrypted partition. This partition will contain an LVM with a logical volume for the root filesystem formatted with BTRFS, including subvolumes <code>@</code> for <code>/</code> and <code>@home</code> for <code>/home</code>. I will show you how to optimize BTRFS mount options to support compression and set up an encrypted swap partition. Additionally, the Pop!_OS recovery system will be installed and accessible via the systemd bootloader. Finally, we will configure Timeshift to automatically take system snapshots.
+        In the following I will go through my post installation steps on Debian Trixie, i.e. system configuration, remote access setup, security hardening, and various optimizations.
       </div>
     </a>
     
@@ -811,689 +811,8 @@
 </div>
 
   
-    
 
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<div class="media stream-item view-compact">
-  <div class="media-body">
-
-    <div class="section-subheading article-title mb-0 mt-0">
-      <a href="/linux/elementary-os-6-1/" >elementary OS 6.1 Jólnir: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a>
-    </div>
-
-    
-    <a href="/linux/elementary-os-6-1/"  class="summary-link">
-      <div class="article-style">
-        In this guide I will walk you through the installation steps to get an elementary OS 6.1 Jólnir system with a luks-encrypted partition which contains a LVM logical volume for the root filesystem that is formatted with btrfs and contains a subvolume @ for / and a subvolume @home for /home. I will show how to optimize the btrfs mount options and how to setup an encrypted swap partition which works with hibernation. This layout enables one to use timeshift which will regularly take snapshots of the system and (optionally) on any apt operation.
-      </div>
-    </a>
-    
-
-    <div class="stream-meta article-metadata">
-
-      
-
-      
-        
-
-
-<div class="article-metadata">
-
-  
-  
-
-  
-  <span class="article-date">
-    
-    
-      
-          Last updated on
-      
-    
-    Sep 12, 2022
-  </span>
-  
-
-  
-
-  
-
-  
-  
-  
-  
-
-  
-  
-
-</div>
-
-      
-    </div>
-
-    
-
-  </div>
-  <div class="ml-3">
-    
-    
-  </div>
-</div>
-
-  
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<div class="media stream-item view-compact">
-  <div class="media-body">
-
-    <div class="section-subheading article-title mb-0 mt-0">
-      <a href="/linux/pop-os-btrfs-22-04/" >Pop!_OS 22.04: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a>
-    </div>
-
-    
-    <a href="/linux/pop-os-btrfs-22-04/"  class="summary-link">
-      <div class="article-style">
-        In this guide I will walk you through the installation procedure to get a Pop!_OS 22.04 system with a luks-encrypted partition which contains a LVM with a logical volume for the root filesystem that is formatted with btrfs and contains a subvolume @ for / and a subvolume @home for /home. I will show how to optimize the btrfs mount options and how to setup an encrypted swap partition which works with hibernation. This layout enables one to use timeshift which will regularly take snapshots of the system and (optionally) on any apt operation. The recovery system of Pop!_OS is also installed to the disk and accessible via the systemd bootloader.
-      </div>
-    </a>
-    
-
-    <div class="stream-meta article-metadata">
-
-      
-
-      
-        
-
-
-<div class="article-metadata">
-
-  
-  
-
-  
-  <span class="article-date">
-    
-    
-      
-          Last updated on
-      
-    
-    Jul 14, 2023
-  </span>
-  
-
-  
-
-  
-
-  
-  
-  
-  
-
-  
-  
-
-</div>
-
-      
-    </div>
-
-    
-
-  </div>
-  <div class="ml-3">
-    
-    
-  </div>
-</div>
-
-  
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<div class="media stream-item view-compact">
-  <div class="media-body">
-
-    <div class="section-subheading article-title mb-0 mt-0">
-      <a href="/linux/fedora-post-install/" >Fedora Workstation: Things to do after installation (Apps, Settings, and Tweaks)</a>
-    </div>
-
-    
-    <a href="/linux/fedora-post-install/"  class="summary-link">
-      <div class="article-style">
-        In the following I will go through my post installation steps on Fedora, i.e. which settings I choose and which apps I install and use.
-      </div>
-    </a>
-    
-
-    <div class="stream-meta article-metadata">
-
-      
-
-      
-        
-
-
-<div class="article-metadata">
-
-  
-  
-
-  
-  <span class="article-date">
-    
-    
-      
-          Last updated on
-      
-    
-    Nov 22, 2022
-  </span>
-  
-
-  
-
-  
-
-  
-  
-  
-  
-
-  
-  
-
-</div>
-
-      
-    </div>
-
-    
-
-  </div>
-  <div class="ml-3">
-    
-    
-  </div>
-</div>
-
-  
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<div class="media stream-item view-compact">
-  <div class="media-body">
-
-    <div class="section-subheading article-title mb-0 mt-0">
-      <a href="/linux/fedora-btrfs-35/" >Fedora Workstation 35 with automatic btrfs snapshots and backups using BTRBK</a>
-    </div>
-
-    
-    <a href="/linux/fedora-btrfs-35/"  class="summary-link">
-      <div class="article-style">
-        In this guide I will show how to install Fedora 35 with automatic system snapshots and backups using BTRBK which will regularly take (almost instant) btrfs snapshots of the system and send/receive these to a backup disk given a chosen retention policy.
-      </div>
-    </a>
-    
-
-    <div class="stream-meta article-metadata">
-
-      
-
-      
-        
-
-
-<div class="article-metadata">
-
-  
-  
-
-  
-  <span class="article-date">
-    
-    
-      
-          Last updated on
-      
-    
-    Jun 17, 2022
-  </span>
-  
-
-  
-
-  
-
-  
-  
-  
-  
-
-  
-  
-
-</div>
-
-      
-    </div>
-
-    
-
-  </div>
-  <div class="ml-3">
-    
-    
-  </div>
-</div>
-
-  
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<div class="media stream-item view-compact">
-  <div class="media-body">
-
-    <div class="section-subheading article-title mb-0 mt-0">
-      <a href="/linux/pop-os-btrfs-21-10/" >DRAFT: Pop!_OS 21.10: installation guide with btrfs-LVM-luks and auto snapshots with BTRBK</a>
-    </div>
-
-    
-    <a href="/linux/pop-os-btrfs-21-10/"  class="summary-link">
-      <div class="article-style">
-        In this guide I will walk you through the installation procedure to get a Pop!_OS 21.10 system with a luks-encrypted partition which contains a LVM with a logical volume for the root filesystem that is formatted with btrfs and contains a subvolume @ for / and a subvolume @home for /home. I will show how to optimize the btrfs mount options and how to setup an encrypted swap partition which works with hibernation. This layout enables one to use BTRBK which will regularly take snapshots of the system and optionally on any apt operation. The recovery system of Pop!_OS is also installed to the disk and accessible via the systemd bootloader.
-      </div>
-    </a>
-    
-
-    <div class="stream-meta article-metadata">
-
-      
-
-      
-        
-
-
-<div class="article-metadata">
-
-  
-  
-
-  
-  <span class="article-date">
-    
-    
-      
-          Last updated on
-      
-    
-    Jun 17, 2022
-  </span>
-  
-
-  
-
-  
-
-  
-  
-  
-  
-
-  
-  
-
-</div>
-
-      
-    </div>
-
-    
-
-  </div>
-  <div class="ml-3">
-    
-    
-  </div>
-</div>
-
-  
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<div class="media stream-item view-compact">
-  <div class="media-body">
-
-    <div class="section-subheading article-title mb-0 mt-0">
-      <a href="/linux/pop-os-btrfs-21-04/" >Pop!_OS 21.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a>
-    </div>
-
-    
-    <a href="/linux/pop-os-btrfs-21-04/"  class="summary-link">
-      <div class="article-style">
-        In this guide I will walk you through the installation procedure to get a Pop!_OS 21.04 system with a luks-encrypted partition which contains a LVM with a logical volume for the root filesystem that is formatted with btrfs and contains a subvolume @ for / and a subvolume @home for /home. I will show how to optimize the btrfs mount options and how to setup an encrypted swap partition which works with hibernation. This layout enables one to use Timeshift and timeshift-autosnap-apt which will regularly take snapshots of the system and particularly on any apt operation. The recovery system of Pop!_OS is also installed to the disk and accessible via the systemd bootloader.
-      </div>
-    </a>
-    
-
-    <div class="stream-meta article-metadata">
-
-      
-
-      
-        
-
-
-<div class="article-metadata">
-
-  
-  
-
-  
-  <span class="article-date">
-    
-    
-      
-          Last updated on
-      
-    
-    Aug 14, 2022
-  </span>
-  
-
-  
-
-  
-
-  
-  
-  
-  
-
-  
-  
-
-</div>
-
-      
-    </div>
-
-    
-
-  </div>
-  <div class="ml-3">
-    
-    
-  </div>
-</div>
-
-  
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<div class="media stream-item view-compact">
-  <div class="media-body">
-
-    <div class="section-subheading article-title mb-0 mt-0">
-      <a href="/linux/raspi-post-install/" >Ubuntu Server Raspberry Pi: Things to do after installation (Apps, Settings, and Tweaks)</a>
-    </div>
-
-    
-    <a href="/linux/raspi-post-install/"  class="summary-link">
-      <div class="article-style">
-        In the following I will go through my post installation steps, i.e. which settings I choose and which apps and containers I install and use on my Raspberry Pi 4 (4 GB)
-      </div>
-    </a>
-    
-
-    <div class="stream-meta article-metadata">
-
-      
-
-      
-        
-
-
-<div class="article-metadata">
-
-  
-  
-
-  
-  <span class="article-date">
-    
-    
-      
-          Last updated on
-      
-    
-    Jun 17, 2022
-  </span>
-  
-
-  
-
-  
-
-  
-  
-  
-  
-
-  
-  
-
-</div>
-
-      
-    </div>
-
-    
-
-  </div>
-  <div class="ml-3">
-    
-    
-  </div>
-</div>
-
-  
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<div class="media stream-item view-compact">
-  <div class="media-body">
-
-    <div class="section-subheading article-title mb-0 mt-0">
-      <a href="/linux/raspi-btrfs/" >Ubuntu Server 20.10 on Raspberry Pi 4: installation guide with USB Boot (no SD card) and full disk encryption (excluding /boot) using btrfs-inside-luks and auto-apt snapshots with Timeshift</a>
-    </div>
-
-    
-    <a href="/linux/raspi-btrfs/"  class="summary-link">
-      <div class="article-style">
-        In this guide I will walk you through the installation procedure to get an Ubuntu 20.10 system with a luks-encrypted partition for the root filesystem (excluding /boot) formatted with btrfs that contains a subvolume @ for / and a subvolume @home for /home running on a Raspberry Pi 4. The system is installed to an external bootable USB drive so no SD card is required. I will show how to optimize the btrfs mount options and how to get a headless server, i.e. remotely unlock the luks partition using Dropbear which enables one to use SSH to decrypt the luks-encrypted partitions after a reboot. This layout enables one to use Timeshift and timeshift-autosnap-apt which will regularly take snapshots of the system and particularly on any apt operation.
-      </div>
-    </a>
-    
-
-    <div class="stream-meta article-metadata">
-
-      
-
-      
-        
-
-
-<div class="article-metadata">
-
-  
   
-
-  
-  <span class="article-date">
-    
-    
-      
-          Last updated on
-      
-    
-    Jun 17, 2022
-  </span>
-  
-
-  
-
-  
-
-  
-  
-  
-  
-
-  
-  
-
-</div>
-
-      
-    </div>
-
-    
-
-  </div>
-  <div class="ml-3">
-    
-    
-  </div>
-</div>
-
-  
-
-  
-<nav class="mt-1">
-  <ul class="pagination justify-content-center">
-    
-    
-    <li class="page-item"><a class="page-link" href="/tag/timeshift/page/2/">&raquo;</a></li>
-    
-  </ul>
-</nav>
-
 
 </div>
   </div>

@@ -1,0 +1,1589 @@
+<!DOCTYPE html><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.6.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Willi Mutschler" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="In the following I will go through my post installation steps on Debian Trixie, i.e. system configuration, remote access setup, security hardening, and various optimizations." />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://mutschler.dev/linux/debian-post-install/" />
+
+  
+  
+  
+    <meta name="theme-color" content="#bbdefb" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.c7b8d9abd591ba2253ea42747e3ac3f5.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css" integrity="sha512-W0xM4mr6dEP9nREo7Z9z+9X70wytKvMGeDsj7ps2+xg5QPrEBXC8tAW1IFnzjR6eoJ90JmCnFzerQJTLzIEHjA==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.8916ecd0e6b91586be6f7b434c75fb00.css" />
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" disabled>
+    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" >
+  
+
+  
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+  
+
+  
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  
+  <link rel="icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu589851f325050e29bd29c51f9d799271_45964_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://mutschler.dev/linux/debian-post-install/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary" />
+  
+  <meta property="og:site_name" content="mutschler.dev" />
+  <meta property="og:url" content="https://mutschler.dev/linux/debian-post-install/" />
+  <meta property="og:title" content="Debian Trixie (13): Things to do after installation (Apps, Settings, and Tweaks) | mutschler.dev" />
+  <meta property="og:description" content="In the following I will go through my post installation steps on Debian Trixie, i.e. system configuration, remote access setup, security hardening, and various optimizations." /><meta property="og:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" />
+    <meta property="twitter:image" content="https://mutschler.dev/media/icon_hu589851f325050e29bd29c51f9d799271_45964_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2025-12-09T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2025-12-10T21:06:17&#43;01:00">
+  
+
+  
+
+
+
+  
+
+  
+
+
+  <title>Debian Trixie (13): Things to do after installation (Apps, Settings, and Tweaks) | mutschler.dev</title>
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper  dark " data-wc-page-id="852d767b7978ef857338a0477f0c5fd9" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.22ad66a4f96b4e9da14bbb023ea57684.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="header--fixed">
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">mutschler.dev</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/apple/"><span>Apple</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link  active" href="/linux/"><span>Linux</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/stuff/"><span>Stuff</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://buymeacoffee.com/mutschler" data-toggle="tooltip" data-placement="bottom" title="Buy me a coffee" target="_blank" rel="noopener" aria-label="Buy me a coffee">
+                <i class="fas fa-coffee" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="mailto:willi@mutschler.dev" data-toggle="tooltip" data-placement="bottom" title="Write me an email"  aria-label="Write me an email">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://github.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on GitHub" target="_blank" rel="noopener" aria-label="Follow me on GitHub">
+                <i class="fab fa-github" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://gitlab.com/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on Gitlab" target="_blank" rel="noopener" aria-label="Follow me on Gitlab">
+                <i class="fab fa-gitlab" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            
+            <li class="nav-item d-none d-lg-inline-flex">
+              <a class="nav-link" href="https://www.youtube.com/c/wmutschl" data-toggle="tooltip" data-placement="bottom" title="Follow me on YouTube" target="_blank" rel="noopener" aria-label="Follow me on YouTube">
+                <i class="fab fa-youtube" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        
+
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    
+
+
+
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      <form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-md-3 w-100" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <div class="d-flex">
+      <span class="d-md-none pl-1 flex-grow-1 text-left overflow-hidden">
+        
+        
+          Linux
+        
+      </span>
+      <span><i class="fas fa-chevron-down"></i></span>
+    </div>
+  </button>
+
+  
+  <button class="form-control sidebar-search js-search d-none d-md-flex">
+    <i class="fas fa-search pr-2"></i>
+    <span class="sidebar-search-text">Search...</span>
+    <span class="sidebar-search-shortcut">/</span>
+  </button>
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+  
+  
+  
+  
+  
+
+  
+  
+    
+
+    
+      
+
+      
+
+
+  
+    
+    
+    
+    
+      
+    
+    
+
+    
+      <ul class="nav docs-sidenav">
+        <li class=""><a href="/linux/">Linux</a></li>
+    
+      
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-24-04/">Pop!_OS 24.04: installation guide with BTRFS, LUKS encryption and auto snapshots with Timeshift</a></li>
+
+
+
+  <li class="active"><a href="/linux/debian-post-install/">Debian Trixie (13): Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/debian-btrfs-trixie/">Debian Trixie (13): installation guide with BTRFS, LUKS encryption and auto snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/elementary-os-post-install/">elementary OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/elementary-os-6-1/">elementary OS 6.1 Jólnir: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-22-04/">Pop!_OS 22.04: installation guide with btrfs, luks encryption and auto snapshots with timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-post-install/">Pop!_OS: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-post-install/">Fedora Workstation: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-btrfs-35/">Fedora Workstation 35 with automatic btrfs snapshots and backups using BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-10/">DRAFT: Pop!_OS 21.10: installation guide with btrfs-LVM-luks and auto snapshots with BTRBK</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-21-04/">Pop!_OS 21.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/raspi-post-install/">Ubuntu Server Raspberry Pi: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/raspi-btrfs/">Ubuntu Server 20.10 on Raspberry Pi 4: installation guide with USB Boot (no SD card) and full disk encryption (excluding /boot) using btrfs-inside-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/fedora-btrfs-33/">Fedora Workstation 33: installation guide with btrfs-luks full disk encryption (optionally including /boot) and auto snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/btrfs/">Why I (still) like btrfs</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-btrfs-raid1-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks-RAID1 full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-btrfs-20-04/">Ubuntu Desktop 20.04: installation guide with btrfs-luks full disk encryption including /boot and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/ubuntu-post-install/">Ubuntu Desktop: Things to do after installation (Apps, Settings, and Tweaks)</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-raid1-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks-RAID1 and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/pop-os-btrfs-20-04/">Pop!_OS 20.04: installation guide with btrfs-LVM-luks and auto-apt snapshots with Timeshift</a></li>
+
+
+
+  <li class=""><a href="/linux/timeshift/">Timeshift</a></li>
+
+      
+    
+
+    
+      </ul>
+    
+
+  
+</nav>
+
+    </div>
+
+    
+    
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+      </ul>
+
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#initial-system-setup">Initial System Setup</a>
+      <ul>
+        <li><a href="#add-user-to-sudoers-optional">Add user to sudoers (optional)</a></li>
+        <li><a href="#enable-contrib-and-non-free-repositories">Enable contrib and non-free repositories</a></li>
+        <li><a href="#install-firmware">Install firmware</a></li>
+      </ul>
+    </li>
+    <li><a href="#hardware-configuration">Hardware Configuration</a>
+      <ul>
+        <li><a href="#install-nvidia-drivers">Install NVIDIA drivers</a></li>
+        <li><a href="#fix-io_page_fault-errors-amd-systems">Fix IO_PAGE_FAULT errors (AMD systems)</a></li>
+        <li><a href="#enable-trim-for-ssds">Enable TRIM for SSDs</a></li>
+        <li><a href="#enable-zram-for-compressed-swap-in-ram">Enable zram for compressed swap in RAM</a></li>
+      </ul>
+    </li>
+    <li><a href="#remote-access">Remote Access</a>
+      <ul>
+        <li><a href="#install-and-configure-openssh-server">Install and configure OpenSSH Server</a></li>
+        <li><a href="#install-and-configure-tailscale">Install and configure Tailscale</a></li>
+        <li><a href="#install-nomachine-for-remote-desktop">Install NoMachine for remote desktop</a></li>
+      </ul>
+    </li>
+    <li><a href="#security-hardening">Security Hardening</a>
+      <ul>
+        <li><a href="#lock-down-server-with-ufw-allow-only-tailscale">Lock down server with UFW (allow only Tailscale)</a></li>
+      </ul>
+    </li>
+    <li><a href="#storage-configuration">Storage Configuration</a>
+      <ul>
+        <li><a href="#reconnect-additional-encrypted-disks">Reconnect additional encrypted disks</a></li>
+      </ul>
+    </li>
+    <li><a href="#server-configuration">Server Configuration</a>
+      <ul>
+        <li><a href="#install-docker">Install Docker</a></li>
+        <li><a href="#deploy-docker-containers">Deploy Docker containers</a></li>
+        <li><a href="#boot-into-cli-mode">Boot into CLI mode</a></li>
+        <li><a href="#disable-sleep-and-hibernation">Disable sleep and hibernation</a></li>
+      </ul>
+    </li>
+    <li><a href="#desktop-environment">Desktop Environment</a></li>
+    <li><a href="#shell-and-applications">Shell and Applications</a>
+      <ul>
+        <li><a href="#fish---a-friendly-interactive-shell">Fish - A friendly interactive shell</a></li>
+        <li><a href="#flatpak-support">Flatpak support</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <article class="article">
+
+        <div class="docs-article-container">
+          
+        </div>
+
+        
+        
+
+        <div class="docs-article-container">
+          
+          <h1>Debian Trixie (13): Things to do after installation (Apps, Settings, and Tweaks)</h1>
+
+          <div class="article-style">
+
+            
+            
+
+            <p><em><strong>Please feel free to raise any comments or issues on the <a href="https://github.com/wmutschl/mutschler.dev" target="_blank" rel="noopener">website&rsquo;s Github repository</a>. Pull requests are very much appreciated.</strong></em></p>
+<p><a href="https://www.buymeacoffee.com/mutschler" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a></p>
+<p>This guide walks through my post-installation steps on Debian Trixie. I use this machine primarily as a server, but still need a desktop environment for certain tasks (either MATE or GNOME). The guide covers system configuration, remote access setup, security hardening, and various optimizations.</p>
+<div class="alert alert-warning">
+  <div>
+    Unless otherwise indicated, ALL COMMANDS in this guide should be run as ROOT. Become root by running <code>su -</code> in your terminal!
+  </div>
+</div>
+
+<details class="toc-inpage d-print-none d-xl-none " open>
+  <summary class="font-weight-bold">Table of Contents</summary>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#initial-system-setup">Initial System Setup</a>
+      <ul>
+        <li><a href="#add-user-to-sudoers-optional">Add user to sudoers (optional)</a></li>
+        <li><a href="#enable-contrib-and-non-free-repositories">Enable contrib and non-free repositories</a></li>
+        <li><a href="#install-firmware">Install firmware</a></li>
+      </ul>
+    </li>
+    <li><a href="#hardware-configuration">Hardware Configuration</a>
+      <ul>
+        <li><a href="#install-nvidia-drivers">Install NVIDIA drivers</a></li>
+        <li><a href="#fix-io_page_fault-errors-amd-systems">Fix IO_PAGE_FAULT errors (AMD systems)</a></li>
+        <li><a href="#enable-trim-for-ssds">Enable TRIM for SSDs</a></li>
+        <li><a href="#enable-zram-for-compressed-swap-in-ram">Enable zram for compressed swap in RAM</a></li>
+      </ul>
+    </li>
+    <li><a href="#remote-access">Remote Access</a>
+      <ul>
+        <li><a href="#install-and-configure-openssh-server">Install and configure OpenSSH Server</a></li>
+        <li><a href="#install-and-configure-tailscale">Install and configure Tailscale</a></li>
+        <li><a href="#install-nomachine-for-remote-desktop">Install NoMachine for remote desktop</a></li>
+      </ul>
+    </li>
+    <li><a href="#security-hardening">Security Hardening</a>
+      <ul>
+        <li><a href="#lock-down-server-with-ufw-allow-only-tailscale">Lock down server with UFW (allow only Tailscale)</a></li>
+      </ul>
+    </li>
+    <li><a href="#storage-configuration">Storage Configuration</a>
+      <ul>
+        <li><a href="#reconnect-additional-encrypted-disks">Reconnect additional encrypted disks</a></li>
+      </ul>
+    </li>
+    <li><a href="#server-configuration">Server Configuration</a>
+      <ul>
+        <li><a href="#install-docker">Install Docker</a></li>
+        <li><a href="#deploy-docker-containers">Deploy Docker containers</a></li>
+        <li><a href="#boot-into-cli-mode">Boot into CLI mode</a></li>
+        <li><a href="#disable-sleep-and-hibernation">Disable sleep and hibernation</a></li>
+      </ul>
+    </li>
+    <li><a href="#desktop-environment">Desktop Environment</a></li>
+    <li><a href="#shell-and-applications">Shell and Applications</a>
+      <ul>
+        <li><a href="#fish---a-friendly-interactive-shell">Fish - A friendly interactive shell</a></li>
+        <li><a href="#flatpak-support">Flatpak support</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</details>
+
+<h2 id="initial-system-setup">Initial System Setup</h2>
+<h3 id="add-user-to-sudoers-optional">Add user to sudoers (optional)</h3>
+<p>This is typically the first thing people want to do after installation, so I&rsquo;ll cover it here—even though I personally don&rsquo;t use sudo on Debian and prefer to run commands as root directly via <code>su -</code>.</p>
+<p>If you want to use sudo, add your user to the sudo group:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="c"># Run as root (su -)
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>/sbin/usermod <span class="na">-aG</span> sudo <span class="nf">wmutschl</span>
+</span></span></code></pre></div><p>Replace <code>wmutschl</code> with your actual username. Log out and back in (or reboot) for the change to take effect.</p>
+<h3 id="enable-contrib-and-non-free-repositories">Enable contrib and non-free repositories</h3>
+<p>Debian separates packages based on their licenses. To access proprietary drivers, codecs, and other non-free software, enable the <code>contrib</code> and <code>non-free</code> repositories:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">nano</span> /etc/apt/sources.list
+</span></span></code></pre></div><p>Ensure the file contains the following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">deb http://deb.debian.org/debian/ trixie main contrib non-free non-free-firmware
+</span></span><span class="line"><span class="cl">deb-src http://deb.debian.org/debian/ trixie main contrib non-free non-free-firmware
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">deb http://security.debian.org/debian-security trixie-security main contrib non-free non-free-firmware
+</span></span><span class="line"><span class="cl">deb-src http://security.debian.org/debian-security trixie-security main contrib non-free non-free-firmware
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">deb http://deb.debian.org/debian/ trixie-updates main contrib non-free non-free-firmware
+</span></span><span class="line"><span class="cl">deb-src http://deb.debian.org/debian/ trixie-updates main contrib non-free non-free-firmware
+</span></span></code></pre></div><p>Then update the package list:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">apt</span> update
+</span></span></code></pre></div><h3 id="install-firmware">Install firmware</h3>
+<p>Debian Trixie includes most firmware in the <code>non-free-firmware</code> repository. After enabling it above, install any missing firmware:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">apt</span> install firmware-linux firmware-linux-nonfree
+</span></span></code></pre></div><h2 id="hardware-configuration">Hardware Configuration</h2>
+<h3 id="install-nvidia-drivers">Install NVIDIA drivers</h3>
+<p>If you have an NVIDIA GPU, the proprietary drivers provide significantly better performance than the open-source nouveau drivers.</p>
+<p>First, install the detection tool:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">apt</span> install nvidia-detect
+</span></span></code></pre></div><p>Run it to identify your GPU and the recommended driver:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">nvidia-detect</span>
+</span></span><span class="line"><span class="cl"><span class="c"># Detected NVIDIA GPUs:
+</span></span></span><span class="line"><span class="cl"><span class="c"># 42:00.0 VGA compatible controller [0300]: NVIDIA Corporation GP107GL [Quadro P620] [10de:1cb6] (rev a1)
+</span></span></span><span class="line"><span class="cl"><span class="c">#
+</span></span></span><span class="line"><span class="cl"><span class="c"># Checking card:  NVIDIA Corporation GP107GL [Quadro P620] (rev a1)
+</span></span></span><span class="line"><span class="cl"><span class="c"># Your card is supported by all driver versions.
+</span></span></span><span class="line"><span class="cl"><span class="c"># Your card is also supported by the Tesla 535 drivers series.
+</span></span></span><span class="line"><span class="cl"><span class="c"># It is recommended to install the
+</span></span></span><span class="line"><span class="cl"><span class="c">#     nvidia-driver
+</span></span></span><span class="line"><span class="cl"><span class="c"># package.
+</span></span></span></code></pre></div><p>Install the kernel headers and the recommended driver:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">apt</span> install linux-headers-amd64
+</span></span><span class="line"><span class="cl"><span class="nf">apt</span> install nvidia-driver
+</span></span></code></pre></div><p>Reboot to apply the changes.</p>
+<h3 id="fix-io_page_fault-errors-amd-systems">Fix IO_PAGE_FAULT errors (AMD systems)</h3>
+<p>On AMD systems with IOMMU, you may encounter IO_PAGE_FAULT errors in the kernel log:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">dmesg</span> <span class="na">--level</span><span class="o">=</span>emerg,err,warn
+</span></span><span class="line"><span class="cl"><span class="c"># [  812.086690] ahci 0000:02:00.0: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0043 address=0xecdd5004 flags=0x0070]
+</span></span></span></code></pre></div><p>This <a href="https://www.youtube.com/watch?v=wJN3e8Usmzw" target="_blank" rel="noopener">video</a> explains the problem and solution. To fix it, add kernel parameters to GRUB:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">nano</span> /etc/default/grub
+</span></span></code></pre></div><p>Find the line <code>GRUB_CMDLINE_LINUX_DEFAULT</code> and add the parameters:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GRUB_CMDLINE_LINUX_DEFAULT=&#34;quiet amd_iommu=on iommu=pt&#34;
+</span></span></code></pre></div><p>Update GRUB and reboot:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">update-grub</span>
+</span></span><span class="line"><span class="cl"><span class="nf">reboot</span>
+</span></span></code></pre></div><h3 id="enable-trim-for-ssds">Enable TRIM for SSDs</h3>
+<p>If you have an SSD or NVMe drive, enabling TRIM helps maintain performance over time. Check if the <a href="https://askmeaboutlinux.com/2021/05/05/theres-something-about-trim-in-linuxmint-or-ubuntu-linux/" target="_blank" rel="noopener">fstrim timer is enabled</a>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">systemctl</span> <span class="nb">status </span>fstrim.timer
+</span></span></code></pre></div><p>If not enabled, enable and start it:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">systemctl</span> enable fstrim.timer
+</span></span><span class="line"><span class="cl"><span class="nf">systemctl</span> start fstrim.timer
+</span></span></code></pre></div><p>You can also run TRIM manually:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">fstrim</span> <span class="na">-av</span>
+</span></span><span class="line"><span class="cl"><span class="c"># /btrfs_docker: 607.6 GiB (652451688448 bytes) trimmed on /dev/mapper/crypt_docker
+</span></span></span><span class="line"><span class="cl"><span class="c"># /boot/efi: 965.3 MiB (1012170752 bytes) trimmed on /dev/sdc1
+</span></span></span><span class="line"><span class="cl"><span class="c"># /boot: 779.4 MiB (817225728 bytes) trimmed on /dev/sdc2
+</span></span></span><span class="line"><span class="cl"><span class="c"># /var/lib/docker: 80 GiB (85931634688 bytes) trimmed on /dev/nvme0n1p2
+</span></span></span><span class="line"><span class="cl"><span class="c"># /: 104.7 GiB (112431742976 bytes) trimmed on /dev/mapper/debian--vg-root
+</span></span></span></code></pre></div><h3 id="enable-zram-for-compressed-swap-in-ram">Enable zram for compressed swap in RAM</h3>
+<p>zram creates compressed swap space in RAM, which is faster than disk-based swap and reduces SSD wear. This is especially beneficial on systems with ample RAM.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">apt</span> install zram-tools
+</span></span><span class="line"><span class="cl"><span class="nf">systemctl</span> enable <span class="na">--now</span> zramswap
+</span></span></code></pre></div><p>To customize size and compression algorithm:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">nano</span> /etc/default/zramswap
+</span></span></code></pre></div><p>I usually leave the defaults. After changes, restart the service:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">systemctl</span> restart zramswap
+</span></span></code></pre></div><p>Verify zram is active:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">zramctl</span>
+</span></span><span class="line"><span class="cl"><span class="c"># or
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">swapon</span> <span class="na">--show</span>
+</span></span></code></pre></div><h2 id="remote-access">Remote Access</h2>
+<h3 id="install-and-configure-openssh-server">Install and configure OpenSSH Server</h3>
+<p>Since I access this machine primarily via SSH, this is one of the first services I set up:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">apt</span> install <span class="na">-y</span> openssh-server
+</span></span></code></pre></div><p>Configure SSH settings:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">nano</span> /etc/ssh/sshd_config
+</span></span></code></pre></div><p>Add or modify the following at the bottom of the file:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PermitRootLogin yes
+</span></span><span class="line"><span class="cl">PasswordAuthentication no
+</span></span><span class="line"><span class="cl">X11Forwarding yes
+</span></span></code></pre></div><p>Enable and start the SSH service:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">systemctl</span> enable ssh
+</span></span><span class="line"><span class="cl"><span class="nf">systemctl</span> start ssh
+</span></span></code></pre></div><h4 id="generate-or-restore-ssh-keys">Generate or restore SSH keys</h4>
+<p>To create a new SSH key:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="c"># Run as your normal user, not root
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">ssh-keygen</span> <span class="na">-t</span> ed25519 <span class="na">-C</span> <span class="s2">&#34;debian&#34;</span>
+</span></span></code></pre></div><p>Usually, I restore my <code>.ssh</code> folder from backup instead. Either way, add your key to the ssh-agent:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="c"># Run as your normal user, not root
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nb">eval</span> <span class="s2">&#34;</span><span class="nv">$(</span><span class="s2">ssh-agent -s)&#34;</span>  <span class="c"># for bash
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nb">eval</span> <span class="o">(</span><span class="nf">ssh-agent</span> <span class="na">-c</span><span class="o">)</span>     <span class="c"># for fish
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">ssh-add</span> ~/.ssh/id_ed25519
+</span></span></code></pre></div><p>Don&rsquo;t forget to add your public key to GitHub, GitLab, servers, etc.</p>
+<h4 id="configure-authorized-keys-for-incoming-connections">Configure authorized keys for incoming connections</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="c"># Run as your normal user, not root
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">nano</span> ~/.ssh/authorized_keys
+</span></span><span class="line"><span class="cl"><span class="c"># Add your public keys, one per line:
+</span></span></span><span class="line"><span class="cl"><span class="c"># ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJID7JVno+R8RzuCYQAV66VnZOgpuwNpQnzFiiX3tT6Q MacBook
+</span></span></span><span class="line"><span class="cl"><span class="c"># ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFSlhZlx/+KMV9LG6v8W55UAkc+aOvS8W9r1oVRH+yYq Mac Mini
+</span></span></span><span class="line"><span class="cl"><span class="c"># ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDl5yCXr9igpwWlV5cUC9yBOdcabNktlSpjqhCQpI+rZ iPad
+</span></span></span><span class="line"><span class="cl"><span class="c"># ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGVN/LM0sCk4sacciihBlycWHqtQUpm4KCCvBl5IdlAm iPhone
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>
+</span></span><span class="line"><span class="cl"><span class="c"># Set correct permissions
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">chmod</span> <span class="m">600</span> ~/.ssh/authorized_keys
+</span></span><span class="line"><span class="cl"><span class="nf">chmod</span> <span class="m">700</span> ~/.ssh
+</span></span><span class="line"><span class="cl"><span class="nf">chown</span> <span class="na">-R</span> <span class="nv">$USER</span>:<span class="nv">$USER</span> ~/.ssh
+</span></span></code></pre></div><h3 id="install-and-configure-tailscale">Install and configure Tailscale</h3>
+<p>I use <a href="https://tailscale.com/kb/1626/install-debian-trixie" target="_blank" rel="noopener">Tailscale</a> on all my systems to connect them via WireGuard from anywhere. Installation is straightforward:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">curl</span> <span class="na">-fsSL</span> https://pkgs.tailscale.com/stable/debian/trixie.noarmor.gpg <span class="o">|</span> <span class="nf">tee</span> /usr/share/keyrings/tailscale-archive-keyring.gpg <span class="o">&gt;</span>/dev/null
+</span></span><span class="line"><span class="cl"><span class="nf">curl</span> <span class="na">-fsSL</span> https://pkgs.tailscale.com/stable/debian/trixie.tailscale-keyring.list <span class="o">|</span> <span class="nf">tee</span> /etc/apt/sources.list.d/tailscale.list
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">curl</span> <span class="na">-fsSL</span> https://tailscale.com/install.sh <span class="o">|</span> <span class="nf">sh</span>
+</span></span></code></pre></div><p>Connect your machine to your Tailscale network:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">tailscale</span> up
+</span></span><span class="line"><span class="cl"><span class="c"># To authenticate, visit:
+</span></span></span><span class="line"><span class="cl"><span class="c"># https://login.tailscale.com/a/SOMETHING
+</span></span></span></code></pre></div><p>I also disable key expiry in the Tailscale admin console to prevent periodic re-authentication.</p>
+<p>Check your Tailscale IP:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">tailscale</span> ip -<span class="m">4</span>
+</span></span></code></pre></div><h4 id="configure-as-exit-node">Configure as exit node</h4>
+<p>I use this machine as an <a href="https://tailscale.com/kb/1103/exit-nodes" target="_blank" rel="noopener">exit node</a>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="k">echo</span> <span class="s1">&#39;net.ipv4.ip_forward = 1&#39;</span> <span class="o">|</span> <span class="nf">tee</span> <span class="na">-a</span> /etc/sysctl.d/<span class="m">99</span>-tailscale.conf
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s1">&#39;net.ipv6.conf.all.forwarding = 1&#39;</span> <span class="o">|</span> <span class="nf">tee</span> <span class="na">-a</span> /etc/sysctl.d/<span class="m">99</span>-tailscale.conf
+</span></span><span class="line"><span class="cl"><span class="nf">sysctl</span> <span class="na">-p</span> /etc/sysctl.d/<span class="m">99</span>-tailscale.conf
+</span></span><span class="line"><span class="cl"><span class="nf">tailscale</span> up <span class="na">--advertise-exit-node</span>
+</span></span></code></pre></div><p>Then enable the exit node in your Tailscale admin console.</p>
+<h4 id="fix-udp-gro-forwarding-for-better-throughput">Fix UDP GRO forwarding for better throughput</h4>
+<p>When running as an exit node or subnet router, Tailscale may warn about suboptimal UDP GRO forwarding. This <a href="https://tailscale.com/s/ethtool-config-udp-gro" target="_blank" rel="noopener">optimization</a> improves UDP throughput on Linux 6.2+ kernels.</p>
+<p>Since Debian Trixie doesn&rsquo;t have <code>networkd-dispatcher</code>, create a systemd service to apply the setting persistently:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">cat</span> <span class="s">&lt;&lt; &#39;EOF&#39; | tee /etc/systemd/system/tailscale-udp-offload.service
+</span></span></span><span class="line"><span class="cl"><span class="s">[Unit]
+</span></span></span><span class="line"><span class="cl"><span class="s">Description=Configure UDP GRO forwarding for Tailscale
+</span></span></span><span class="line"><span class="cl"><span class="s">After=network-online.target
+</span></span></span><span class="line"><span class="cl"><span class="s">Wants=network-online.target
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">[Service]
+</span></span></span><span class="line"><span class="cl"><span class="s">Type=oneshot
+</span></span></span><span class="line"><span class="cl"><span class="s">ExecStart=/bin/sh -c &#39;ethtool -K $(ip -o route get 8.8.8.8 | cut -f 5 -d &#34; &#34;) rx-udp-gro-forwarding on rx-gro-list off&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">RemainAfterExit=yes
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">[Install]
+</span></span></span><span class="line"><span class="cl"><span class="s">WantedBy=multi-user.target
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">systemctl</span> daemon-reload
+</span></span><span class="line"><span class="cl"><span class="nf">systemctl</span> enable <span class="na">--now</span> tailscale-udp-offload.service
+</span></span></code></pre></div><p>Verify it&rsquo;s working:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">systemctl</span> <span class="nb">status </span>tailscale-udp-offload.service
+</span></span></code></pre></div><h3 id="install-nomachine-for-remote-desktop">Install NoMachine for remote desktop</h3>
+<p>NoMachine provides excellent remote desktop access. You may need to adjust the version and URL:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="k">cd</span> /tmp
+</span></span><span class="line"><span class="cl"><span class="nf">curl</span> <span class="na">-O</span> https://web9001.nomachine.com/download/<span class="m">9</span>.<span class="m">2</span>/Linux/nomachine_9.<span class="m">2</span>.18_3_amd64.deb
+</span></span><span class="line"><span class="cl"><span class="nf">apt</span> install ./nomachine_9.<span class="m">2</span>.18_3_amd64.deb
+</span></span></code></pre></div><p>Launch NoMachine and configure it. I enable &ldquo;always run&rdquo; mode.</p>
+<p>To troubleshoot connection issues, restart the NoMachine server:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl">/usr/NX/bin/nxserver <span class="na">--restart</span>
+</span></span></code></pre></div><p><strong>Note:</strong> As of December 2025, NoMachine doesn&rsquo;t work well with Wayland!</p>
+<h2 id="security-hardening">Security Hardening</h2>
+<h3 id="lock-down-server-with-ufw-allow-only-tailscale">Lock down server with UFW (allow only Tailscale)</h3>
+<div class="alert alert-note">
+  <div>
+    <p>Before locking down the server, exit your current SSH session and reconnect using the Tailscale IP to ensure you won&rsquo;t lose access:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ssh username@100.x.y.z
+</span></span><span class="line"><span class="cl">ssh username@debian  # if using Magic DNS with hostname &#34;debian&#34;
+</span></span></code></pre></div>
+  </div>
+</div>
+
+<p>Since I access this machine primarily over Tailscale, I <a href="https://tailscale.com/kb/1077/secure-server-ubuntu" target="_blank" rel="noopener">lock it down using UFW</a> to only accept connections from the Tailscale interface:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">apt</span> install <span class="na">-y</span> ufw
+</span></span><span class="line"><span class="cl"><span class="nf">ufw</span> enable
+</span></span><span class="line"><span class="cl"><span class="nf">ufw</span> default deny incoming
+</span></span><span class="line"><span class="cl"><span class="nf">ufw</span> default allow outgoing
+</span></span><span class="line"><span class="cl"><span class="nf">ufw</span> allow in on tailscale0
+</span></span></code></pre></div><p>Check the status:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">ufw</span> <span class="nb">status </span>verbose
+</span></span><span class="line"><span class="cl"><span class="c"># Status: active
+</span></span></span><span class="line"><span class="cl"><span class="c"># Logging: on (low)
+</span></span></span><span class="line"><span class="cl"><span class="c"># Default: deny (incoming), allow (outgoing), deny (routed)
+</span></span></span><span class="line"><span class="cl"><span class="c"># New profiles: skip
+</span></span></span><span class="line"><span class="cl"><span class="c">#
+</span></span></span><span class="line"><span class="cl"><span class="c"># To                         Action      From
+</span></span></span><span class="line"><span class="cl"><span class="c"># --                         ------      ----
+</span></span></span><span class="line"><span class="cl"><span class="c"># Anywhere on tailscale0     ALLOW IN    Anywhere
+</span></span></span><span class="line"><span class="cl"><span class="c"># Anywhere (v6) on tailscale0 ALLOW IN    Anywhere (v6)
+</span></span></span></code></pre></div><p>If you previously had SSH open on port 22 from the public internet, you can remove it:</p>
+<div class="alert alert-warning">
+  <div>
+    Ensure you can SSH via Tailscale before completing this step, otherwise you may lose access to your server!
+  </div>
+</div>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">ufw</span> delete allow <span class="m">22</span>/tcp
+</span></span><span class="line"><span class="cl"><span class="nf">ufw</span> reload
+</span></span><span class="line"><span class="cl"><span class="nf">systemctl</span> restart ssh
+</span></span></code></pre></div><h2 id="storage-configuration">Storage Configuration</h2>
+<h3 id="reconnect-additional-encrypted-disks">Reconnect additional encrypted disks</h3>
+<p>My setup includes these disks:</p>
+<ul>
+<li>119.2 GB SSD for the system (sdc system disk)</li>
+<li>1.6 TB SSD partition for docker files (nvme0n1p4)</li>
+<li>3.6 TB HDD for backup storage (sda and sdb in RAID1 managed by BTRFS)</li>
+<li>1.4 TB HDD for external backup storage (sdi, external USB drive)</li>
+<li>and some other partitions on disks for other purposes</li>
+</ul>
+<p>View the current disk layout:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">lsblk</span>
+</span></span><span class="line"><span class="cl"><span class="c"># NAME                    MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINTS
+</span></span></span><span class="line"><span class="cl"><span class="c"># sda                       8:0    0   3.6T  0 disk
+</span></span></span><span class="line"><span class="cl"><span class="c"># sdb                       8:16   0   3.6T  0 disk
+</span></span></span><span class="line"><span class="cl"><span class="c"># sdc                       8:32   0 119.2G  0 disk
+</span></span></span><span class="line"><span class="cl"><span class="c"># ├─sdc1                    8:33   0   976M  0 part  /boot/efi
+</span></span></span><span class="line"><span class="cl"><span class="c"># ├─sdc2                    8:34   0   977M  0 part  /boot
+</span></span></span><span class="line"><span class="cl"><span class="c"># └─sdc3                    8:35   0 117.3G  0 part
+</span></span></span><span class="line"><span class="cl"><span class="c">#   └─sda3_crypt          253:0    0 117.3G  0 crypt
+</span></span></span><span class="line"><span class="cl"><span class="c">#     ├─debian--vg-root   253:1    0 111.3G  0 lvm   /home
+</span></span></span><span class="line"><span class="cl"><span class="c">#     │                                              /
+</span></span></span><span class="line"><span class="cl"><span class="c">#     └─debian--vg-swap_1 253:2    0     6G  0 lvm   [SWAP]
+</span></span></span><span class="line"><span class="cl"><span class="c"># sdi                       8:128  0   1.4T  0 disk  /media/wmutschl/CORE
+</span></span></span><span class="line"><span class="cl"><span class="c"># nvme0n1                 259:0    0   1.7T  0 disk
+</span></span></span><span class="line"><span class="cl"><span class="c"># ├─nvme0n1p1             259:1    0    16M  0 part
+</span></span></span><span class="line"><span class="cl"><span class="c"># ├─nvme0n1p2             259:2    0  99.6G  0 part
+</span></span></span><span class="line"><span class="cl"><span class="c"># ├─nvme0n1p3             259:3    0   9.8G  0 part
+</span></span></span><span class="line"><span class="cl"><span class="c"># └─nvme0n1p4             259:4    0   1.6T  0 part
+</span></span></span></code></pre></div><p>Unlock the encrypted partitions:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">cryptsetup</span> luksOpen /dev/sda crypt_backup1
+</span></span><span class="line"><span class="cl"><span class="nf">cryptsetup</span> luksOpen /dev/sdb crypt_backup2
+</span></span><span class="line"><span class="cl"><span class="nf">cryptsetup</span> luksOpen /dev/nvme0n1p4 crypt_docker
+</span></span></code></pre></div><p><strong>Note:</strong> I use the same LUKS passphrase across all disks (matching the system disk), so at reboot I only enter it once and it&rsquo;s automatically passed to the other disks.</p>
+<p>Create mount points and set ownership:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">mkdir</span> <span class="na">-p</span> /btrfs_backup /btrfs_docker /home/wmutschl/docker /home/wmutschl/vm /var/lib/docker
+</span></span><span class="line"><span class="cl"><span class="nf">chown</span> <span class="na">-R</span> wmutschl:wmutschl /home/wmutschl/vm /home/wmutschl/docker
+</span></span></code></pre></div><p>Add the following entries to <code>/etc/fstab</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1">#######################</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2 TB NVME (no RAID) #</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#######################</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># partition 4 docker user files (cryptsetup luksOpen /dev/nvme0n1p4 crypt_docker)</span>
+</span></span><span class="line"><span class="cl"><span class="n">UUID</span><span class="o">=</span><span class="n">b9611a9a</span><span class="o">-</span><span class="mf">0e1</span><span class="n">e</span><span class="o">-</span><span class="mi">4</span><span class="n">f4b</span><span class="o">-</span><span class="mi">86</span><span class="n">ce</span><span class="o">-</span><span class="n">f81845dab910</span>  <span class="o">/</span><span class="n">btrfs_docker</span>         <span class="n">btrfs</span> <span class="n">defaults</span><span class="p">,</span><span class="n">compress</span><span class="o">=</span><span class="n">zstd</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="n">discard</span><span class="o">=</span><span class="n">async</span><span class="p">,</span><span class="n">subvolid</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">x</span><span class="o">-</span><span class="n">systemd</span><span class="o">.</span><span class="n">after</span><span class="o">=/</span>       <span class="mi">0</span>  <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">UUID</span><span class="o">=</span><span class="n">b9611a9a</span><span class="o">-</span><span class="mf">0e1</span><span class="n">e</span><span class="o">-</span><span class="mi">4</span><span class="n">f4b</span><span class="o">-</span><span class="mi">86</span><span class="n">ce</span><span class="o">-</span><span class="n">f81845dab910</span>  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">wmutschl</span><span class="o">/</span><span class="n">docker</span> <span class="n">btrfs</span> <span class="n">defaults</span><span class="p">,</span><span class="n">compress</span><span class="o">=</span><span class="n">zstd</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="n">discard</span><span class="o">=</span><span class="n">async</span><span class="p">,</span><span class="n">subvol</span><span class="o">=</span><span class="err">@</span><span class="n">docker</span><span class="p">,</span><span class="n">x</span><span class="o">-</span><span class="n">systemd</span><span class="o">.</span><span class="n">after</span><span class="o">=/</span>   <span class="mi">0</span>  <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">UUID</span><span class="o">=</span><span class="n">b9611a9a</span><span class="o">-</span><span class="mf">0e1</span><span class="n">e</span><span class="o">-</span><span class="mi">4</span><span class="n">f4b</span><span class="o">-</span><span class="mi">86</span><span class="n">ce</span><span class="o">-</span><span class="n">f81845dab910</span>  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">wmutschl</span><span class="o">/</span><span class="n">vm</span>     <span class="n">btrfs</span> <span class="n">defaults</span><span class="p">,</span><span class="n">compress</span><span class="o">=</span><span class="n">zstd</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="n">discard</span><span class="o">=</span><span class="n">async</span><span class="p">,</span><span class="n">subvol</span><span class="o">=</span><span class="err">@</span><span class="n">vm</span><span class="p">,</span><span class="n">x</span><span class="o">-</span><span class="n">systemd</span><span class="o">.</span><span class="n">after</span><span class="o">=/</span>       <span class="mi">0</span>  <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># partition 3 docker container files</span>
+</span></span><span class="line"><span class="cl"><span class="n">UUID</span><span class="o">=</span><span class="mi">43</span><span class="n">f7fcc8</span><span class="o">-</span><span class="mi">9668</span><span class="o">-</span><span class="mi">4042</span><span class="o">-</span><span class="n">abe8</span><span class="o">-</span><span class="mi">7048</span><span class="n">d703e8b3</span>  <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">docker</span>       <span class="n">ext4</span>  <span class="n">defaults</span><span class="p">,</span><span class="n">discard</span><span class="p">,</span><span class="n">x</span><span class="o">-</span><span class="n">systemd</span><span class="o">.</span><span class="n">after</span><span class="o">=/</span> <span class="mi">0</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#############################################################################</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 4 TB HDD BACKUP (2x4TB HDD (Hardware RAID1) + 2x4TB HDD (Hardware RAID1)) #</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#############################################################################</span>
+</span></span><span class="line"><span class="cl"><span class="n">UUID</span><span class="o">=</span><span class="n">e1963877</span><span class="o">-</span><span class="n">fc4d</span><span class="o">-</span><span class="mi">4412</span><span class="o">-</span><span class="n">ba2e</span><span class="o">-</span><span class="n">f67e2b865f4b</span>  <span class="o">/</span><span class="n">btrfs_backup</span>         <span class="n">btrfs</span> <span class="n">defaults</span><span class="p">,</span><span class="n">compress</span><span class="o">=</span><span class="n">zstd</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="n">subvolid</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">x</span><span class="o">-</span><span class="n">systemd</span><span class="o">.</span><span class="n">after</span><span class="o">=/</span>         <span class="mi">0</span>  <span class="mi">0</span>
+</span></span></code></pre></div><p>Mount all filesystems:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">mount</span> <span class="na">-av</span>
+</span></span><span class="line"><span class="cl"><span class="c"># /btrfs_docker            : successfully mounted
+</span></span></span><span class="line"><span class="cl"><span class="c"># /home/wmutschl/docker    : successfully mounted
+</span></span></span><span class="line"><span class="cl"><span class="c"># /home/wmutschl/vm        : successfully mounted
+</span></span></span><span class="line"><span class="cl"><span class="c"># /var/lib/docker          : successfully mounted
+</span></span></span><span class="line"><span class="cl"><span class="c"># /btrfs_backup            : successfully mounted
+</span></span></span></code></pre></div><p>Add these lines to <code>/etc/crypttab</code> to decrypt disks automatically at boot:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">crypt_docker  UUID=2b417c1a-3a7e-44a3-881e-79252a509058 none luks,discard
+</span></span><span class="line"><span class="cl">crypt_backup1 UUID=e6be3cc9-e15d-43b6-a2cb-e0a4db5cd871 none luks
+</span></span><span class="line"><span class="cl">crypt_backup2 UUID=3d24ef22-0b76-4e92-b27e-97c2b92d11c6 none luks
+</span></span></code></pre></div><p>Update the initramfs:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">update-initramfs</span> <span class="na">-c</span> <span class="na">-k</span> all
+</span></span></code></pre></div><p>Reboot and verify the disks are decrypted and mounted correctly:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">lsblk</span>
+</span></span></code></pre></div><h2 id="server-configuration">Server Configuration</h2>
+<h3 id="install-docker">Install Docker</h3>
+<p>Follow the <a href="https://docs.docker.com/engine/install/debian/" target="_blank" rel="noopener">official guide</a> to install Docker:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="c"># Remove any old versions
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">apt</span> remove <span class="nv">$(</span><span class="nf">dpkg</span> <span class="na">--get-selections</span> docker.io docker-compose docker-doc podman-docker containerd runc <span class="m">2</span><span class="o">&gt;</span>/dev/null <span class="o">|</span> <span class="nf">cut</span> <span class="na">-f1</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Install prerequisites
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">apt</span> update
+</span></span><span class="line"><span class="cl"><span class="nf">apt</span> install ca-certificates curl
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Add Docker&#39;s official GPG key
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">install</span> <span class="na">-m</span> <span class="m">0755</span> <span class="na">-d</span> /etc/apt/keyrings
+</span></span><span class="line"><span class="cl"><span class="nf">curl</span> <span class="na">-fsSL</span> https://download.docker.com/linux/debian/gpg <span class="na">-o</span> /etc/apt/keyrings/docker.asc
+</span></span><span class="line"><span class="cl"><span class="nf">chmod</span> a+r /etc/apt/keyrings/docker.asc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Add the repository
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">tee</span> /etc/apt/sources.list.d/docker.sources <span class="s">&lt;&lt;EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">Types: deb
+</span></span></span><span class="line"><span class="cl"><span class="s">URIs: https://download.docker.com/linux/debian
+</span></span></span><span class="line"><span class="cl"><span class="s">Suites: $(. /etc/os-release &amp;&amp; echo &#34;$VERSION_CODENAME&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="s">Components: stable
+</span></span></span><span class="line"><span class="cl"><span class="s">Signed-By: /etc/apt/keyrings/docker.asc
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">apt</span> update
+</span></span><span class="line"><span class="cl"><span class="nf">apt</span> install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Add your user to the docker group
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">groupadd</span> docker
+</span></span><span class="line"><span class="cl"><span class="nf">usermod</span> <span class="na">-aG</span> docker wmutschl  <span class="c"># replace with your username
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>
+</span></span><span class="line"><span class="cl"><span class="c"># Enable and start Docker
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">systemctl</span> enable docker.service
+</span></span><span class="line"><span class="cl"><span class="nf">systemctl</span> enable containerd.service
+</span></span><span class="line"><span class="cl"><span class="nf">systemctl</span> start docker
+</span></span><span class="line"><span class="cl"><span class="nf">systemctl</span> <span class="nb">status </span>docker  <span class="c"># press q to quit
+</span></span></span></code></pre></div><p>Open a new terminal and verify Docker works without root:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="c"># Run as your normal user, not root
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">docker</span> run hello-world
+</span></span><span class="line"><span class="cl"><span class="c"># Hello from Docker!
+</span></span></span><span class="line"><span class="cl"><span class="c"># This message shows that your installation appears to be working correctly.
+</span></span></span></code></pre></div><h3 id="deploy-docker-containers">Deploy Docker containers</h3>
+<p>Clone my docker-compose repository and deploy the containers:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="c"># Run as your normal user, not root
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">git</span> clone https://github.com/wmutschl/scripts.git /home/wmutschl/scripts
+</span></span><span class="line"><span class="cl"><span class="k">cd</span> /home/wmutschl/scripts
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Configure secrets
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">cp</span> simba.env .env
+</span></span><span class="line"><span class="cl"><span class="nf">nano</span> .env
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Deploy containers
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">docker</span> compose <span class="na">-f</span> simba-docker-compose.yml pull
+</span></span><span class="line"><span class="cl"><span class="nf">docker</span> compose <span class="na">-f</span> simba-docker-compose.yml up <span class="na">-d</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Check logs
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">docker</span> compose <span class="na">-f</span> simba-docker-compose.yml logs swag
+</span></span><span class="line"><span class="cl"><span class="nf">docker</span> compose <span class="na">-f</span> simba-docker-compose.yml logs gitea
+</span></span><span class="line"><span class="cl"><span class="nf">docker</span> compose <span class="na">-f</span> simba-docker-compose.yml logs mattermost
+</span></span><span class="line"><span class="cl"><span class="nf">docker</span> compose <span class="na">-f</span> simba-docker-compose.yml logs mattermost-postgres
+</span></span></code></pre></div><h3 id="boot-into-cli-mode">Boot into CLI mode</h3>
+<p>For a server that&rsquo;s primarily accessed remotely, booting to CLI mode saves resources:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">systemctl</span> set-default multi-user.target
+</span></span></code></pre></div><p>This boots to a text console instead of the MATE desktop. You can still start the desktop manually with <code>startx</code> or connect via NoMachine (which creates a virtual display).</p>
+<p>To revert to graphical boot:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">systemctl</span> set-default graphical.target
+</span></span></code></pre></div><h3 id="disable-sleep-and-hibernation">Disable sleep and hibernation</h3>
+<p>As this is an always-on server, I completely disable sleep and hibernation using <code>mask</code> (more robust than <code>disable</code> as it prevents targets from being started entirely):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">systemctl</span> mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+</span></span><span class="line"><span class="cl"><span class="c"># Created symlink /etc/systemd/system/sleep.target → /dev/null.
+</span></span></span><span class="line"><span class="cl"><span class="c"># Created symlink /etc/systemd/system/suspend.target → /dev/null.
+</span></span></span><span class="line"><span class="cl"><span class="c"># Created symlink /etc/systemd/system/hibernate.target → /dev/null.
+</span></span></span><span class="line"><span class="cl"><span class="c"># Created symlink /etc/systemd/system/hybrid-sleep.target → /dev/null.
+</span></span></span></code></pre></div><p>To undo this later:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">systemctl</span> unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
+</span></span></code></pre></div><h2 id="desktop-environment">Desktop Environment</h2>
+<p>Open the settings application and go through each panel to customize your preferences.</p>
+<h2 id="shell-and-applications">Shell and Applications</h2>
+<h3 id="fish---a-friendly-interactive-shell">Fish - A friendly interactive shell</h3>
+<p>I use the <a href="https://fedoramagazine.org/fish-a-friendly-interactive-shell/" target="_blank" rel="noopener">Fish shell</a> on all my systems for its user-friendly features:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">apt</span> install <span class="na">-y</span> <span class="nb">fish</span>
+</span></span></code></pre></div><p>Switch to Fish as your default shell:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="c"># Run as your normal user, not root
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">chsh</span> <span class="na">-s</span> /usr/bin/<span class="nb">fish</span>
+</span></span></code></pre></div><p>Log out and back in for the change to take effect.</p>
+<p>Add <code>~/.local/bin</code> to your PATH <a href="https://github.com/fish-shell/fish-shell/issues/527" target="_blank" rel="noopener">persistently</a> in Fish:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="c"># Run as your normal user, not root
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">mkdir</span> <span class="na">-p</span> /home/<span class="nv">$USER</span>/.local/bin
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="na">-Ua</span> <span class="nv">fish_user_paths</span> /home/<span class="nv">$USER</span>/.local/bin
+</span></span></code></pre></div><h3 id="flatpak-support">Flatpak support</h3>
+<p>Debian Trixie includes Flatpak support. Set it up and add Flathub:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fish" data-lang="fish"><span class="line"><span class="cl"><span class="nf">apt</span> install flatpak
+</span></span><span class="line"><span class="cl"><span class="nf">flatpak</span> remote-add <span class="na">--if-not-exists</span> flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+</span></span></code></pre></div><p>Log out and back in for the changes to take effect.</p>
+
+
+          </div>
+
+          
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/linux/">linux</a>
+  
+  <a class="badge badge-light" href="/tag/debian/">debian</a>
+  
+  <a class="badge badge-light" href="/tag/install-guide/">install guide</a>
+  
+  <a class="badge badge-light" href="/tag/post-install/">post-install</a>
+  
+</div>
+
+
+
+          
+          
+          <div class="article-widget">
+            
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/linux/pop-os-btrfs-24-04/" rel="next">Pop!_OS 24.04: installation guide with BTRFS, LUKS encryption and auto snapshots with Timeshift</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/linux/debian-btrfs-trixie/" rel="prev">Debian Trixie (13): installation guide with BTRFS, LUKS encryption and auto snapshots with Timeshift</a>
+  </div>
+  
+</div>
+
+          </div>
+          
+        </div>
+
+        <div class="body-footer">
+          <p>Last updated on Dec 10, 2025</p>
+
+          
+
+
+
+
+          
+
+
+
+
+          
+
+
+        </div>
+
+      </article>
+
+      <footer class="site-footer">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+  </p>
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2025 Willi Mutschler. This work is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank">CC BY SA 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-sa fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+
+    </main>
+  </div>
+</div>
+
+  </div>
+
+  <div class="page-footer">
+    
+    
+  </div>
+
+  
+
+
+<script src="/js/vendor-bundle.min.b4708d4364577c16ab7001b265a063a4.js"></script>
+
+
+
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/gh/bryanbraun/anchorjs@4.2.2/anchor.min.js" integrity="sha512-I7w3ZdSFzw5j3jU3ZkNikBNeIrl3i+hEuEdwNmqUJvwNcaBUNcijnP2gd9DtGlgVYDplfjGoD8vTNsID+lCjqg==" crossorigin="anonymous"></script>
+<script>
+  anchors.add();
+</script>
+
+
+
+
+
+  
+  <script id="search-hit-fuse-template" type="text/x-template">
+    <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+    </div>
+  </script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+<script id="page-data" type="application/json">{"use_headroom":false}</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<script src="/en/js/wowchemy.min.42010733157c11a71adebfe9bae43355.js"></script>
+
+
+
+  <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
